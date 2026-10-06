@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papers — Buscador</title>
+<link rel="stylesheet" href="nocturne.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="side">
+    <div class="side-brand"><span class="dot"></span>Papers</div>
+    <div class="side-section"><span>Proyectos</span><button data-action="new-project" title="Nuevo proyecto" aria-label="Nuevo proyecto">+</button></div>
+    <div class="side-list" id="side-list"></div>
+    <div class="side-foot">v0.1 · conectado a py-search</div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar" id="topbar"></div>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<aside class="side-panel" id="panel" aria-label="Detalle del paper"></aside>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+# Python: caché y archivos compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Claves y configuración local (las claves reales van en automatización/.env)
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+
+# Resultados generados: bases SQLite de búsquedas y proyectos, y CSV de salida
+output/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Respaldos comprimidos
+*.tar.gz
+*.zip
+
+# Caché y artefactos de herramientas
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+graphify-out/
+
+# Logs y temporales
+*.log
+*.tmp
+*.bak
+*~
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
