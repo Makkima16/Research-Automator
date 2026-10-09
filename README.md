@@ -1,6 +1,6 @@
-# Research Automator (SciToMarket Pipeline)
+# Research Automator
 
-Research Automator es una herramienta automatizada de inteligencia y extracción de conocimiento. Está diseñada para realizar revisiones de literatura científica de manera autónoma, cruzar esos hallazgos con bases de datos de mercado (como la composición de productos en USDA) y normatividad, y presentar los resultados a través de un árbol de decisiones y una interfaz web interactiva.
+Research Automator es una herramienta de IA (LLM + RAG) para revisiones de literatura científica. A partir de un tema en lenguaje natural genera cadenas de búsqueda booleanas, las ejecuta en varias plataformas académicas, rankea y deduplica los papers, y extrae hallazgos estructurados de su texto completo.
 
 El proyecto está estructurado en dos módulos principales: **Búsqueda** (recolección de datos) y **Procesamiento** (extracción y análisis con LLM).
 
@@ -8,8 +8,9 @@ El proyecto está estructurado en dos módulos principales: **Búsqueda** (recol
 
 ## 1. Módulo de Búsqueda (`busqueda/`)
 
-Automatiza la recolección de información científica y de mercado.
+Automatiza la generación de cadenas de búsqueda y la recolección de papers.
 
+- **Generación de cadenas**: Un LLM (Gemini vía LangChain) convierte el tema escrito en la interfaz web en cadenas de búsqueda con sintaxis `AND` / `OR` / `NOT`, editables antes de lanzar la búsqueda.
 - **Papers científicos**: Busca de forma paralela en [OpenAlex](https://openalex.org), [Semantic Scholar](https://www.semanticscholar.org) y Scopus. Fusiona los resultados, los rankea y busca copias de acceso abierto.
 - **Acceso a texto completo**: Integra [Sci-Hub](https://sci-hub.ru) (opcional y configurable) para resolver PDFs por DOI cuando las plataformas tradicionales tienen el archivo bloqueado.
 - **Datos de mercado (Composición)**: Consulta bases de datos como USDA FoodData Central para extraer información nutricional y atributos de productos comerciales.

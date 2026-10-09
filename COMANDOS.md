@@ -25,11 +25,11 @@ Búsqueda
 ├─────────────┼───────────────────────────────────────────────────────────┤
 │ cd busqueda │ Entra a la carpeta                                        │
 ├─────────────┼───────────────────────────────────────────────────────────┤
-│ python      │ Busca papers (OpenAlex) y lácteos (USDA), los rankea y    │
-│ main.py     │ guarda todo en busqueda/output/                           │
+│ python      │ Busca papers (OpenAlex, Semantic Scholar, Scopus), los    │
+│ main.py     │ rankea y guarda todo en busqueda/output/                  │
 └─────────────┴───────────────────────────────────────────────────────────┘
 
-Las búsquedas, el año mínimo y la key del USDA se cambian en busqueda/config.py.
+Las búsquedas, el año mínimo y las keys se cambian en busqueda/config.py.
 
 Procesamiento
 

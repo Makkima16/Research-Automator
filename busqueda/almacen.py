@@ -52,7 +52,7 @@ def _conectar(archivo):
 
 
 def nombre_archivo(titulo, propio=None):
-    """'Leche A2 y digestión' -> 'leche_a2_y_digestion.db'. Si ya existe un
+    """'Microbioma y autismo' -> 'microbioma_y_autismo.db'. Si ya existe un
     archivo con ese nombre (de otro proyecto; `propio` es el del mismo
     proyecto y no cuenta), agrega _2, _3..."""
     sin_tildes = unicodedata.normalize("NFKD", titulo).encode("ascii", "ignore").decode()

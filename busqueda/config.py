@@ -1,8 +1,7 @@
 """
-Configuración de la búsqueda: papers (OpenAlex, Semantic Scholar, Scopus y
-Sci-Hub) y composición de lácteos (USDA).
-Edita las listas de palabras clave y los parámetros según lo que necesite
-el árbol de decisiones (caso Selema / leche A2).
+Configuración de la búsqueda de papers (OpenAlex, Semantic Scholar, Scopus y
+Sci-Hub).
+Edita las cadenas de búsqueda y los parámetros según el tema que investigues.
 
 La configuración del procesamiento de los papers (LLM, texto completo,
 normatividad) está en ../procesamiento/config_proc.py.
@@ -51,35 +50,23 @@ CONTACT_EMAIL = "andres.padilla34809@ucaldas.edu.co"
 # juntos, encuentran menos ruido que muchas búsquedas cortas sueltas. Los
 # resultados de todas se combinan y se deduplican por DOI.
 PAPER_QUERIES = [
-    # A2 vs A1 beta-caseína y sus efectos digestivos/gastrointestinales
-    '"A2 beta-casein" OR "A1 beta-casein" OR "A2 milk" '
-    'AND digestibility OR "gastrointestinal symptoms" OR "digestive symptoms" OR tolerance',
+    # Ejemplos genéricos: reemplázalos por las cadenas de tu tema (o genéralas
+    # desde la interfaz web con servidor.py)
+    # Concepto principal AND variable de interés
+    '"machine learning" OR "deep learning" '
+    'AND diagnosis OR prediction OR "risk assessment"',
 
-
-    # Origen de la leche: raza, genotipo, variante de beta-caseína
-    '"beta-casein genotype" OR "beta-casein allele" OR "cattle breed" '
-    'AND "milk composition" OR Holstein OR Jersey OR Gyr',
-
-    # Sistema de alimentación (pastoreo vs. estabulado) y composición/calidad,
-    # incluyendo el caso tropical/Colombia
-    '"pasture grazing" OR "confinement feeding" OR pastoreo '
-    'AND "milk quality" OR "milk composition" OR trópico OR Colombia',
-
-    # Tratamiento térmico (pasteurización, UHT) y digestibilidad/estabilidad
-    'pasteurization OR UHT OR "heat treatment" '
-    'AND "protein digestibility" OR "heat stability" OR "processing temperature" OR pH',
-
-    # Homogeneización, vida útil, calidad de la leche cruda, sin lactosa
-    'homogenization OR "shelf life" OR "somatic cell count" OR "lactose-free" '
-    'AND "milk quality" OR digestion OR "sensory quality" OR "storage temperature"',
+    # Intervención AND resultado, limitando a revisiones
+    '"intervention" OR "treatment" '
+    'AND "systematic review" OR meta-analysis',
 ]
 
 # Año mínimo de publicación a considerar (None = sin límite inferior)
 MIN_PUBLICATION_YEAR = 2015
 
 # Papers que se traen por cada cadena de búsqueda en cada plataforma (OpenAlex,
-# Semantic Scholar y Scopus): con 5 cadenas y 3 plataformas, hasta 150
-# antes de deduplicar por DOI.
+# Semantic Scholar y Scopus): con N cadenas y 3 plataformas, hasta N × 3 × este
+# valor antes de deduplicar por DOI.
 MAX_RESULTS_PER_QUERY = 10
 
 # Segundos que se dejan pasar entre una solicitud y la siguiente a las
@@ -160,8 +147,8 @@ MAX_PAPERS_VERIFICAR_PDF = 30
 # importar desde qué directorio se ejecuten
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
-# Base de datos SQLite donde se guarda todo (papers y alimentos; el
-# procesamiento agrega ahí mismo sus tablas)
+# Base de datos SQLite donde se guarda todo (el procesamiento agrega ahí
+# mismo sus tablas)
 DB_PATH = os.path.join(OUTPUT_DIR, "selema.db")
 
 # Interfaz web (servidor.py). Cada proyecto se guarda como un JSON aparte, sin

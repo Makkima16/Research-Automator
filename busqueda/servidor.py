@@ -13,7 +13,7 @@ Cada "proyecto" es un tema de investigación: se describe en lenguaje natural,
 se generan cadenas de búsqueda (generar_cadenas.py), se editan y se lanzan
 contra las plataformas activas en config.py. Cada proyecto se guarda en su
 propia base SQLite, output/proyectos/<nombre_del_proyecto>.db (ver
-almacen.py), y NO toca selema.db: esa base es la del caso Selema que lee
+almacen.py), y NO toca selema.db: esa es la base de main.py, que lee
 ../procesamiento.
 """
 
