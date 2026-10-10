@@ -14,6 +14,7 @@ ENV/
 .env.*
 !.env.example
 .claude/settings.local.json
+.claude/worktrees/
 
 # Resultados generados: bases SQLite de búsquedas y proyectos, y CSV de salida
 output/
@@ -21,6 +22,8 @@ output/
 *.db-journal
 *.db-wal
 *.db-shm
+*.sqlite
+*.sqlite3
 
 # Respaldos comprimidos
 *.tar.gz
@@ -36,11 +39,13 @@ graphify-out/
 
 # Logs y temporales
 *.log
+nohup.out
 *.tmp
 *.bak
 *~
 
-# Editores y sistema operativo
+# Editores y sistema operativo. La configuración de rutas para Pylance que sí
+# se comparte está en pyrightconfig.json (versionado), no en .vscode/
 .vscode/
 .idea/
 *.swp

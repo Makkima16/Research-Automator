@@ -1,13 +1,13 @@
 """
-Extrae observaciones estructuradas de los abstracts con Gemini y las guarda
+Extrae observaciones estructuradas de los abstracts con un LLM y las guarda
 en la base de datos (tabla `observaciones`), ya validadas.
 
     python extract_llm_insights.py            # procesa los top N papers del ranking
     python extract_llm_insights.py --top 100  # procesa más papers
     python extract_llm_insights.py --forzar   # vuelve a extraer aunque ya estén en caché
 
-Envía varios papers por solicitud (config.PAPERS_POR_LOTE) para rendir la cuota
-gratuita de Gemini, que es de pocas solicitudes por día.
+Envía varios papers por solicitud (config.PAPERS_POR_LOTE_AZURE) para aprovechar
+mejor cada llamada a Azure AI Foundry (GPT-5.5).
 
 Es incremental: un paper cuyo abstract no cambió no se vuelve a enviar al LLM.
 """
@@ -17,6 +17,7 @@ import hashlib
 import json
 import os
 import time
+from urllib.parse import urlsplit
 
 import requests
 
@@ -27,12 +28,12 @@ import database_proc as database
 from esquema import Observacion
 from validacion import cita_en_texto, validar_observacion
 
-PROMPT = """Eres un investigador experto en ciencia de los alimentos y tecnología láctea
+SYSTEM_PROMPT = """Eres un investigador experto en ciencia de los alimentos y tecnología láctea
 (leche A2, caseínas, digestibilidad, formulación de productos lácteos).
 
-Abajo hay varios papers, cada uno con un identificador (P1, P2...). Para CADA paper
-devuelve un elemento en `papers` con su `paper_ref`, y extrae una OBSERVACIÓN por cada
-comparación + variable medida que su abstract reporte.
+Te llegarán varios papers por solicitud, cada uno con un identificador (P1, P2...).
+Para CADA paper devuelve un elemento en `papers` con su `paper_ref`, y extrae una
+OBSERVACIÓN por cada comparación + variable medida que su abstract reporte.
 
 CÓMO ARMAR CADA OBSERVACIÓN
 1. Decide qué grupo es el `factor_evaluado` y cuál la `referencia` (el control).
@@ -71,15 +72,12 @@ REGLAS GENERALES
   composición a % (g/100 g), células somáticas a miles de células/mL.
 - `cita_textual` debe ser una frase copiada LITERALMENTE del abstract de ESE paper, sin parafrasear.
 - Si el texto no reporta ningún resultado concreto, devuelve una lista vacía.
-- Si el paper no trata sobre lácteos o proteínas lácteas, marca es_relevante=false.
-
-{papers}
-"""
+- Si el paper no trata sobre lácteos o proteínas lácteas, marca es_relevante=false."""
 
 
-# Se agrega al prompt solo cuando algún paper del lote trae fragmentos del texto
-# completo (fetch_fulltext.py). Va aparte de PROMPT para que agregarlo no
-# invalide la caché de los papers que solo tienen abstract.
+# Se agrega al mensaje del usuario solo cuando algún paper del lote trae
+# fragmentos del texto completo (fetch_fulltext.py). Va aparte de SYSTEM_PROMPT
+# para que agregarlo no invalide la caché de los papers que solo tienen abstract.
 INSTRUCCIONES_TEXTO_COMPLETO = """TEXTO COMPLETO
 Algunos papers traen, además del abstract, "Fragmentos del texto completo": frases de
 métodos y resultados, con su sección entre corchetes. Úsalos para:
@@ -102,10 +100,15 @@ class ExtraccionLote(BaseModel):
     papers: list[PaperEnLote]
 
 
-# Si cambia el esquema o el prompt, la caché queda inválida y se vuelve a extraer
-VERSION_ESQUEMA = hashlib.sha256(
-    (json.dumps(ExtraccionLote.model_json_schema(), sort_keys=True) + PROMPT).encode()
-).hexdigest()[:12]
+def _con_esquema(texto):
+    return (texto + "\n\nResponde SOLO con un objeto JSON que cumpla este JSON Schema:\n"
+            + json.dumps(ExtraccionLote.model_json_schema(), ensure_ascii=False, separators=(",", ":")))
+
+
+SISTEMA_CON_ESQUEMA = _con_esquema(SYSTEM_PROMPT)
+
+# Si cambia el esquema o las instrucciones, la caché queda inválida y se vuelve a extraer
+VERSION_ESQUEMA = hashlib.sha256(SISTEMA_CON_ESQUEMA.encode()).hexdigest()[:12]
 
 
 def cargar_env(ruta=config.ENV_PATH):
@@ -120,61 +123,33 @@ def cargar_env(ruta=config.ENV_PATH):
                 os.environ.setdefault(clave.strip(), valor.strip().strip("'\""))
 
 
-def crear_cliente():
-    """Devuelve el cliente de Gemini, o el nombre del proveedor si es uno
-    que se llama por HTTP (ollama u openai). None si falta configuración."""
+def verificar_configuracion():
+    """True si hay lo necesario para llamar al proveedor configurado."""
     cargar_env()
     if config.LLM_PROVEEDOR == "ollama":
-        return "ollama"
-    if config.LLM_PROVEEDOR == "openai":
-        if not os.environ.get("LLM_API_KEY"):
-            print("ERROR: falta LLM_API_KEY. Agrégala al archivo .env así:")
-            print("LLM_API_KEY=tu_api_key")
-            return None
-        return "openai"
-    if config.LLM_PROVEEDOR != "gemini":
-        print(f"ERROR: LLM_PROVEEDOR={config.LLM_PROVEEDOR!r} no existe; usa gemini, ollama u openai.")
-        return None
-    key = os.environ.get("GEMINI_API_KEY")
-    if not key:
-        print("ERROR: falta GEMINI_API_KEY. Agrégala al archivo .env así:")
-        print("GEMINI_API_KEY=tu_api_key")
-        return None
-    from google import genai
-    from google.genai import types
-    # La librería reintenta sola hasta 5 veces cada error, lo que multiplica las
-    # solicitudes contra la cuota; los reintentos los controla este script.
-    return genai.Client(api_key=key, http_options=types.HttpOptions(
-        retry_options=types.HttpRetryOptions(attempts=1)))
-
-
-MAX_LOTES_FALLIDOS_SEGUIDOS = 3
+        return True
+    if config.LLM_PROVEEDOR == "azure":
+        faltan = [v for v in ("AZURE_OPENAI_ENDPOINT", "AZURE_OPENAI_API_KEY") if not os.environ.get(v)]
+        if faltan:
+            print(f"ERROR: falta {' y '.join(faltan)} en el archivo .env.")
+            return False
+        return True
+    print(f"ERROR: LLM_PROVEEDOR={config.LLM_PROVEEDOR!r} no existe; usa azure u ollama.")
+    return False
 
 
 class ErrorFatal(Exception):
-    """Error que no se arregla reintentando (modelo inexistente, API key
-    inválida, cuota diaria agotada): se detiene la corrida completa."""
+    """Error que no se arregla reintentando (configuración inválida, API key
+    inválida...): se detiene la corrida completa."""
 
 
-class CuotaDiariaAgotada(ErrorFatal):
-    """La cuota gratuita es por modelo y por día: se puede pasar a otro modelo."""
-
-
-_modelos_agotados = set()
-
-
-def llamar_llm(client, lote, intentos=2):
-    """Envía un lote de papers y devuelve ({paper_ref: PaperEnLote}, modelo_usado).
-    Con Gemini, si un modelo está saturado (503) o agotó su cuota diaria,
-    prueba el siguiente de config.LLM_MODELOS_RESPALDO."""
-    prompt = armar_prompt(lote)
+def llamar_llm(lote, intentos=2):
+    """Envía un lote de papers y devuelve ({paper_ref: PaperEnLote}, modelo_usado)."""
+    mensaje = armar_mensaje_usuario(lote)
     if config.LLM_PROVEEDOR == "ollama":
-        resultado, modelo = _llamar_ollama(prompt), config.OLLAMA_MODELO
-    elif config.LLM_PROVEEDOR == "openai":
-        resultado, modelo = _llamar_openai(prompt, intentos), config.OPENAI_MODELO
-    else:
-        return _llamar_gemini(client, prompt, intentos)
-    return {p.paper_ref.strip(): p for p in resultado.papers}, modelo
+        return _llamar_ollama(mensaje), config.OLLAMA_MODELO
+    resultado = _llamar_azure(mensaje, intentos)
+    return {p.paper_ref.strip(): p for p in resultado.papers}, config.AZURE_OPENAI_DEPLOYMENT
 
 
 def texto_paper(paper):
@@ -184,69 +159,82 @@ def texto_paper(paper):
     return texto
 
 
-def armar_prompt(lote):
+def armar_mensaje_usuario(lote):
     papers = "\n\n".join(f"=== {ref} ===\n{texto_paper(paper)}" for ref, paper in lote.items())
     if any(paper["fragmentos"] for paper in lote.values()):
         papers = INSTRUCCIONES_TEXTO_COMPLETO + "\n\n" + papers
-    return PROMPT.format(papers=papers)
+    return papers
 
 
-def _llamar_gemini(client, prompt, intentos):
-    modelos = [m for m in [config.LLM_MODEL] + config.LLM_MODELOS_RESPALDO
-               if m not in _modelos_agotados]
-    if not modelos:
-        raise ErrorFatal("Todos los modelos agotaron su cuota diaria gratuita. Vuelve a correr mañana.")
+def _azure_url():
+    endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT", "")
+    partes = urlsplit(endpoint)
+    if not partes.scheme or not partes.netloc:
+        raise ErrorFatal("AZURE_OPENAI_ENDPOINT no es una URL válida. Revisa el archivo .env.")
+    return (f"{partes.scheme}://{partes.netloc}/openai/deployments/{config.AZURE_OPENAI_DEPLOYMENT}"
+            f"/chat/completions?api-version={config.AZURE_OPENAI_API_VERSION}")
 
-    ultimo_error = None
-    for modelo in modelos:
+
+def _llamar_azure(mensaje, intentos):
+    """Azure AI Foundry, API de chat completions compatible con OpenAI.
+
+    Si la URL da 404, revisa en Foundry -> Deployments -> tu deployment ->
+    "View code" la combinación exacta de ruta y api-version: puede variar
+    según el tipo de recurso con el que se creó el deployment."""
+    url = _azure_url()
+    cuerpo = {
+        # GPT-5.5 es un modelo de razonamiento: no acepta "temperature" distinto
+        # del valor por defecto (1), a diferencia de los modelos de chat normales.
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": SISTEMA_CON_ESQUEMA},
+            {"role": "user", "content": mensaje},
+        ],
+    }
+    cabeceras = {"api-key": os.environ.get("AZURE_OPENAI_API_KEY", "")}
+    esperas_por_limite = 0
+    intento = 0
+    while intento < intentos:
+        intento += 1
         try:
-            resultado = _llamar_modelo(client, modelo, prompt, intentos)
-            print(f"  -> respondió {modelo}")
-            return {p.paper_ref.strip(): p for p in resultado.papers}, modelo
-        except CuotaDiariaAgotada:
-            _modelos_agotados.add(modelo)
-            print(f"  -> {modelo} agotó su cuota diaria")
-        except ErrorFatal:
-            raise
-        except Exception as exc:
-            if getattr(exc, "code", None) != 503:
-                raise
-            print(f"  -> {modelo} saturado")
-            ultimo_error = exc
-    if ultimo_error is None:
-        raise ErrorFatal("Todos los modelos agotaron su cuota diaria gratuita. Vuelve a correr mañana.")
-    raise ultimo_error  # saturación temporal: el lote queda como error y se reintenta después
-
-
-def _llamar_modelo(client, modelo, prompt, intentos):
-    from google.genai import types
-
-    for intento in range(1, intentos + 1):
-        try:
-            response = client.models.generate_content(
-                model=modelo,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=ExtraccionLote,
-                    temperature=0.0,
-                    automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-                ),
-            )
-            return parsear_respuesta(response.text)
-        except ValidationError:
-            raise
-        except Exception as exc:
-            codigo = getattr(exc, "code", None)
-            if codigo == 429 and "PerDay" in str(exc):
-                raise CuotaDiariaAgotada(str(exc)) from exc
-            if isinstance(codigo, int) and 400 <= codigo < 500 and codigo != 429:
-                raise ErrorFatal(f"{exc}\nRevisa LLM_MODEL en config_proc.py y GEMINI_API_KEY en .env.") from exc
+            resp = requests.post(url, json=cuerpo, headers=cabeceras, timeout=300)
+        except requests.RequestException:
             if intento == intentos:
                 raise
-            espera = 60 if codigo == 429 else 15  # 429 por minuto: esperar a que se renueve
-            print(f"  -> {modelo}: error {codigo or exc}; reintentando en {espera}s")
+            time.sleep(15)
+            continue
+        if resp.status_code == 404:
+            raise ErrorFatal(f"404 en {url}\nRevisa AZURE_OPENAI_ENDPOINT en .env y AZURE_OPENAI_DEPLOYMENT/"
+                             "AZURE_OPENAI_API_VERSION en config_proc.py contra el código de ejemplo de Foundry.")
+        if resp.status_code == 429:
+            espera = float(resp.headers.get("retry-after") or 60)
+            if espera > 300:
+                raise ErrorFatal(f"Límite de uso alcanzado en {url}; se renueva en {espera / 60:.0f} min.")
+            esperas_por_limite += 1
+            if esperas_por_limite > 5:
+                resp.raise_for_status()
+            print(f"  -> límite por minuto; esperando {espera:.0f}s")
             time.sleep(espera)
+            intento -= 1  # esperar el límite por minuto no cuenta como intento fallido
+            continue
+        if resp.status_code == 400 and "json_validate_failed" in resp.text:
+            if intento == intentos:
+                raise ValueError("el modelo devolvió JSON inválido")
+            continue
+        if resp.status_code == 413:
+            raise ValueError(f"solicitud demasiado grande (413): {resp.text[:150]}")
+        if 400 <= resp.status_code < 500:
+            try:
+                detalle = resp.json()["error"]["message"]
+            except (ValueError, KeyError, TypeError):
+                detalle = resp.text[:300]
+            raise ErrorFatal(f"Azure respondió {resp.status_code}: {detalle}\n"
+                             "Revisa AZURE_OPENAI_ENDPOINT y AZURE_OPENAI_API_KEY en .env.")
+        if resp.status_code >= 500 and intento < intentos:
+            time.sleep(15)
+            continue
+        resp.raise_for_status()
+        return parsear_respuesta(resp.json()["choices"][0]["message"]["content"])
 
 
 def parsear_respuesta(texto):
@@ -275,19 +263,17 @@ def parsear_respuesta(texto):
     return ExtraccionLote(papers=papers)
 
 
-def _prompt_con_esquema(prompt):
-    return (prompt + "\n\nResponde SOLO con un objeto JSON que cumpla este JSON Schema:\n"
-            + json.dumps(ExtraccionLote.model_json_schema(), ensure_ascii=False, separators=(",", ":")))
-
-
-def _llamar_ollama(prompt):
+def _llamar_ollama(mensaje):
     """Modelo local con Ollama (https://ollama.com). Sin cuotas: el límite es
     la velocidad de tu PC. `format` obliga al modelo a devolver JSON válido."""
     cuerpo = {
         "model": config.OLLAMA_MODELO,
         "stream": False,
         "format": ExtraccionLote.model_json_schema(),
-        "messages": [{"role": "user", "content": _prompt_con_esquema(prompt)}],
+        "messages": [
+            {"role": "system", "content": SISTEMA_CON_ESQUEMA},
+            {"role": "user", "content": mensaje},
+        ],
         "options": {"temperature": 0, "num_ctx": config.OLLAMA_CONTEXTO},
     }
     try:
@@ -303,56 +289,6 @@ def _llamar_ollama(prompt):
     return parsear_respuesta(resp.json()["message"]["content"])
 
 
-def _llamar_openai(prompt, intentos):
-    """Cualquier API compatible con OpenAI (Groq, OpenRouter, Mistral, etc.)."""
-    url = config.OPENAI_BASE_URL.rstrip("/") + "/chat/completions"
-    cuerpo = {
-        "model": config.OPENAI_MODELO,
-        "temperature": 0,
-        "response_format": {"type": "json_object"},
-        "messages": [{"role": "user", "content": _prompt_con_esquema(prompt)}],
-    }
-    cabeceras = {"Authorization": f"Bearer {os.environ.get('LLM_API_KEY', '')}"}
-    esperas_por_limite = 0
-    intento = 0
-    while intento < intentos:
-        intento += 1
-        try:
-            resp = requests.post(url, json=cuerpo, headers=cabeceras, timeout=300)
-        except requests.RequestException:
-            if intento == intentos:
-                raise
-            time.sleep(15)
-            continue
-        if resp.status_code == 429:
-            espera = float(resp.headers.get("retry-after") or 60)
-            if espera > 300:
-                raise ErrorFatal(f"Límite de uso alcanzado en {url}; se renueva en {espera / 60:.0f} min.")
-            esperas_por_limite += 1
-            if esperas_por_limite > 5:
-                resp.raise_for_status()
-            print(f"  -> límite por minuto; esperando {espera:.0f}s")
-            time.sleep(espera)
-            intento -= 1  # esperar el límite por minuto no cuenta como intento fallido
-            continue
-        if resp.status_code == 400 and "json_validate_failed" in resp.text:
-            # El modelo generó JSON inválido: es un fallo de ese intento, no de la configuración
-            if intento == intentos:
-                raise ValueError("el modelo devolvió JSON inválido")
-            continue
-        if resp.status_code == 413:
-            # Solicitud demasiado grande para el límite por minuto: falla este lote, no la corrida
-            raise ValueError(f"solicitud demasiado grande (413): {resp.text[:150]}")
-        if 400 <= resp.status_code < 500:
-            raise ErrorFatal(f"{resp.status_code}: {resp.text[:300]}\n"
-                             "Revisa OPENAI_BASE_URL y OPENAI_MODELO en config_proc.py y LLM_API_KEY en .env.")
-        if resp.status_code >= 500 and intento < intentos:
-            time.sleep(15)
-            continue
-        resp.raise_for_status()
-        return parsear_respuesta(resp.json()["choices"][0]["message"]["content"])
-
-
 def recortar(abstract):
     return (abstract or "")[:config.MAX_CARACTERES_ABSTRACT]
 
@@ -366,8 +302,7 @@ def armar_lotes(pendientes, tamano_lote, presupuesto=None):
     tokens de entrada, además corta el lote antes de pasarse de él."""
     if not presupuesto:
         return [pendientes[i:i + tamano_lote] for i in range(0, len(pendientes), tamano_lote)]
-    fijo = (tokens_aprox(PROMPT) + tokens_aprox(INSTRUCCIONES_TEXTO_COMPLETO)
-            + tokens_aprox(json.dumps(ExtraccionLote.model_json_schema(), separators=(",", ":"))))
+    fijo = tokens_aprox(SISTEMA_CON_ESQUEMA) + tokens_aprox(INSTRUCCIONES_TEXTO_COMPLETO)
     lotes, actual, usados = [], [], fijo
     for item in pendientes:
         paper = item[0]
@@ -383,11 +318,11 @@ def armar_lotes(pendientes, tamano_lote, presupuesto=None):
 
 
 def _hash(paper):
-    """Cambia si cambia el abstract, el esquema/prompt o los fragmentos del texto
-    completo (así un paper que gana texto completo se vuelve a extraer)."""
+    """Cambia si cambia el abstract, el esquema/instrucciones o los fragmentos
+    del texto completo (así un paper que gana texto completo se vuelve a extraer)."""
     base = f"{paper['title']}\n{paper['abstract'] or ''}\n{VERSION_ESQUEMA}"
     if paper["fragmentos"]:
-        base += f"\n{paper['fragmentos']}\n{INSTRUCCIONES_TEXTO_COMPLETO}"
+        base += f"\n{paper['fragmentos']}"
     return hashlib.sha256(base.encode()).hexdigest()
 
 
@@ -416,22 +351,44 @@ def guardar_resultado(conn, paper, texto_hash, extraccion, modelo):
     return "ok"
 
 
-def extraer(conn, client, top, forzar=False, pausa=None, tamano_lote=None):
-    pausa = config.PAUSA_ENTRE_LLAMADAS_S if pausa is None else pausa
+def extraer(conn, top=None, forzar=False, pausa=None, tamano_lote=None, paper_ids=None, avance=None,
+            al_terminar_paper=None, relanzar_fatal=False):
+    """Si se da `paper_ids`, extrae solo esos papers (ignora `top`); si no,
+    toma los top N del ranking. `avance(mensaje)`, si se da, recibe cada línea
+    de progreso además de imprimirse; `al_terminar_paper(paper, estado)` se
+    llama una vez por paper cuando queda resuelto (incluidos los de caché).
+    Con `relanzar_fatal`, un ErrorFatal se vuelve a lanzar después de avisar
+    (lo ya procesado queda guardado igual)."""
+    def reportar(msg):
+        print(msg)
+        if avance:
+            avance(msg)
+
+    def terminado(paper, estado):
+        if al_terminar_paper:
+            al_terminar_paper(paper, estado)
+
     if config.LLM_PROVEEDOR == "ollama":
         tamano_lote = tamano_lote or config.PAPERS_POR_LOTE_LOCAL
         pausa = 0  # sin límite de solicitudes por minuto
-    elif config.LLM_PROVEEDOR == "openai":
-        tamano_lote = tamano_lote or config.PAPERS_POR_LOTE_API
-        pausa = config.PAUSA_API_S if pausa is None else pausa
-    tamano_lote = tamano_lote or config.PAPERS_POR_LOTE
-    papers = conn.execute(
-        """SELECT p.paper_id, p.title, p.abstract, t.fragmentos, t.texto AS texto_completo
-           FROM papers p LEFT JOIN textos_completos t ON t.paper_id = p.paper_id AND t.estado = 'ok'
-           ORDER BY p.score DESC LIMIT ?""", (top,)
-    ).fetchall()
+    else:
+        tamano_lote = tamano_lote or config.PAPERS_POR_LOTE_AZURE
+        pausa = config.PAUSA_AZURE_S if pausa is None else pausa
+    if paper_ids:
+        marcadores = ", ".join("?" for _ in paper_ids)
+        papers = conn.execute(
+            f"""SELECT p.paper_id, p.title, p.abstract, t.fragmentos, t.texto AS texto_completo
+               FROM papers p LEFT JOIN textos_completos t ON t.paper_id = p.paper_id AND t.estado = 'ok'
+               WHERE p.paper_id IN ({marcadores})""", paper_ids
+        ).fetchall()
+    else:
+        papers = conn.execute(
+            """SELECT p.paper_id, p.title, p.abstract, t.fragmentos, t.texto AS texto_completo
+               FROM papers p LEFT JOIN textos_completos t ON t.paper_id = p.paper_id AND t.estado = 'ok'
+               ORDER BY p.score DESC LIMIT ?""", (top,)
+        ).fetchall()
     if not papers:
-        print("No hay papers en la base. Corre primero: python ../busqueda/main.py")
+        reportar("No hay papers en la base. Corre primero: python ../busqueda/main.py")
         return {}
 
     conteo = {}
@@ -448,43 +405,38 @@ def extraer(conn, client, top, forzar=False, pausa=None, tamano_lote=None):
             pendientes.append((paper, texto_hash))
             continue
         conteo[estado] = conteo.get(estado, 0) + 1
+        terminado(paper, estado)
 
-    presupuesto = config.MAX_TOKENS_ENTRADA_API if config.LLM_PROVEEDOR == "openai" else None
+    presupuesto = config.MAX_TOKENS_ENTRADA_AZURE if config.LLM_PROVEEDOR == "azure" else None
     lotes = armar_lotes(pendientes, tamano_lote, presupuesto)
-    print(f"{len(papers)} papers: {conteo.get('cache', 0)} ya procesados, "
-          f"{conteo.get('sin_abstract', 0)} sin abstract, {len(pendientes)} por enviar "
-          f"en {len(lotes)} solicitudes de hasta {tamano_lote} papers.")
+    reportar(f"{len(papers)} papers: {conteo.get('cache', 0)} ya procesados, "
+             f"{conteo.get('sin_abstract', 0)} sin abstract, {len(pendientes)} por enviar "
+             f"en {len(lotes)} solicitudes de hasta {tamano_lote} papers.")
 
-    fallidos_seguidos = 0
     for n, lote in enumerate(lotes, 1):
         por_ref = {f"P{i}": item for i, item in enumerate(lote, 1)}
-        print(f"Lote {n}/{len(lotes)}...")
+        reportar(f"Lote {n}/{len(lotes)}...")
         try:
-            resultados, modelo = llamar_llm(client, {ref: paper for ref, (paper, _) in por_ref.items()})
+            resultados, modelo = llamar_llm({ref: paper for ref, (paper, _) in por_ref.items()})
         except ErrorFatal as exc:
-            print(f"\nDeteniendo: {exc}")
-            print("Lo ya procesado quedó guardado; al volver a correr se retoma.")
+            reportar(f"Deteniendo: {exc}")
+            reportar("Lo ya procesado quedó guardado; al volver a correr se retoma.")
+            if relanzar_fatal:
+                raise
             break
         except Exception as exc:
             for paper, texto_hash in lote:
                 database.guardar_extraccion(conn, paper["paper_id"], None, "error", texto_hash, error=str(exc))
+                terminado(paper, "error")
             conteo["error"] = conteo.get("error", 0) + len(lote)
-            fallidos_seguidos += 1
-            print(f"  -> lote fallido: {str(exc)[:150]}")
-            if getattr(exc, "code", None) == 503 and fallidos_seguidos < MAX_LOTES_FALLIDOS_SEGUIDOS:
-                print(f"  -> todos los modelos saturados; esperando {config.ESPERA_SATURACION_S}s")
-                time.sleep(config.ESPERA_SATURACION_S)
-            if fallidos_seguidos >= MAX_LOTES_FALLIDOS_SEGUIDOS:
-                print(f"\nDeteniendo: {fallidos_seguidos} lotes seguidos fallaron (Gemini saturado o sin conexión).")
-                print("Intenta más tarde; lo ya procesado quedó guardado y al volver a correr se retoma.")
-                break
+            reportar(f"  -> lote fallido: {str(exc)[:150]}")
             continue
 
-        fallidos_seguidos = 0
         for ref, (paper, texto_hash) in por_ref.items():
             estado = guardar_resultado(conn, paper, texto_hash, resultados.get(ref), modelo)
             conteo[estado] = conteo.get(estado, 0) + 1
-            print(f"  {estado:<13} {(paper['title'] or '')[:80]}")
+            reportar(f"  {estado:<13} {(paper['title'] or '')[:80]}")
+            terminado(paper, estado)
         if n < len(lotes):
             time.sleep(pausa)  # respetar el límite de solicitudes por minuto
     return conteo
@@ -496,12 +448,11 @@ def main():
     parser.add_argument("--forzar", action="store_true", help="ignorar la caché y volver a extraer")
     args = parser.parse_args()
 
-    client = crear_cliente()
-    if client is None:
+    if not verificar_configuracion():
         return
 
     conn = database.conectar(config.DB_PATH)
-    conteo = extraer(conn, client, args.top, args.forzar)
+    conteo = extraer(conn, args.top, args.forzar)
     validas, total = conn.execute(
         "SELECT COALESCE(SUM(valida), 0), COUNT(*) FROM observaciones"
     ).fetchone()

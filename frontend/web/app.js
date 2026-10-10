@@ -11,6 +11,16 @@ const S = {
   busy: false,       // generando cadenas
   renaming: false,   // editando el título en la barra superior
   error: null,
+  tab: 'busqueda',   // pestaña de los resultados: 'busqueda' | 'procesamiento'
+};
+// Estado de la pestaña "Resultados de procesamiento" del proyecto activo
+const proc = {
+  obs: [],             // observaciones extraídas (GET /observaciones), con su índice en _i
+  q: '', ef: 'todos', group: 'paper',
+  open: new Set(),     // filas con la cita expandida (por _i)
+  closed: new Set(),   // grupos colapsados (por clave de grupo)
+  alcance: null,       // 'sel' | 'todos'; null = según haya o no selección
+  configurando: false, // eligiendo el alcance de una nueva corrida sobre un proyecto ya procesado
 };
 // Borrador del formulario cuando todavía no existe ningún proyecto
 const DRAFT = { prompt: '', num: 5, idioma: 'es' };
@@ -97,7 +107,7 @@ function renderContent() {
   const stage = S.proj ? S.proj.stage : 'empty';
   const view = { empty: viewPrompt, queries: viewQueries, loading: viewLoading, results: viewResults }[stage];
   $('#content').innerHTML = view();
-  if (stage === 'results') renderRows();
+  if (stage === 'results' && S.tab === 'busqueda') renderRows();
 }
 
 function viewPrompt() {
@@ -190,6 +200,10 @@ function viewLoading() {
 }
 
 function viewResults() {
+  return `${tabsHTML()}${S.tab === 'procesamiento' ? viewProcesamiento() : viewBusqueda()}`;
+}
+
+function viewBusqueda() {
   return `
     <div>
       <div class="results-head">
@@ -237,6 +251,260 @@ function viewResults() {
     </div>`;
 }
 
+// ---------- resultados de procesamiento ----------
+
+const EFX = ['mejora', 'sin_diferencia', 'mixto', 'empeora'];
+const EFX_LBL = { mejora: 'Mejora', empeora: 'Empeora', sin_diferencia: 'Sin diferencia', mixto: 'Mixto' };
+const ESTADOS_PAPER = ['ok', 'no_relevante', 'sin_abstract', 'error', 'pendiente'];
+const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
+// Los valores de vocabulario (vida_util, otro_proceso...) solo se parten en los guiones bajos
+const vocab = (v) => esc(v).replace(/_/g, '_<wbr>');
+
+function tabsHTML() {
+  const p = S.proj.procesamiento;
+  const badge = p.activo ? '<span class="ptab-live">en curso</span>'
+    : p.estado === 'error' ? '<span class="state-chip" data-k="error">error</span>'
+    : proc.obs.length ? `<span class="ptab-count">${proc.obs.length}</span>` : '';
+  const tab = (key, label, extra) => `<button class="ptab" role="tab" data-action="tab" data-tab="${key}" aria-selected="${S.tab === key}">${label}${extra}</button>`;
+  return `
+    <div class="ptabs" role="tablist">
+      ${tab('busqueda', 'Resultados de búsqueda', `<span class="ptab-count">${S.proj.papers.length}</span>`)}
+      ${tab('procesamiento', 'Resultados de procesamiento', badge)}
+    </div>`;
+}
+
+// Cuántos papers entran en cada alcance (el servidor procesa como mucho `tope` por corrida)
+function alcances() {
+  const tope = S.proj.procesamiento.tope || Infinity;
+  const ids = new Set(S.proj.papers.map((r) => r.id));
+  const nSel = S.proj.seleccion.filter((id) => ids.has(id)).length;
+  const modo = (proc.alcance === 'sel' && nSel) || (proc.alcance === null && nSel) ? 'sel' : 'todos';
+  return { modo, tope, nSel, nTodos: S.proj.papers.length };
+}
+
+function resumenCorrida(p) {
+  const partes = [];
+  const ini = p.inicio ? new Date(p.inicio) : null;
+  const fin = p.fin ? new Date(p.fin) : null;
+  const hora = (d) => d.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
+  if (ini && !isNaN(ini)) {
+    partes.push(ini.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' }));
+    if (fin && !isNaN(fin)) {
+      const seg = Math.max(0, Math.round((fin - ini) / 1000));
+      partes.push(`${hora(ini)} → ${hora(fin)}`, seg >= 60 ? `${Math.floor(seg / 60)} min ${seg % 60} s` : `${seg} s`);
+    } else partes.push(hora(ini));
+  }
+  if (p.total) partes.push(`${plural(p.total, 'paper', 'papers')} ${p.alcance === 'sel' ? 'de la selección' : 'del proyecto'}`);
+  return partes.join(' · ');
+}
+
+function alcanceCardHTML(p) {
+  const a = alcances();
+  const pedidos = a.modo === 'sel' ? a.nSel : a.nTodos;
+  const n = Math.min(pedidos, a.tope);
+  const texto = (a.modo === 'sel'
+    ? `Se procesarán los ${plural(n, 'paper marcado', 'papers marcados')} en Resultados de búsqueda.`
+    : `Se procesarán los ${plural(n, 'paper', 'papers')} del proyecto.`)
+    + (pedidos > a.tope ? ` Son ${pedidos}, pero cada corrida procesa como máximo ${a.tope}.` : '')
+    + ' El texto completo solo se descarga para los de acceso abierto; del resto se lee el abstract.'
+    + (p.estado ? ' Los papers ya extraídos no se vuelven a enviar al modelo.' : '');
+  return `
+    <div class="run-card is-empty">
+      <div>
+        <div class="run-empty-title">Procesar PDFs</div>
+        <div class="run-empty-lead">Un modelo de lenguaje lee cada paper y extrae observaciones: factor evaluado, referencia, variable de resultado y efecto, con la cita textual que lo respalda.</div>
+      </div>
+      <div class="run-field">
+        <span class="run-label">Alcance</span>
+        <div class="seg">
+          <label class="seg-opt"><input type="radio" name="obs-alcance" value="sel" ${a.modo === 'sel' ? 'checked' : ''} ${a.nSel ? '' : 'disabled'}>Selección<span class="n">${a.nSel}</span></label>
+          <label class="seg-opt"><input type="radio" name="obs-alcance" value="todos" ${a.modo === 'todos' ? 'checked' : ''}>Todos<span class="n">${a.nTodos}</span></label>
+        </div>
+      </div>
+      <div class="run-scope">${esc(texto)}</div>
+      <div class="run-go">
+        <button class="btn btn-primary" data-action="procesar" data-alcance="${a.modo}" ${n ? '' : 'disabled'}>Procesar ${plural(n, 'paper', 'papers')}</button>
+        ${p.estado ? '<button class="btn btn-ghost" data-action="obs-configurar">Volver</button>' : ''}
+        <span class="run-note">Puede tardar varios minutos. El proceso sigue en el servidor si sales de la página.</span>
+      </div>
+    </div>`;
+}
+
+function runCardHTML(p) {
+  if (p.activo) {
+    const pct = p.total ? Math.round((p.hechos / p.total) * 100) : 0;
+    return `
+    <div class="run-card">
+      <div class="run-head">
+        <div>
+          <div class="run-title">Procesando <span class="run-frac">${esc(p.hechos)} / ${esc(p.total)}</span></div>
+          <div class="run-meta run-now">Ahora: ${esc(p.actual || '—')}</div>
+        </div>
+        <button class="btn btn-secondary" data-action="cancelar-procesar">Cancelar</button>
+      </div>
+      <div class="run-progress"><i style="width:${pct}%"></i></div>
+      <div class="run-log">${p.mensajes.slice(-8).map((l) => `<div>${esc(l)}</div>`).join('')}</div>
+      <div class="run-note">Se actualiza solo. Puedes cambiar de pestaña; las observaciones aparecen aquí al terminar.</div>
+    </div>`;
+  }
+  if (!p.estado || proc.configurando) return alcanceCardHTML(p);
+
+  const conteos = p.conteos || {};
+  const claves = [...ESTADOS_PAPER.filter((k) => conteos[k]), ...Object.keys(conteos).filter((k) => !ESTADOS_PAPER.includes(k))];
+  const chips = claves.map((k) => `<span class="state-chip" data-k="${esc(k)}">${esc(k)} ${esc(conteos[k])}</span>`).join('');
+  const conHallazgos = new Set(proc.obs.map((o) => o.paper_id)).size;
+  const revisar = proc.obs.filter((o) => !o.valida).length;
+  const aviso = p.estado === 'error' ? `
+    <div class="notice-error">
+      <div class="notice-error-body"><h4>El procesamiento se detuvo</h4><code>${esc(p.error || 'Error desconocido')}</code></div>
+      <button class="btn btn-primary" data-action="procesar" data-alcance="${esc(p.alcance || 'todos')}">Reintentar</button>
+    </div>` : '';
+  return `${aviso}
+    <div class="run-card">
+      <div class="run-head">
+        <div>
+          <div class="run-title">${p.estado === 'error' ? 'Resultados parciales' : 'Procesamiento completado'}</div>
+          <div class="run-meta">${esc(resumenCorrida(p))}</div>
+        </div>
+        <div class="run-actions">
+          <button class="btn btn-secondary" data-action="obs-csv" ${proc.obs.length ? '' : 'disabled'}>Exportar CSV</button>
+          <button class="btn btn-primary" data-action="obs-configurar">Volver a procesar</button>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><span class="n">${proc.obs.length}</span><span class="l">Observaciones</span></div>
+        <div class="stat"><span class="n">${conHallazgos}${p.total ? `<small> / ${esc(p.total)}</small>` : ''}</span><span class="l">Papers con hallazgos</span></div>
+        <div class="stat"><span class="n">${revisar}</span><span class="l">Por revisar</span></div>
+        ${chips ? `<div class="state-chips"><span class="run-note">Estado por paper</span>${chips}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+const doiUrl = (doi) => `https://doi.org/${encodeURI(doiCorto(doi))}`;
+const obsGrupo = (o) => (proc.group === 'paper' ? o.paper_id : proc.group === 'categoria' ? (o.categoria_factor || 'sin categoría') : '_');
+
+function obsFiltradas() {
+  const q = proc.q.trim().toLowerCase();
+  const porTexto = proc.obs.filter((o) => !q
+    || [o.title, o.factor_evaluado, o.referencia, o.variable_resultado].join(' ').toLowerCase().includes(q));
+  return { porTexto, filas: porTexto.filter((o) => proc.ef === 'todos' || o.efecto === proc.ef) };
+}
+
+function obsRowHTML(o) {
+  const open = proc.open.has(o._i);
+  const paper = `${o.title || '(sin título)'}${o.year ? ' · ' + o.year : ''}`;
+  return `
+    <div class="obs-row ${open ? 'is-open' : ''}" data-action="obs-toggle" data-i="${o._i}">
+      <div><span class="efx" data-efecto="${esc(o.efecto)}">${esc(EFX_LBL[o.efecto] || o.efecto)}</span></div>
+      <div class="obs-main">
+        <div class="obs-factor">${esc(o.factor_evaluado)}</div>
+        <div class="obs-ref">vs. ${esc(o.referencia)}</div>
+        ${proc.group !== 'paper' ? `<div class="obs-paper">${esc(paper)}</div>` : ''}
+      </div>
+      <div><span class="obs-var">${vocab(o.variable_resultado)}</span></div>
+      <div class="obs-cat">${vocab(o.categoria_factor || '—')}</div>
+      <div class="obs-cita">“${esc(o.cita_textual)}”</div>
+      <div>${o.valida ? '<span class="obs-ok">✓ válida</span>' : `<span class="obs-warn" title="${esc(o.problemas)}">Revisar</span>`}</div>
+      ${open ? `
+      <div class="obs-detail"><div>
+        <blockquote>“${esc(o.cita_textual)}”</blockquote>
+        <div class="meta"><span>${esc(paper)}</span>${o.doi ? `<a href="${esc(doiUrl(o.doi))}" target="_blank" rel="noopener noreferrer">Abrir original ↗</a>` : ''}</div>
+        ${o.valida ? '' : `<div class="prob"><b>Validación:</b>${esc(o.problemas || 'no pasó las validaciones automáticas')}</div>`}
+      </div></div>` : ''}
+    </div>`;
+}
+
+function obsTableHTML() {
+  const { porTexto, filas } = obsFiltradas();
+  const cuenta = (k) => porTexto.filter((o) => o.efecto === k).length;
+  const efSeg = [['todos', 'Todos', porTexto.length], ...EFX.map((k) => [k, EFX_LBL[k], cuenta(k)])]
+    .map(([k, l, n]) => `<label class="seg-opt" ${k !== 'todos' ? `data-efecto="${k}"` : ''}><input type="radio" name="obs-ef" value="${k}" ${proc.ef === k ? 'checked' : ''}>${k !== 'todos' ? '<span class="efx-g"></span>' : ''}${l}<span class="n">${n}</span></label>`).join('');
+  const grpSeg = [['paper', 'Paper'], ['categoria', 'Categoría'], ['ninguno', 'Ninguno']]
+    .map(([k, l]) => `<label class="seg-opt"><input type="radio" name="obs-grp" value="${k}" ${proc.group === k ? 'checked' : ''}>${l}</label>`).join('');
+
+  const grupos = new Map();
+  filas.forEach((o) => { const k = obsGrupo(o); if (!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(o); });
+  const claves = [...grupos.keys()];
+  if (proc.group === 'categoria') claves.sort((a, b) => a.localeCompare(b, 'es'));
+
+  const cuerpo = claves.map((k) => {
+    const g = grupos.get(k).sort((a, b) => EFX.indexOf(a.efecto) - EFX.indexOf(b.efecto)
+      || String(a.variable_resultado).localeCompare(String(b.variable_resultado), 'es'));
+    if (proc.group === 'ninguno') return g.map(obsRowHTML).join('');
+    const f = g[0];
+    const dist = EFX.map((e) => [e, g.filter((o) => o.efecto === e).length]).filter((d) => d[1]);
+    const esPaper = proc.group === 'paper';
+    const sub = esPaper ? (f.year || '') : plural(new Set(g.map((o) => o.paper_id)).size, 'paper', 'papers');
+    const doi = !esPaper ? '' : f.doi
+      ? `<a class="doi" href="${esc(doiUrl(f.doi))}" target="_blank" rel="noopener noreferrer">doi:${esc(doiCorto(f.doi))} ↗</a>`
+      : '<span class="run-note">sin DOI</span>';
+    const cerrado = proc.closed.has(k);
+    return `
+    <div class="obs-group ${cerrado ? 'is-closed' : ''}">
+      <div class="obs-gh" role="button" tabindex="0" data-action="obs-grupo" data-g="${esc(k)}" aria-expanded="${!cerrado}">
+        <span class="caret">▾</span>
+        <span class="t"><span class="title">${esc(esPaper ? (f.title || '(sin título)') : k)}</span><span class="sub">${esc(sub)}</span>${doi}</span>
+        <span class="cnt">${plural(g.length, 'observación', 'observaciones')}</span>
+        <span class="dist" title="${esc(dist.map(([e, n]) => `${EFX_LBL[e]}: ${n}`).join(' · '))}">${dist.map(([e, n]) => `<i data-efecto="${e}" style="flex:${n}"></i>`).join('')}</span>
+      </div>
+      ${g.map(obsRowHTML).join('')}
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="obs-toolbar">
+      <input class="input" data-input="obs-q" placeholder="Buscar paper, factor, referencia, variable…" value="${esc(proc.q)}" aria-label="Filtrar observaciones">
+      <div class="seg">${efSeg}</div>
+      <div class="grp">Agrupar <div class="seg">${grpSeg}</div></div>
+    </div>
+    <div>
+      <div class="obs-count">
+        <span>${plural(filas.length, 'observación', 'observaciones')} · ${plural(new Set(filas.map((o) => o.paper_id)).size, 'paper', 'papers')}</span>
+        ${proc.group !== 'ninguno' && filas.length ? `<span class="obs-count-actions">
+          <button class="btn btn-ghost" data-action="obs-expandir">Expandir todo</button>
+          <button class="btn btn-ghost" data-action="obs-colapsar">Colapsar todo</button></span>` : ''}
+      </div>
+      <div class="obs-th"><span>Efecto</span><span>Factor evaluado · referencia</span><span>Variable</span><span>Categoría</span><span>Cita textual</span><span>Validación</span></div>
+      ${filas.length ? cuerpo : '<div class="obs-empty">Ninguna observación coincide con los filtros. <button class="btn btn-ghost" data-action="obs-limpiar">Limpiar filtros</button></div>'}
+    </div>`;
+}
+
+function viewProcesamiento() {
+  const p = S.proj.procesamiento;
+  return `
+    <div class="proc-view">
+      ${notice()}
+      ${runCardHTML(p)}
+      ${!p.activo && proc.obs.length ? `<div class="obs-table" id="obs-tabla">${obsTableHTML()}</div>` : ''}
+    </div>`;
+}
+
+// Solo la tabla: así el campo de búsqueda no pierde el foco ni el cursor
+function renderObsTabla() {
+  const tabla = $('#obs-tabla');
+  if (!tabla) return;
+  const activo = document.activeElement;
+  const cursor = activo && activo.dataset.input === 'obs-q' ? activo.selectionStart : null;
+  tabla.innerHTML = obsTableHTML();
+  if (cursor !== null) {
+    const campo = tabla.querySelector('[data-input="obs-q"]');
+    campo.focus();
+    campo.setSelectionRange(cursor, cursor);
+  }
+}
+
+function exportarObsCSV() {
+  const cols = ['title', 'year', 'doi', 'factor_evaluado', 'referencia', 'variable_resultado', 'efecto',
+    'categoria_factor', 'cita_textual', 'valida', 'problemas'];
+  const celda = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const csv = [cols.join(','), ...proc.obs.map((o) => cols.map((c) => celda(o[c])).join(','))].join('\n');
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+  enlace.download = `${S.proj.archivo.replace(/\.db$/, '')}_observaciones.csv`;
+  enlace.click();
+  URL.revokeObjectURL(enlace.href);
+}
+
 function filteredPapers() {
   const q = S.filterText.trim().toLowerCase();
   const picked = new Set(S.proj.seleccion);
@@ -250,6 +518,7 @@ function filteredPapers() {
 
 // Solo el cuerpo de la tabla y los contadores: así el campo de filtro no pierde el foco
 function renderRows() {
+  if (!$('#rows')) return;  // la tabla de papers solo existe en la pestaña de búsqueda
   const rows = filteredPapers();
   const picked = new Set(S.proj.seleccion);
   $('#stat-total').textContent = rows.length;
@@ -336,13 +605,24 @@ async function loadList() {
   S.projects = await api('GET', '/api/proyectos');
 }
 
+async function cargarObservaciones() {
+  const id = S.proj && S.proj.id;
+  let obs = [];
+  if (id && S.proj.stage === 'results') {
+    try { obs = await api('GET', `/api/proyectos/${id}/observaciones`); } catch (e) { /* se queda vacía */ }
+  }
+  if ((S.proj && S.proj.id) !== id) return;  // cambió de proyecto mientras cargaba
+  proc.obs = obs.map((o, i) => ({ ...o, _i: i }));
+  proc.open.clear();
+}
+
 function setProject(p) {
   S.proj = p;
   const item = S.projects.find((x) => x.id === p.id);
   if (item) { item.name = p.name; item.stage = p.stage; }
   clearInterval(pollTimer);
   pollTimer = null;
-  if (p.stage === 'loading') pollTimer = setInterval(poll, 1000);
+  if (p.stage === 'loading' || (p.procesamiento && p.procesamiento.activo)) pollTimer = setInterval(poll, 1000);
 }
 
 async function selectProject(id) {
@@ -354,7 +634,12 @@ async function selectProject(id) {
   S.panelOpen = false;
   S.renaming = false;
   S.error = null;
+  S.tab = 'busqueda';
+  Object.assign(proc, { obs: [], q: '', ef: 'todos', group: 'paper', alcance: null, configurando: false });
+  proc.open.clear();
+  proc.closed.clear();
   setProject(p);
+  await cargarObservaciones();  // si ya se procesó antes, lo extraído se ve de entrada
   try { localStorage.setItem('buscador.activo', id); } catch (e) { /* almacenamiento bloqueado */ }
   render();
 }
@@ -365,9 +650,15 @@ async function poll() {
   let p;
   try { p = await api('GET', `/api/proyectos/${id}`); } catch (e) { return; }  // se reintenta en el siguiente tick
   if (!S.proj || S.proj.id !== id) return;
-  const sameSteps = p.stage === 'loading' && JSON.stringify(p.progreso) === JSON.stringify(S.proj.progreso);
+  // Sin cambios no se repinta: reiniciaría las animaciones de progreso
+  const cambio = p.stage !== S.proj.stage
+    || (p.stage === 'loading' && JSON.stringify(p.progreso) !== JSON.stringify(S.proj.progreso))
+    || JSON.stringify(p.procesamiento) !== JSON.stringify(S.proj.procesamiento);
+  // Al terminar un procesamiento o una búsqueda (que reemplaza los papers) se recarga lo extraído
+  const recargar = (S.proj.procesamiento.activo && !p.procesamiento.activo) || p.stage !== S.proj.stage;
   setProject(p);
-  if (!sameSteps) render();  // sin cambios no se repinta: reiniciaría las animaciones
+  if (recargar) await cargarObservaciones();
+  if (cambio) render();
 }
 
 async function createProject() {
@@ -465,11 +756,44 @@ const actions = {
     S.filterText = '';
     S.onlyOA = false;
     S.onlyPicked = false;
+    S.tab = 'busqueda';
     render();
   },
   'cancel-search': async () => {
     setProject(await api('POST', `/api/proyectos/${S.proj.id}/cancelar`));
     render();
+  },
+  tab: (el) => {
+    S.tab = el.dataset.tab;
+    S.panelOpen = false;
+    S.error = null;
+    render();
+  },
+  procesar: async (el) => {
+    setProject(await api('POST', `/api/proyectos/${S.proj.id}/procesar`, { alcance: el.dataset.alcance }));
+    proc.configurando = false;
+    render();
+  },
+  'cancelar-procesar': async () => {
+    setProject(await api('POST', `/api/proyectos/${S.proj.id}/cancelar-procesar`));
+    await cargarObservaciones();
+    render();
+  },
+  'obs-configurar': () => { proc.configurando = !proc.configurando; renderContent(); },
+  'obs-csv': exportarObsCSV,
+  'obs-limpiar': () => { proc.q = ''; proc.ef = 'todos'; renderObsTabla(); },
+  'obs-expandir': () => { proc.closed.clear(); renderObsTabla(); },
+  'obs-colapsar': () => { obsFiltradas().filas.forEach((o) => proc.closed.add(obsGrupo(o))); renderObsTabla(); },
+  'obs-grupo': (el) => {
+    const k = el.dataset.g;
+    if (!proc.closed.delete(k)) proc.closed.add(k);
+    renderObsTabla();
+  },
+  'obs-toggle': (el, e) => {
+    if (e.target.closest('.obs-detail')) return;  // dentro del detalle se puede seleccionar el texto de la cita
+    const i = Number(el.dataset.i);
+    if (!proc.open.delete(i)) proc.open.add(i);
+    renderObsTabla();
   },
   'open-paper': (el) => {
     S.selId = el.dataset.id;
@@ -493,9 +817,10 @@ const actions = {
 };
 
 document.addEventListener('click', (e) => {
+  if (e.target.closest('a')) return;  // un enlace dentro de una fila solo abre su destino
   const el = e.target.closest('[data-action]');
   if (!el || el.disabled) return;
-  run(() => actions[el.dataset.action](el));
+  run(() => actions[el.dataset.action](el, e));
 });
 
 document.addEventListener('input', (e) => {
@@ -505,6 +830,7 @@ document.addEventListener('input', (e) => {
   else if (t.dataset.input === 'query') S.proj.queries[Number(t.dataset.idx)] = t.value;
   else if (t.dataset.input === 'min_year' || t.dataset.input === 'max_resultados') S.proj[t.dataset.input] = t.value;
   else if (t.dataset.input === 'filter') { S.filterText = t.value; renderRows(); }
+  else if (t.dataset.input === 'obs-q') { proc.q = t.value; renderObsTabla(); }
 });
 
 // "change" llega al salir del campo (o al elegir una opción): ahí se guarda en el servidor
@@ -512,6 +838,10 @@ document.addEventListener('change', (e) => {
   const t = e.target;
   if (t.name === 'oaf') { S.onlyOA = t.value === 'oa'; renderRows(); return; }
   if (t.name === 'pickf') { S.onlyPicked = t.checked; renderRows(); return; }
+  if (t.name === 'obs-ef') { proc.ef = t.value; renderObsTabla(); return; }
+  if (t.name === 'obs-grp') { proc.group = t.value; proc.closed.clear(); renderObsTabla(); return; }
+  if (t.name === 'obs-alcance') { proc.alcance = t.value; renderContent(); return; }
+  if (t.dataset.input === 'obs-q') return;
   if (t.name === 'lang') form().idioma = t.value;
   if (!S.proj || S.busy) return;
   if (t.name === 'lang') run(() => save({ idioma: t.value }));
@@ -552,6 +882,10 @@ document.addEventListener('keydown', (e) => {
     return;
   }
   if (e.key === 'Escape' && S.panelOpen) actions['close-panel']();
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('obs-gh')) {
+    e.preventDefault();
+    e.target.click();
+  }
   if (e.key === 'Enter' && e.target.dataset && e.target.dataset.input === 'query') e.target.blur();
 });
 

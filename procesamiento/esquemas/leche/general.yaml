@@ -1,0 +1,143 @@
+familia: leche
+etapa: general
+version: 1
+descripcion: >
+  Migrado 1:1 desde el esquema.py original (una sola etapa, "general"):
+  una fila por comparación + variable medida que un paper sobre lácteos
+  reporte. No está dividido por etapa de proceso porque hoy una misma
+  observación mezcla factores de varias etapas a la vez (tratamiento
+  térmico, alimentación, fermentación...); dividirlo en varias etapas es
+  un cambio de diseño aparte, no solo de formato.
+
+enums:
+  tipo_estudio: [ensayo_clinico, estudio_animal, in_vitro, formulacion_proceso, modelado_ml, revision, otro]
+  matriz: [leche_liquida, yogur_fermentado, queso, leche_en_polvo_formula, proteina_aislada, otro]
+  tipo_beta_caseina: [A2, A1, A1A2, no_especificado]
+  especie_leche: [vaca, cabra, oveja, bufala, humana, otra, no_especificado]
+  raza: [holstein, jersey, guernsey, pardo_suizo, normando, ayrshire, cebu_gyr, cruce, otra, no_especificado]
+  region: [america_latina, america_norte, europa, oceania, asia, africa, no_especificado]
+  sistema_alimentacion: [pastoreo, estabulado, mixto, no_especificado]
+  tratamiento_termico: [crudo, pasteurizado, ultrapasteurizado, uht, esterilizado, otro, no_especificado]
+  poblacion: [adultos, ninos, animales, no_aplica]
+  variable_resultado: [digestibilidad_proteica, sintomas_gastrointestinales, marcadores_inflamacion,
+                        textura_reologia, sensorial_aceptacion, vida_util, composicion_nutricional,
+                        calidad_microbiologica, estabilidad_proceso, otro]
+  categoria_factor: [beta_caseina, genetica_raza, alimentacion, estres_ambiental, sanidad_animal,
+                      tratamiento_termico, otro_proceso, fermentacion, especie, formulacion, otro]
+  efecto: [mejora, sin_diferencia, empeora, mixto]
+
+campos:
+  categoria_factor:
+    tipo: enum
+    enum: categoria_factor
+    obligatorio: true
+    descripcion: "Qué tipo de cosa es el factor evaluado; sirve para agrupar la evidencia"
+  factor_evaluado:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Grupo o condición que se evalúa, en pocas palabras, ej. 'leche UHT', 'leche A2', 'pastoreo'"
+  referencia:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Grupo control con el que se compara, ej. 'leche pasteurizada', 'leche A1', 'dieta estabulada'"
+  tipo_estudio:
+    tipo: enum
+    enum: tipo_estudio
+    obligatorio: true
+  matriz:
+    tipo: enum
+    enum: matriz
+    obligatorio: true
+  tipo_beta_caseina:
+    tipo: enum
+    enum: tipo_beta_caseina
+    obligatorio: true
+  especie_leche:
+    tipo: enum
+    enum: especie_leche
+    obligatorio: true
+  raza:
+    tipo: enum
+    enum: raza
+    obligatorio: true
+  sistema_alimentacion:
+    tipo: enum
+    enum: sistema_alimentacion
+    obligatorio: true
+  region:
+    tipo: enum
+    enum: region
+    obligatorio: true
+  pais:
+    tipo: texto
+    obligatorio: false
+    descripcion: "País de origen de la leche o donde se hizo el estudio"
+  tratamiento_termico:
+    tipo: enum
+    enum: tratamiento_termico
+    obligatorio: true
+  homogeneizado:
+    tipo: booleano
+    obligatorio: false
+  lactosa_reducida:
+    tipo: booleano
+    obligatorio: false
+    descripcion: "True si la leche es deslactosada o con lactasa"
+  temperatura_c:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Temperatura de proceso en °C, solo si el texto la da"
+  tiempo_min:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Tiempo de proceso en minutos, solo si el texto lo da"
+  ph:
+    tipo: numero
+    obligatorio: false
+  usa_probioticos:
+    tipo: booleano
+    obligatorio: false
+  cepas:
+    tipo: texto
+    obligatorio: false
+    descripcion: "Cepas bacterianas separadas por ';'"
+  proteina_pct:
+    tipo: numero
+    obligatorio: false
+  grasa_pct:
+    tipo: numero
+    obligatorio: false
+  lactosa_pct:
+    tipo: numero
+    obligatorio: false
+  solidos_totales_pct:
+    tipo: numero
+    obligatorio: false
+  celulas_somaticas_miles_ml:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Recuento de células somáticas en miles de células/mL"
+  vida_util_dias:
+    tipo: numero
+    obligatorio: false
+  poblacion:
+    tipo: enum
+    enum: poblacion
+    obligatorio: true
+  tamano_muestra:
+    tipo: entero
+    obligatorio: false
+    descripcion: "Número de sujetos o muestras"
+  variable_resultado:
+    tipo: enum
+    enum: variable_resultado
+    obligatorio: true
+  efecto:
+    tipo: enum
+    enum: efecto
+    obligatorio: true
+    descripcion: "Qué le pasó a la variable medida en el factor evaluado frente a la referencia"
+  cita_textual:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Frase COPIADA LITERALMENTE del texto que respalda esta observación"

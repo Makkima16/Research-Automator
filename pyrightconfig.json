@@ -1,0 +1,7 @@
+{
+    "extraPaths": [
+        "busqueda",
+        "procesamiento",
+        "frontend"
+    ]
+}

@@ -1,5 +1,6 @@
 pandas>=2.0.0
 requests>=2.31.0
-langchain-google-genai>=4.0   # solo para la interfaz web (generar_cadenas.py)
+pydantic>=2.0                 # cadenas de búsqueda estructuradas (generar_cadenas.py)
+langchain-google-genai>=4.0   # genera las cadenas de búsqueda (generar_cadenas.py)
 bs4>=0.0.1                    # Sci-Hub (fetch_scihub.py)
 scihub                        # Sci-Hub (fetch_scihub.py)

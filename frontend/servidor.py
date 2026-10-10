@@ -1,20 +1,25 @@
 """
-Interfaz web de la búsqueda ("Buscador"). Corre con:
+Frontend web del proyecto (el "Buscador"). Corre con:
 
     python servidor.py            # abre http://127.0.0.1:8000
     python servidor.py 8080       # otro puerto
 
 Es un servidor local (solo escucha en 127.0.0.1) hecho con la librería
-estándar: sirve la página de web/ y una API pequeña que usa los mismos
-módulos de main.py (fetch_papers, fetch_semantic_scholar,
-fetch_scopus, fetch_scihub, rank_and_filter).
+estándar: sirve la página de web/ y una API que combina dos módulos
+independientes del proyecto:
+- ../busqueda: generación de cadenas, búsqueda de papers y ranking
+  (fetch_papers, fetch_semantic_scholar, fetch_scopus, fetch_scihub,
+  rank_and_filter, generar_cadenas, config).
+- ../procesamiento: "Procesar PDFs" (texto completo + extracción con el LLM),
+  sobre la base SQLite propia de cada proyecto (ver más abajo).
 
 Cada "proyecto" es un tema de investigación: se describe en lenguaje natural,
 se generan cadenas de búsqueda (generar_cadenas.py), se editan y se lanzan
-contra las plataformas activas en config.py. Cada proyecto se guarda en su
-propia base SQLite, output/proyectos/<nombre_del_proyecto>.db (ver
-almacen.py), y NO toca selema.db: esa es la base de main.py, que lee
-../procesamiento.
+contra las plataformas activas en busqueda/config.py. Cada proyecto se guarda
+en su propia base SQLite, busqueda/output/proyectos/<nombre_del_proyecto>.db
+(ver almacen.py), y NO toca selema.db: esa es la base de busqueda/main.py.
+"Procesar PDFs" sí usa esa misma base por proyecto (database_proc.conectar le
+agrega ahí las tablas de ../procesamiento la primera vez).
 """
 
 import csv
@@ -26,11 +31,22 @@ import sqlite3
 import sys
 import threading
 import uuid
+from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
 
+# El frontend no tiene lógica propia de búsqueda ni de procesamiento: reutiliza
+# los módulos de ../busqueda y ../procesamiento.
+_RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(_RAIZ, "busqueda"))
+sys.path.append(os.path.join(_RAIZ, "procesamiento"))
+
 import almacen
 import config
+import config_proc
+import database_proc
+import extract_llm_insights
+import fetch_fulltext
 import fetch_papers
 import fetch_scihub
 import fetch_scopus
@@ -49,6 +65,22 @@ ESTATICOS = {
 NOMBRE_SIN_TITULO = "Proyecto sin título"
 MAX_CADENAS_BUSQUEDA = 20
 MAX_RESULTADOS_POR_CADENA = 500
+
+# Estado de "Procesar PDFs" de un proyecto:
+#   activo          corriendo ahora
+#   token           identifica la corrida vigente (una cancelada/vieja se descarta)
+#   estado          None (nunca se procesó) | ok | error (resultados parciales)
+#   error           motivo legible si estado == error
+#   alcance         sel | todos (qué papers se pidieron)
+#   hechos / total  papers resueltos / pedidos;  actual: qué se está haciendo
+#   conteos         {estado de extracción: nº de papers} al terminar
+#   inicio / fin    fecha y hora ISO
+#   mensajes        log corto para la interfaz
+#   tope            máximo de papers por corrida (la página lo usa para decir cuántos se procesarán)
+PROCESAMIENTO_VACIO = {"activo": False, "token": None, "estado": None, "error": None, "alcance": None,
+                       "hechos": 0, "total": 0, "actual": None, "conteos": {}, "inicio": None, "fin": None,
+                       "mensajes": [], "tope": config_proc.MAX_PAPERS_PROCESAR_WEB}
+MAX_MENSAJES_PROCESAMIENTO = 50
 COLUMNAS_CSV = ["openalex_id", "doi", "title", "year", "cited_by_count", "is_oa", "oa_url", "source",
                 "abstract", "matched_query", "motor_busqueda", "motor_pdf", "pdf_url", "pagina_origen", "score", "seleccionado"]
 
@@ -110,6 +142,14 @@ def cargar_proyectos():
         proyecto.setdefault("min_year", config.MIN_PUBLICATION_YEAR)
         proyecto.setdefault("max_resultados", config.MAX_RESULTS_PER_QUERY)
         proyecto.setdefault("cadenas_usadas", len(proyecto["queries"]) if proyecto.get("papers") else 0)
+        proyecto["procesamiento"] = _normalizar_procesamiento(proyecto.get("procesamiento"))
+        if proyecto["procesamiento"]["activo"]:
+            # El servidor se cerró a mitad de un procesamiento: lo ya guardado
+            # en la base del proyecto no se pierde, solo se corta la corrida
+            proyecto["procesamiento"].update(
+                activo=False, token=None, estado="error", actual=None,
+                error="El procesamiento anterior se interrumpió al cerrarse el servidor; vuelve a iniciarlo.")
+            _guardar(proyecto)
         _PROYECTOS[proyecto["id"]] = proyecto
 
 
@@ -143,6 +183,7 @@ def crear_proyecto():
         "fuentes": 0,
         "seleccion": [],
         "papers": [],
+        "procesamiento": dict(PROCESAMIENTO_VACIO),
     }
     with _CANDADO:
         proyecto["creado"] = max((p["creado"] for p in _PROYECTOS.values()), default=-1) + 1
@@ -212,7 +253,8 @@ def actualizar_proyecto(pid, datos):
             proyecto["aviso"] = None
         if datos.get("reiniciar"):
             proyecto.update(stage="empty", prompt="", queries=[], papers=[], seleccion=[],
-                            progreso=[], fuentes=0, cadenas_usadas=0, aviso=None)
+                            progreso=[], fuentes=0, cadenas_usadas=0, aviso=None,
+                            procesamiento=dict(PROCESAMIENTO_VACIO))
         _guardar(proyecto, con_papers=bool(datos.get("reiniciar")))
         return dict(proyecto)
 
@@ -302,8 +344,8 @@ ORDEN_MOTORES = ["openalex", "semantic_scholar", "scopus"]
 
 def _marcar_origen_pdf(papers):
     """Llena motor_pdf y pdf_url: de qué plataforma salió el enlace al texto
-    del paper ("ninguno" si ninguna dio uno). main.py lo hace al revisar el
-    acceso al PDF; aquí no se revisa, solo se anota el origen."""
+    del paper ("ninguno" si ninguna dio uno). busqueda/main.py lo hace al
+    revisar el acceso al PDF; aquí no se revisa, solo se anota el origen."""
     for paper in papers:
         if paper.get("motor_pdf"):
             continue
@@ -423,6 +465,165 @@ def cancelar_busqueda(pid):
         return dict(proyecto)
 
 
+# ---------- procesar PDFs (texto completo + extracción con el LLM) ----------
+#
+# Corre sobre la propia base del proyecto (almacen.ruta(proyecto["archivo"])),
+# nunca sobre selema.db. database_proc.conectar() le agrega ahí las tablas de
+# procesamiento (textos_completos, extracciones, observaciones...) la primera
+# vez, igual que lo hace sobre selema.db para el flujo de busqueda/main.py.
+
+def _vigente_proc(pid, token):
+    proyecto = _PROYECTOS.get(pid)
+    return proyecto is not None and proyecto["procesamiento"].get("token") == token
+
+
+def _ahora():
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def _normalizar_procesamiento(guardado):
+    """Estado de procesamiento con todas las claves actuales, a partir de lo
+    que haya en disco (versiones anteriores guardaban `resumen` y `aviso`)."""
+    guardado = guardado or {}
+    estado = {**PROCESAMIENTO_VACIO, **{k: guardado[k] for k in PROCESAMIENTO_VACIO if k in guardado}}
+    if not estado["estado"] and guardado.get("resumen"):
+        conteos = {k: v for k, v in (guardado["resumen"].get("extraccion") or {}).items() if k != "cache"}
+        estado.update(estado="ok", conteos=conteos, total=sum(conteos.values()), hechos=sum(conteos.values()))
+    estado["tope"] = PROCESAMIENTO_VACIO["tope"]
+    return estado
+
+
+def _objetivo_procesamiento(proyecto, alcance):
+    """IDs de los papers a procesar: la selección (`sel`) o todos los del
+    proyecto (`todos`), con un tope para controlar el costo de Azure."""
+    if alcance == "sel":
+        existentes = {p["id"] for p in proyecto["papers"]}
+        ids = [i for i in proyecto["seleccion"] if i in existentes]
+    else:
+        ids = [p["id"] for p in proyecto["papers"]]
+    return ids[:config_proc.MAX_PAPERS_PROCESAR_WEB]
+
+
+def _conteos_por_paper(conn, ids):
+    """Cuántos de los papers pedidos quedaron en cada estado de extracción
+    (ok, no_relevante, sin_abstract, error); `pendiente` = sin extracción."""
+    marcadores = ", ".join("?" for _ in ids)
+    conteos = {f["estado"]: f["n"] for f in conn.execute(
+        f"SELECT estado, COUNT(*) AS n FROM extracciones WHERE paper_id IN ({marcadores}) GROUP BY estado", ids)}
+    pendientes = len(ids) - sum(conteos.values())
+    if pendientes:
+        conteos["pendiente"] = pendientes
+    return conteos
+
+
+def _procesar(pid, token, ids, archivo):
+    def actualizar(**cambios):
+        with _CANDADO:
+            if not _vigente_proc(pid, token):
+                raise Cancelada()
+            _PROYECTOS[pid]["procesamiento"].update(cambios)
+            _guardar(_PROYECTOS[pid])
+
+    def reportar(msg):
+        with _CANDADO:
+            if not _vigente_proc(pid, token):
+                raise Cancelada()
+            proc = _PROYECTOS[pid]["procesamiento"]
+            proc["mensajes"] = (proc["mensajes"] + [msg.strip()])[-MAX_MENSAJES_PROCESAMIENTO:]
+            _guardar(_PROYECTOS[pid])
+
+    hechos = 0
+
+    def paper_terminado(paper, _estado):
+        nonlocal hechos
+        hechos += 1
+        actualizar(hechos=hechos, actual=paper["title"])
+
+    error, conteos = None, {}
+    try:
+        if not extract_llm_insights.verificar_configuracion():
+            raise RuntimeError("Falta configurar el proveedor del LLM: revisa el archivo .env y config_proc.py "
+                               "en procesamiento/.")
+        conn = database_proc.conectar(almacen.ruta(archivo))
+        try:
+            try:
+                actualizar(actual="Descargando el texto completo de los papers de acceso abierto")
+                fetch_fulltext.procesar_pendientes(conn, top=None, paper_ids=ids, avance=reportar)
+                actualizar(actual="Extrayendo observaciones con el modelo")
+                extract_llm_insights.extraer(conn, paper_ids=ids, avance=reportar,
+                                             al_terminar_paper=paper_terminado, relanzar_fatal=True)
+            except Cancelada:
+                raise
+            except Exception as exc:  # lo ya extraído queda guardado: se muestra como resultado parcial
+                print(f"  [error] el procesamiento falló: {type(exc).__name__}: {exc}")
+                error = " ".join(str(exc).split())[:500] or type(exc).__name__
+            conteos = _conteos_por_paper(conn, ids)
+        finally:
+            conn.close()
+    except Cancelada:
+        return
+    except Exception as exc:
+        error = " ".join(str(exc).split())[:500] or type(exc).__name__
+    with _CANDADO:
+        if not _vigente_proc(pid, token):
+            return
+        _PROYECTOS[pid]["procesamiento"].update(
+            activo=False, token=None, estado="error" if error else "ok", error=error,
+            conteos=conteos, fin=_ahora(), actual=None)
+        _guardar(_PROYECTOS[pid])
+
+
+def iniciar_procesamiento(pid, datos):
+    with _CANDADO:
+        proyecto = _obtener(pid)
+        if proyecto["procesamiento"]["activo"]:
+            raise ErrorAPI(409, "Ya hay un procesamiento en curso en este proyecto.")
+        alcance = "sel" if datos.get("alcance") == "sel" else "todos"
+        ids = _objetivo_procesamiento(proyecto, alcance)
+        if not ids:
+            raise ErrorAPI(400, "No hay papers para procesar con ese alcance. Busca o selecciona papers primero.")
+        token = uuid.uuid4().hex
+        proyecto["procesamiento"] = {
+            **PROCESAMIENTO_VACIO, "activo": True, "token": token, "alcance": alcance,
+            "total": len(ids), "inicio": _ahora(), "mensajes": [f"Procesando {len(ids)} papers…"]}
+        _guardar(proyecto)
+        archivo, respuesta = proyecto["archivo"], dict(proyecto)
+    threading.Thread(target=_procesar, daemon=True, args=(pid, token, ids, archivo)).start()
+    return respuesta
+
+
+def cancelar_procesamiento(pid):
+    """No interrumpe la llamada al LLM que esté en curso en ese momento (no se
+    puede cancelar a medio HTTP), pero evita que el hilo siga con el siguiente
+    lote. Lo que ya se extrajo queda guardado en la base del proyecto."""
+    with _CANDADO:
+        proyecto = _obtener(pid)
+        proc = proyecto["procesamiento"]
+        if proc["activo"]:
+            proc.update(activo=False, token=None, estado="error", actual=None, fin=_ahora(),
+                        error="Procesamiento cancelado; lo ya extraído quedó guardado.")
+            _guardar(proyecto)
+        return dict(proyecto)
+
+
+def observaciones_proyecto(pid):
+    """Hallazgos que el LLM extrajo de los papers de este proyecto (tabla
+    `observaciones` de su propia base). [] si todavía no se ha procesado."""
+    with _CANDADO:
+        archivo = _obtener(pid)["archivo"]
+    conn = database_proc.conectar(almacen.ruta(archivo))
+    try:
+        filas = conn.execute("""
+            SELECT o.paper_id, p.title, p.year, p.doi, o.categoria_factor, o.factor_evaluado, o.referencia,
+                   o.variable_resultado, o.efecto, o.cita_textual, o.valida, o.problemas, o.revision_humana
+            FROM observaciones o JOIN papers p ON p.paper_id = o.paper_id
+            ORDER BY o.id
+        """).fetchall()
+        return [dict(f) for f in filas]
+    finally:
+        conn.close()
+
+
 def _pagina_origen(paper):
     """Dominio de la página donde está el texto del paper (p. ej. mdpi.com):
     los motores de búsqueda solo lo indexan. '' si no trae enlace."""
@@ -448,7 +649,9 @@ def exportar_csv(pid, solo_seleccion=False):
 
 # ---------- HTTP ----------
 
-RUTA_PROYECTO = re.compile(r"^/api/proyectos/([0-9a-f]{1,32})(/cadenas|/buscar|/cancelar|/papers\.csv)?$")
+RUTA_PROYECTO = re.compile(
+    r"^/api/proyectos/([0-9a-f]{1,32})"
+    r"(/cadenas|/buscar|/cancelar|/procesar|/cancelar-procesar|/observaciones|/papers\.csv)?$")
 
 
 class Manejador(BaseHTTPRequestHandler):
@@ -501,6 +704,8 @@ class Manejador(BaseHTTPRequestHandler):
                 if metodo == "GET" and accion is None:
                     with _CANDADO:
                         return self._json(_obtener(pid))
+                if metodo == "GET" and accion == "/observaciones":
+                    return self._json(observaciones_proyecto(pid))
                 if metodo == "GET" and accion == "/papers.csv":
                     nombre, contenido = exportar_csv(pid, "seleccion=1" in self.path)
                     return self._responder(200, contenido.encode("utf-8"), "text/csv; charset=utf-8",
@@ -516,6 +721,10 @@ class Manejador(BaseHTTPRequestHandler):
                     return self._json(cancelar_busqueda(pid))
                 if metodo == "POST" and accion == "/buscar":
                     return self._json(iniciar_busqueda(pid, self._cuerpo()))
+                if metodo == "POST" and accion == "/procesar":
+                    return self._json(iniciar_procesamiento(pid, self._cuerpo()))
+                if metodo == "POST" and accion == "/cancelar-procesar":
+                    return self._json(cancelar_procesamiento(pid))
             raise ErrorAPI(404, "No existe esa ruta.")
         except ErrorAPI as exc:
             self._json({"error": exc.mensaje}, exc.estado)

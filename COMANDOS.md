@@ -91,13 +91,38 @@ Primero cd procesamiento. El orden normal es de arriba hacia abajo.
 │ leche_liquida --nivel_grasa entera    │  qué amplía exactamente)        │
 │ --todas                               │                                 │
 ├───────────────────────────────────────┼─────────────────────────────────┤
+│ python probar_azure_openai.py          │ Prueba mínima de conexión con   │
+│                                       │ el deployment de GPT-5.5        │
+├───────────────────────────────────────┼─────────────────────────────────┤
+│ python                                │ Prueba mínima de conexión con   │
+│ probar_document_intelligence.py       │ Azure AI Document Intelligence  │
+├───────────────────────────────────────┼─────────────────────────────────┤
 │ streamlit run app.py                  │ Abre la interfaz gráfica en el  │
 │                                       │ navegador                       │
 └───────────────────────────────────────┴─────────────────────────────────┘
 
-extract_llm_insights.py necesita la API key del LLM en el .env de la raíz (LLM_API_KEY o GEMINI_API_KEY, según LLM_PROVEEDOR en config_proc.py).
+extract_llm_insights.py necesita, en el .env de la raíz, AZURE_OPENAI_ENDPOINT y
+AZURE_OPENAI_API_KEY (el nombre del deployment y el api-version van en
+config_proc.py, no son secretos). Si LLM_PROVEEDOR = "ollama" en config_proc.py,
+no necesita nada del .env.
 
-Secuencia completa
+Frontend (interfaz web)
+
+┌──────────────────┬──────────────────────────────────────────────────────┐
+│      Comando      │                        Qué hace                       │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ cd frontend       │ Entra a la carpeta                                    │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ python servidor.py│ Abre http://127.0.0.1:8000: crea proyectos de        │
+│                   │ búsqueda y, desde sus resultados, dispara "Procesar  │
+│                   │ PDFs" (texto completo + extracción con el LLM) sobre │
+│                   │ la base propia de ese proyecto                       │
+├──────────────────┼──────────────────────────────────────────────────────┤
+│ python servidor.py│ Lo mismo, en otro puerto                             │
+│ 8080              │                                                       │
+└──────────────────┴──────────────────────────────────────────────────────┘
+
+Secuencia completa (línea de comandos, sin el frontend)
 
 source venv/bin/activate
 cd busqueda && python main.py

@@ -232,6 +232,39 @@ def procesar(conn, paper):
     return f"ok_{fuente}"
 
 
+def procesar_pendientes(conn, top, forzar=False, paper_ids=None, avance=None):
+    """Descarga el texto completo de los papers pendientes. Si se da
+    `paper_ids`, procesa solo esos papers (ignora `top`); si no, toma los top
+    N del ranking con acceso abierto. `avance(mensaje)`, si se da, recibe cada
+    línea de progreso además de imprimirse. Devuelve (conteo, total_candidatos)."""
+    def reportar(msg):
+        print(msg)
+        if avance:
+            avance(msg)
+
+    if paper_ids:
+        marcadores = ", ".join("?" for _ in paper_ids)
+        papers = conn.execute(
+            f"""SELECT p.paper_id, p.openalex_id, p.doi, p.oa_url, p.title, t.estado
+               FROM papers p LEFT JOIN textos_completos t USING (paper_id)
+               WHERE p.is_oa = 1 AND p.paper_id IN ({marcadores})""", paper_ids).fetchall()
+    else:
+        papers = conn.execute(
+            """SELECT p.paper_id, p.openalex_id, p.doi, p.oa_url, p.title, t.estado
+               FROM papers p LEFT JOIN textos_completos t USING (paper_id)
+               WHERE p.is_oa = 1 ORDER BY p.score DESC LIMIT ?""", (top,)).fetchall()
+    pendientes = [p for p in papers if forzar or p["estado"] in (None, "error")]
+    reportar(f"{len(papers)} papers de acceso abierto; {len(pendientes)} por descargar.")
+
+    conteo = {}
+    for n, paper in enumerate(pendientes, 1):
+        estado = procesar(conn, paper)
+        conteo[estado] = conteo.get(estado, 0) + 1
+        reportar(f"  [{n}/{len(pendientes)}] {estado:<13} {(paper['title'] or '')[:80]}")
+        time.sleep(PAUSA_S)
+    return conteo, len(papers)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--top", type=int, default=config.MAX_PAPERS_TEXTO_COMPLETO)
@@ -239,19 +272,7 @@ def main():
     args = parser.parse_args()
 
     conn = database.conectar(config.DB_PATH)
-    papers = conn.execute(
-        """SELECT p.paper_id, p.openalex_id, p.doi, p.oa_url, p.title, t.estado
-           FROM papers p LEFT JOIN textos_completos t USING (paper_id)
-           WHERE p.is_oa = 1 ORDER BY p.score DESC LIMIT ?""", (args.top,)).fetchall()
-    pendientes = [p for p in papers if args.forzar or p["estado"] in (None, "error")]
-    print(f"{len(papers)} papers de acceso abierto en el top {args.top}; {len(pendientes)} por descargar.")
-
-    conteo = {}
-    for n, paper in enumerate(pendientes, 1):
-        estado = procesar(conn, paper)
-        conteo[estado] = conteo.get(estado, 0) + 1
-        print(f"  [{n}/{len(pendientes)}] {estado:<13} {(paper['title'] or '')[:80]}")
-        time.sleep(PAUSA_S)
+    conteo, _ = procesar_pendientes(conn, args.top, args.forzar)
 
     print(f"\nResumen: {conteo}")
     total = conn.execute("SELECT estado, COUNT(*) FROM textos_completos GROUP BY estado").fetchall()

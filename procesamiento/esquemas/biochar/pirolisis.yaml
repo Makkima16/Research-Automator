@@ -1,0 +1,84 @@
+# BORRADOR — redactado con conocimiento general de pirólisis/biochar, SIN
+# confirmar con el equipo. Revisa nombres de campo, unidades, rangos y sobre
+# todo los valores de los enums (tipo_biomasa, atmosfera, tipo_reactor) antes
+# de usarlo para extraer de verdad: son una primera aproximación, no la
+# vocabulario definitivo.
+familia: biochar
+etapa: pirolisis
+version: 1
+descripcion: >
+  Una fila por comparación + variable medida que un paper sobre pirólisis de
+  biomasa para producir biochar reporte (ej. "400°C vs 600°C -> rendimiento
+  de biochar -> empeora"). Mismo patrón que leche/general.yaml: factor
+  evaluado vs. referencia, con `efecto` como variable objetivo del árbol.
+
+enums:
+  tipo_biomasa: [cascarilla_arroz, bagazo_cana, aserrin, cascara_cafe, estiercol,
+                 lodos_residuales, paja_trigo, otro, no_especificado]
+  atmosfera: [nitrogeno, argon, vacio, aire_limitado, sin_control, otro, no_especificado]
+  tipo_reactor: [lecho_fijo, lecho_fluidizado, rotatorio, horno_mufla, microondas, otro, no_especificado]
+  tipo_estudio: [experimental_laboratorio, piloto, modelado_simulacion, revision, otro]
+  variable_resultado: [rendimiento_biochar, area_superficial, capacidad_adsorcion,
+                        contenido_carbono_fijo, estabilidad_termica, ph_biochar, otro]
+  efecto: [mejora, sin_diferencia, empeora, mixto]
+
+campos:
+  factor_evaluado:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Condición de pirólisis que se evalúa, ej. '600°C', 'atmósfera N2', '20°C/min'"
+  referencia:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Condición de control con la que se compara, ej. '400°C', 'aire limitado'"
+  tipo_estudio:
+    tipo: enum
+    enum: tipo_estudio
+    obligatorio: true
+  tipo_biomasa:
+    tipo: enum
+    enum: tipo_biomasa
+    obligatorio: true
+    descripcion: "Materia prima del biochar evaluado (no la de la referencia, si difiere)"
+  temperatura_pirolisis_c:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Temperatura máxima de pirólisis en °C, solo si el texto la da"
+  tiempo_residencia_min:
+    tipo: numero
+    obligatorio: false
+  tasa_calentamiento_c_min:
+    tipo: numero
+    obligatorio: false
+    descripcion: "°C por minuto hasta llegar a la temperatura de pirólisis"
+  atmosfera:
+    tipo: enum
+    enum: atmosfera
+    obligatorio: false
+  tipo_reactor:
+    tipo: enum
+    enum: tipo_reactor
+    obligatorio: false
+  rendimiento_biochar_pct:
+    tipo: numero
+    obligatorio: false
+    descripcion: "% en masa de biochar obtenido respecto a la biomasa seca inicial"
+  pais:
+    tipo: texto
+    obligatorio: false
+  tamano_muestra:
+    tipo: entero
+    obligatorio: false
+  variable_resultado:
+    tipo: enum
+    enum: variable_resultado
+    obligatorio: true
+  efecto:
+    tipo: enum
+    enum: efecto
+    obligatorio: true
+    descripcion: "Qué le pasó a la variable medida en el factor evaluado frente a la referencia"
+  cita_textual:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Frase COPIADA LITERALMENTE del texto que respalda esta observación"

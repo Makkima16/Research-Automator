@@ -1,0 +1,75 @@
+# BORRADOR — mismo aviso que pirolisis.yaml: revisar antes de usar en serio.
+familia: biochar
+etapa: caracterizacion
+version: 1
+descripcion: >
+  Una fila por comparación + propiedad medida del biochar YA PRODUCIDO
+  (fisicoquímica/estructural), a diferencia de pirolisis.yaml que describe
+  las condiciones del proceso. Ej. "biochar de 600°C vs 400°C -> área
+  superficial BET -> mejora".
+
+enums:
+  tipo_biomasa: [cascarilla_arroz, bagazo_cana, aserrin, cascara_cafe, estiercol,
+                 lodos_residuales, paja_trigo, otro, no_especificado]
+  tipo_estudio: [experimental_laboratorio, piloto, modelado_simulacion, revision, otro]
+  variable_resultado: [area_superficial_bet, capacidad_intercambio_cationico, ph,
+                        contenido_carbono_fijo, contenido_cenizas, relacion_c_n,
+                        capacidad_adsorcion, estabilidad_termica, otro]
+  efecto: [mejora, sin_diferencia, empeora, mixto]
+
+campos:
+  factor_evaluado:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Biochar que se evalúa, ej. 'biochar a 600°C', 'biochar activado'"
+  referencia:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Biochar de control con el que se compara, ej. 'biochar a 400°C', 'sin activar'"
+  tipo_estudio:
+    tipo: enum
+    enum: tipo_estudio
+    obligatorio: true
+  tipo_biomasa:
+    tipo: enum
+    enum: tipo_biomasa
+    obligatorio: true
+  ph:
+    tipo: numero
+    obligatorio: false
+  area_superficial_bet_m2_g:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Área superficial BET en m²/g"
+  carbono_fijo_pct:
+    tipo: numero
+    obligatorio: false
+  contenido_cenizas_pct:
+    tipo: numero
+    obligatorio: false
+  relacion_c_n:
+    tipo: numero
+    obligatorio: false
+    descripcion: "Relación carbono/nitrógeno (adimensional)"
+  capacidad_intercambio_cationico_cmol_kg:
+    tipo: numero
+    obligatorio: false
+  pais:
+    tipo: texto
+    obligatorio: false
+  tamano_muestra:
+    tipo: entero
+    obligatorio: false
+  variable_resultado:
+    tipo: enum
+    enum: variable_resultado
+    obligatorio: true
+  efecto:
+    tipo: enum
+    enum: efecto
+    obligatorio: true
+    descripcion: "Qué le pasó a la variable medida en el factor evaluado frente a la referencia"
+  cita_textual:
+    tipo: texto
+    obligatorio: true
+    descripcion: "Frase COPIADA LITERALMENTE del texto que respalda esta observación"

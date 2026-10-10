@@ -27,15 +27,14 @@ DB_PATH = _config_busqueda.DB_PATH
 # CSV que exporta el procesamiento (tabla_arbol.csv, evidencia_mercado.csv...)
 OUTPUT_DIR = os.path.join(_AQUI, "output")
 
-# Archivo con las API keys del LLM (GEMINI_API_KEY, LLM_API_KEY)
+# Archivo con las API keys del LLM y de Document Intelligence
 ENV_PATH = os.path.join(RAIZ, ".env")
 
 # Proveedor del LLM que lee los abstracts:
-#   "gemini" -> API de Google (cuota gratuita muy limitada)
+#   "azure"  -> deployment de GPT-5.5 en Azure AI Foundry; el endpoint y la key
+#               van en .env como AZURE_OPENAI_ENDPOINT=... y AZURE_OPENAI_API_KEY=...
 #   "ollama" -> modelo local en tu PC con Ollama (gratis, sin cuotas, más lento)
-#   "openai" -> cualquier API compatible con OpenAI (Groq, OpenRouter, Mistral...);
-#               la key va en .env como LLM_API_KEY=...
-LLM_PROVEEDOR = "openai"
+LLM_PROVEEDOR = "azure"
 
 # Ollama: instala desde https://ollama.com y descarga el modelo con
 # "ollama pull qwen2.5:7b". Un modelo de 7-8B necesita ~6 GB de RAM.
@@ -45,44 +44,30 @@ OLLAMA_CONTEXTO = 8192       # tokens de contexto (prompt + respuesta)
 OLLAMA_TIMEOUT_S = 1800      # en CPU una respuesta puede tardar varios minutos
 PAPERS_POR_LOTE_LOCAL = 2    # los modelos pequeños rinden mejor con pocos papers a la vez
 
-# API compatible con OpenAI. Ejemplo para Groq (revisa en su consola los
-# modelos disponibles y sus límites gratuitos):
-OPENAI_BASE_URL = "https://api.groq.com/openai/v1"
-OPENAI_MODELO = "qwen/qwen3.8-27b"
-# El plan gratuito de Groq limita los tokens por minuto (~8000): lotes chicos
-# y una pausa entre solicitudes para no pasarse
-PAPERS_POR_LOTE_API = 3
-PAUSA_API_S = 30
-# Tokens de entrada máximos por solicitud (Groq gratis acepta ~7000 por minuto):
-# los lotes se arman sumando papers hasta este presupuesto
-MAX_TOKENS_ENTRADA_API = 5000
+# Azure AI Foundry. El nombre del deployment y el api-version NO son secretos
+# (a diferencia del endpoint y la key, que van en .env): ajústalos aquí según
+# lo que muestre tu recurso en Foundry -> Deployments -> "View code".
+AZURE_OPENAI_DEPLOYMENT = "gpt-5.5"
+AZURE_OPENAI_API_VERSION = "2024-10-21"
+# Plan pagado: lotes más grandes y menos pausa que con Groq gratis; ajusta
+# según el límite de tokens/minuto (TPM) que te muestre tu cuota de Azure.
+PAPERS_POR_LOTE_AZURE = 15
+PAUSA_AZURE_S = 2
+# Tokens de entrada máximos por solicitud: los lotes se arman sumando papers
+# hasta este presupuesto (súbelo si tu cuota de Azure lo permite)
+MAX_TOKENS_ENTRADA_AZURE = 20000
 
 # Algunos "abstracts" de OpenAlex traen el texto completo del paper (miles de
 # palabras). Se recortan a este largo para el LLM; la verificación de citas
 # sigue usando el texto completo.
 MAX_CARACTERES_ABSTRACT = 6000
 
-# Modelo de Gemini para extraer observaciones de los abstracts.
-# La API key va en el archivo .env: GEMINI_API_KEY=tu_api_key
-LLM_MODEL = "gemini-3.8-flash"
-# Si el modelo principal está saturado (error 503), se prueban estos en orden
-# (cada modelo tiene su propia cuota diaria; los alias "-latest" comparten la
-# del modelo al que apuntan, por eso no se usan aquí)
-LLM_MODELOS_RESPALDO = ["gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
-
-# Papers enviados en cada solicitud al LLM. El plan gratuito da ~20 solicitudes
-# por día y por modelo: con 10 papers por lote alcanzan para ~200 papers diarios.
-PAPERS_POR_LOTE = 10
-
-# Si todos los modelos están saturados (error 503), espera antes del siguiente lote
-ESPERA_SATURACION_S = 120
-
 # Cuántos papers del ranking se envían al LLM por defecto
 MAX_PAPERS_TO_EXTRACT = 50
 
-# Pausa entre llamadas al LLM (el plan gratuito de Gemini limita las
-# solicitudes por minuto; bájala si tienes un plan con más cuota)
-PAUSA_ENTRE_LLAMADAS_S = 6
+# Tope de papers por corrida de "Procesar PDFs" desde la interfaz web del
+# Buscador (busqueda/servidor.py), para controlar el costo de Azure
+MAX_PAPERS_PROCESAR_WEB = 60
 
 # Normatividad: tabla editable con los límites legales (una fila por parámetro).
 # Es la fuente de verdad; se recarga en selema.db (tabla `normas`) cada
@@ -98,3 +83,6 @@ JURISDICCIONES_NORMAS = ["colombia", "codex"]
 MAX_CARACTERES_TEXTO_COMPLETO = 4000
 # Papers del ranking para los que se busca texto completo
 MAX_PAPERS_TEXTO_COMPLETO = 200
+
+# Azure AI Document Intelligence (endpoint y key en .env: AZURE_DOCUMENT_INTELLIGENCE_*)
+AZURE_DOCUMENT_INTELLIGENCE_API_VERSION = "2024-11-30"
