@@ -112,12 +112,16 @@ def buscar_pdf(sh, doi):
 def _necesita_pdf(paper):
     if not paper.get("doi") or paper.get("pdf_bloqueado") == "no":
         return False
+    anio = paper.get("year")
+    if anio and anio > config.SCIHUB_ULTIMO_ANIO:  # Sci-Hub no tiene papers posteriores
+        return False
     return paper.get("pdf_bloqueado") == "si" or not paper.get("oa_url")
 
 
 def completar(papers, mirrors, max_papers, al_avanzar=None):
     """Busca en Sci-Hub, por DOI, los primeros `max_papers` papers de la lista
-    (se espera ya rankeada) que no tienen un PDF accesible. A los que
+    (se espera ya rankeada) que no tienen un PDF accesible y son de
+    config.SCIHUB_ULTIMO_ANIO o antes. A los que
     encuentra les pone motor_pdf = "scihub", pdf_url y pdf_bloqueado = None
     (ese enlace no se revisa), y suma "scihub" a motor_busqueda.
     `al_avanzar(n, total)` se llama antes de cada paper. Devuelve cuántos

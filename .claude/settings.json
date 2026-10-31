@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push:*)",
+      "Edit(.env)",
+      "Edit(output/**)",
+      "Edit(venv/**)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git switch -c:*)",
+      "Bash(git branch:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git pull:*)",
+      "Bash(git reset:*)",
+      "Bash(git restore:*)",
+      "Bash(git clean:*)",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)",
+      "Bash(rm:*)"
+    ]
+  }
+}

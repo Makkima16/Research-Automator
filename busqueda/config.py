@@ -3,8 +3,8 @@ Configuración de la búsqueda de papers (OpenAlex, Semantic Scholar, Scopus y
 Sci-Hub).
 Edita las cadenas de búsqueda y los parámetros según el tema que investigues.
 
-La configuración del procesamiento de los papers (LLM, texto completo,
-normatividad) está en ../procesamiento/config_proc.py.
+La configuración del procesamiento de los papers (Nemotron Parse y
+fichas con Nemotron) está en ../procesamiento/config_proc.py.
 """
 
 import os
@@ -66,8 +66,10 @@ MIN_PUBLICATION_YEAR = 2015
 
 # Papers que se traen por cada cadena de búsqueda en cada plataforma (OpenAlex,
 # Semantic Scholar y Scopus): con N cadenas y 3 plataformas, hasta N × 3 × este
-# valor antes de deduplicar por DOI.
-MAX_RESULTS_PER_QUERY = 10
+# valor antes de deduplicar por DOI. El valor anterior era 10; se subió a 25
+# tras medir (pruebas/cadenas/amplitud.py) que el tope, y no la falta de
+# resultados, era lo que limitaba cuántos papers veía el usuario.
+MAX_RESULTS_PER_QUERY = 25
 
 # Segundos que se dejan pasar entre una solicitud y la siguiente a las
 # plataformas de papers (las tres de arriba y Sci-Hub), sin importar a cuál
@@ -89,25 +91,12 @@ def esperar_turno():
         _ultima_peticion = time.monotonic()
 
 
-# Palabras clave para buscar productos/alimentos lácteos en USDA FoodData Central
-USDA_QUERIES = [
-    "A2 milk",
-    "milk beta casein",
-    "whole milk",
-    "yogurt",
-    "cheese",
-    "lactose free milk",
-    "grass fed milk",
-    "organic milk",
-    "UHT milk",
-    "goat milk",
-    "kefir",
-]
-
-# Consigue tu API key gratis e instantánea en:
-# https://fdc.nal.usda.gov/api-key-signup
-# DEMO_KEY funciona pero con un límite muy bajo (30 solicitudes/hora).
-USDA_API_KEY = _clave("USDA_API_KEY")
+# OpenAlex funciona sin key (con el "polite pool" vía mailto), pero su
+# presupuesto diario gratuito se comparte por IP y se agota con facilidad
+# (HTTP 429 "Insufficient budget"). Una key propia es gratis y se pide en
+# https://openalex.org/users/me (botón "Create an API key"); va en ../.env como
+# OPENALEX_API_KEY y fetch_papers.py la envía sola si existe.
+OPENALEX_API_KEY = _clave("OPENALEX_API_KEY")
 
 # Semantic Scholar (https://www.semanticscholar.org): segunda fuente de
 # papers, independiente de OpenAlex. Se usa para encontrar más papers y,
@@ -138,6 +127,9 @@ SCIHUB_MIRRORS = ["sci-hub.ru", "sci-hub.ee", "sci-hub.ren"]
 # Cuántos de los papers mejor rankeados sin PDF accesible se buscan en
 # Sci-Hub (hasta una solicitud por mirror por cada paper)
 MAX_PAPERS_SCIHUB = 30
+# Sci-Hub dejó de agregar papers en 2021: los publicados después no se buscan
+# ahí (se perdería una solicitud por mirror por nada). Sin año conocido sí se prueba.
+SCIHUB_ULTIMO_ANIO = 2021
 
 # Cuántos de los papers mejor rankeados se revisan contra bloqueo de PDF
 # (una o dos solicitudes HTTP por paper; con muchos se vuelve lento)
@@ -157,9 +149,11 @@ WEB_PUERTO = 8000
 PROYECTOS_DIR = os.path.join(OUTPUT_DIR, "proyectos")
 
 # LLM que convierte el tema escrito en la interfaz web en cadenas de búsqueda
-# (generar_cadenas.py): un modelo de Gemini (Google AI Studio) llamado con
-# LangChain. La key va en ../.env como LLM_API_KEY (se saca gratis en
-# https://aistudio.google.com/apikey). Sin key, o si el modelo falla, la
-# interfaz arma cadenas básicas con las palabras del tema.
-LLM_MODELO = "gemini-3.5-flash"
-LLM_API_KEY = _clave("LLM_API_KEY")
+# (generar_cadenas.py): Nemotron en build.nvidia.com (el mismo que usa
+# ../procesamiento). En ../.env: NVIDIA_API_KEY. Si no responde, la interfaz
+# arma cadenas básicas con las palabras del tema y lo avisa.
+NVIDIA_API_KEY = _clave("NVIDIA_API_KEY")
+NVIDIA_PARSE_API_KEY = _clave("NVIDIA_PARSE_API_KEY")
+NVIDIA_MODELO = "nvidia/nemotron-3.5-super-vl-120b-a12b"
+NVIDIA_URL_CHAT = "https://integrate.api.nvidia.com/v1/chat/completions"
+NVIDIA_URL_PARSE = "https://ai.api.nvidia.com/v1/retrieval/nvidia/nemotron-3.5-parse/parse"

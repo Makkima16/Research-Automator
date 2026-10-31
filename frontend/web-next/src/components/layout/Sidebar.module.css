@@ -1,0 +1,43 @@
+.aside { position: sticky; top: 0; height: 100vh; padding: 14px 0 14px 14px; }
+.panel {
+  height: 100%; display: flex; flex-direction: column;
+  background: var(--color-surface); border-radius: var(--radius-lg); padding: 22px 14px 16px;
+}
+.marca { display: flex; align-items: center; gap: 10px; padding: 0 8px 26px; }
+.logo {
+  width: 34px; height: 34px; flex: none; border-radius: 50%;
+  background: var(--color-accent); color: var(--color-bg); display: grid; place-items: center;
+}
+.nombre { font-family: var(--font-heading); font-size: 18px; line-height: 1.05; }
+.cabecera { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 8px 8px; }
+.titulo {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-neutral-700); font-weight: 600;
+}
+.nuevo { width: 30px; height: 30px; }
+.lista {
+  flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 4px;
+  margin: 0 -4px; padding: 0 4px;
+}
+.vacio { padding: 10px 12px; font-size: 13px; color: var(--color-neutral-700); }
+.item {
+  display: flex; align-items: center; gap: 8px; padding: 10px 8px 10px 12px;
+  border-radius: var(--radius-md); cursor: pointer; border: 0; background: transparent;
+  font: inherit; color: inherit; text-align: left; width: 100%;
+}
+.item:hover { background: var(--color-neutral-100); }
+.itemActivo { background: var(--color-neutral-100); box-shadow: var(--shadow-sm); }
+.punto { width: 8px; height: 8px; flex: none; border-radius: 50%; }
+.texto { flex: 1; min-width: 0; }
+.itemNombre { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.itemMeta { font-size: 12px; color: var(--color-neutral-700); }
+.borrar { width: 28px; height: 28px; color: var(--color-neutral-700); }
+.borrar:hover { background: var(--color-accent-100); color: var(--color-accent-700); }
+.pie {
+  padding: 14px 8px 0; font-size: 12px; color: var(--color-neutral-700);
+  display: flex; justify-content: space-between;
+}
+
+@media (max-width: 760px) {
+  .aside { display: none; }
+}

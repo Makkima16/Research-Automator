@@ -1,0 +1,1766 @@
+[
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "banana starch digestibility AND INFOGEST model AND machine learning",
+   "banana starch digestibility AND INFOGEST model AND deep learning",
+   "banana starch digestibility AND INFOGEST model AND nutrient concentration",
+   "banana starch digestibility AND INFOGEST model AND maturity",
+   "banana starch digestibility AND INFOGEST model AND prediction"
+  ],
+  "brutas": 5,
+  "dt": 6.364173889160156
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "infogest AND digestibility AND bitterness",
+   "infogest AND digestibility AND EAAI",
+   "infogest AND digestibility AND machine learning",
+   "infogest AND digestibility AND explainable AI",
+   "infogest AND digestibility AND optimization"
+  ],
+  "brutas": 5,
+  "dt": 3.295017719268799
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "machine learning AND \"linear discriminant analysis\" OR \"linear discriminant function\" OR \"Fisher discriminant\" OR \"LDA\"",
+   "machine learning AND \"linear classifier\" OR \"linear decision boundary\" OR \"linear separation\" OR \"hyperplane\"",
+   "machine learning AND \"dimensionality reduction\" OR \"feature extraction\" OR \"projection\" OR \"class separability\"",
+   "machine learning AND \"supervised learning\" OR \"classification\" OR \"pattern recognition\" OR \"supervised classification\"",
+   "machine learning AND \"linear discriminant\" OR \"discriminant analysis\" OR \"discriminant classifier\" OR \"linear discriminant model\""
+  ],
+  "brutas": 5,
+  "dt": 7.617222309112549
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "\"whole milk\" AND \"UHT processing\" AND \"shelf life\"",
+   "\"whole milk\" AND \"ultra high temperature\" AND \"nutritional quality\"",
+   "\"whole milk\" AND \"UHT\" AND \"pasteurized milk\" AND \"sensory\"",
+   "\"whole milk\" AND \"UHT\" AND \"storage temperature\" AND \"stability\"",
+   "\"whole milk\" AND \"UHT\" AND \"heat treatment\" AND \"vitamins\"",
+   "\"whole milk\" AND \"UHT\" AND \"shelf life\" AND \"new dairy products\"",
+   "\"whole milk\" AND \"UHT\" AND \"flavor\" AND \"nutritional value\"",
+   "\"whole milk\" AND \"UHT\" AND \"storage conditions\" AND \"chemical changes\"",
+   "\"whole milk\" AND \"UHT\" AND \"pasteurized\" AND \"nutritional comparison\"",
+   "\"whole milk\" AND \"UHT\" AND \"shelf life\" AND \"consumer acceptance\""
+  ],
+  "brutas": 10,
+  "dt": 7.008358716964722
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "chemotherapy OR radiotherapy OR immunotherapy OR \"targeted therapy\" AND cancer OR tumor OR carcinoma OR neoplasm AND treatment OR therapy OR intervention",
+   "\"cancer treatment\" OR \"oncology treatment\" AND efficacy OR effectiveness OR survival OR response AND clinical trial OR study OR research",
+   "\"personalized medicine\" OR \"precision oncology\" OR \"immunotherapy\" OR \"gene therapy\" AND cancer OR tumor OR carcinoma AND treatment OR therapy OR intervention",
+   "\"cancer therapy\" OR \"anticancer treatment\" AND patient OR population OR cohort AND outcome OR prognosis OR quality of life",
+   "\"novel treatment\" OR \"emerging therapy\" OR \"innovative treatment\" AND cancer OR tumor OR carcinoma AND research OR study OR development"
+  ],
+  "brutas": 5,
+  "dt": 4.666894435882568
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "robotica OR automatizacion OR robots industriales OR sistemas automaticos OR control automatico",
+   "robotica avanzada OR automatizacion avanzada OR manufactura inteligente OR industria 4.0 OR fabricacion automatizada",
+   "robotica industrial OR automatizacion de procesos OR robots de servicio OR sistemas roboticos OR automatizacion de fabricacion",
+   "robotica colaborativa OR automatizacion logistica OR robots autonomos OR automatizacion de almacen OR control de procesos industriales",
+   "robotica medica OR automatizacion hospitalaria OR robots quirurgicos OR automatizacion de laboratorio OR robotica de rehabilitacion"
+  ],
+  "brutas": 5,
+  "dt": 9.653031826019287
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "mobile robot navigation AND warehouse automation AND motion accuracy",
+   "autonomous mobile robot AND logistics warehouse AND positioning precision",
+   "mobile robot path tracking AND warehouse automation AND localization accuracy",
+   "autonomous guided vehicle AND distribution center AND navigation error",
+   "mobile robot AND warehouse automation AND trajectory control AND localization"
+  ],
+  "brutas": 5,
+  "dt": 7.764810800552368
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "artificial intelligence OR machine learning OR deep learning AND cobot OR \"collaborative robot\" AND warehouse OR logistics OR intralogistics",
+   "artificial intelligence OR machine learning OR deep learning AND \"human robot collaboration\" OR \"human-robot interaction\" AND warehouse OR logistics OR intralogistics",
+   "artificial intelligence OR machine learning OR deep learning AND cobot OR \"collaborative robot\" AND \"order picking\" OR \"material handling\" OR \"automated guided vehicle\"",
+   "artificial intelligence OR machine learning OR deep learning AND cobot OR \"collaborative robot\" AND warehouse OR logistics OR intralogistics AND NOT \"industrial robot\"",
+   "artificial intelligence OR machine learning OR deep learning AND \"mobile robot\" OR \"autonomous mobile robot\" AND warehouse OR logistics OR intralogistics"
+  ],
+  "brutas": 5,
+  "dt": 7.827124118804932
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"banana starch\" OR \"plantain starch\" OR \"banana flour\" OR \"plantain flour\" AND INFOGEST OR \"in vitro digestion\" OR \"digestibility model\" OR \"simulated digestion\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"predictive model\"",
+   "\"starch digestibility\" OR \"resistant starch\" OR \"rapidly digestible starch\" OR \"slowly digestible starch\" AND banana OR plantain OR Musa OR maturity AND \"artificial intelligence\" OR \"random forest\" OR \"support vector machine\" OR \"convolutional neural network\"",
+   "INFOGEST OR \"static in vitro digestion\" OR \"dynamic in vitro digestion\" OR \"gastrointestinal simulation\" AND \"nutrient concentration\" OR bioaccessibility OR bioavailability OR \"postprandial glucose\" AND \"machine learning\" OR \"deep learning\" OR algorithm OR prediction",
+   "\"green banana\" OR \"ripe banana\" OR \"unripe plantain\" OR \"ripe plantain\" AND \"starch hydrolysis\" OR \"starch digestion\" OR \"glycemic index\" OR \"carbohydrate digestion\" AND \"deep learning\" OR \"machine learning\" OR regression OR classification",
+   "\"banana flour\" OR \"plantain flour\" OR \"green banana flour\" OR \"resistant starch\" AND INFOGEST OR \"in vitro\" OR \"digestion model\" OR \"simulated gastrointestinal\" AND \"neural network\" OR \"random forest\" OR XGBoost OR \"artificial neural network\""
+  ],
+  "brutas": 5,
+  "dt": 8.473172187805176
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "infogest OR \"in vitro digestion\" OR digestibility AND bitterness OR EAAI OR \"amino acid index\" AND \"machine learning\" OR XAI OR optimization",
+   "digestibility OR \"protein hydrolysis\" OR bioaccessibility AND bitterness OR sensory OR flavor AND extrapolation OR prediction OR modeling",
+   "INFOGEST OR \"static digestion\" OR \"dynamic digestion\" AND EAAI OR \"essential amino acid\" OR \"digestibility percentage\" AND \"artificial intelligence\" OR \"explainable AI\" OR algorithm",
+   "\"food matrix\" OR \"protein digestibility\" OR peptide AND \"bitter taste\" OR \"bitterness index\" OR EAAI AND \"data optimization\" OR \"machine learning\" OR extrapolation",
+   "\"in vitro\" OR gastrointestinal OR digestion AND bitterness OR EAAI OR \"amino acid\" AND \"predictive model\" OR XAI OR optimization"
+  ],
+  "brutas": 5,
+  "dt": 17.455987691879272
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"machine learning\" OR \"deep learning\" OR \"artificial intelligence\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" OR \"linear discriminant function\"",
+   "classification OR \"supervised learning\" OR \"pattern recognition\" AND \"linear discriminant analysis\" OR LDA OR \"discriminant analysis\" OR \"Fisher linear discriminant\"",
+   "\"dimensionality reduction\" OR \"feature extraction\" OR \"feature selection\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" OR \"linear discriminant\"",
+   "\"logistic regression\" OR \"support vector machine\" OR \"naive Bayes\" OR \"neural network\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\"",
+   "\"face recognition\" OR \"image classification\" OR \"medical diagnosis\" OR \"text classification\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" OR \"linear discriminant function\""
+  ],
+  "brutas": 5,
+  "dt": 8.990622282028198
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "\"whole milk\" OR \"whole UHT milk\" OR \"full fat milk\" AND \"ultra high temperature\" OR \"UHT processing\" OR \"ultra pasteurization\" AND \"shelf life\" OR \"storage stability\" OR \"product quality\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"pasteurized milk\" AND \"sensory quality\" OR flavor OR taste OR \"nutritional value\" AND \"processing temperature\" OR \"heat treatment\" OR \"storage temperature\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"non UHT milk\" AND \"shelf life\" OR \"storage conditions\" OR \"shelf stability\" AND \"vitamin retention\" OR \"nutrient loss\" OR \"nutritional quality\"",
+   "\"whole milk\" OR \"UHT processing\" OR \"ultra high temperature\" AND \"consumer acceptance\" OR \"sensory evaluation\" OR \"flavor stability\" AND \"storage time\" OR \"shelf life\" OR \"product stability\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"pasteurized milk\" AND \"Maillard reaction\" OR \"cooked flavor\" OR \"heat induced changes\" AND \"storage temperature\" OR \"refrigerated storage\" OR \"ambient storage\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"non UHT milk\" AND \"protein denaturation\" OR \"nutritional value\" OR \"vitamin stability\" AND \"shelf life\" OR \"storage stability\" OR \"product quality\"",
+   "\"whole milk\" OR \"UHT processing\" OR \"ultra pasteurization\" AND \"sensory properties\" OR taste OR \"flavor profile\" AND \"storage conditions\" OR \"temperature abuse\" OR \"shelf life\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"pasteurized milk\" AND \"nutritional composition\" OR \"nutrient content\" OR \"vitamin content\" AND \"shelf stability\" OR \"storage time\" OR \"product shelf life\"",
+   "\"whole milk\" OR \"UHT processing\" OR \"ultra high temperature\" AND \"dairy product development\" OR \"new dairy products\" OR \"product innovation\" AND \"shelf life\" OR \"storage stability\" OR \"quality attributes\"",
+   "\"whole milk\" OR \"UHT milk\" OR \"non UHT milk\" AND \"processing factors\" OR \"heat treatment\" OR \"storage temperature\" AND \"sensory quality\" OR \"nutritional quality\" OR \"product stability\""
+  ],
+  "brutas": 10,
+  "dt": 13.709532737731934
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"cancer treatment\" OR chemotherapy OR radiotherapy OR immunotherapy AND \"clinical trial\" OR efficacy OR survival OR outcome",
+   "\"targeted therapy\" OR \"molecular therapy\" OR \"precision medicine\" AND tumor OR carcinoma OR malignancy OR neoplasm",
+   "cancer OR oncology OR tumor AND \"palliative care\" OR \"supportive care\" OR \"symptom management\"",
+   "immunotherapy OR \"immune checkpoint\" OR \"CAR T cell\" AND cancer OR leukemia OR lymphoma OR melanoma",
+   "cancer OR oncology AND adult OR elderly OR geriatric OR pediatric AND treatment OR therapy OR intervention"
+  ],
+  "brutas": 5,
+  "dt": 15.799440383911133
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "robotica OR \"robotica industrial\" OR \"robotica avanzada\" OR \"automatizacion robotica\" OR \"sistemas roboticos\"",
+   "\"automatizacion avanzada\" OR \"automatizacion industrial\" OR \"automatizacion de procesos\" OR \"sistemas automatizados\" OR \"control automatizado\"",
+   "robotica OR \"robotica industrial\" OR \"robotica avanzada\" OR \"automatizacion robotica\" OR \"sistemas roboticos\" AND \"automatizacion avanzada\" OR \"automatizacion industrial\" OR \"automatizacion de procesos\" OR \"sistemas automatizados\" OR \"control automatizado\"",
+   "\"robotica de servicio\" OR \"robotica colaborativa\" OR \"robotica movil\" OR \"robotica medica\" OR \"robotica educativa\"",
+   "robotica OR \"robotica industrial\" OR \"robotica avanzada\" OR \"automatizacion robotica\" OR \"sistemas roboticos\" AND \"Industria 4.0\" OR \"fabricacion inteligente\" OR \"fabricacion avanzada\" OR \"transformacion digital\" OR \"internet de las cosas industrial\""
+  ],
+  "brutas": 5,
+  "dt": 3.6304194927215576
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"autonomous mobile robot\" OR \"mobile robot\" OR AMR OR \"automated guided vehicle\" AND \"positioning accuracy\" OR \"navigation accuracy\" OR \"motion precision\" OR \"localization accuracy\" AND \"warehouse automation\" OR \"logistics warehouse\" OR intralogistics OR \"fulfillment center\"",
+   "\"autonomous mobile robot\" OR \"mobile manipulator\" OR AGV OR \"self guided vehicle\" AND repeatability OR \"positioning error\" OR \"path tracking\" OR \"odometry accuracy\" AND warehouse OR \"distribution center\" OR \"logistics center\" OR \"material handling\"",
+   "\"autonomous mobile robot\" OR \"mobile robot\" OR AGV AND SLAM OR localization OR navigation OR \"path planning\" AND \"warehouse automation\" OR \"logistics automation\" OR intralogistics",
+   "\"autonomous mobile robot\" OR \"mobile robot\" OR \"automated guided vehicle\" AND \"positioning accuracy\" OR \"navigation precision\" OR \"motion accuracy\" AND \"order picking\" OR \"goods to person\" OR \"pallet transport\" OR \"inventory management\"",
+   "\"autonomous mobile robot\" OR \"mobile robot\" OR AGV AND \"positioning accuracy\" OR repeatability OR \"localization precision\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"fulfillment center\" AND Europe OR Germany OR Spain OR \"United States\""
+  ],
+  "brutas": 5,
+  "dt": 9.334189176559448
+ },
+ {
+  "modelo": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" OR \"reinforcement learning\" AND cobot OR \"collaborative robot\" OR cobots AND logistics OR warehouse OR warehousing",
+   "\"computer vision\" OR \"object detection\" OR \"image recognition\" AND cobot OR \"collaborative robot\" AND warehouse OR logistics OR \"fulfillment center\"",
+   "\"human robot interaction\" OR \"human-robot collaboration\" OR \"safe human robot interaction\" AND cobot OR \"collaborative robot\" AND warehouse OR logistics",
+   "\"path planning\" OR navigation OR \"mobile robot\" AND cobot OR \"collaborative robot\" OR AGV OR AMR AND warehouse OR logistics OR intralogistics",
+   "\"pick and place\" OR \"order picking\" OR palletizing OR \"material handling\" AND cobot OR \"collaborative robot\" AND warehouse OR logistics OR \"distribution center\""
+  ],
+  "brutas": 5,
+  "dt": 10.274151802062988
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-super-120b-a12b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "404 {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'nNOu",
+  "dt": 0
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND starch AND digestib* AND INFOGEST AND matur* OR ripen*",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND starch AND digestib* AND \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND matur* OR ripen*",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND starch AND digestib* AND INFOGEST AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"random forest\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND starch AND digestib* AND \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"random forest\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND starch AND digestib* AND INFOGEST AND matur* OR ripen* AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"random forest\""
+  ],
+  "brutas": 5,
+  "dt": 64.24430346488953
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"in vitro digestion\" OR \"simulated gastrointestinal digestion\" OR \"INFOGEST protocol\" OR \"static digestion model\" AND bitterness OR \"bitterness intensity\" OR BI OR \"electronic tongue\" OR \"taste sensor\" OR \"sensory analysis\" AND \"machine learning\" OR \"random forest\" OR \"support vector regression\" OR \"neural network\" AND \"explainable AI\" OR XAI OR SHAP OR LIME OR \"feature importance\"",
+   "\"protein digestibility\" OR \"degree of hydrolysis\" OR DH OR \"EAAI\" OR \"essential amino acid index\" OR \"digestibility percentage\" OR \"amino acid release\" OR \"peptide profile\" AND \"predictive modeling\" OR \"regression analysis\" OR \"chemometrics\" OR \"multivariate analysis\" AND \"optimization\" OR \"parameter tuning\" OR \"process optimization\" OR \"response surface methodology\"",
+   "\"INFOGEST\" OR \"harmonized digestion protocol\" OR \"digestion assay\" OR \"in vitro assay\" AND bitterness OR BI OR \"bitter peptides\" OR \"taste prediction\" OR \"off-flavor\" AND \"artificial intelligence\" OR \"deep learning\" OR \"gradient boosting\" OR \"Gaussian process\" AND interpretability OR explainability OR \"model interpretation\" OR \"feature selection\"",
+   "\"in vitro digestibility\" OR \"gastric digestion\" OR \"intestinal digestion\" OR \"digestion kinetics\" AND \"bitterness quantification\" OR \"bitter intensity scale\" OR \"EAAI calculation\" OR \"nutritional quality index\" AND \"supervised learning\" OR \"cross-validation\" OR \"hyperparameter optimization\" OR \"model validation\" AND extrapolation OR \"out-of-domain prediction\" OR \"generalization\" OR \"applicability domain\"",
+   "\"food digestion simulation\" OR \"digestion model\" OR \"INFOGEST method\" OR \"standardized digestion\" AND \"peptide bitterness\" OR \"bitter taste receptor\" OR \"TAS2R\" OR \"QSAR\" OR \"structure-taste relationship\" AND \"machine learning pipeline\" OR \"data mining\" OR \"pattern recognition\" OR \"predictive analytics\" AND \"global optimization\" OR \"multi-objective optimization\" OR \"Pareto optimization\" OR \"Bayesian optimization\""
+  ],
+  "brutas": 5,
+  "dt": 59.898327589035034
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" OR \"discriminant function\" AND \"machine learning\" OR \"pattern recognition\" OR classification OR \"supervised learning\"",
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" AND \"dimensionality reduction\" OR \"feature extraction\" OR \"subspace learning\" OR projection",
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" AND regularization OR \"shrinkage\" OR \"regularized discriminant\" OR \"penalized\"",
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" AND \"high dimensional\" OR \"small sample size\" OR \"SSS problem\" OR \"large p small n\"",
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" AND kernel OR \"nonlinear\" OR \"generalized discriminant\" OR \"kernel discriminant\""
+  ],
+  "brutas": 5,
+  "dt": 26.416693449020386
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "\"whole milk\" OR \"full-fat milk\" OR \"full cream milk\" AND UHT OR \"ultra-high temperature\" OR \"ultra heat treatment\" OR \"aseptic processing\" AND quality OR stability OR \"shelf life\" OR \"storage stability\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND pasteurized OR \"pasteurised\" OR \"HTST\" OR \"high temperature short time\" OR raw OR \"raw milk\" AND flavor OR flavour OR taste OR \"sensory properties\" OR \"organoleptic properties\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"nutritional quality\" OR \"nutrient retention\" OR \"vitamin retention\" OR \"protein denaturation\" OR \"lysine blockage\" OR \"Maillard reaction\" AND storage OR \"storage time\" OR \"shelf life\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"treatment temperature\" OR \"processing temperature\" OR \"holding time\" OR \"residence time\" AND \"age gelation\" OR \"sedimentation\" OR \"cream separation\" OR \"physical stability\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"storage temperature\" OR \"ambient temperature\" OR \"accelerated storage\" AND oxidation OR \"lipid oxidation\" OR \"off-flavor\" OR \"off-flavour\" OR rancidity",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"fouling\" OR \"deposit formation\" OR \"heat exchanger\" AND \"process efficiency\" OR \"product quality\" OR \"thermal load\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"aseptic packaging\" OR \"packaging material\" OR \"barrier properties\" OR \"light exposure\" AND \"vitamin loss\" OR \"flavor deterioration\" OR \"shelf life extension\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"direct heating\" OR \"indirect heating\" OR infusion OR injection OR \"plate heat exchanger\" AND \"thermal damage\" OR \"whey protein denaturation\" OR \"casein micelle\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"non-enzymatic browning\" OR \"Maillard reaction\" OR \"furoylmethyl\" OR \"furosine\" OR \"lactulose\" AND \"chemical markers\" OR \"quality indicators\"",
+   "\"whole milk\" OR \"full-fat milk\" AND UHT OR \"ultra-high temperature\" AND \"new product development\" OR innovation OR reformulation OR \"functional ingredients\" OR fortification AND \"process adaptation\" OR \"quality design\""
+  ],
+  "brutas": 10,
+  "dt": 85.47434711456299
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"cancer therapy\" OR \"cancer treatment\" OR oncology OR \"antineoplastic therapy\" AND \"clinical trial\" OR \"phase III\" OR \"phase IV\" OR \"randomized controlled trial\" AND \"survival\" OR \"overall survival\" OR \"progression-free survival\" OR \"quality of life\"",
+   "\"immunotherapy\" OR \"immune checkpoint inhibitor\" OR \"CAR-T\" OR \"adoptive cell therapy\" AND \"solid tumor\" OR carcinoma OR adenocarcinoma OR sarcoma AND \"biomarker\" OR \"predictive biomarker\" OR \"PD-L1\" OR \"tumor mutational burden\"",
+   "\"targeted therapy\" OR \"molecular targeted therapy\" OR \"precision oncology\" OR \"tyrosine kinase inhibitor\" AND \"genomic alteration\" OR mutation OR \"gene fusion\" OR amplification AND \"resistance\" OR \"acquired resistance\" OR \"treatment failure\" OR relapse",
+   "\"radiotherapy\" OR \"radiation therapy\" OR \"stereotactic body radiotherapy\" OR \"proton therapy\" AND \"combined modality\" OR chemoradiation OR \"immunoradiotherapy\" OR \"concurrent therapy\" AND \"toxicity\" OR \"adverse event\" OR \"late effect\" OR \"organ preservation\"",
+   "\"palliative care\" OR \"supportive care\" OR \"symptom management\" OR \"end-of-life care\" AND \"advanced cancer\" OR \"metastatic disease\" OR \"terminal illness\" AND \"patient-reported outcome\" OR \"quality of life\" OR \"symptom burden\" OR \"caregiver burden\""
+  ],
+  "brutas": 5,
+  "dt": 101.66608214378357
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "robotica OR robot OR robots OR manipulador OR manipuladores OR brazo OR brazos OR cobot OR cobots OR \"robot colaborativo\" OR \"robots colaborativos\"",
+   "automatizacion OR automatización OR \"control automatico\" OR \"control automático\" OR \"sistema automatico\" OR \"sistema automático\" OR \"proceso automatico\" OR \"proceso automático\" OR \"fabrica inteligente\" OR \"fábrica inteligente\" OR \"industria 4.0\" OR \"industry 4.0\"",
+   "\"aprendizaje por refuerzo\" OR \"reinforcement learning\" OR \"aprendizaje profundo\" OR \"deep learning\" OR \"vision artificial\" OR \"computer vision\" OR \"percepcion robotica\" OR \"robot perception\" OR \"navegacion autonoma\" OR \"autonomous navigation\" OR \"planificacion de movimiento\" OR \"motion planning\"",
+   "\"gemelo digital\" OR \"digital twin\" OR \"simulacion robotica\" OR \"robot simulation\" OR \"comisionado virtual\" OR \"virtual commissioning\" OR \"fabricacion aditiva\" OR \"additive manufacturing\" OR \"impresion 3d\" OR \"3d printing\"",
+   "\"interaccion humano robot\" OR \"human robot interaction\" OR \"colaboracion humano robot\" OR \"human robot collaboration\" OR \"seguridad funcional\" OR \"functional safety\" OR \"norma iso 10218\" OR \"iso 10218\" OR \"iso ts 15066\""
+  ],
+  "brutas": 5,
+  "dt": 36.66734051704407
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"distribution center\" AND \"motion accuracy\" OR \"positioning accuracy\" OR \"localization precision\" OR \"navigation precision\"",
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"distribution center\" AND \"path tracking\" OR \"trajectory tracking\" OR \"motion control\" OR \"control accuracy\"",
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"distribution center\" AND SLAM OR \"simultaneous localization and mapping\" OR \"laser localization\" OR \"visual localization\" AND \"pose estimation\" OR \"localization error\" OR \"mapping accuracy\"",
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"distribution center\" AND \"wheel slippage\" OR \"odometry error\" OR \"sensor noise\" OR \"environmental interference\" AND \"error compensation\" OR \"calibration\" OR \"sensor fusion\"",
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"warehouse automation\" OR \"logistics warehouse\" OR \"distribution center\" AND \"multi-robot\" OR \"fleet management\" OR \"multi-agent\" AND \"collision avoidance\" OR \"cooperative localization\" OR \"formation control\" AND \"system accuracy\" OR \"fleet efficiency\""
+  ],
+  "brutas": 5,
+  "dt": 144.33101558685303
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"collaborative robot\" OR cobot OR \"human-robot collaboration\" AND \"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" OR \"reinforcement learning\" AND logistics OR warehouse OR intralogistics OR \"supply chain\"",
+   "\"collaborative robot\" OR cobot AND \"computer vision\" OR \"object detection\" OR \"pose estimation\" AND picking OR packing OR \"order fulfillment\" OR \"bin picking\"",
+   "\"collaborative robot\" OR cobot AND \"motion planning\" OR \"trajectory planning\" OR \"path planning\" OR \"collision avoidance\" AND \"dynamic environment\" OR \"shared workspace\" OR \"human presence\"",
+   "\"collaborative robot\" OR cobot AND \"natural language\" OR \"voice command\" OR \"gesture recognition\" OR \"human-robot interface\" AND warehouse OR logistics OR manufacturing",
+   "\"collaborative robot\" OR cobot AND \"digital twin\" OR simulation OR \"virtual commissioning\" OR \"offline programming\" AND logistics OR warehouse OR \"industry 4.0\""
+  ],
+  "brutas": 5,
+  "dt": 27.306317806243896
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"banana flour\" OR \"plantain flour\" OR \"green banana flour\" OR \"Musa flour\" AND \"starch digestibility\" OR \"in vitro digestion\" OR \"glycemic response\" OR \"resistant starch\" AND INFOGEST OR \"static digestion model\" OR \"simulated gastrointestinal digestion\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa flour\" AND ripeness OR \"maturity stage\" OR \"ripening degree\" OR maturation AND \"starch digestibility\" OR \"in vitro digestion\" OR \"resistant starch content\" OR \"glycemic index\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"starch digestibility\" OR \"resistant starch\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"random forest\" AND prediction OR modeling OR regression OR \"nutrient prediction\"",
+   "INFOGEST OR \"in vitro digestion\" OR \"simulated digestion\" OR \"gastrointestinal digestion\" AND \"machine learning\" OR \"deep learning\" OR \"artificial neural network\" OR chemometrics AND \"nutrient bioaccessibility\" OR \"nutrient release\" OR \"digestion kinetics\" OR \"glucose release\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"Musa starch\" AND ripeness OR maturity OR \"ripening stage\" AND \"machine learning\" OR \"deep learning\" OR \"predictive modeling\" OR \"NIR spectroscopy\""
+  ],
+  "brutas": 5,
+  "dt": 20.582061529159546
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "infogest OR \"static digestion\" OR \"in vitro digestion\" OR \"harmonized digestion\" AND digestibility OR \"digestion kinetics\" OR bioaccessibility OR \"protein hydrolysis\" AND \"machine learning\" OR \"random forest\" OR \"neural network\" OR \"predictive modeling\"",
+   "infogest OR \"simulated gastrointestinal digestion\" OR \"in vitro gastrointestinal model\" AND bitterness OR \"bitterness intensity\" OR \"bitter taste\" OR \"bitter peptides\" AND \"explainable ai\" OR xai OR shap OR \"feature importance\"",
+   "infogest OR \"standardized digestion protocol\" AND eaai OR \"essential amino acid index\" OR \"amino acid score\" OR \"protein quality\" AND optimization OR \"hyperparameter tuning\" OR \"genetic algorithm\" OR \"bayesian optimization\"",
+   "infogest OR \"in vitro digestion\" AND \"degree of hydrolysis\" OR dh OR \"digestibility percentage\" OR \"percent digestibility\" AND extrapolation OR generalization OR \"external validation\" OR \"transfer learning\"",
+   "infogest OR \"digestion dataset\" OR \"digestion results table\" AND bitterness OR eaai OR digestibility OR hydrolysis AND \"machine learning\" OR \"deep learning\" OR regression OR classification"
+  ],
+  "brutas": 5,
+  "dt": 53.41958212852478
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"Linear Discriminant Analysis\" OR LDA OR \"Fisher Discriminant\" OR \"Fisher Linear Discriminant\" AND \"dimensionality reduction\" OR \"feature extraction\" OR \"subspace learning\" OR projection",
+   "\"Regularized Discriminant Analysis\" OR RDA OR \"Shrinkage LDA\" OR \"Regularized LDA\" AND high-dimensional OR \"small sample size\" OR \"p > n\" OR \"singular covariance\"",
+   "\"Kernel Discriminant Analysis\" OR KDA OR \"Kernel Fisher Discriminant\" OR \"Nonlinear Discriminant Analysis\" AND \"kernel trick\" OR \"reproducing kernel Hilbert space\" OR \"nonlinear projection\" OR \"Gaussian kernel\"",
+   "\"Discriminant Analysis\" OR \"Linear Classifier\" OR \"Generative Classifier\" OR \"Bayes Classifier\" AND classification OR \"pattern recognition\" OR \"supervised learning\" OR \"multiclass classification\"",
+   "\"Linear Discriminant Analysis\" OR LDA OR \"Discriminant Analysis\" AND \"face recognition\" OR biometrics OR \"medical diagnosis\" OR chemometrics"
+  ],
+  "brutas": 5,
+  "dt": 43.46610236167908
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "\"whole UHT milk\" OR \"full-fat UHT milk\" OR \"ultra-high temperature whole milk\" AND \"shelf life\" OR \"storage stability\" OR \"keeping quality\" OR \"storage life\" AND \"storage temperature\" OR \"storage condition\" OR \"ambient storage\" OR \"temperature abuse\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT processed milk\" AND \"pasteurized milk\" OR \"HTST milk\" OR \"high-temperature short-time milk\" OR \"conventional pasteurized milk\" AND \"nutritional quality\" OR \"nutrient retention\" OR \"vitamin retention\" OR \"protein nutritional value\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"pasteurized milk\" OR \"raw milk\" OR \"HTST milk\" AND flavor OR off-flavor OR \"cooked flavor\" OR \"sensory profile\" OR \"volatile compounds\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"Maillard reaction\" OR glycation OR \"lysine blockage\" OR furosine AND \"processing temperature\" OR \"treatment temperature\" OR \"thermal load\" OR \"sterilization temperature\"",
+   "\"whole UHT milk\" OR \"full-fat UHT milk\" AND \"age gelation\" OR sedimentation OR creaming OR \"physical stability\" OR \"protein aggregation\" AND \"storage time\" OR \"long-term storage\" OR \"shelf life extension\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"lipid oxidation\" OR \"oxidative stability\" OR rancidity OR \"cholesterol oxidation products\" AND \"light exposure\" OR \"oxygen exposure\" OR packaging OR \"storage condition\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND spore OR \"thermophilic spore\" OR Bacillus OR Geobacillus OR \"spore count\" AND \"processing temperature\" OR \"treatment time\" OR \"thermal resistance\" OR \"sterilization efficiency\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"protein stability\" OR kappa-casein OR \"whey protein denaturation\" OR \"casein micelle\" OR \"heat stability\" AND \"treatment temperature\" OR preheating OR \"indirect heating\" OR \"direct heating\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"vitamin B12\" OR \"vitamin B2\" OR riboflavin OR folate OR thiamine OR \"vitamin loss\" AND \"storage time\" OR \"shelf life\" OR \"storage temperature\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"new product development\" OR \"product innovation\" OR \"fortified milk\" OR \"functional dairy\" OR \"clean label\" AND \"processing optimization\" OR \"mild UHT\" OR \"low temperature UHT\" OR \"process design\""
+  ],
+  "brutas": 10,
+  "dt": 67.74108004570007
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "cancer OR neoplasm OR malignancy OR tumor AND treatment OR therapy OR chemotherapy OR immunotherapy AND efficacy OR outcome OR survival OR response",
+   "cancer OR neoplasm OR malignancy AND \"targeted therapy\" OR \"molecular targeted therapy\" OR \"precision medicine\" OR \"biomarker guided therapy\" AND resistance OR \"acquired resistance\" OR \"mechanism of resistance\" OR \"overcoming resistance\"",
+   "cancer OR neoplasm OR malignancy AND immunotherapy OR \"immune checkpoint inhibitor\" OR \"CAR-T cell therapy\" OR \"cancer vaccine\" AND biomarker OR \"predictive biomarker\" OR \"tumor mutational burden\" OR \"PD-L1 expression\"",
+   "cancer OR neoplasm OR malignancy AND radiotherapy OR \"radiation therapy\" OR radiosurgery OR \"proton therapy\" AND \"combined modality therapy\" OR chemoradiation OR immunoradiation OR \"treatment sequencing\"",
+   "\"cancer survivor\" OR \"cancer survivorship\" OR \"long-term survivor\" AND \"late effect\" OR \"long-term toxicity\" OR \"adverse effect\" OR \"quality of life\" AND cardiotoxicity OR neuropathy OR \"cognitive impairment\" OR \"secondary malignancy\""
+  ],
+  "brutas": 5,
+  "dt": 26.246227264404297
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "robótica OR robot OR robots OR manipulador OR \"brazo robótico\" AND automatización OR automatizado OR automático OR \"control automático\"",
+   "\"robot colaborativo\" OR cobot OR \"robot móvil\" OR \"robot autónomo\" OR \"vehículo autónomo\" AND \"industria 4.0\" OR \"fábrica inteligente\" OR \"manufactura avanzada\" OR \"producción inteligente\"",
+   "percepción OR \"visión artificial\" OR \"visión por computador\" OR sensor OR lidar AND planificación OR navegación OR \"control de movimiento\" OR trayectoria OR \"evitación de obstáculos\"",
+   "\"aprendizaje por refuerzo\" OR \"aprendizaje profundo\" OR \"red neuronal\" OR \"inteligencia artificial\" OR ia AND \"gemelo digital\" OR simulación OR \"entorno virtual\" OR sim2real",
+   "\"interacción humano-robot\" OR \"colaboración humano-robot\" OR \"interfaz cerebro-computador\" OR exoesqueleto OR \"robot social\""
+  ],
+  "brutas": 5,
+  "dt": 26.459289073944092
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" AND \"localization accuracy\" OR \"positioning precision\" OR \"pose estimation error\" OR \"navigation accuracy\" AND warehouse OR \"logistics center\" OR \"distribution center\" OR intralogistics",
+   "\"autonomous mobile robot\" OR AMR OR \"mobile manipulator\" AND \"path tracking\" OR \"trajectory following\" OR \"motion control\" OR \"control accuracy\" AND warehouse OR \"logistics automation\" OR intralogistics",
+   "SLAM OR \"simultaneous localization and mapping\" OR \"lidar SLAM\" OR \"visual SLAM\" AND accuracy OR precision OR \"error analysis\" OR consistency AND \"warehouse environment\" OR \"structured environment\" OR \"indoor logistics\"",
+   "\"autonomous mobile robot\" OR AMR OR AGV AND \"docking accuracy\" OR \"alignment precision\" OR \"station positioning\" OR \"pick place accuracy\" AND warehouse OR logistics OR \"material handling\"",
+   "multi-robot OR \"fleet management\" OR multi-agent AND \"cooperative localization\" OR \"relative positioning\" OR \"collision avoidance accuracy\" AND warehouse OR intralogistics"
+  ],
+  "brutas": 5,
+  "dt": 20.006795406341553
+ },
+ {
+  "modelo": "nvidia/nemotron-3-ultra-550b-a55b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"collaborative robot\" OR cobot OR \"human-robot collaboration\" OR HRC AND \"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" OR \"reinforcement learning\" AND logistics OR warehouse OR intralogistics OR \"supply chain\"",
+   "\"mobile manipulator\" OR \"mobile collaborative robot\" OR \"AMR manipulation\" AND navigation OR \"path planning\" OR \"obstacle avoidance\" OR SLAM AND warehouse OR \"fulfillment center\" OR \"distribution center\"",
+   "\"collaborative robot\" OR cobot AND \"computer vision\" OR \"object detection\" OR \"pose estimation\" OR \"visual servoing\" AND \"pick and place\" OR \"order picking\" OR \"bin picking\" OR depalletizing",
+   "\"human-robot collaboration\" OR HRC OR cobot AND \"task planning\" OR \"motion planning\" OR \"trajectory optimization\" OR \"shared autonomy\" AND warehouse OR logistics OR \"material handling\"",
+   "\"collaborative robot\" OR cobot AND \"digital twin\" OR simulation OR sim-to-real OR \"reinforcement learning\" AND \"warehouse automation\" OR intralogistics OR \"logistics 4.0\""
+  ],
+  "brutas": 5,
+  "dt": 25.415262937545776
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=240)",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=240)",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=240)",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=240)",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "deepseek-ai/deepseek-v4.1-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "moonshotai/kimi-k2.6",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "z-ai/glm-5.3-flash",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "google/gemma-4-31b-it",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by NameResolutionError(\"HT",
+  "dt": 0
+ }
+]

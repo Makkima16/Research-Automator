@@ -1,0 +1,29 @@
+.contenedor { border-radius: var(--radius-lg); background: var(--color-neutral-100); box-shadow: var(--shadow-sm); overflow: auto; }
+.tabla { min-width: 1240px; font-size: 13.5px; }
+.tabla thead tr { background: var(--color-neutral-200); }
+.fila { cursor: pointer; }
+.fila td { vertical-align: top; }
+.abierta { background: var(--color-accent-100); }
+.estrella {
+  border: 0; background: transparent; cursor: pointer; font-size: 17px; line-height: 1; padding: 4px; border-radius: 50%;
+  color: var(--color-neutral-400);
+}
+.estrella:hover { background: var(--color-accent-100); }
+.marcada { color: var(--color-accent); }
+.titulo { max-width: 360px; padding: 12px 8px; }
+.titulo strong { display: block; font-weight: 600; line-height: 1.35; text-wrap: pretty; }
+.fuente { font-size: 12px; color: var(--color-neutral-700); margin-top: 2px; }
+.citas { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.sin { font-size: 12px; color: var(--color-neutral-600); }
+.doi { font-size: 12px; white-space: nowrap; }
+.motores { display: flex; flex-wrap: wrap; gap: 4px; max-width: 170px; }
+.motores .tag { background: var(--color-neutral-200); font-size: 11px; padding: 2px 8px; }
+.origen { font-size: 12.5px; color: var(--color-neutral-800); white-space: nowrap; }
+.cadenas { display: flex; flex-wrap: wrap; gap: 4px; }
+.cadena {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--color-accent-200); color: var(--color-accent-800); font-family: var(--font-heading); font-size: 13px;
+}
+.abstract { max-width: 280px; font-size: 12.5px; color: var(--color-neutral-800); }
+.abstract div { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.vacio { padding: 40px; text-align: center; color: var(--color-neutral-700); }

@@ -1,0 +1,23 @@
+/* Estilos globales de la app. Los tokens y componentes base vienen de organic.css
+   (sistema de diseño); acá solo van los enlaces del diseño y utilidades compartidas. */
+
+body { background: var(--color-bg); }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-800); }
+
+@keyframes ra-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, #c67139 45%, transparent); }
+  100% { box-shadow: 0 0 0 12px color-mix(in srgb, #c67139 0%, transparent); }
+}
+@keyframes ra-slide { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ra-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes ra-stripe { from { background-position: 0 0; } to { background-position: 28px 0; } }
+
+/* Utilidades compartidas por varias vistas */
+.kicker {
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-accent-700); font-weight: 600; margin-bottom: 8px;
+}
+.fade-in { animation: ra-fade 0.35s ease; }
+.mono { font-family: ui-monospace, Menlo, monospace; }
+.lead { font-size: 15px; color: var(--color-neutral-800); text-wrap: pretty; }

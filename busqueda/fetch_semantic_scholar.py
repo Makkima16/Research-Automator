@@ -24,6 +24,8 @@ import time
 import requests
 
 import config
+import limites_motores
+import rank_and_filter
 
 SEARCH_URL = "https://api.semanticscholar.org/graph/v1/paper/search"
 BULK_URL = "https://api.semanticscholar.org/graph/v1/paper/search/bulk"
@@ -120,20 +122,29 @@ def construir_consulta(query):
     return " + ".join(expresiones)
 
 
-def buscar_semantic_scholar(query, api_key, min_year=None, max_results=100):
+def buscar_semantic_scholar(query, api_key, min_year=None, max_results=100, pool_reordenar=100):
     """Busca una query en Semantic Scholar y devuelve los `max_results` papers
-    más citados. Usa la búsqueda "bulk" porque es la única que entiende
+    mejor puntuados. Usa la búsqueda "bulk" porque es la única que entiende
     operadores booleanos: la búsqueda por relevancia (SEARCH_URL) toma la
     query como una lista de palabras sueltas y con las cadenas del proyecto
-    devuelve 0 resultados. La bulk no ordena por relevancia, así que se
-    ordena por número de citas."""
+    devuelve 0 resultados. La bulk no ordena por relevancia, así que trae
+    hasta `pool_reordenar` resultados ordenados por citas y los re-rankea en
+    local con las keywords de la propia cadena (rank_and_filter.score_paper):
+    medido con la sonda `pruebas/cadenas/sonda_s2_v2.py`, el top elegido por
+    citas desvía más del tema que el top re-rankeado (12/26 contra 15/30 de
+    estricta/laxa sobre 4 cadenas con pool lleno), y el costo en solicitudes
+    es el mismo (la bulk devuelve hasta 100 por página)."""
     resultados = []
     token = None
-    params_base = {"query": construir_consulta(query), "fields": CAMPOS, "sort": "citationCount:desc"}
+    efectiva, recortada = limites_motores.ajustar(query, "semantic_scholar", construir_consulta)
+    if recortada:
+        print(f"  [aviso] la cadena era demasiado larga para Semantic Scholar; se recortaron alternativas: {efectiva!r}")
+    params_base = {"query": construir_consulta(efectiva), "fields": CAMPOS, "sort": "citationCount:desc"}
     if min_year:
         params_base["year"] = f"{min_year}-"
 
-    while len(resultados) < max_results:
+    a_pedir = max(max_results, min(pool_reordenar, 100))
+    while len(resultados) < a_pedir:
         params = {**params_base, "token": token} if token else params_base
         data = _solicitar(BULK_URL, params, api_key)
         if data is None:
@@ -143,12 +154,16 @@ def buscar_semantic_scholar(query, api_key, min_year=None, max_results=100):
             break
         for item in items:
             resultados.append(parse_result(item, query))
-            if len(resultados) >= max_results:
+            if len(resultados) >= a_pedir:
                 break
         token = data.get("token")
         if not token:
             break
 
+    if len(resultados) > max_results:
+        keywords = rank_and_filter.palabras_clave([query])
+        resultados = sorted(resultados, key=lambda f: rank_and_filter.score_paper(f, keywords),
+                            reverse=True)[:max_results]
     return resultados
 
 

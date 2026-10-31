@@ -1,0 +1,74 @@
+[
+ {
+  "tema": "extra_leche_es",
+  "cadena": "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\"",
+  "total": 0,
+  "con_doi": 0,
+  "titulos": [],
+  "puntos": [],
+  "citas": []
+ },
+ {
+  "tema": "extra_cancer_es",
+  "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND inmunoterapia OR \"inmunoterapia del cáncer\" OR \"inmunoterapia oncológica\"",
+  "total": 10,
+  "con_doi": 9,
+  "titulos": [
+   "Using the Common Terminology Criteria for Adverse Events (CTCAE – Version 5.0) to Evaluate the Severity of Adverse Events of Anticancer Therapies",
+   "Cáncer de mama: tratamientos inmunológicos.",
+   "Cuidados de enfermería en mujeres sometidas a una mastectomía por cáncer de mama: una revisión bibliográfica",
+   "Estructuración de una colonia de ratones BALB/c en la Unidad Experimental de Inmunoterapia de la Fundación Jacinto Convit – Venezuela",
+   "Quimioterapia metronómica en pacientes con cáncer de mama metastásico",
+   "Inmunoterapia en el tratamiento del cáncer de mama",
+   "Melanoma metastásico a ovario: Reporte de un caso",
+   "Quimioterapia metronómica en pacientes con cáncer de mama metastásico",
+   "P-633 - ¿FALSO POSITIVO O SIGNO DE EFICACIA? REALCE CONTRALATERAL DURANTE INMUNOTERAPIA EN CÁNCER DE MAMA TRIPLE NEGATIVO: A PROPÓSITO DE UN CASO"
+  ],
+  "puntos": [
+   0,
+   2,
+   1,
+   1,
+   1,
+   2,
+   0,
+   1,
+   2
+  ],
+  "citas": [
+   683,
+   2,
+   2,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tema": "extra_cobots_ambos",
+  "cadena": "\"human robot collaboration\" OR \"colaboración humano robot\" OR \"colaboración humano-robot\" AND \"warehouse automation\" OR \"automatización de almacenes\" OR \"automatización logística\"",
+  "total": 4,
+  "con_doi": 4,
+  "titulos": [
+   "Adaptive Force Control Strategies for Collaborative Robotic Manipulation",
+   "Human-robot Collaboration in Warehousing: a Cloud-powered Revolution",
+   "THE FUTURE IS NOW: AI POWERS NEXT-GENERATION ROBOTS",
+   "Redefining warehouse workforce competencies and roles through human-robot collaboration"
+  ],
+  "puntos": [
+   1,
+   2,
+   0,
+   2
+  ],
+  "citas": [
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+]

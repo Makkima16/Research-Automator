@@ -1,0 +1,218 @@
+[
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "cadenas": [
+   "robótica OR robots OR robot OR automatización OR automatizado",
+   "\"robótica industrial\" OR \"automatización industrial\" OR \"robots industriales\" OR \"fabricación automatizada\" OR \"línea de producción\"",
+   "\"robótica avanzada\" OR \"automatización avanzada\" OR \"robótica inteligente\" OR \"sistemas robóticos\" OR \"control automatizado\"",
+   "robótica OR robots OR robot OR automatización OR automatizado AND mecatrónica OR \"control numérico\" OR sensores OR actuadores OR programación",
+   "robótica OR robots OR robot OR automatización OR automatizado AND españa OR méxico OR argentina OR colombia OR chile"
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado",
+    "intencion": "captura papers que mencionen cualquiera de los términos centrales del tema",
+    "alcance": "búsqueda amplia de base temática"
+   },
+   {
+    "cadena": "\"robótica industrial\" OR \"automatización industrial\" OR \"robots industriales\" OR \"fabricación automatizada\" OR \"línea de producción\"",
+    "intencion": "enfoca la automatización en entornos productivos y fábricas",
+    "alcance": "aplicación industrial"
+   },
+   {
+    "cadena": "\"robótica avanzada\" OR \"automatización avanzada\" OR \"robótica inteligente\" OR \"sistemas robóticos\" OR \"control automatizado\"",
+    "intencion": "busca desarrollos de alta complejidad y control inteligente",
+    "alcance": "nivel tecnológico avanzado"
+   },
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado AND mecatrónica OR \"control numérico\" OR sensores OR actuadores OR programación",
+    "intencion": "combina la temática central con disciplinas y componentes técnicos relacionados",
+    "alcance": "intersección con áreas afines"
+   },
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado AND españa OR méxico OR argentina OR colombia OR chile",
+    "intencion": "localiza la temática en contextos geográficos de habla hispana",
+    "alcance": "contexto regional latinoamericano e ibérico"
+   }
+  ]
+ },
+ {
+  "nombre": "extra_leche_es",
+  "idioma": "es",
+  "cadenas": [
+   "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+   "\"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+   "calidad OR propiedades OR composición OR \"valor nutricional\" OR sabor AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+   "microbiología OR microbianos OR germenes OR contaminación OR seguridad AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+   "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\""
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "intencion": "Identificar papers que relacionen el tratamiento UHT con la leche entera",
+    "alcance": "Proceso y materia prima"
+   },
+   {
+    "cadena": "\"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "intencion": "Buscar estudios sobre la duración y estabilidad de la leche entera",
+    "alcance": "Vida útil y conservación"
+   },
+   {
+    "cadena": "calidad OR propiedades OR composición OR \"valor nutricional\" OR sabor AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "intencion": "Evaluar cambios en la calidad y composición de la leche entera tras el tratamiento",
+    "alcance": "Calidad y composición"
+   },
+   {
+    "cadena": "microbiología OR microbianos OR germenes OR contaminación OR seguridad AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "intencion": "Analizar el efecto microbiológico y la seguridad de la leche entera procesada",
+    "alcance": "Seguridad microbiológica"
+   },
+   {
+    "cadena": "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\"",
+    "intencion": "Relacionar directamente el proceso UHT con la duración del producto",
+    "alcance": "Proceso y vida útil"
+   }
+  ]
+ },
+ {
+  "nombre": "extra_banano_es",
+  "idioma": "es",
+  "cadenas": [
+   "\"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+   "\"almidón resistente\" OR \"fibra dietética\" OR \"compuestos bioactivos\" OR polifenoles OR antioxidantes AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+   "reología OR textura OR volumen OR miga OR corteza AND \"pan sin gluten\" OR \"panificación sin gluten\" OR \"panadería sin gluten\" OR panificación OR \"panificación gluten free\"",
+   "celiaquía OR \"intolerancia al gluten\" OR \"sensibilidad al gluten\" OR \"dieta sin gluten\" OR \"enfermedad celíaca\" AND \"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\"",
+   "\"sustituto de harina de trigo\" OR \"alternativa al trigo\" OR \"ingrediente alternativo\" OR \"materia prima\" OR \"sustituto del gluten\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\""
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "\"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "intencion": "Identificar papers que relacionen directamente la harina de banano verde con la elaboración de panes sin gluten.",
+    "alcance": "Enfoque directo en el uso de la harina como ingrediente principal en panificación sin gluten."
+   },
+   {
+    "cadena": "\"almidón resistente\" OR \"fibra dietética\" OR \"compuestos bioactivos\" OR polifenoles OR antioxidantes AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "intencion": "Buscar estudios que analicen las propiedades funcionales o nutricionales del banano verde aplicadas a panes sin gluten.",
+    "alcance": "Enfoque en los componentes nutricionales y funcionales del banano verde en la matriz del pan sin gluten."
+   },
+   {
+    "cadena": "reología OR textura OR volumen OR miga OR corteza AND \"pan sin gluten\" OR \"panificación sin gluten\" OR \"panadería sin gluten\" OR panificación OR \"panificación gluten free\"",
+    "intencion": "Localizar investigaciones sobre las características físicas y sensoriales del pan sin gluten elaborado con harina de banano verde.",
+    "alcance": "Enfoque en la calidad tecnológica y sensorial del producto final (pan sin gluten)."
+   },
+   {
+    "cadena": "celiaquía OR \"intolerancia al gluten\" OR \"sensibilidad al gluten\" OR \"dieta sin gluten\" OR \"enfermedad celíaca\" AND \"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\"",
+    "intencion": "Encontrar papers que vinculen el uso de harina de banano verde con necesidades dietéticas de personas con trastornos relacionados al gluten.",
+    "alcance": "Enfoque en la población objetivo y el contexto de salud (celiaquía e intolerancia al gluten)."
+   },
+   {
+    "cadena": "\"sustituto de harina de trigo\" OR \"alternativa al trigo\" OR \"ingrediente alternativo\" OR \"materia prima\" OR \"sustituto del gluten\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "intencion": "Buscar estudios que posicionen la harina de banano verde como una alternativa o sustituto de harinas tradicionales en panificación sin gluten.",
+    "alcance": "Enfoque en la harina de banano verde como materia prima alternativa o sustituto en la formulación de panes sin gluten."
+   }
+  ]
+ },
+ {
+  "nombre": "extra_cancer_es",
+  "idioma": "es",
+  "cadenas": [
+   "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND inmunoterapia OR \"inmunoterapia del cáncer\" OR \"inmunoterapia oncológica\" OR \"inmunoterapia tumoral\" OR \"inmunoterapia contra el cáncer\"",
+   "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"inhibidores de puntos de control\" OR \"inhibidor de punto de control\" OR \"checkpoint inhibitor\" OR \"inmunoterapia de puntos de control\" OR \"inmunoterapia checkpoint\"",
+   "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"terapia combinada\" OR \"tratamiento combinado\" OR \"combinación de terapias\" OR \"terapia mixta\" OR \"tratamiento mixto\"",
+   "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"respuesta inmunitaria\" OR \"respuesta inmune\" OR \"activación inmunitaria\" OR \"activación inmune\" OR \"respuesta inmunológica\""
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND inmunoterapia OR \"inmunoterapia del cáncer\" OR \"inmunoterapia oncológica\" OR \"inmunoterapia tumoral\" OR \"inmunoterapia contra el cáncer\"",
+    "intencion": "Encontrar papers que vinculen directamente el cáncer de mama con tratamientos de inmunoterapia.",
+    "alcance": "Enfoque general y amplio sobre la aplicación de inmunoterapia en cáncer de mama."
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"inhibidores de puntos de control\" OR \"inhibidor de punto de control\" OR \"checkpoint inhibitor\" OR \"inmunoterapia de puntos de control\" OR \"inmunoterapia checkpoint\"",
+    "intencion": "Localizar estudios centrados específicamente en inhibidores de puntos de control inmunitarios para el cáncer de mama.",
+    "alcance": "Enfoque en una clase específica de fármacos inmunoterapéuticos."
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"terapia combinada\" OR \"tratamiento combinado\" OR \"combinación de terapias\" OR \"terapia mixta\" OR \"tratamiento mixto\"",
+    "intencion": "Buscar investigaciones que combinen inmunoterapia con otros tratamientos para el cáncer de mama.",
+    "alcance": "Enfoque en esquemas de tratamiento combinados o sinérgicos."
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"respuesta inmunitaria\" OR \"respuesta inmune\" OR \"activación inmunitaria\" OR \"activación inmune\" OR \"respuesta inmunológica\"",
+    "intencion": "Identificar papers que analicen la respuesta del sistema inmunitario frente al cáncer de mama en contextos de tratamiento.",
+    "alcance": "Enfoque en la respuesta biológica e inmunológica del paciente."
+   }
+  ]
+ },
+ {
+  "nombre": "extra_cobots_ambos",
+  "idioma": "ambos",
+  "cadenas": [
+   "cobot OR cobots OR \"robot colaborativo\" OR \"robots colaborativos\" AND logistics OR warehouse OR almacén OR almacenes OR logística",
+   "\"human robot collaboration\" OR \"colaboración humano robot\" OR \"colaboración humano-robot\" AND \"warehouse automation\" OR \"automatización de almacenes\" OR \"automatización logística\" AND \"supply chain\" OR \"cadena de suministro\"",
+   "\"mobile robot\" OR \"robots móviles\" OR \"robot móvil\" AND \"order picking\" OR \"preparación de pedidos\" OR \"picking de pedidos\" AND \"fulfillment center\" OR \"centro de distribución\" OR \"centro logístico\"",
+   "\"industrial robot\" OR \"robot industrial\" OR \"robots industriales\" AND \"material handling\" OR \"manipulación de materiales\" OR \"manejo de materiales\" AND intralogistics OR intralogística"
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "cobot OR cobots OR \"robot colaborativo\" OR \"robots colaborativos\" AND logistics OR warehouse OR almacén OR almacenes OR logística",
+    "intencion": "Identificar papers sobre robots colaborativos aplicados a logística y almacenamiento",
+    "alcance": "Enfoque general del uso de cobots en entornos logísticos y de almacén"
+   },
+   {
+    "cadena": "\"human robot collaboration\" OR \"colaboración humano robot\" OR \"colaboración humano-robot\" AND \"warehouse automation\" OR \"automatización de almacenes\" OR \"automatización logística\" AND \"supply chain\" OR \"cadena de suministro\"",
+    "intencion": "Buscar estudios que vinculen la colaboración humano-robot con la automatización de almacenes y la cadena de suministro",
+    "alcance": "Enfoque en la interacción humano-robot dentro de procesos automatizados de almacén y cadena de suministro"
+   },
+   {
+    "cadena": "\"mobile robot\" OR \"robots móviles\" OR \"robot móvil\" AND \"order picking\" OR \"preparación de pedidos\" OR \"picking de pedidos\" AND \"fulfillment center\" OR \"centro de distribución\" OR \"centro logístico\"",
+    "intencion": "Localizar investigaciones sobre robots móviles colaborativos para picking y preparación de pedidos en centros logísticos",
+    "alcance": "Enfoque operativo en robots móviles para cumplimiento de pedidos y distribución"
+   },
+   {
+    "cadena": "\"industrial robot\" OR \"robot industrial\" OR \"robots industriales\" AND \"material handling\" OR \"manipulación de materiales\" OR \"manejo de materiales\" AND intralogistics OR intralogística",
+    "intencion": "Encontrar papers sobre robots industriales colaborativos para manipulación de materiales y logística interna",
+    "alcance": "Enfoque en manipulación de materiales y logística interna con robots industriales colaborativos"
+   }
+  ]
+ },
+ {
+  "nombre": "extra_infogest_ambos",
+  "idioma": "ambos",
+  "cadenas": [
+   "digestibility OR digestibilidad AND \"milk protein\" OR \"proteína de la leche\" AND INFOGEST OR \"modelo INFOGEST\"",
+   "\"protein digestibility\" OR \"digestibilidad de proteínas\" AND dairy OR lácteo AND \"in vitro digestion\" OR \"digestión in vitro\"",
+   "\"bovine milk\" OR \"leche bovina\" AND \"protein hydrolysis\" OR \"hidrólisis de proteínas\" AND \"static digestion model\" OR \"modelo estático de digestión\"",
+   "\"infant formula\" OR \"fórmula infantil\" AND \"protein digestibility\" OR \"digestibilidad de proteínas\" AND INFOGEST OR \"modelo INFOGEST\""
+  ],
+  "aviso": null,
+  "detalles": [
+   {
+    "cadena": "digestibility OR digestibilidad AND \"milk protein\" OR \"proteína de la leche\" AND INFOGEST OR \"modelo INFOGEST\"",
+    "intencion": "Identificar papers que apliquen el modelo INFOGEST a la digestibilidad de proteínas lácteas.",
+    "alcance": "Enfoque directo en la metodología INFOGEST y su uso con proteínas de leche."
+   },
+   {
+    "cadena": "\"protein digestibility\" OR \"digestibilidad de proteínas\" AND dairy OR lácteo AND \"in vitro digestion\" OR \"digestión in vitro\"",
+    "intencion": "Buscar estudios de digestión in vitro de proteínas lácteas que puedan usar INFOGEST u otros modelos estandarizados.",
+    "alcance": "Ángulo metodológico amplio de digestión in vitro aplicada a lácteos."
+   },
+   {
+    "cadena": "\"bovine milk\" OR \"leche bovina\" AND \"protein hydrolysis\" OR \"hidrólisis de proteínas\" AND \"static digestion model\" OR \"modelo estático de digestión\"",
+    "intencion": "Localizar papers sobre hidrólisis de proteínas de leche bovina mediante modelos estáticos de digestión, incluido INFOGEST.",
+    "alcance": "Enfoque en leche bovina y modelos estáticos de digestión."
+   },
+   {
+    "cadena": "\"infant formula\" OR \"fórmula infantil\" AND \"protein digestibility\" OR \"digestibilidad de proteínas\" AND INFOGEST OR \"modelo INFOGEST\"",
+    "intencion": "Encontrar estudios que evalúen la digestibilidad de proteínas en fórmulas infantiles usando el modelo INFOGEST.",
+    "alcance": "Contexto poblacional de nutrición infantil y fórmulas lácteas."
+   }
+  ]
+ }
+]

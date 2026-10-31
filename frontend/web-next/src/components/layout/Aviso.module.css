@@ -1,0 +1,9 @@
+.aviso {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px 12px 20px; border-radius: 999px;
+  background: var(--color-accent-100); color: var(--color-accent-800); font-size: 14px;
+  margin-bottom: 18px; max-width: 900px;
+}
+.punto { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); flex: none; }
+.texto { flex: 1; }
+.cerrar { width: 28px; height: 28px; color: var(--color-accent-800); }
+.cerrar:hover { background: var(--color-accent-200); }

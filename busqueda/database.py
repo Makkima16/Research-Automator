@@ -7,7 +7,6 @@ Tablas:
                   lo encontró), motor_pdf (qué plataforma dio el PDF que se
                   terminó usando), pdf_url y pdf_bloqueado (ver
                   fetch_semantic_scholar.revisar_acceso_pdf).
-- alimentos_usda: composición de lácteos (desde USDA FoodData Central).
 
 El procesamiento de los papers (../procesamiento/database_proc.py) agrega sus
 propias tablas a esta misma base.
@@ -18,17 +17,6 @@ revisar o corregir a mano.
 
 import sqlite3
 
-import fetch_usda
-
-
-def _tipo_sql_usda(nombre):
-    if nombre == "fdc_id":
-        return "INTEGER PRIMARY KEY"
-    return "REAL" if nombre in fetch_usda.KEY_NUTRIENTS.values() else "TEXT"
-
-
-COLUMNAS_USDA = {c: _tipo_sql_usda(c) for c in fetch_usda.COLUMNAS}
-_COLUMNAS_USDA = ",\n    ".join(f"{c} {t}" for c, t in COLUMNAS_USDA.items())
 
 # Columnas nuevas de `papers` (Semantic Scholar): se agregan con ALTER TABLE
 # a una base ya existente, porque CREATE TABLE IF NOT EXISTS no las crearía.
@@ -62,11 +50,7 @@ CREATE TABLE IF NOT EXISTS papers (
 );
 """
 
-SCHEMA = SCHEMA_PAPERS + f"""
-CREATE TABLE IF NOT EXISTS alimentos_usda (
-    {_COLUMNAS_USDA}
-);
-"""
+SCHEMA = SCHEMA_PAPERS
 
 
 def conectar(ruta):
@@ -74,7 +58,6 @@ def conectar(ruta):
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     conn.executescript(SCHEMA)
-    _migrar(conn, "alimentos_usda", COLUMNAS_USDA)
     _migrar(conn, "papers", COLUMNAS_PAPERS_NUEVAS)
     return conn
 
@@ -100,7 +83,8 @@ def dois_existentes(conn):
 
 
 def _limpiar(valor):
-    """pandas usa NaN para vacíos; SQLite necesita None."""
+    """NaN se evalúa distinto que sí mismo: algunas APIs lo devuelven para
+    vacíos y SQLite necesita None."""
     if valor != valor:  # NaN
         return None
     return valor
@@ -123,39 +107,3 @@ def guardar_papers(conn, rows):
             f"ON CONFLICT(paper_id) DO UPDATE SET {actualizar}",
             datos,
         )
-
-
-def guardar_alimentos(conn, rows):
-    columnas = fetch_usda.COLUMNAS
-    datos = [[_limpiar(row.get(c)) for c in columnas] for row in rows]
-    with conn:
-        conn.executemany(
-            f"INSERT OR REPLACE INTO alimentos_usda ({', '.join(columnas)}) "
-            f"VALUES ({', '.join('?' for _ in columnas)})",
-            datos,
-        )
-
-
-def limpiar_alimentos(conn):
-    """Recalcula los atributos de las filas ya guardadas (por si vienen de una
-    versión anterior del script) y borra las que no son lácteos.
-    Devuelve cuántas filas se borraron."""
-    filas = conn.execute("SELECT fdc_id, description, ingredients FROM alimentos_usda").fetchall()
-    borrar, actualizar = [], []
-    for fila in filas:
-        atributos = fetch_usda.atributos_producto(fila["description"], fila["ingredients"])
-        if not fetch_usda.es_lacteo({**atributos, "description": fila["description"]}):
-            borrar.append((fila["fdc_id"],))
-        else:
-            atributos["url_fuente"] = fetch_usda.url_fuente(fila["fdc_id"])
-            actualizar.append({**atributos, "fdc_id": fila["fdc_id"]})
-    with conn:
-        conn.executemany("DELETE FROM alimentos_usda WHERE fdc_id = ?", borrar)
-        if actualizar:
-            columnas = [c for c in actualizar[0] if c != "fdc_id"]
-            conn.executemany(
-                f"UPDATE alimentos_usda SET {', '.join(c + ' = :' + c for c in columnas)} "
-                "WHERE fdc_id = :fdc_id",
-                actualizar,
-            )
-    return len(borrar)

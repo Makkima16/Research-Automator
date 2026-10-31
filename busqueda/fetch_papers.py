@@ -1,7 +1,8 @@
 """
 Recolecta papers académicos desde OpenAlex (https://openalex.org), un índice
-abierto y gratuito con más de 270 millones de trabajos científicos. No
-requiere API key.
+abierto y gratuito con más de 270 millones de trabajos científicos. Funciona
+sin key (con el "polite pool" vía mailto); con OPENALEX_API_KEY en ../.env se
+usa una cuota propia y se evita el HTTP 429 del presupuesto compartido.
 
 Las queries (config.PAPER_QUERIES) se escriben con una sintaxis booleana
 simple, como en la búsqueda avanzada de ScienceDirect:
@@ -9,8 +10,6 @@ simple, como en la búsqueda avanzada de ScienceDirect:
     "frase exacta" OR otro término AND tercer término AND NOT "excluir esto"
 
 - AND / OR / NOT van en mayúsculas, separados por espacios.
-- Las comillas marcan frase exacta; sin comillas, cada palabra se busca por
-  separado (con su raíz: "digestibility" también encuentra "digestible").
 - Los paréntesis son solo para que la leas más fácil: se ignoran al traducir
   la query (ver construir_filtro), así que no agregan ni quitan precedencia.
 - Precedencia real: AND separa "grupos"; dentro de cada grupo, OR une
@@ -23,6 +22,18 @@ forma inconsistente (la misma query a veces los respeta y a veces no,
 verificado en vivo). El filtro `title_and_abstract.search:` sí es estable:
 coma = AND entre cláusulas, `|` = OR dentro de una cláusula, `!` = NOT.
 Esta función traduce la sintaxis de arriba a ese filtro.
+
+Dos decisiones medidas contra el banco de pruebas `pruebas/cadenas/amplitud.py`
+(8 temas, 37 cadenas, juez GPT-5.5 sobre los primeros títulos):
+- Las comillas se ignoran al traducir (cada frase se manda como palabras
+  sueltas): encontró de un 15 % a nueve veces más papers con la misma
+  precisión (0,67 estricta / 0,99 laxa contra 0,66 / 0,97 con frase exacta).
+- Si la búsqueda en título y abstract trae menos de UMBRAL_RESCATE_FULLTEXT
+  resultados, se aplican dos rescates y se fusiona lo nuevo: primero cada par
+  de grupos AND (con 3 o más grupos; la variante de mejor precisión medida:
+  0,73 estricta) y después el texto completo (default.search), que rescata
+  cadenas que devolvían 0 resultados; los papers que agrega están relacionados
+  con el tema (laxa 0,98), aunque no todos lo tratan de frente (estricta 0,21).
 """
 
 import re
@@ -31,13 +42,17 @@ import time
 import requests
 
 import config
+import limites_motores
 
 OPENALEX_URL = "https://api.openalex.org/works"
 
 
 def construir_filtro(query):
     """Traduce una query en la sintaxis AND/OR/NOT de arriba al filtro real
-    de OpenAlex (`title_and_abstract.search`, con comas/pipes/! estables)."""
+    de OpenAlex (`title_and_abstract.search`, con comas/pipes/! estables).
+    Las comillas de las frases exactas se quitan: medido en el banco de
+    pruebas, buscar las palabras por separado encuentra más papers sin perder
+    precisión (ver el docstring del módulo)."""
     query = query.replace("(", "").replace(")", "")
     clausulas = []
     for grupo in re.split(r"\s+AND\s+", query):
@@ -45,7 +60,7 @@ def construir_filtro(query):
         negar = re.match(r"(?i)^NOT\s+", grupo)
         if negar:
             grupo = grupo[negar.end():].strip()
-        terminos = [t.strip() for t in re.split(r"\s+OR\s+", grupo) if t.strip()]
+        terminos = [t.strip().strip('"') for t in re.split(r"\s+OR\s+", grupo) if t.strip().strip('"')]
         valor = "|".join(terminos)
         if negar:
             valor = f"!{valor}"
@@ -124,24 +139,32 @@ def _solicitar(params, query, reintentos=3):
     return None
 
 
-def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
-    """Busca una query en OpenAlex, paginando con cursor hasta max_results."""
+# Si la búsqueda en título y abstract trae menos resultados que esto, se repite
+# en texto completo (default.search) y se fusionan los nuevos (ver el docstring
+# del módulo). Con menos de esto, el usuario se queda casi sin papers.
+UMBRAL_RESCATE_FULLTEXT = 15
+
+
+def _paginar(filtro, query, email, max_results, per_page):
+    """Corre una solicitud de OpenAlex (filtro ya armado) y pagina con cursor
+    hasta max_results. Devuelve (resultados, error): error es True cuando la
+    solicitud no se pudo completar (red o 429 persistente), para no confundir
+    "0 resultados" con "no se pudo buscar"."""
     results = []
     cursor = "*"
-    filtro = construir_filtro(query)
-    if min_year:
-        filtro += f",from_publication_date:{min_year}-01-01"
     params = {
         "filter": filtro,
         "per-page": min(per_page, 200, max_results),
         "mailto": email,
     }
+    if config.OPENALEX_API_KEY:
+        params["api_key"] = config.OPENALEX_API_KEY
 
     while len(results) < max_results:
         params["cursor"] = cursor
         data = _solicitar(params, query)
         if data is None:
-            break
+            return results, True
         page_results = data.get("results", [])
         if not page_results:
             break
@@ -155,6 +178,84 @@ def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
         if not cursor:
             break
 
+    return results, False
+
+
+def _pares_de(efectiva):
+    """[cada par de grupos AND positivos de la cadena] o [] si tiene menos de
+    3 grupos. Medido en el banco de pruebas: cada par exige solo dos conceptos
+    y encuentra más papers que la cadena completa con la MEJOR precisión de
+    todas las variantes (0,73 estricta contra 0,66 de la cadena completa)."""
+    grupos = limites_motores.parsear(efectiva)
+    positivos = [t for negar, t in grupos if not negar]
+    if len(positivos) < 3:
+        return []
+    return [limites_motores.unir([(False, positivos[i]), (False, positivos[j])])
+            for i in range(len(positivos)) for j in range(i + 1, len(positivos))]
+
+
+def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
+    """Busca una query en OpenAlex (título y abstract), paginando con cursor
+    hasta max_results. Si trae menos de UMBRAL_RESCATE_FULLTEXT resultados,
+    aplica dos rescates y fusiona lo nuevo, deduplicado por DOI (o id de
+    OpenAlex si no tiene DOI):
+    1. Pares de grupos (solo con 3 o más grupos AND): cada par es más preciso
+       que el texto completo (ver _pares_de).
+    2. Texto completo (default.search): lo más amplio; rescata cadenas que
+       devuelven 0 resultados en título y abstract."""
+    efectiva, recortada = limites_motores.ajustar(query, "openalex", construir_filtro)
+    if recortada:
+        print(f"  [aviso] la cadena era demasiado larga para OpenAlex; se recortaron alternativas: {efectiva!r}")
+    filtro = construir_filtro(efectiva)
+    if min_year:
+        filtro += f",from_publication_date:{min_year}-01-01"
+
+    results, error = _paginar(filtro, query, email, max_results, per_page)
+    if error or len(results) >= UMBRAL_RESCATE_FULLTEXT:
+        return results
+    base = len(results)
+
+    vistos = {r["doi"] or r["openalex_id"] for r in results}
+    por_pares = 0
+    for par in _pares_de(efectiva):
+        if len(results) >= max_results:
+            break
+        filtro_par = construir_filtro(par)
+        if min_year:
+            filtro_par += f",from_publication_date:{min_year}-01-01"
+        extra, _ = _paginar(filtro_par, query, email, max_results, per_page)
+        for row in extra:
+            key = row["doi"] or row["openalex_id"]
+            if key not in vistos:
+                vistos.add(key)
+                results.append(row)
+                por_pares += 1
+                if len(results) >= max_results:
+                    break
+        if len(results) >= UMBRAL_RESCATE_FULLTEXT:
+            break
+
+    por_fulltext = 0
+    if len(results) < UMBRAL_RESCATE_FULLTEXT:
+        filtro_fulltext = filtro.replace("title_and_abstract.search:", "default.search:")
+        extra, _ = _paginar(filtro_fulltext, query, email, max_results, per_page)
+        for row in extra:
+            key = row["doi"] or row["openalex_id"]
+            if key not in vistos:
+                vistos.add(key)
+                results.append(row)
+                por_fulltext += 1
+                if len(results) >= max_results:
+                    break
+
+    if por_pares or por_fulltext:
+        detalle = []
+        if por_pares:
+            detalle.append(f"{por_pares} por pares de grupos")
+        if por_fulltext:
+            detalle.append(f"{por_fulltext} en el texto completo")
+        print(f"  [aviso] {query!r} trajo solo {base} resultados en título y abstract; "
+              f"se agregaron {' y '.join(detalle)}")
     return results
 
 

@@ -1,0 +1,456 @@
+[
+ {
+  "proyecto": "inteligencia_artificial_interpreta",
+  "title": "Microencapsulation of Red Banana Peel Extract and Bioaccessibility Assessment by In Vitro Digestion",
+  "doi": "https://doi.org/10.3390/pr10040768",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "microencapsulation OR banana OR peel",
+    "aparece": true,
+    "posicion": 1,
+    "total": 256994
+   },
+   "L2_dos_grupos": {
+    "cadena": "microencapsulation OR banana AND compounds OR bioactive",
+    "aparece": true,
+    "posicion": 85,
+    "total": 8529
+   },
+   "L3_dos_sueltos": {
+    "cadena": "microencapsulation AND compounds",
+    "aparece": false,
+    "posicion": null,
+    "total": 2754,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "microencapsulation AND banana AND compounds",
+    "aparece": true,
+    "posicion": 1,
+    "total": 13
+   },
+   "L5_frase": {
+    "cadena": "\"banana peel\" AND compounds",
+    "aparece": true,
+    "posicion": 94,
+    "total": 1184
+   },
+   "L6_estricta": {
+    "cadena": "\"banana peel\" AND compounds AND NOT review",
+    "aparece": true,
+    "posicion": 78,
+    "total": 1042
+   }
+  }
+ },
+ {
+  "proyecto": "inteligencia_artificial_interpreta",
+  "title": "Improving the Bioactivities of Apricot Kernels Through Fermentation: Investigating the Relationship Between Bioactivities, Polyphenols, and Amino Acids Through the Random Forest Regression XAI Approach",
+  "doi": "https://doi.org/10.3390/foods14050845",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "bioactivities OR apricot OR kernels",
+    "aparece": true,
+    "posicion": 50,
+    "total": 972962
+   },
+   "L2_dos_grupos": {
+    "cadena": "bioactivities OR apricot AND acid OR antioxidant",
+    "aparece": true,
+    "posicion": 59,
+    "total": 205475
+   },
+   "L3_dos_sueltos": {
+    "cadena": "bioactivities AND acid",
+    "aparece": false,
+    "posicion": null,
+    "total": 134260,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "bioactivities AND apricot AND acid",
+    "aparece": true,
+    "posicion": 7,
+    "total": 163
+   },
+   "L5_frase": {
+    "cadena": "\"apricot kernels\" AND acid",
+    "aparece": true,
+    "posicion": 71,
+    "total": 356
+   },
+   "L6_estricta": {
+    "cadena": "\"apricot kernels\" AND acid AND NOT review",
+    "aparece": true,
+    "posicion": 69,
+    "total": 335
+   }
+  }
+ },
+ {
+  "proyecto": "investigacion_de_como_los_robots_o",
+  "title": "Survey on human–robot collaboration in industrial settings: Safety, intuitive interfaces and applications",
+  "doi": "https://doi.org/10.1016/J.MECHATRONICS.2018.02.009",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "survey OR human OR robot",
+    "aparece": true,
+    "posicion": 28,
+    "total": 17770074
+   },
+   "L2_dos_grupos": {
+    "cadena": "survey OR human AND collaborative OR solutions",
+    "aparece": true,
+    "posicion": 195,
+    "total": 850674
+   },
+   "L3_dos_sueltos": {
+    "cadena": "survey AND collaborative",
+    "aparece": false,
+    "posicion": null,
+    "total": 90468,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "survey AND human AND collaborative",
+    "aparece": true,
+    "posicion": 25,
+    "total": 9144
+   },
+   "L5_frase": {
+    "cadena": "\"human robot\" AND collaborative",
+    "aparece": false,
+    "posicion": null,
+    "total": 14553,
+    "matchea": true
+   },
+   "L6_estricta": {
+    "cadena": "\"human robot\" AND collaborative AND NOT review",
+    "aparece": false,
+    "posicion": null,
+    "total": 13114,
+    "matchea": false
+   }
+  }
+ },
+ {
+  "proyecto": "investigacion_de_como_los_robots_o",
+  "title": "A review of mobile robots: Concepts, methods, theoretical framework, and applications",
+  "doi": "https://doi.org/10.1177/1729881419839596",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "review OR mobile OR robots",
+    "aparece": true,
+    "posicion": 11,
+    "total": 15745065
+   },
+   "L2_dos_grupos": {
+    "cadena": "review OR mobile AND intelligence OR robot",
+    "aparece": true,
+    "posicion": 15,
+    "total": 459917
+   },
+   "L3_dos_sueltos": {
+    "cadena": "review AND intelligence",
+    "aparece": false,
+    "posicion": null,
+    "total": 251384,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "review AND mobile AND intelligence",
+    "aparece": true,
+    "posicion": 36,
+    "total": 6452
+   },
+   "L5_frase": {
+    "cadena": "\"mobile robots\" AND intelligence",
+    "aparece": true,
+    "posicion": 54,
+    "total": 5897
+   },
+   "L6_estricta": {
+    "cadena": "\"mobile robots\" AND intelligence AND NOT review",
+    "aparece": false,
+    "posicion": null,
+    "total": 5094,
+    "matchea": false
+   }
+  }
+ },
+ {
+  "proyecto": "prueba_lacteos_y_cafe",
+  "title": "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk",
+  "doi": "https://doi.org/10.1016/J.FOODHYD.2018.03.035",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "structural OR mechanism OR kinetics",
+    "aparece": false,
+    "posicion": null,
+    "total": 17208922,
+    "matchea": true
+   },
+   "L2_dos_grupos": {
+    "cadena": "structural OR mechanism AND gastric OR samples",
+    "aparece": false,
+    "posicion": null,
+    "total": 1324456,
+    "matchea": true
+   },
+   "L3_dos_sueltos": {
+    "cadena": "structural AND gastric",
+    "aparece": false,
+    "posicion": null,
+    "total": 7830,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "structural AND mechanism AND gastric",
+    "aparece": false,
+    "posicion": null,
+    "total": 1750,
+    "matchea": true
+   },
+   "L5_frase": {
+    "cadena": "\"structural mechanism\" AND gastric",
+    "aparece": false,
+    "posicion": null,
+    "total": 1750,
+    "matchea": true
+   },
+   "L6_estricta": {
+    "cadena": "\"structural mechanism\" AND gastric AND NOT review",
+    "aparece": false,
+    "posicion": null,
+    "total": 1263,
+    "matchea": true
+   }
+  }
+ },
+ {
+  "proyecto": "prueba_lacteos_y_cafe",
+  "title": "Changes in bovine milk fat globule membrane proteins caused by heat procedures using a label-free proteomic approach.",
+  "doi": "https://doi.org/10.1016/j.foodres.2018.06.046",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "changes OR bovine OR milk",
+    "aparece": false,
+    "posicion": null,
+    "total": 19638912,
+    "matchea": true
+   },
+   "L2_dos_grupos": {
+    "cadena": "changes OR bovine AND mfgm OR proteins",
+    "aparece": true,
+    "posicion": 118,
+    "total": 1185109
+   },
+   "L3_dos_sueltos": {
+    "cadena": "changes AND mfgm",
+    "aparece": true,
+    "posicion": 32,
+    "total": 249
+   },
+   "L4_tres_sueltos": {
+    "cadena": "changes AND bovine AND mfgm",
+    "aparece": true,
+    "posicion": 5,
+    "total": 65
+   },
+   "L5_frase": {
+    "cadena": "\"bovine milk\" AND mfgm",
+    "aparece": true,
+    "posicion": 84,
+    "total": 303
+   },
+   "L6_estricta": {
+    "cadena": "\"bovine milk\" AND mfgm AND NOT review",
+    "aparece": true,
+    "posicion": 73,
+    "total": 265
+   }
+  }
+ },
+ {
+  "proyecto": "pruebas_cadenas",
+  "title": "Cancer Immunotherapy Using Checkpoint Blockade",
+  "doi": "https://doi.org/10.1126/science.aar4060",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "cancer OR immunotherapy OR checkpoint",
+    "aparece": true,
+    "posicion": 4,
+    "total": 5952147
+   },
+   "L2_dos_grupos": {
+    "cadena": "cancer OR immunotherapy AND immune OR that",
+    "aparece": true,
+    "posicion": 333,
+    "total": 3255027
+   },
+   "L3_dos_sueltos": {
+    "cadena": "cancer AND immune",
+    "aparece": false,
+    "posicion": null,
+    "total": 444527,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "cancer AND immunotherapy AND immune",
+    "aparece": true,
+    "posicion": 329,
+    "total": 125477
+   },
+   "L5_frase": {
+    "cadena": "\"cancer immunotherapy\" AND immune",
+    "aparece": true,
+    "posicion": 208,
+    "total": 125477
+   },
+   "L6_estricta": {
+    "cadena": "\"cancer immunotherapy\" AND immune AND NOT review",
+    "aparece": true,
+    "posicion": 94,
+    "total": 96508
+   }
+  }
+ },
+ {
+  "proyecto": "pruebas_cadenas",
+  "title": "Pembrolizumab plus Chemotherapy in Metastatic Non–Small‐Cell Lung Cancer",
+  "doi": "https://doi.org/10.1056/NEJMoa1801005",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "pembrolizumab OR plus OR chemotherapy",
+    "aparece": false,
+    "posicion": null,
+    "total": 3471307,
+    "matchea": true
+   },
+   "L2_dos_grupos": {
+    "cadena": "pembrolizumab OR plus AND survival OR combination",
+    "aparece": false,
+    "posicion": null,
+    "total": 222148,
+    "matchea": true
+   },
+   "L3_dos_sueltos": {
+    "cadena": "pembrolizumab AND survival",
+    "aparece": false,
+    "posicion": null,
+    "total": 14216,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "pembrolizumab AND plus AND survival",
+    "aparece": false,
+    "posicion": null,
+    "total": 3661,
+    "matchea": true
+   },
+   "L5_frase": {
+    "cadena": "\"pembrolizumab plus\" AND survival",
+    "aparece": false,
+    "posicion": null,
+    "total": 3661,
+    "matchea": true
+   },
+   "L6_estricta": {
+    "cadena": "\"pembrolizumab plus\" AND survival AND NOT review",
+    "aparece": false,
+    "posicion": null,
+    "total": 2618,
+    "matchea": false
+   }
+  }
+ },
+ {
+  "proyecto": "robotica_y_automatizacion_avanzada_3",
+  "title": "Functional mimicry of Ruffini receptors with fibre Bragg gratings and deep neural networks enables a bio-inspired large-area tactile-sensitive skin",
+  "doi": "https://doi.org/10.1038/s42256-022-00487-3",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "functional OR mimicry OR ruffini",
+    "aparece": true,
+    "posicion": 1,
+    "total": 6353409
+   },
+   "L2_dos_grupos": {
+    "cadena": "functional OR mimicry AND skin OR sensing",
+    "aparece": true,
+    "posicion": 4,
+    "total": 251782
+   },
+   "L3_dos_sueltos": {
+    "cadena": "functional AND skin",
+    "aparece": false,
+    "posicion": null,
+    "total": 89573,
+    "matchea": true
+   },
+   "L4_tres_sueltos": {
+    "cadena": "functional AND mimicry AND skin",
+    "aparece": true,
+    "posicion": 1,
+    "total": 97
+   },
+   "L5_frase": {
+    "cadena": "\"functional mimicry\" AND skin",
+    "aparece": true,
+    "posicion": 1,
+    "total": 97
+   },
+   "L6_estricta": {
+    "cadena": "\"functional mimicry\" AND skin AND NOT review",
+    "aparece": true,
+    "posicion": 1,
+    "total": 73
+   }
+  }
+ },
+ {
+  "proyecto": "robotica_y_automatizacion_avanzada_3",
+  "title": "Recent Advances and Challenges in Industrial Robotics: A Systematic Review of Technological Trends and Emerging Applications",
+  "doi": "https://doi.org/10.3390/pr13030832",
+  "niveles": {
+   "L1_flexible": {
+    "cadena": "recent OR advances OR challenges",
+    "aparece": false,
+    "posicion": null,
+    "total": 16264939,
+    "matchea": true
+   },
+   "L2_dos_grupos": {
+    "cadena": "recent OR advances AND robotics OR learning",
+    "aparece": true,
+    "posicion": 199,
+    "total": 729370
+   },
+   "L3_dos_sueltos": {
+    "cadena": "recent AND robotics",
+    "aparece": true,
+    "posicion": 264,
+    "total": 60387
+   },
+   "L4_tres_sueltos": {
+    "cadena": "recent AND advances AND robotics",
+    "aparece": true,
+    "posicion": 106,
+    "total": 10249
+   },
+   "L5_frase": {
+    "cadena": "\"recent advances\" AND robotics",
+    "aparece": true,
+    "posicion": 97,
+    "total": 10249
+   },
+   "L6_estricta": {
+    "cadena": "\"recent advances\" AND robotics AND NOT review",
+    "aparece": false,
+    "posicion": null,
+    "total": 6671,
+    "matchea": false
+   }
+  }
+ }
+]

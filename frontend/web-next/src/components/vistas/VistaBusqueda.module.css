@@ -1,0 +1,28 @@
+.seccion { max-width: 720px; }
+.titulo { font-size: 34px; margin: 0 0 22px; }
+.tarjeta { padding: 28px 30px; border-radius: 32px; background: var(--color-neutral-100); box-shadow: var(--shadow-md); }
+.paso { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 14px; align-items: center; min-height: 50px; }
+.riel { position: relative; display: grid; place-items: center; height: 50px; }
+.linea { position: absolute; height: 13px; width: 2px; }
+.arriba { top: 0; }
+.abajo { bottom: 0; }
+.hecho {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-2-600); color: var(--color-accent-2-100);
+  display: grid; place-items: center;
+}
+.activo {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent); border: 6px solid var(--color-accent-200);
+  animation: ra-pulse 1.2s ease-out infinite;
+}
+.pendiente { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--color-neutral-400); }
+.etiqueta { font-size: 15px; font-weight: 600; }
+.detalle { font-size: 13px; color: var(--color-neutral-700); text-align: right; }
+.barraFila { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+.barra { flex: 1; height: 12px; border-radius: 999px; background: var(--color-neutral-300); overflow: hidden; }
+.relleno {
+  height: 100%; border-radius: 999px; transition: width 0.2s; background-size: 28px 100%;
+  background-image: repeating-linear-gradient(-45deg, var(--color-accent) 0 7px, var(--color-accent-500) 7px 14px);
+  animation: ra-stripe 0.8s linear infinite;
+}
+.porcentaje { font-family: var(--font-heading); font-size: 18px; min-width: 48px; text-align: right; }
+.cancelar { margin-top: 18px; }

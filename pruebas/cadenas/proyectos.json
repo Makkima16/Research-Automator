@@ -1,0 +1,322 @@
+[
+ {
+  "archivo": "biodisponibilidad_medido_por_medio.db",
+  "prompt": "",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": "",
+  "queries": [],
+  "aclaraciones": null,
+  "intencion_busqueda": null,
+  "intencion_cadenas": null
+ },
+ {
+  "archivo": "harina_de_banano_y_su_aplicacion_c.db",
+  "prompt": "Harina de banano y su aplicacion con infogest aplicando machinelearning y/o deeplearning",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": "Estudio de la digestibilidad del almidón de harina de banano mediante el modelo INFOGEST, considerando la madurez del banano como variable de contexto, y aplicación de machine learning o deep learning para predecir la concentración de nutrientes tras la digestión.",
+  "queries": [
+   "INFOGEST AND banana starch AND digestibility",
+   "INFOGEST AND banana flour AND maturity AND digestibility",
+   "INFOGEST AND starch digestion AND machine learning AND nutrient prediction",
+   "INFOGEST AND banana AND deep learning AND nutrient concentration",
+   "INFOGEST AND starch AND digestibility AND NOT banana"
+  ],
+  "aclaraciones": [
+   {
+    "pregunta": "¿Qué aspecto de la harina de banano se quiere estudiar con INFOGEST?",
+    "respuesta": "digestibilidad de almidón"
+   },
+   {
+    "pregunta": "¿Qué se quiere predecir o modelar con machine learning o deep learning?",
+    "respuesta": "concentración de nutrientes tras digestión"
+   },
+   {
+    "pregunta": "¿Qué condiciones o variables del proceso se consideran como contexto?",
+    "respuesta": "madurez del banano"
+   }
+  ],
+  "intencion_busqueda": "Tema original: Harina de banano y su aplicacion con infogest aplicando machinelearning y/o deeplearning | Pregunta: ¿Qué aspecto de la harina de banano se quiere estudiar con INFOGEST? Respuesta: digestibilidad de almidón | Pregunta: ¿Qué se quiere predecir o modelar con machine learning o deep learning? Respuesta: concentración de nutrientes tras digestión | Pregunta: ¿Qué condiciones o variables del proceso se consideran como contexto? Respuesta: madurez del banano",
+  "intencion_cadenas": {
+   "intencion_consolidada": "Buscar estudios que utilicen el modelo INFOGEST para evaluar la digestibilidad del almidón de harina de banano, considerando la madurez del fruto como variable, y que apliquen técnicas de machine learning o deep learning para predecir la concentración de nutrientes después de la digestión.",
+   "detalles": [
+    {
+     "cadena": "INFOGEST AND banana starch AND digestibility",
+     "intencion": "Identificar papers que usen INFOGEST para medir digestibilidad de almidón de banano.",
+     "alcance": "Digestibilidad básica del almidón de banano con INFOGEST."
+    },
+    {
+     "cadena": "INFOGEST AND banana flour AND maturity AND digestibility",
+     "intencion": "Encontrar estudios que relacionen la madurez del banano con la digestibilidad de su harina usando INFOGEST.",
+     "alcance": "Variable de madurez del banano en la digestibilidad de harina."
+    },
+    {
+     "cadena": "INFOGEST AND starch digestion AND machine learning AND nutrient prediction",
+     "intencion": "Localizar trabajos que combinen INFOGEST, digestión de almidón y machine learning para predecir nutrientes.",
+     "alcance": "Aplicación de machine learning a predicción de nutrientes post-digestión."
+    },
+    {
+     "cadena": "INFOGEST AND banana AND deep learning AND nutrient concentration",
+     "intencion": "Buscar estudios que usen deep learning con INFOGEST y banano para predecir concentración de nutrientes.",
+     "alcance": "Deep learning aplicado a concentración de nutrientes en banano digerido."
+    },
+    {
+     "cadena": "INFOGEST AND starch AND digestibility AND NOT banana",
+     "intencion": "Obtener contexto general de digestibilidad de almidón con INFOGEST excluyendo banano para comparar métodos.",
+     "alcance": "Referencia metodológica de INFOGEST en almidón sin enfoque en banano."
+    }
+   ]
+  }
+ },
+ {
+  "archivo": "infogest_con_analisis_digestibild.db",
+  "prompt": "infogest, con análisis digestibildad, variables de salida amargor BI, EAAI, % de digestibilidad, tablas de resultado imlpementacion de macheing learning, XAI, estrapolacion de datos optimización",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": null,
+  "queries": [
+   "INFOGEST OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND \"protein digestibility\" OR \"digestibility percentage\" OR \"degree of hydrolysis\" AND bitterness OR \"bitterness index\" OR EAAI OR \"essential amino acid index\"",
+   "INFOGEST OR \"standardized static digestion\" OR \"gastrointestinal digestion model\" AND \"machine learning\" OR \"predictive modeling\" OR \"supervised learning\" AND \"protein digestibility\" OR \"percent digestibility\" OR \"amino acid bioaccessibility\"",
+   "\"in vitro protein digestion\" OR INFOGEST OR \"simulated gastrointestinal digestion\" AND \"explainable artificial intelligence\" OR XAI OR \"model interpretability\" AND bitterness OR \"essential amino acid index\" OR digestibility OR \"bioactive peptides\"",
+   "\"food protein hydrolysis\" OR \"protein hydrolysate\" OR \"digested peptides\" AND \"machine learning\" OR \"data extrapolation\" OR optimization OR \"response surface methodology\" AND \"bitterness index\" OR EAAI OR \"digestibility percentage\"",
+   "INFOGEST OR \"in vitro digestion protocol\" OR \"static digestion model\" AND dataset OR \"tabular data\" OR \"results table\" OR \"data matrix\" AND \"machine learning\" OR XAI OR \"feature importance\""
+  ],
+  "aclaraciones": null,
+  "intencion_busqueda": null,
+  "intencion_cadenas": null
+ },
+ {
+  "archivo": "machine_learning_y_los_algoritmos.db",
+  "prompt": "Machine Learning y los algoritmos discriminantes lineales",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": "Machine Learning y los algoritmos discriminantes lineales",
+  "queries": [
+   "machine learning AND \"linear discriminant analysis\" AND classification",
+   "machine learning AND \"linear discriminant\" AND \"dimensionality reduction\"",
+   "machine learning AND \"Fisher discriminant\" AND supervised",
+   "machine learning AND \"linear discriminant\" AND NOT \"quadratic discriminant\"",
+   "machine learning AND \"linear discriminant\" AND \"feature extraction\""
+  ],
+  "aclaraciones": [
+   {
+    "pregunta": "¿Qué objeto de estudio concreto quieres investigar?",
+    "respuesta": ""
+   },
+   {
+    "pregunta": "¿Qué quieres saber de esos algoritmos?",
+    "respuesta": ""
+   },
+   {
+    "pregunta": "¿En qué contexto o aplicación se enmarca la búsqueda?",
+    "respuesta": ""
+   }
+  ],
+  "intencion_busqueda": "Tema original: Machine Learning y los algoritmos discriminantes lineales",
+  "intencion_cadenas": {
+   "intencion_consolidada": "Buscar publicaciones académicas que expliquen, comparen o apliquen algoritmos discriminantes lineales dentro del campo del machine learning, abarcando desde el análisis discriminante lineal clásico y el discriminante de Fisher hasta su uso en clasificación, reducción de dimensionalidad y extracción de características, excluyendo enfoques cuadráticos.",
+   "detalles": [
+    {
+     "cadena": "machine learning AND \"linear discriminant analysis\" AND classification",
+     "intencion": "Encontrar trabajos que apliquen el análisis discriminante lineal (LDA) como método de clasificación supervisada en machine learning.",
+     "alcance": "Clasificación supervisada con LDA."
+    },
+    {
+     "cadena": "machine learning AND \"linear discriminant\" AND \"dimensionality reduction\"",
+     "intencion": "Localizar estudios que utilicen discriminantes lineales para reducir la dimensionalidad de datos en contextos de machine learning.",
+     "alcance": "Reducción de dimensionalidad basada en discriminantes lineales."
+    },
+    {
+     "cadena": "machine learning AND \"Fisher discriminant\" AND supervised",
+     "intencion": "Buscar publicaciones sobre el discriminante de Fisher y sus variantes supervisadas dentro de machine learning.",
+     "alcance": "Discriminante de Fisher y aprendizaje supervisado."
+    },
+    {
+     "cadena": "machine learning AND \"linear discriminant\" AND NOT \"quadratic discriminant\"",
+     "intencion": "Recuperar artículos sobre discriminantes lineales excluyendo explícitamente el análisis discriminante cuadrático (QDA).",
+     "alcance": "Discriminantes lineales sin enfoques cuadráticos."
+    },
+    {
+     "cadena": "machine learning AND \"linear discriminant\" AND \"feature extraction\"",
+     "intencion": "Identificar trabajos que empleen discriminantes lineales como técnica de extracción de características en machine learning.",
+     "alcance": "Extracción de características con discriminantes lineales."
+    }
+   ]
+  }
+ },
+ {
+  "archivo": "prueba_lacteos_y_cafe.db",
+  "prompt": "Desarrollo y factores de la leche entera UHT ",
+  "num": 10,
+  "idioma": "en",
+  "tema_refinado": "Desarrollo de leche entera UHT en la industria láctea, enfocado en la calidad del producto, su vida útil y los factores del proceso y almacenamiento que la afectan, especialmente temperatura de tratamiento, tiempo de conservación y condiciones de almacenamiento. La búsqueda se centrará en comparar la leche entera UHT frente a leches no UHT en términos de sabor, aporte nutricional y estabilidad durante la vida útil, con posible aplicación al desarrollo de nuevos productos lácteos.",
+  "queries": [
+   "\"UHT whole milk\" OR \"whole UHT milk\" OR \"ultra-high temperature whole milk\" OR \"UHT milk\" AND \"product quality\" OR \"sensory quality\" OR flavor OR taste AND \"shelf life\" OR stability OR \"storage conditions\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"heat treatment\" OR \"processing temperature\" OR \"holding time\" OR sterilization AND flavor OR \"cooked flavor\" OR \"sensory properties\"",
+   "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND \"storage temperature\" OR \"storage time\" OR \"ambient storage\" OR refrigeration AND \"shelf life\" OR \"quality deterioration\" OR stability",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"nutritional quality\" OR vitamins OR proteins OR minerals AND pasteurization OR \"pasteurized milk\" OR \"raw milk\" OR \"non-UHT milk\"",
+   "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND \"pasteurized milk\" OR \"extended shelf life milk\" OR \"non-UHT milk\" AND flavor OR taste OR \"consumer acceptance\" OR \"sensory evaluation\"",
+   "\"UHT milk\" OR \"UHT whole milk\" OR \"ultra-high temperature milk\" AND \"physicochemical stability\" OR sedimentation OR \"age gelation\" OR \"protein instability\" AND \"shelf life\" OR \"storage time\" OR \"storage temperature\"",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"Maillard reaction\" OR lactulose OR furosine OR \"protein denaturation\" AND \"heat load\" OR \"thermal processing\" OR \"processing conditions\"",
+   "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND packaging OR \"aseptic packaging\" OR oxygen OR light AND \"storage conditions\" OR \"ambient temperature\" OR \"shelf life\" OR oxidation",
+   "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"microbial stability\" OR spores OR \"Bacillus spores\" OR sterility AND \"shelf life\" OR \"storage temperature\" OR \"post-process contamination\"",
+   "\"UHT whole milk\" OR \"whole UHT milk\" OR \"ultra-high temperature milk\" AND \"dairy product development\" OR formulation OR innovation OR \"new product development\" AND \"quality attributes\" OR \"shelf stability\" OR \"consumer preference\""
+  ],
+  "aclaraciones": null,
+  "intencion_busqueda": null,
+  "intencion_cadenas": null
+ },
+ {
+  "archivo": "pruebas_cadenas.db",
+  "prompt": "Tratamientos de cancer",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": null,
+  "queries": [
+   "cancer OR oncology OR tumor OR neoplasm AND \"targeted therapy\" OR immunotherapy OR \"monoclonal antibodies\" OR \"immune checkpoint inhibitors\"",
+   "cancer OR malignancy OR carcinoma AND chemotherapy OR radiotherapy OR \"radiation therapy\" OR \"cytotoxic drugs\" AND NOT \"pediatric cancer\"",
+   "cancer OR tumor OR oncology AND surgery OR resection OR \"surgical oncology\" OR \"minimally invasive\" AND NOT \"benign tumor\"",
+   "cancer OR tumor OR neoplasm AND nanotechnology OR nanoparticles OR \"drug delivery\" OR nanomedicine",
+   "cancer OR oncology OR malignancy AND \"precision medicine\" OR \"personalized medicine\" OR \"gene therapy\" OR \"crispr\""
+  ],
+  "aclaraciones": null,
+  "intencion_busqueda": null,
+  "intencion_cadenas": null
+ },
+ {
+  "archivo": "robotica_y_automatizacion_avanzada.db",
+  "prompt": "robotica y automatizacion avanzada",
+  "num": 5,
+  "idioma": "es",
+  "tema_refinado": null,
+  "queries": [
+   "\"robótica industrial\" OR \"automatización de procesos\" OR \"manufactura inteligente\" AND \"sistemas ciberfísicos\" OR \"industria 4.0\" OR \"fábricas inteligentes\" AND NOT \"robótica educativa\"",
+   "\"robótica avanzada\" OR \"sistemas autónomos\" OR \"robots móviles\" AND \"inteligencia artificial\" OR \"aprendizaje profundo\" OR \"visión por computador\" AND \"navegación autónoma\" OR \"toma de decisiones\"",
+   "\"robótica colaborativa\" OR cobots OR \"robots colaborativos\" AND \"interacción humano-robot\" OR \"seguridad industrial\" OR \"ergonomía laboral\"",
+   "\"automatización avanzada\" OR \"sistemas de control\" OR mecatrónica AND \"sensores inteligentes\" OR \"visión artificial\" OR \"procesamiento de señales\" AND \"control adaptativo\" OR \"sistemas embebidos\"",
+   "\"robótica médica\" OR \"robótica de servicios\" OR \"robótica agrícola\" AND \"automatización de tareas\" OR \"asistencia robótica\" OR \"sistemas guiados\" AND NOT \"juguetes robóticos\""
+  ],
+  "aclaraciones": null,
+  "intencion_busqueda": null,
+  "intencion_cadenas": null
+ },
+ {
+  "archivo": "robotica_y_automatizacion_avanzada_2.db",
+  "prompt": "robotica y automatización avanzada\n",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": "Precisión de movimiento de robots móviles autónomos en la automatización de almacenes logísticos.",
+  "queries": [
+   "autonomous mobile robot AND warehouse automation AND motion precision",
+   "autonomous guided vehicle AND logistics warehouse AND navigation accuracy",
+   "mobile robot AND warehouse automation AND localization accuracy AND NOT simulation",
+   "autonomous mobile robot AND intralogistics AND path tracking accuracy",
+   "mobile robot AND warehouse automation AND positioning error"
+  ],
+  "aclaraciones": [
+   {
+    "pregunta": "¿Qué objeto concreto de la robótica o automatización te interesa estudiar?",
+    "respuesta": "robots móviles autónomos"
+   },
+   {
+    "pregunta": "¿Qué aspecto específico quieres conocer de ese objeto?",
+    "respuesta": "precisión de movimiento"
+   },
+   {
+    "pregunta": "¿En qué contexto o aplicación se enmarca la búsqueda?",
+    "respuesta": "automatización de almacenes logísticos"
+   }
+  ],
+  "intencion_busqueda": "Tema original: robotica y automatización avanzada\n | Pregunta: ¿Qué objeto concreto de la robótica o automatización te interesa estudiar? Respuesta: robots móviles autónomos | Pregunta: ¿Qué aspecto específico quieres conocer de ese objeto? Respuesta: precisión de movimiento | Pregunta: ¿En qué contexto o aplicación se enmarca la búsqueda? Respuesta: automatización de almacenes logísticos",
+  "intencion_cadenas": {
+   "intencion_consolidada": "Identificar evidencia académica sobre la precisión del movimiento, navegación y posicionamiento de robots móviles autónomos aplicados a la automatización de almacenes y logística intralogística, abarcando métricas de error, seguimiento de trayectorias y localización en entornos reales de almacén.",
+   "detalles": [
+    {
+     "cadena": "autonomous mobile robot AND warehouse automation AND motion precision",
+     "intencion": "Buscar estudios que vinculen directamente robots móviles autónomos con la precisión de movimiento en la automatización de almacenes.",
+     "alcance": "Precisión general de movimiento en AMR para almacenes logísticos."
+    },
+    {
+     "cadena": "autonomous guided vehicle AND logistics warehouse AND navigation accuracy",
+     "intencion": "Enfocarse en vehículos guiados automáticos (AGV) y su exactitud de navegación dentro de almacenes logísticos.",
+     "alcance": "Navegación y exactitud de AGV en entornos de logística de almacén."
+    },
+    {
+     "cadena": "mobile robot AND warehouse automation AND localization accuracy AND NOT simulation",
+     "intencion": "Localizar trabajos que midan la precisión de localización de robots móviles en automatización de almacenes, excluyendo estudios puramente simulativos.",
+     "alcance": "Localización real (no simulada) de robots móviles en almacenes."
+    },
+    {
+     "cadena": "autonomous mobile robot AND intralogistics AND path tracking accuracy",
+     "intencion": "Buscar investigaciones sobre la precisión del seguimiento de trayectorias (path tracking) de AMR en el contexto de intralogística.",
+     "alcance": "Seguimiento de trayectorias y precisión de ruta en intralogística."
+    },
+    {
+     "cadena": "mobile robot AND warehouse automation AND positioning error",
+     "intencion": "Identificar artículos que cuantifiquen errores de posicionamiento de robots móviles en la automatización de almacenes.",
+     "alcance": "Métricas de error de posicionamiento en robots móviles para almacenes."
+    }
+   ]
+  }
+ },
+ {
+  "archivo": "robotica_y_la_automatizacion_avanz.db",
+  "prompt": "Robotica y la automatización avanzada",
+  "num": 5,
+  "idioma": "en",
+  "tema_refinado": "Integración de inteligencia artificial en robots colaborativos (cobots) para su aplicación en logística y almacenes.",
+  "queries": [
+   "artificial intelligence AND collaborative robots AND warehouse",
+   "machine learning AND cobots AND logistics",
+   "deep learning AND human robot collaboration AND warehouse automation",
+   "reinforcement learning AND autonomous mobile robots AND order picking",
+   "computer vision AND collaborative robots AND material handling"
+  ],
+  "aclaraciones": [
+   {
+    "pregunta": "¿Qué tipo de robot o sistema automatizado te interesa estudiar?",
+    "respuesta": "cobots (robots colaborativos)"
+   },
+   {
+    "pregunta": "¿Qué aspecto específico quieres investigar de ellos?",
+    "respuesta": "integración con inteligencia artificial"
+   },
+   {
+    "pregunta": "¿En qué sector o contexto se aplicaría?",
+    "respuesta": "logística y almacenes"
+   }
+  ],
+  "intencion_busqueda": "Tema original: Robotica y la automatización avanzada | Pregunta: ¿Qué tipo de robot o sistema automatizado te interesa estudiar? Respuesta: cobots (robots colaborativos) | Pregunta: ¿Qué aspecto específico quieres investigar de ellos? Respuesta: integración con inteligencia artificial | Pregunta: ¿En qué sector o contexto se aplicaría? Respuesta: logística y almacenes",
+  "intencion_cadenas": {
+   "intencion_consolidada": "Buscar publicaciones académicas sobre la integración de técnicas de inteligencia artificial en robots colaborativos (cobots) aplicados a entornos logísticos y de almacenamiento, abarcando desde la colaboración humano-robot hasta la automatización de tareas como picking y manipulación de materiales.",
+   "detalles": [
+    {
+     "cadena": "artificial intelligence AND collaborative robots AND warehouse",
+     "intencion": "Buscar la base general de la integración de IA en cobots dentro de almacenes.",
+     "alcance": "Enfoque amplio en almacenes y cobots con IA."
+    },
+    {
+     "cadena": "machine learning AND cobots AND logistics",
+     "intencion": "Buscar aplicaciones de aprendizaje automático en cobots para logística general.",
+     "alcance": "Logística y aprendizaje automático en cobots."
+    },
+    {
+     "cadena": "deep learning AND human robot collaboration AND warehouse automation",
+     "intencion": "Buscar el uso de aprendizaje profundo para la colaboración humano-robot en la automatización de almacenes.",
+     "alcance": "Colaboración humano-robot y automatización de almacenes mediante deep learning."
+    },
+    {
+     "cadena": "reinforcement learning AND autonomous mobile robots AND order picking",
+     "intencion": "Buscar el uso de aprendizaje por refuerzo en robots móviles autónomos para la preparación de pedidos.",
+     "alcance": "Aprendizaje por refuerzo aplicado a picking y robots móviles autónomos."
+    },
+    {
+     "cadena": "computer vision AND collaborative robots AND material handling",
+     "intencion": "Buscar el uso de visión por computadora en cobots para la manipulación de materiales.",
+     "alcance": "Visión por computadora y manipulación de materiales en cobots."
+    }
+   ]
+  }
+ }
+]

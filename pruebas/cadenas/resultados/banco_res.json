@@ -1,0 +1,2376 @@
+[
+ {
+  "nombre": "harina_de_banano_y_su_aplicacion_c",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "INFOGEST AND banana starch AND digestibility",
+    "hits": 1,
+    "titulos": [
+     "Banana leathers as influenced by polysaccharide matrix and probiotic bacteria"
+    ],
+    "rel": [
+     0
+    ]
+   },
+   {
+    "cadena": "INFOGEST AND banana flour AND maturity AND digestibility",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND starch digestion AND machine learning AND nutrient prediction",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND banana AND deep learning AND nutrient concentration",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND starch AND digestibility AND NOT banana",
+    "hits": 61,
+    "titulos": [
+     "Pea cell wall integrity controls the starch and protein digestion properties in the INFOGEST in vitro simulation",
+     "Enzymatic Susceptibility of a Nonconventional Starch Biopolymer From Brosimum alicastrum : Insights From INFOGEST Digestion and Resistant Starch Assays",
+     "Applications of the INFOGEST In Vitro Digestion Model to Foods: A Review",
+     "Potential of Process-Induced Modification of Potato Starch to Modulate Starch Digestibility and Levels of Resistant Starch Type III",
+     "Fine structure of starch biomacromolecules and digestibility: The regulative role of amylose and amylopectin in the digestive hydrolysis of starch in rice",
+     "Analytical Approaches for Starch Digestibility and GI Evaluation",
+     "Effect of a Whey Protein Network Formed by Cold Gelation on Starch Digestibility",
+     "Sonochemical effect on the degree of substitution of octenyl-succinic anhydride into waxy rice starch nanoparticles and study of gastro-intestinal hydrolysis using INFOGEST in vitro digestion method"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "harina_de_banano_y_su_aplicacion_c",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"banana flour\" OR \"green banana flour\" OR \"unripe banana flour\" OR \"ripe banana flour\" AND \"starch digestibility\" OR \"starch hydrolysis\" OR \"resistant starch\" OR \"rapidly digestible starch\" AND INFOGEST OR \"in vitro digestion\" OR \"static digestion model\"",
+    "hits": 1,
+    "titulos": [
+     "Proximate Composition, Phenolic Compounds, and In Vitro Digestion Resistance of Starch in Green Banana Flours Produced From Pulp and Whole Fruit"
+    ],
+    "rel": [
+     0
+    ]
+   },
+   {
+    "cadena": "\"banana ripeness\" OR \"maturity stage\" OR \"ripening stage\" AND \"banana flour\" OR \"plantain flour\" OR \"Musa spp\" AND \"starch structure\" OR \"amylose content\" OR \"resistant starch\" OR \"glycemic response\"",
+    "hits": 11,
+    "titulos": [
+     "The in vivo digestibility study of banana flour with high content of resistant starch at different ripening stages",
+     "Impact of maturity stages and modification processes on resistant starch and starch properties of green banana flour and its glycaemic response",
+     "Changes in the Physicochemical Properties of Isolated Starch and Plantain Flours for Early Maturity Stage",
+     "Physicochemical and nutritional characteristics of banana flour during ripening",
+     "Glycemic Responses, Glycemic Index, and Glycemic Load Values of Some Street Foods Prepared from Plantain (Musa spp., AAB Genome) in Côte d’Ivoire",
+     "How Does Cultivar, Maturation, and Pre-Treatment Affect Nutritional, Physicochemical, and Pasting Properties of Plantain Flours?",
+     "Changes in the physicochemical properties of isolated starch and plantain (Musa AAB Simmonds) flours for early maturity stage",
+     "Ripening and thermal processing modulate starch digestibility, techno-functional properties and carotenoid profile in cooking banana cultivars (Musa spp.)"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"banana flour\" OR \"green banana flour\" OR \"banana powder\" AND \"in vitro digestion\" OR INFOGEST OR \"simulated gastrointestinal digestion\" AND bioaccessibility OR \"nutrient release\" OR \"nutrient concentration\" OR \"digesta composition\"",
+    "hits": 1,
+    "titulos": [
+     "Physicochemical and Functional Properties and In Vitro Digestibility of Green Banana Flour‐Based Snacks Enriched With Mango and Passion Fruit Pulps by Extrusion Cooking"
+    ],
+    "rel": [
+     0
+    ]
+   },
+   {
+    "cadena": "\"machine learning\" OR \"deep learning\" OR \"predictive modeling\" OR chemometrics AND \"in vitro digestion\" OR INFOGEST OR \"simulated digestion\" AND \"nutrient concentration\" OR bioaccessibility OR \"starch digestibility\" OR \"post digestion\"",
+    "hits": 22,
+    "titulos": [
+     "Exploring the bioaccessibility of polyphenols and glucosinolates from Brassicaceae microgreens by combining metabolomics profiling and computational chemometrics",
+     "Cooking African Pumpkin Leaves (Momordica balsamina L.) by Stir-Frying Improved Bioactivity and Bioaccessibility of Metabolites—Metabolomic and Chemometric Approaches",
+     "Protective effect of inulin on thermally treated acerola juice: in vitro bioaccessibility of bioactive compounds",
+     "Atmospheric cold plasma frequency imparts changes on cashew apple juice composition and improves vitamin C bioaccessibility",
+     "UHPLC‐MS E Insights Into Extrusion‐Driven Changes in Wheat Phenolics and Their Bioaccessibility",
+     "The effects of post‐harvest pretreatments and drying methods on in vitro bioaccessibility of phenolics and carotenoids in tomato ( Solanum lycopersicum ) cultivars",
+     "Ultrasound-Assisted Sustainable Processing of Garden Cress Juice: Enhancing Bioactive Compounds and Bioaccessibility through XGBoost Optimization",
+     "Reformulation of gluten-free sponge cakes with pulsed electric field-treated kiwifruit pomace: Unravelling the nutritional and functional impact through a foodomics-based in vitro digestion approach"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"banana flour\" OR \"green banana flour\" OR \"banana ripeness\" OR \"maturity stage\" AND \"machine learning\" OR \"deep learning\" OR \"artificial neural network\" AND \"nutrient prediction\" OR \"composition prediction\" OR \"starch digestibility\" OR \"nutrient concentration\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   }
+  ]
+ },
+ {
+  "nombre": "harina_de_banano_y_su_aplicacion_c",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"banana flour\" OR \"green banana flour\" OR \"plantain flour\" AND \"starch digestibility\" OR \"starch hydrolysis\" OR \"resistant starch\" AND INFOGEST OR \"in vitro digestion\" OR \"static in vitro digestion\" OR \"gastrointestinal digestion\"",
+    "hits": 3,
+    "titulos": [
+     "Dynamic in vitro gastrointestinal digestion of green banana flour: Resistant starch behavior, structural transformation, and bioactive accessibility",
+     "Proximate Composition, Phenolic Compounds, and In Vitro Digestion Resistance of Starch in Green Banana Flours Produced From Pulp and Whole Fruit",
+     "Valorisation of rejected unripe plantain fruits of Musa AAB Simmonds: from nutritional characterisation to the conceptual process design for prebiotic production"
+    ],
+    "rel": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"banana ripeness\" OR \"maturity stage\" OR \"ripening stage\" OR \"green banana\" AND \"banana flour\" OR \"banana starch\" OR \"plantain flour\" AND \"starch digestibility\" OR \"nutrient bioaccessibility\" OR \"in vitro digestion\"",
+    "hits": 16,
+    "titulos": [
+     "Digestibility and changes to structural characteristics of green banana starch during in vitro digestion",
+     "Functional Properties and in Vitro Starch Digestibility of Infrared Treated (Micronized) Green Banana Flour",
+     "Physicochemical Characteristics, Microstructure and Health Promoting Properties of Green Banana Flour",
+     "Manufacturing the ultimate green banana flour: Impact of drying and extrusion on phenolic profile and starch bioaccessibility",
+     "Proximate Composition, Phenolic Compounds, and In Vitro Digestion Resistance of Starch in Green Banana Flours Produced From Pulp and Whole Fruit",
+     "Structural, functional characterization and physicochemical properties of green banana flour from dessert and plantain bananas (Musa spp.)",
+     "Chemical composition and in vitro starch digestibility of green banana (cv. Giant Cavendish) flour and its derived autoclaved/debranched powder",
+     "Physicochemical characterization and in vitro digestibility of pretreated green banana flour through hot air oven drying"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"banana flour\" OR \"green banana flour\" OR \"plantain flour\" AND \"machine learning\" OR \"deep learning\" OR \"predictive modeling\" OR chemometrics AND \"nutrient concentration\" OR \"nutrient bioaccessibility\" OR \"digestion products\" OR \"post-digestion\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "\"banana flour\" OR \"banana starch\" OR \"plantain flour\" AND INFOGEST OR \"standardized in vitro digestion\" OR \"harmonized digestion protocol\" AND \"nutrient release\" OR bioaccessibility OR \"digested fraction\" OR \"soluble fraction\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "\"banana starch\" OR \"banana flour\" OR \"green banana flour\" OR \"plantain starch\" AND \"starch hydrolysis\" OR \"digestibility kinetics\" OR \"glycemic response\" OR \"glucose release\" AND \"machine learning\" OR \"artificial neural network\" OR \"deep learning\" OR \"predictive model\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   }
+  ]
+ },
+ {
+  "nombre": "harina_de_banano_y_su_aplicacion_c",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "banana starch digestibility AND INFOGEST AND ripeness",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "banana flour starch AND INFOGEST AND maturity AND nutrient concentration",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "starch digestibility AND INFOGEST AND banana AND machine learning",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "banana starch AND INFOGEST AND deep learning AND nutrient prediction",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "banana starch digestibility AND INFOGEST AND NOT animal",
+    "hits": 1,
+    "titulos": [
+     "Banana leathers as influenced by polysaccharide matrix and probiotic bacteria"
+    ],
+    "rel": [
+     0
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "harina_de_banano_y_su_aplicacion_c",
+  "cond": "nvidia_nuevo",
+  "evals": []
+ },
+ {
+  "nombre": "infogest_con_analisis_digestibild",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "INFOGEST OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND \"protein digestibility\" OR \"digestibility percentage\" OR \"degree of hydrolysis\" AND bitterness OR \"bitterness index\" OR EAAI OR \"essential amino acid index\"",
+    "hits": 13,
+    "titulos": [
+     "Effect of Storage on Lactase-Treated β-Casein and β-Lactoglobulin with Respect to Bitter Peptide Formation and Subsequent in Vitro Digestibility",
+     "Regulation of peptide hydrophobicity by self-assembly of casein peptides with ferulic acid to potentially reduce peptide bitterness and improve in vitro digestive activity",
+     "Discovery and Characterization of a Dual-Function Peptide Derived from Bitter Gourd Seed Protein Using Two Orthogonal Bioassay-Guided Fractionations Coupled with In Silico Analysis",
+     "Enhancing the nutritional profile and in vitro digestion properties of dual-protein extrudates by blending surimi with soybean flour",
+     "Enhancement of surimi gel quality using textured proteins from different plant sources: Product characteristics and in vitro digestion paradigm",
+     "Effect of Different Microwave Times on the Nutritional Properties of Glycosylated Soybean 7S",
+     "Effects of thermal processing on protein quality and bioactivity of tilapia: Explored by in vitro and computer simulated digestion",
+     "Peptidomic Investigation of the Interplay between Enzymatic Tenderization and the Digestibility of Beef Semimembranosus Proteins"
+    ],
+    "rel": [
+     1,
+     1,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "INFOGEST OR \"standardized static digestion\" OR \"gastrointestinal digestion model\" AND \"machine learning\" OR \"predictive modeling\" OR \"supervised learning\" AND \"protein digestibility\" OR \"percent digestibility\" OR \"amino acid bioaccessibility\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "\"in vitro protein digestion\" OR INFOGEST OR \"simulated gastrointestinal digestion\" AND \"explainable artificial intelligence\" OR XAI OR \"model interpretability\" AND bitterness OR \"essential amino acid index\" OR digestibility OR \"bioactive peptides\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "\"food protein hydrolysis\" OR \"protein hydrolysate\" OR \"digested peptides\" AND \"machine learning\" OR \"data extrapolation\" OR optimization OR \"response surface methodology\" AND \"bitterness index\" OR EAAI OR \"digestibility percentage\"",
+    "hits": 1,
+    "titulos": [
+     "Preparation and Properties of Tenebrio molitor Protein Hydrolysates"
+    ],
+    "rel": [
+     0
+    ]
+   },
+   {
+    "cadena": "INFOGEST OR \"in vitro digestion protocol\" OR \"static digestion model\" AND dataset OR \"tabular data\" OR \"results table\" OR \"data matrix\" AND \"machine learning\" OR XAI OR \"feature importance\"",
+    "hits": 1,
+    "titulos": [
+     "Development of in silico prediction model for standardized ileal digestibility of amino acids from protein sources"
+    ],
+    "rel": [
+     1
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "infogest_con_analisis_digestibild",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "INFOGEST OR \"static in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND digestibility OR bioaccessibility OR hydrolysis AND \"machine learning\" OR \"predictive modeling\" OR optimization",
+    "hits": 166,
+    "titulos": [
+     "Optimizing INFOGEST Digest Conditioning for Reliable In Vitro Assessment of Nutrient Bioavailability Using Caco-2 Cell Models",
+     "Total and Bioaccessible contents of Microelements in Multivitamin Formulations Exposed to Consumption in Brazil using in vitro Gastrointestinal Digestion (INFOGEST Protocol)",
+     "Optimizing INFOGEST Digest Conditioning for Reliable In Vitro Assessment of Nutrient Bioavailability Using Caco-2 Cell Models",
+     "Evaluation of Carotenoid Bioaccessibility in Selected Good Dietary Sources of Lutein Using a Modified INFOGEST In Vitro Digestion Protocol",
+     "Application of static in vitro digestion models for assessing the bioaccessibility of hydrophobic bioactives: A review",
+     "Influence of Physical Pretreatment on the Bioaccessibility and Antioxidant Profile of Microchloropsis gaditana Fractions Under Simulated Gastrointestinal Digestion",
+     "From sustainable extraction to intestinal uptake: optimizing phenolic and carotenoid bioaccessibility in Arthrospira platensis",
+     "Optimization of extraction and study of the in vitro static simulation of INFOGEST gastrointestinal digestion and in vitro colonic fermentation on the phenolic compounds of dandelion and their antioxidant activities"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"bitterness index\" OR bitterness OR \"bitter peptides\" OR \"BI\" AND \"protein digest\" OR hydrolysate OR peptides AND \"machine learning\" OR \"explainable artificial intelligence\" OR XAI",
+    "hits": 64,
+    "titulos": [
+     "Machine Learning Predictor for Bitter Peptides",
+     "Research on Bitter Peptides in the Field of Bioinformatics: A Comprehensive Review",
+     "Identify Bitter Peptides by Using Deep Representation Learning Features",
+     "De novo design and experimental characterization of bitter peptides",
+     "BERT4Bitter: a bidirectional encoder representations from transformers (BERT)-based model for improving the prediction of bitter peptides",
+     "iBitter-SCM: Identification and characterization of bitter peptides using a scoring card method with propensity scores of dipeptides",
+     "iBitter-Fuse: A Novel Sequence-Based Bitter Peptide Predictor by Fusing Multi-View Features",
+     "Predicting Bitterness Inducing Peptides Through Traditional Supervised Machine Learning"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"essential amino acid index\" OR EAAI OR \"amino acid score\" OR \"amino acid profile\" AND INFOGEST OR \"in vitro digestion\" OR \"gastrointestinal digestion\" AND digestibility OR bioavailability OR \"protein quality\"",
+    "hits": 151,
+    "titulos": [
+     "Comparing nutritional and digestibility aspects of sustainable proteins using the INFOGEST digestion protocol",
+     "INFOGEST Quant: standardized in vitro determination of digestibility and DIAAS of dietary proteins based on the INFOGEST static digestion model",
+     "In vitro digestibility of dietary proteins and in vitro DIAAS analytical workflow based on the INFOGEST static protocol and its validation with in vivo data",
+     "Nutritional Evaluation of Milk-, Plant-, and Insect-Based Protein Materials by Protein Digestibility Using the INFOGEST Digestion Method",
+     "Standardization of in vitro digestibility and DIAAS method based on the static INFOGEST protocol",
+     "Peptidomic data of egg white gastrointestinal digests prepared using the Infogest Harmonized Protocol",
+     "Textural aspects and digestibility of a high-protein dessert using INFOGEST's adult and older adult static in vitro digestion models",
+     "Collaborative studies on in vitro digestibility of dietary proteins based on the INFOGEST Quant protocol: toward international standardization"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"digestibility percentage\" OR \"degree of hydrolysis\" OR \"protein digestibility\" OR \"in vitro digestibility\" AND \"tabular data\" OR dataset OR \"experimental data\" OR \"response variables\" AND extrapolation OR \"data augmentation\" OR \"transfer learning\" OR optimization",
+    "hits": 72,
+    "titulos": [
+     "Optimization of Alcalase Hydrolysis to Enhance Degree of Hydrolysis and Protein Solubility in Yellowfin Tuna (Thunnus Albacares) Viscera",
+     "Al-optimized synergy of KCl and κ-carrageenan in low-sodium sausages: Integrated enhancement of saltiness perception, gel stability, and protein digestibility",
+     "Optimization of Enzymatic Hydrolysis for Preparing Cassava Leaf Hydrolysate with Antioxidant Activity",
+     "Optimization of enzymatic hydrolysis of red tilapia scales (Oreochromis sp.) to obtain bioactive peptides",
+     "Multi‐response optimization of extrusion conditions of grain amaranth flour by response surface methodology",
+     "Optimization of the production of shrimp waste protein hydrolysate using microbial proteases adopting response surface methodology",
+     "Optimization of enzymatic protein hydrolysis from silver catfish (Pangasius sp.) frame",
+     "Optimization of Enzymatic Hydrolysis of Chicken Fat in Emulsion by Response Surface Methodology"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"explainable artificial intelligence\" OR XAI OR SHAP OR LIME AND \"food digestion\" OR \"protein hydrolysis\" OR INFOGEST AND \"feature importance\" OR \"model interpretation\" OR \"predictive modeling\"",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   }
+  ]
+ },
+ {
+  "nombre": "infogest_con_analisis_digestibild",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "INFOGEST OR \"static digestion\" OR \"in vitro digestion\" AND \"protein digestibility\" OR \"degree of hydrolysis\" OR \"digestibility percentage\" AND \"bitterness index\" OR \"essential amino acid index\" OR EAAI",
+    "hits": 3,
+    "titulos": [
+     "Enhancing the nutritional profile and in vitro digestion properties of dual-protein extrudates by blending surimi with soybean flour",
+     "Effects of thermal processing on protein quality and bioactivity of tilapia: Explored by in vitro and computer simulated digestion",
+     "Characterization and Comparison of Milk Fat Globule Membrane Proteins, Whey Protein Concentrate, and Micellar Casein Concentrate"
+    ],
+    "rel": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"machine learning\" OR \"predictive modeling\" OR \"artificial intelligence\" AND \"in vitro digestion\" OR \"gastrointestinal digestion\" OR INFOGEST AND digestibility OR bioaccessibility OR bitterness",
+    "hits": 24,
+    "titulos": [
+     "In vitro digestion models in food chemistry: advancements, challenges, and applications in nutrient bioaccessibility and bioavailability",
+     "Machine learning-guided green ultrasound processing enhances polyphenols, antioxidant capacity, and in vitro bioaccessibility of black fig vinegar",
+     "Analytical Approaches for Starch Digestibility and GI Evaluation",
+     "Infrared spectroscopy combined with machine learning techniques to monitor starch in vitro digestibility",
+     "Ultrasound-Assisted Sustainable Processing of Garden Cress Juice: Enhancing Bioactive Compounds and Bioaccessibility through XGBoost Optimization",
+     "Prediction of apparent protein digestibility of ingredients and diets by in vitro pH-stat degree of protein hydrolysis with species-specific enzymes for juvenile Pacific white shrimp Litopenaeus vannamei",
+     "Machine learning methods for unveiling the potential of antioxidant short peptides in goat milk-derived proteins during in vitro gastrointestinal digestion",
+     "Evaluation of Prebiotics through an In Vitro Gastrointestinal Digestion and Fecal Fermentation Experiment: Further Idea on the Implementation of Machine Learning Technique"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "cadena": "\"explainable artificial intelligence\" OR XAI OR SHAP OR \"feature importance\" AND \"machine learning\" OR \"predictive modeling\" OR \"data-driven model\" AND \"protein digestibility\" OR \"amino acid profile\" OR \"peptide bitterness\"",
+    "hits": 8,
+    "titulos": [
+     "Machine learning can guide experimental approaches for protein digestibility estimations",
+     "Interpretable machine-learning-derived diagnostic scoring panel for endometriosis identification: a study of serum amino acid profiling",
+     "Precise Discrimination Between Rape Honey and Acacia Honey Based on Sugar and Amino Acid Profiles Combined with Machine Learning",
+     "An explainable prognostic prediction panel for sepsis based on serum amino acid profiles",
+     "#2565 Urine amino acid profiles enlighten new prediction models for renal Fanconi syndrome and its association with eGFR level",
+     "Dynamic Changes in Flavor-Related Compounds and Bacterial Community Structure During Sichuan Jiangrou Ripening",
+     "Amino Acid Dysregulation in the Mother–Fetus Unit: Multi-Compartment Metabolomic Signatures of Gestational Diabetes Mellitus and Fetal Macrosomia",
+     "303. Beyond Growth: AI-based Adaptive Protein Concept for Comprehensive Animal Development."
+    ],
+    "rel": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"process optimization\" OR \"multi-objective optimization\" OR \"data extrapolation\" OR \"response surface methodology\" AND \"machine learning\" OR \"surrogate model\" OR \"Bayesian optimization\" AND \"in vitro digestion\" OR \"protein hydrolysis\" OR digestibility",
+    "hits": 23,
+    "titulos": [
+     "Data-driven modeling and multi-objective optimization of a continuous kraft pulping digester",
+     "Manufacture of artificial lightweight aggregates recycled from anaerobic digested sewage sludge and process optimization by machine learning modeling techniques",
+     "The Lightweight Mechanism of Artificial Lightweight Aggregates Recycled with Anaerobically Digested Sewage Sludge and a Study of Process Optimization Using Machine Learning",
+     "Machine Learning Unlocks Pediatric Plant Protein: A Multi-Objective Approach to Balancing Digestibility and Bitterness",
+     "Machine learning for predicting and optimizing the performance of a commercial-scale anaerobic digester with diverse feedstocks and operating conditions",
+     "Machine Learning for Predicting and Optimizing the Performance of a Commercial-Scale Anaerobic Digester with Diverse Feedstocks and Operating Conditions",
+     "Machine Learning for Predicting and Optimizing the Performance of a Commercial-Scale Anaerobic Digester with Diverse Feedstocks and Operating Conditions",
+     "A comprehensive machine learning-coupled response surface methodology approach for predictive modeling and optimization of biogas potential in anaerobic Co-digestion of organic waste"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"food proteins\" OR \"protein hydrolysates\" OR \"plant proteins\" OR \"protein isolates\" AND \"in vitro digestibility\" OR \"INFOGEST protocol\" OR \"simulated gastrointestinal digestion\" AND \"amino acid score\" OR \"essential amino acid index\" OR \"bitterness index\" OR \"digestibility percentage\"",
+    "hits": 29,
+    "titulos": [
+     "In Vitro Digestibility and Antioxidant Activity of Plant Protein Isolate and Milk Protein Concentrate Blends",
+     "Standardization of in vitro digestibility and DIAAS method based on the static INFOGEST protocol",
+     "In vitro digestibility and peptidomics characteristics of soy whey protein compared with soy protein isolate and whey protein isolate",
+     "Subunit, amino acid composition and in vitro digestibility of protein isolates from Chinese kabuli and desi chickpea (Cicer arietinum L.) cultivars",
+     "Effect of Egg White Protein and Soy Protein Isolate Addition on Nutritional Properties and In-Vitro Digestibility of Gluten-Free Pasta Based on Banana Flour",
+     "In-vitro digestibility, protein digestibility corrected amino acid, and sensory properties of banana-cassava gluten-free pasta with soy protein isolate and egg white protein addition",
+     "Improved in vitro gastrointestinal digestion protocol mimicking brush border digestion for the determination of the Digestible Indispensable Amino Acid Score (DIAAS) of different food matrices",
+     "Biochemical and nutritional evaluation of Jatropha protein isolate prepared by steam injection heating for reduction of toxic and antinutritional factors"
+    ],
+    "rel": [
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "infogest_con_analisis_digestibild",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "infogest AND digestibility AND bitterness",
+    "hits": 4,
+    "titulos": [
+     "Editorial: Advancements in protein modification for enhanced digestibility",
+     "Combined protease hydrolysis of whey protein: structure, digestibility, and allergenicity in infant formula",
+     "Stability and gastrointestinal fate of neuroprotective extracts encapsulated in alginate hydrogels and liposomes",
+     "Development of health ingredients from chicoryby-products fermentation : first step strains selection"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "infogest AND digestibility AND EAAI",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "infogest AND digestibility AND machine learning",
+    "hits": 2,
+    "titulos": [
+     "Infrared spectroscopy combined with machine learning techniques to monitor starch in vitro digestibility",
+     "From Molecule to Metabolism: The Chemical Engineering of Nutrient Transformations in Storage and Digestion"
+    ],
+    "rel": [
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "infogest AND digestibility AND explainable AI",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "infogest AND digestibility AND extrapolation AND optimization",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   }
+  ]
+ },
+ {
+  "nombre": "infogest_con_analisis_digestibild",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "INFOGEST AND digestibility AND bitterness",
+    "hits": 4,
+    "titulos": [
+     "Editorial: Advancements in protein modification for enhanced digestibility",
+     "Combined protease hydrolysis of whey protein: structure, digestibility, and allergenicity in infant formula",
+     "Stability and gastrointestinal fate of neuroprotective extracts encapsulated in alginate hydrogels and liposomes",
+     "Development of health ingredients from chicoryby-products fermentation : first step strains selection"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "INFOGEST AND EAAI AND machine learning",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND digestibility AND explainable AI",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND digestibility AND optimization AND extrapolation",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   },
+   {
+    "cadena": "INFOGEST AND digestibility AND results tables AND machine learning",
+    "hits": 0,
+    "titulos": [],
+    "rel": []
+   }
+  ]
+ },
+ {
+  "nombre": "machine_learning_y_los_algoritmos",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "machine learning AND \"linear discriminant analysis\" AND classification",
+    "hits": 4003,
+    "titulos": [
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "Selecting critical features for data classification based on machine learning methods",
+     "Thyroid Disease Classification Using Machine Learning Algorithms",
+     "Classification in conservation biology: A comparison of five machine-learning methods",
+     "Comparative approaches for classification of diabetes mellitus data: Machine learning paradigm",
+     "Automated classification of bird and amphibian calls using machine learning: A comparison of methods",
+     "Morphological Neuron Classification Using Machine Learning",
+     "Behaviour classification of extensively grazed sheep using machine learning"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"dimensionality reduction\"",
+    "hits": 663,
+    "titulos": [
+     "Features Dimensionality Reduction Approaches for Machine Learning Based Network Intrusion Detection",
+     "The Impact of Data Pre-Processing Techniques and Dimensionality Reduction on the Accuracy of Machine Learning",
+     "The Effect of Different Dimensionality Reduction Techniques on Machine Learning Overfitting Problem",
+     "Machine Learning: Data Pre‐processing",
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "A Primer on Machine Learning",
+     "Introduction to Machine Learning",
+     "Two-tier network anomaly detection model: a machine learning approach"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"Fisher discriminant\" AND supervised",
+    "hits": 49,
+    "titulos": [
+     "Kernel Approaches to Unsupervised and Supervised Machine Learning",
+     "Classification of pavement climatic regions through unsupervised and supervised machine learnings",
+     "KLFDAPC: a supervised machine learning approach for spatial genetic structure analysis",
+     "Examining the Capability of Supervised Machine Learning Classifiers in Extracting Flooded Areas from Landsat TM Imagery: A Case Study from a Mediterranean Flood",
+     "Supervised tensor learning",
+     "Toe PPG sample extension for supervised machine learning approaches to simultaneously predict type 2 diabetes and peripheral neuropathy",
+     "Semi-Supervised Local Fisher Discriminant Analysis for Dimensionality Reduction",
+     "A study on several Machine-learning methods for classification of Malignant and benign clustered microcalcifications"
+    ],
+    "rel": [
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND NOT \"quadratic discriminant\"",
+    "hits": 6858,
+    "titulos": [
+     "Lifelong Machine Learning with Deep Streaming Linear Discriminant Analysis",
+     "Machine learning models and bankruptcy prediction",
+     "The SHOGUN Machine Learning Toolbox",
+     "Machine Learning: Data Pre‐processing",
+     "Recognizing Facial Expression: Machine Learning and Application to Spontaneous Behavior",
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "Introduction to Machine Learning with Applications in Information Security",
+     "Modified Bagging in Linear Discriminant Analysis: Machine Learning"
+    ],
+    "rel": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"feature extraction\"",
+    "hits": 782,
+    "titulos": [
+     "Feature extraction for machine learning-based intrusion detection in IoT networks",
+     "Machine Learning: Data Pre‐processing",
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "Machine Learning-Based Feature Extraction and Classification of EMG Signals for Intuitive Prosthetic Control",
+     "Using machine learning techniques for evaluating tomato ripeness",
+     "Assessment of subvisible particles in biopharmaceuticals with image feature extraction and machine learning",
+     "Machine learning in renal pathology",
+     "Morphological Neuron Classification Using Machine Learning"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "machine_learning_y_los_algoritmos",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"Fisher discriminant analysis\" OR \"linear discriminant\" AND \"machine learning\" OR classification OR classifier AND algorithm OR method OR model",
+    "hits": 21197,
+    "titulos": [
+     "Comparing linear discriminant analysis and supervised learning algorithms for binary classification—A method comparison study",
+     "A multiobjective weighted voting ensemble classifier based on differential evolution algorithm for text sentiment classification",
+     "Effect of Data Scaling Methods on Machine Learning Algorithms and Model Performance",
+     "A Linear Discriminant Analysis and Classification Model for Breast Cancer Diagnosis",
+     "Classification of Hyperspectral Images With Regularized Linear Discriminant Analysis",
+     "Bat algorithm for variable selection in multivariate classification modeling using linear discriminant analysis",
+     "A classification algorithm with Linear Discriminant Analysis and Axiomatic Fuzzy Sets",
+     "High-dimensional Linear Discriminant Analysis Classifier for Spiked Covariance Model"
+    ],
+    "rel": [
+     1,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" AND \"dimensionality reduction\" OR \"feature extraction\" OR \"subspace learning\" AND \"pattern recognition\" OR \"computer vision\" OR bioinformatics",
+    "hits": 684,
+    "titulos": [
+     "A new direct LDA (D-LDA) algorithm for feature extraction in face recognition",
+     "3E-LDA",
+     "An Enhanced Linear Discriminant Analysis Criterion Based on Uniform Theory of PCA and LDA",
+     "A comparative study on PCA and LDA based EMG pattern recognition for anthropomorphic robotic hand",
+     "On the theoretical and computational analysis between Trace Ratio LDA and null-space LDA",
+     "Face recognition based on PCA image reconstruction and LDA",
+     "Feature extraction and recognition of face image based on 2DPCA with LDA algorithm",
+     "Sampling Representative Examples for Dimensionality Reduction and Recognition – Bootstrap Bumping LDA"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"regularized discriminant analysis\" OR \"sparse discriminant analysis\" OR \"penalized discriminant analysis\" AND \"high dimensional data\" OR \"small sample size\" OR \"feature selection\" AND classification OR prediction OR \"supervised learning\"",
+    "hits": 63,
+    "titulos": [
+     "A Classification Study in High-Dimensional Data of Linear Discriminant Analysis and Regularized Discriminant Analysis",
+     "Generalized sparse discriminant analysis for event-related potential classification",
+     "Regularized discriminant analysis for the small sample size problem in face recognition",
+     "A Compressive Classification Framework for High-Dimensional Data",
+     "A Comparison of Methods for Group Prediction with High Dimensional Data",
+     "Sparse Discriminant Analysis",
+     "Recursive Cluster Elimination (RCE) for classification and feature selection from gene expression data",
+     "Kullback-Leibler Penalized Sparse Discriminant Analysis for Event-Related Potential Classification"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     0,
+     0,
+     1,
+     0,
+     1
+    ]
+   },
+   {
+    "cadena": "\"kernel discriminant analysis\" OR \"nonlinear discriminant analysis\" OR \"deep discriminant analysis\" AND \"machine learning\" OR classification OR \"representation learning\" AND \"linear discriminant analysis\" OR \"Fisher criterion\" OR \"discriminant learning\"",
+    "hits": 90,
+    "titulos": [
+     "Fingerprint Classification Using Nonlinear Discriminant Analysis",
+     "Boosting Kernel Discriminant Analysis for pattern classification",
+     "Mechanical fault classification using nonlinear discriminant analysis",
+     "Fast Kernel Discriminant Analysis for Classification of Liver Cancer Mass Spectra",
+     "Ordinal Data Classification Using Kernel Discriminant Analysis: A Comparison of Three Approaches",
+     "Data-Dependent Kernel Discriminant Analysis for Feature Extraction and Classification",
+     "Optimized Nonlinear Discriminant Analysis (ONDA) for Supervised Pixel Classification",
+     "Determine the Parameter of Kernel Discriminant Analysis in Accordance with Fisher Criterion"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"quadratic discriminant analysis\" OR \"logistic regression\" OR \"support vector machine\" AND comparison OR benchmark OR evaluation AND classification OR \"supervised learning\" OR \"predictive modeling\"",
+    "hits": 93862,
+    "titulos": [
+     "A benchmark and comparison of active learning for logistic regression",
+     "Evaluating text classification: A benchmark study",
+     "Benchmarking state-of-the-art classification algorithms for credit scoring",
+     "A relative evaluation of multiclass image classification by support vector machines",
+     "Characterization of a Benchmark Database for Myoelectric Movement Classification",
+     "Comparison of linear discriminant analysis and logistic regression for data classification",
+     "Benchmark-Based Evaluation of Supervised Learning Models for Multi-Dataset Classification",
+     "A comprehensive comparison of random forests and support vector machines for microarray-based cancer classification"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ {
+  "nombre": "machine_learning_y_los_algoritmos",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"linear discriminant\" OR LDA AND \"machine learning\" OR \"statistical learning\" OR classification OR classifier",
+    "hits": 32861,
+    "titulos": [
+     "A combined SVM and LDA approach for classification",
+     "Classification of human emotions from EEG signals using SVM and LDA Classifiers",
+     "Class-dependent PCA, MDC and LDA: A combined classifier for pattern classification",
+     "EEG Signal Classification using LDA and MLP Classifier",
+     "Linear Discriminant Analysis (LDA)",
+     "Time frequency analysis (dB2 and dB4) for epilepsy classification with LDA classifier",
+     "LDA (Linear Discriminant Analysis)",
+     "Comparative Study for Predicting Melanoma Skin Cancer Using Linear Discriminant Analysis (LDA) and Classification Algorithms"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"discriminant analysis\" OR \"linear discriminant classifier\" AND regularization OR shrinkage OR \"sparse learning\" OR \"high dimensional data\" AND classification OR prediction OR \"pattern recognition\"",
+    "hits": 1553,
+    "titulos": [
+     "Classification of Hyperspectral Images With Regularized Linear Discriminant Analysis",
+     "Regularized linear discriminant analysis and its application in microarrays",
+     "Improvement Motor Imagery EEG Classification Based on Regularized Linear Discriminant Analysis",
+     "A Classification Study in High-Dimensional Data of Linear Discriminant Analysis and Regularized Discriminant Analysis",
+     "Regularized orthogonal linear discriminant analysis",
+     "Regularized Discriminant Analysis",
+     "Algorithms for Regularized Linear Discriminant Analysis",
+     "Regularized complete linear discriminant analysis"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"linear discriminant classifier\" OR LDA AND \"support vector machine\" OR \"logistic regression\" OR \"random forest\" OR \"naive Bayes\" AND \"classification performance\" OR accuracy OR benchmarking OR evaluation",
+    "hits": 8154,
+    "titulos": [
+     "A combined SVM and LDA approach for classification",
+     "Benchmarking Least Squares Support Vector Machine Classifiers",
+     "An automatic diabetes diagnosis system based on LDA-Wavelet Support Vector Machine Classifier",
+     "Data mining methods in the prediction of Dementia: A real-data comparison of the accuracy, sensitivity and specificity of linear discriminant analysis, logistic regression, neural networks, support vector machines, classification trees and random forests",
+     "Application of LDA and Multivariate Logistic Regression in Flood Forecasting and its AUC Evaluation",
+     "Leveraging LDA Feature Extraction to Augment Human Activity Recognition Accuracy",
+     "LDA and SVM performance evaluation for diabetes prediction",
+     "Withdrawn: Leveraging LDA Feature Extraction to Augment Human Activity Recognition Accuracy"
+    ],
+    "rel": [
+     1,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"Fisher discriminant analysis\" OR \"linear discriminant analysis\" OR \"Fisher linear discriminant\" AND \"dimensionality reduction\" OR \"feature extraction\" OR \"supervised projection\" AND \"machine learning\" OR \"pattern recognition\" OR classification",
+    "hits": 3961,
+    "titulos": [
+     "Modified Fisher's linear discriminant analysis for hyperspectral image dimension reduction and classification",
+     "Semi-supervised linear discriminant analysis for dimension reduction and classification",
+     "Electrocorticogram classification based on wavelet variance and Fisher linear discriminant analysis",
+     "Feature extraction and classification for EMG signals using linear discriminant analysis",
+     "Feature extraction with modified Fisher's linear discriminant analysis",
+     "Application of Linear Discriminant Analysis in Dimensionality Reduction for Hand Motion Classification",
+     "Modified Fisher's Linear Discriminant Analysis for Hyperspectral Imagery",
+     "Dimensionality Reduction and Linear Discriminant Analysis for Hyperspectral Image Classification"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" OR \"linear discriminant classifier\" OR LDA AND \"biomedical data\" OR bioinformatics OR \"image classification\" OR \"remote sensing\" AND classification OR diagnosis OR prediction OR recognition",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "machine_learning_y_los_algoritmos",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "machine learning AND \"linear discriminant analysis\" AND classification",
+    "hits": 4003,
+    "titulos": [
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "Selecting critical features for data classification based on machine learning methods",
+     "Thyroid Disease Classification Using Machine Learning Algorithms",
+     "Classification in conservation biology: A comparison of five machine-learning methods",
+     "Comparative approaches for classification of diabetes mellitus data: Machine learning paradigm",
+     "Automated classification of bird and amphibian calls using machine learning: A comparison of methods",
+     "Morphological Neuron Classification Using Machine Learning",
+     "Behaviour classification of extensively grazed sheep using machine learning"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"dimensionality reduction\"",
+    "hits": 663,
+    "titulos": [
+     "Features Dimensionality Reduction Approaches for Machine Learning Based Network Intrusion Detection",
+     "The Impact of Data Pre-Processing Techniques and Dimensionality Reduction on the Accuracy of Machine Learning",
+     "The Effect of Different Dimensionality Reduction Techniques on Machine Learning Overfitting Problem",
+     "Machine Learning: Data Pre‐processing",
+     "Machine Learning Classification Techniques for Breast Cancer Diagnosis",
+     "A Primer on Machine Learning",
+     "Introduction to Machine Learning",
+     "Two-tier network anomaly detection model: a machine learning approach"
+    ],
+    "rel": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"Fisher discriminant\" AND supervised",
+    "hits": 49,
+    "titulos": [
+     "Kernel Approaches to Unsupervised and Supervised Machine Learning",
+     "Classification of pavement climatic regions through unsupervised and supervised machine learnings",
+     "KLFDAPC: a supervised machine learning approach for spatial genetic structure analysis",
+     "Examining the Capability of Supervised Machine Learning Classifiers in Extracting Flooded Areas from Landsat TM Imagery: A Case Study from a Mediterranean Flood",
+     "Supervised tensor learning",
+     "Toe PPG sample extension for supervised machine learning approaches to simultaneously predict type 2 diabetes and peripheral neuropathy",
+     "Semi-Supervised Local Fisher Discriminant Analysis for Dimensionality Reduction",
+     "A study on several Machine-learning methods for classification of Malignant and benign clustered microcalcifications"
+    ],
+    "rel": [
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND NOT \"quadratic discriminant\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"feature extraction\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "machine_learning_y_los_algoritmos",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "machine learning AND \"linear discriminant analysis\" AND classification",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"dimensionality reduction\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" AND supervised AND \"feature extraction\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND \"linear discriminant\" AND \"pattern recognition\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"linear discriminant analysis\" AND \"classification algorithms\" AND supervised",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "prueba_lacteos_y_cafe",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "\"UHT whole milk\" OR \"whole UHT milk\" OR \"ultra-high temperature whole milk\" OR \"UHT milk\" AND \"product quality\" OR \"sensory quality\" OR flavor OR taste AND \"shelf life\" OR stability OR \"storage conditions\"",
+    "hits": 73,
+    "titulos": [
+     "Influence of Thermal Processing Conditions on Flavor Stability in Fluid Milk: Benzaldehyde",
+     "Characterization of the flavor profile of UHT milk during shelf-life via volatile metabolomics fingerprinting combined with chemometrics",
+     "Changes in the physiochemical, flavor and stability of whey protein solutions during UHT processing and storage: a review",
+     "Effect of green tea catechins on physical stability and sensory quality of lactose-reduced UHT milk during storage for one year",
+     "Elevated storage temperature induces bitterness: decoding the formation and taste mechanisms of bitter peptides in UHT milk",
+     "Sensory evaluation and storage stability of UHT milk fortified with iron, magnesium and zinc",
+     "Relating Analytical and Sensory Data To Predict Flavor Quality in Dairy Products",
+     "UHT Milk Processing and Effect of Plasmin Activity on Shelf Life: A Review"
+    ],
+    "rel": [
+     0,
+     1,
+     0,
+     1,
+     1,
+     1,
+     0,
+     1
+    ]
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"heat treatment\" OR \"processing temperature\" OR \"holding time\" OR sterilization AND flavor OR \"cooked flavor\" OR \"sensory properties\"",
+    "hits": 48,
+    "titulos": [
+     "Effect of Direct Steam Injection and Instantaneous Ultra-High-Temperature (DSI-IUHT) Sterilization on the Physicochemical Quality and Volatile Flavor Components of Milk",
+     "Elucidation of lipid precursors and formation pathways for flavor changes during storage of UHT sterilized milk based on non-targeted lipidomics",
+     "Exploration of milk flavor: From the perspective of raw milk, pasteurized milk, and UHT milk",
+     "UHT Sterilized Milks",
+     "Effect of Various Direct Ultra-High Temperature Heat Treatments on Flavor of Commercially Prepared Milks",
+     "Analysis and characteristic research of milk flavors",
+     "Chemical and Flavor Changes in Sterile Concentrated Milk During Storage",
+     "Influence of Thermal Processing Conditions on Flavor Stability in Fluid Milk: Benzaldehyde"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND \"storage temperature\" OR \"storage time\" OR \"ambient storage\" OR refrigeration AND \"shelf life\" OR \"quality deterioration\" OR stability",
+    "hits": 54,
+    "titulos": [
+     "Impact of elevated and severe storage temperatures on the stability of UHT milk",
+     "Understanding and predicting storage stability of UHT milk",
+     "Relationship between casein micelle size, protein composition and stability of UHT milk",
+     "Formation, Stability, and Properties of an Algae Oil Emulsion for Application in UHT Milk",
+     "UHT Milk Processing and Effect of Plasmin Activity on Shelf Life: A Review",
+     "Development of a predicative model for identification of loss of stability and proteolysis occurrence in UHT milk",
+     "Changes in stability and shelf-life of ultra-high temperature treated milk during long term storage at different temperatures",
+     "Comparison of storage stability and palatability in different UHT milks during 9 mon at ambient temperature"
+    ],
+    "rel": [
+     1,
+     1,
+     1,
+     0,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"nutritional quality\" OR vitamins OR proteins OR minerals AND pasteurization OR \"pasteurized milk\" OR \"raw milk\" OR \"non-UHT milk\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND \"pasteurized milk\" OR \"extended shelf life milk\" OR \"non-UHT milk\" AND flavor OR taste OR \"consumer acceptance\" OR \"sensory evaluation\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"UHT whole milk\" OR \"ultra-high temperature milk\" AND \"physicochemical stability\" OR sedimentation OR \"age gelation\" OR \"protein instability\" AND \"shelf life\" OR \"storage time\" OR \"storage temperature\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"Maillard reaction\" OR lactulose OR furosine OR \"protein denaturation\" AND \"heat load\" OR \"thermal processing\" OR \"processing conditions\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"UHT milk\" OR \"ultra-high temperature milk\" AND packaging OR \"aseptic packaging\" OR oxygen OR light AND \"storage conditions\" OR \"ambient temperature\" OR \"shelf life\" OR oxidation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"UHT whole milk\" AND \"microbial stability\" OR spores OR \"Bacillus spores\" OR sterility AND \"shelf life\" OR \"storage temperature\" OR \"post-process contamination\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"whole UHT milk\" OR \"ultra-high temperature milk\" AND \"dairy product development\" OR formulation OR innovation OR \"new product development\" AND \"quality attributes\" OR \"shelf stability\" OR \"consumer preference\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "prueba_lacteos_y_cafe",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"ultra heat treated milk\" AND \"whole milk\" OR \"full fat milk\" AND \"product quality\" OR \"sensory quality\" OR \"milk quality\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"shelf life\" OR \"storage stability\" OR \"keeping quality\" AND \"storage temperature\" OR \"storage conditions\" OR \"ambient storage\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"heat treatment temperature\" OR \"processing temperature\" OR \"thermal processing\" AND flavor OR taste OR \"sensory properties\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"pasteurized milk\" OR \"non-UHT milk\" OR \"raw milk\" AND flavor OR \"nutritional quality\" OR \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"nutritional value\" OR \"nutrient retention\" OR \"vitamin stability\" OR \"protein quality\" AND \"storage time\" OR \"shelf life\" OR \"long-term storage\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"full fat UHT milk\" AND \"physical stability\" OR \"emulsion stability\" OR sedimentation OR creaming AND \"storage conditions\" OR \"storage temperature\" OR \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"microbial stability\" OR \"spore survival\" OR \"post-processing contamination\" AND \"shelf life\" OR \"storage time\" OR \"quality deterioration\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"holding time\" OR \"residence time\" OR \"thermal load\" OR \"heat treatment\" AND \"Maillard reaction\" OR \"cooked flavor\" OR \"color change\" OR \"nutrient loss\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT whole milk\" OR \"ultra-high temperature whole milk\" AND \"aseptic packaging\" OR \"packaging material\" OR \"light exposure\" OR \"oxygen permeability\" AND \"flavor stability\" OR \"oxidative stability\" OR \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" AND \"new product development\" OR \"dairy product development\" OR \"product formulation\" AND \"consumer acceptance\" OR \"sensory evaluation\" OR \"quality attributes\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "prueba_lacteos_y_cafe",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"ultra heat treated milk\" AND \"whole milk\" OR \"full fat milk\" OR \"bovine milk\" AND \"product quality\" OR \"shelf life\" OR \"storage stability\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT processing\" OR \"ultra-high temperature treatment\" OR \"thermal processing\" AND \"treatment temperature\" OR \"holding time\" OR \"heat load\" AND \"milk quality\" OR \"shelf life\" OR \"quality deterioration\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"long-life milk\" AND \"storage temperature\" OR \"ambient storage\" OR \"cold storage\" AND \"flavor stability\" OR \"nutritional quality\" OR \"physicochemical stability\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"ultra heat treated milk\" AND \"pasteurized milk\" OR \"raw milk\" OR \"non-UHT milk\" AND \"sensory quality\" OR flavor OR \"consumer acceptance\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"sterilized milk\" AND \"whole milk\" OR \"full fat milk\" OR \"dairy milk\" AND \"nutrient retention\" OR \"vitamin loss\" OR \"protein quality\" OR \"Maillard reaction\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"long-life milk\" AND \"shelf life\" OR \"storage duration\" OR \"product stability\" AND proteolysis OR lipolysis OR gelation OR sedimentation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"aseptic milk\" AND packaging OR \"aseptic packaging\" OR \"carton packaging\" AND \"light exposure\" OR \"oxygen permeability\" OR \"storage conditions\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT dairy products\" OR \"long-life dairy products\" OR \"aseptic dairy products\" AND \"product development\" OR \"new product development\" OR \"dairy innovation\" AND \"quality attributes\" OR \"shelf stability\" OR \"sensory properties\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"aseptic milk\" AND \"microbiological stability\" OR \"commercial sterility\" OR \"spore inactivation\" AND \"heat treatment\" OR \"aseptic processing\" OR \"storage stability\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"UHT milk\" OR \"ultra-high temperature milk\" OR \"long-life milk\" AND \"shelf life prediction\" OR \"quality monitoring\" OR \"accelerated storage\" AND \"chemical markers\" OR \"sensory changes\" OR \"nutritional changes\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "prueba_lacteos_y_cafe",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "\"whole milk\" AND \"UHT processing\" AND \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"ultra-high temperature\" AND \"nutritional quality\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"pasteurized milk\" AND \"sensory quality\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"storage temperature\" AND \"stability\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"non-UHT\" AND \"comparison\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"heat treatment\" AND \"vitamin retention\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT milk\" AND \"flavor\" AND \"storage conditions\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"chemical stability\" AND \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT processing\" AND \"new dairy products\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"protein denaturation\" AND \"storage\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "prueba_lacteos_y_cafe",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "\"whole milk\" AND \"UHT processing\" AND \"shelf life\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"ultra-high temperature\" AND \"nutritional quality\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"sensory evaluation\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"storage temperature\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"pasteurized milk\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"product development\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"chemical stability\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"consumer acceptance\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"processing time\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"whole milk\" AND \"UHT\" AND \"oxidation\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "pruebas_cadenas",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "cancer OR oncology OR tumor OR neoplasm AND \"targeted therapy\" OR immunotherapy OR \"monoclonal antibodies\" OR \"immune checkpoint inhibitors\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR malignancy OR carcinoma AND chemotherapy OR radiotherapy OR \"radiation therapy\" OR \"cytotoxic drugs\" AND NOT \"pediatric cancer\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR tumor OR oncology AND surgery OR resection OR \"surgical oncology\" OR \"minimally invasive\" AND NOT \"benign tumor\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR tumor OR neoplasm AND nanotechnology OR nanoparticles OR \"drug delivery\" OR nanomedicine",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR oncology OR malignancy AND \"precision medicine\" OR \"personalized medicine\" OR \"gene therapy\" OR \"crispr\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "pruebas_cadenas",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "cancer OR neoplasm OR tumor OR malignancy AND treatment OR therapy OR therapeutics OR intervention AND chemotherapy OR immunotherapy OR radiotherapy OR surgery",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasm OR tumor AND \"systemic therapy\" OR \"drug therapy\" OR pharmacotherapy OR chemotherapy AND \"targeted therapy\" OR immunotherapy OR \"hormone therapy\" OR \"combination therapy\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasm OR tumor AND immunotherapy OR \"immune therapy\" OR \"cancer vaccine\" OR \"adoptive cell therapy\" AND \"checkpoint inhibitor\" OR \"CAR T\" OR PD-1 OR CTLA-4",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasm OR tumor AND \"precision medicine\" OR \"personalized medicine\" OR \"molecular profiling\" OR biomarker AND \"targeted therapy\" OR \"genomic testing\" OR mutation OR \"companion diagnostic\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasm OR tumor AND radiotherapy OR radiation OR surgery OR \"local therapy\" AND \"treatment outcome\" OR survival OR recurrence OR toxicity",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "pruebas_cadenas",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "cancer OR neoplasms OR oncology AND treatment OR therapy OR management AND survival OR efficacy OR response",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasms OR tumors AND immunotherapy OR \"immune checkpoint inhibitors\" OR \"CAR T-cell therapy\" AND survival OR \"treatment response\" OR toxicity",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasms OR tumors AND \"targeted therapy\" OR \"precision oncology\" OR \"molecular therapy\" AND biomarkers OR mutations OR genomics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasms OR tumors AND chemotherapy OR radiotherapy OR \"radiation therapy\" AND toxicity OR \"adverse effects\" OR efficacy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "cancer OR neoplasms OR tumors AND surgery OR \"surgical oncology\" OR resection AND adjuvant OR neoadjuvant OR \"combined modality therapy\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "pruebas_cadenas",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "chemotherapy OR immunotherapy AND cancer OR tumor AND treatment OR therapy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "radiotherapy OR \"radiation therapy\" AND cancer OR tumor AND treatment OR therapy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"targeted therapy\" OR \"precision medicine\" AND cancer OR tumor AND treatment OR therapy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"gene therapy\" OR \"cell therapy\" AND cancer OR tumor AND treatment OR therapy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"clinical trial\" OR \"phase III\" AND cancer OR tumor AND treatment OR therapy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "pruebas_cadenas",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "chemotherapy OR radiotherapy OR immunotherapy AND cancer OR tumor OR carcinoma OR neoplasm",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "targeted therapy OR hormone therapy OR stem cell transplant AND cancer OR tumor OR carcinoma OR neoplasm",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "oncology treatment OR cancer therapy OR antineoplastic AND cancer OR tumor OR carcinoma OR neoplasm",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "chemotherapy OR immunotherapy AND breast cancer OR lung cancer OR colorectal cancer OR prostate cancer",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "radiotherapy OR targeted therapy AND pediatric cancer OR childhood cancer OR adolescent cancer OR young adult cancer",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "\"robótica industrial\" OR \"automatización de procesos\" OR \"manufactura inteligente\" AND \"sistemas ciberfísicos\" OR \"industria 4.0\" OR \"fábricas inteligentes\" AND NOT \"robótica educativa\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica avanzada\" OR \"sistemas autónomos\" OR \"robots móviles\" AND \"inteligencia artificial\" OR \"aprendizaje profundo\" OR \"visión por computador\" AND \"navegación autónoma\" OR \"toma de decisiones\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica colaborativa\" OR cobots OR \"robots colaborativos\" AND \"interacción humano-robot\" OR \"seguridad industrial\" OR \"ergonomía laboral\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"automatización avanzada\" OR \"sistemas de control\" OR mecatrónica AND \"sensores inteligentes\" OR \"visión artificial\" OR \"procesamiento de señales\" AND \"control adaptativo\" OR \"sistemas embebidos\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica médica\" OR \"robótica de servicios\" OR \"robótica agrícola\" AND \"automatización de tareas\" OR \"asistencia robótica\" OR \"sistemas guiados\" AND NOT \"juguetes robóticos\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"robótica avanzada\" OR \"automatización avanzada\" OR \"automatización inteligente\" OR \"robótica industrial\" OR \"robótica colaborativa\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robots autónomos\" OR \"robótica móvil\" OR \"manipulación robótica\" OR \"sistemas robóticos\" OR \"celdas robotizadas\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"automatización industrial\" OR \"manufactura avanzada\" OR \"fábrica inteligente\" OR \"industria 4.0\" AND \"control avanzado\" OR \"control predictivo\" OR \"gemelo digital\" OR \"sistemas ciberfísicos\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica colaborativa\" OR \"robots colaborativos\" OR \"interacción humano robot\" OR \"celdas colaborativas\" AND \"seguridad laboral\" OR ergonomía OR \"planificación de tareas\" OR \"reparto de tareas\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica avanzada\" OR \"automatización inteligente\" OR \"sistemas robóticos\" OR \"control robótico\" AND \"inteligencia artificial\" OR \"aprendizaje automático\" OR \"aprendizaje profundo\" OR \"control inteligente\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"robótica avanzada\" OR \"automatización avanzada\" OR \"automatización inteligente\" OR \"sistemas robóticos autónomos\" OR \"sistemas ciberfísicos\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica industrial\" OR \"robots industriales\" OR \"automatización industrial\" OR \"celdas robotizadas\" AND \"industria 4.0\" OR \"fábrica inteligente\" OR \"manufactura avanzada\" OR \"producción flexible\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica autónoma\" OR \"robots autónomos\" OR \"sistemas robóticos\" OR \"manipuladores robóticos\" AND \"inteligencia artificial\" OR \"aprendizaje automático\" OR \"visión artificial\" OR \"control inteligente\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica colaborativa\" OR \"robots colaborativos\" OR \"cobots\" OR \"colaboración humano robot\" AND \"seguridad funcional\" OR \"interacción humano robot\" OR \"ergonomía\" OR \"entornos compartidos\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robótica móvil\" OR \"navegación autónoma\" OR \"vehículos autónomos\" OR \"robots de servicio\" OR \"logística automatizada\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "robotica OR automatizacion OR robots industriales OR automatizacion avanzada OR sistemas roboticos",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica AND manufactura",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica AND control",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica AND sensores",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica AND inteligencia artificial",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "robotica OR automatizacion OR robots industriales OR sistemas automaticos OR control automatico",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica avanzada OR automatizacion avanzada OR manufactura avanzada OR industria 4.0 OR robotica industrial",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica OR automatizacion OR robots industriales OR sistemas automaticos OR control automatico AND NOT medicina",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica OR automatizacion OR robots industriales OR sistemas automaticos OR control automatico AND NOT educacion",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "robotica OR automatizacion OR robots industriales OR sistemas automaticos OR control automatico AND NOT agricultura",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada_2",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "autonomous mobile robot AND warehouse automation AND motion precision",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous guided vehicle AND logistics warehouse AND navigation accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot AND warehouse automation AND localization accuracy AND NOT simulation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous mobile robot AND intralogistics AND path tracking accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot AND warehouse automation AND positioning error",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada_2",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"mobile robot\" OR AMR AND \"warehouse automation\" OR \"logistics warehouse\" OR intralogistics AND \"motion accuracy\" OR \"positioning accuracy\" OR \"trajectory tracking\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"warehouse robot\" OR AGV AND \"warehouse environment\" OR \"logistics warehouse\" OR intralogistics AND \"localization accuracy\" OR \"indoor positioning\" OR SLAM OR \"pose estimation\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"warehouse robot\" OR \"mobile robot\" AND \"trajectory tracking\" OR \"path following\" OR \"motion control\" OR \"tracking error\" AND \"warehouse automation\" OR intralogistics OR \"material handling\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR AMR OR \"mobile robot fleet\" AND \"warehouse automation\" OR intralogistics OR \"material handling\" AND \"fleet management\" OR \"multi robot coordination\" OR \"path planning\" OR \"collision avoidance\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"warehouse robot\" OR AGV AND \"sensor fusion\" OR LiDAR OR odometry OR \"visual odometry\" AND \"positioning accuracy\" OR \"localization accuracy\" OR \"navigation accuracy\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada_2",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"autonomous mobile robot\" OR AMR OR \"mobile robot\" OR \"warehouse robot\" AND \"motion accuracy\" OR \"positioning accuracy\" OR \"navigation accuracy\" OR localization AND warehouse OR \"logistics automation\" OR intralogistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"mobile platform\" OR \"mobile robot\" AND \"trajectory tracking\" OR \"path following\" OR \"motion control\" OR \"path tracking\" AND warehouse OR \"material handling\" OR intralogistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"warehouse robot\" OR \"mobile robot\" AND SLAM OR \"sensor fusion\" OR odometry OR \"visual localization\" AND \"position accuracy\" OR \"localization accuracy\" OR \"pose estimation\" OR \"navigation accuracy\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"autonomous mobile robot\" OR \"mobile robot fleet\" OR \"warehouse robot\" AND \"fleet management\" OR \"multi-robot coordination\" OR \"traffic control\" OR \"task allocation\" AND \"positioning accuracy\" OR \"path deviation\" OR \"collision avoidance\" OR \"travel time\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"automated guided vehicle\" OR AGV OR \"autonomous mobile robot\" OR AMR AND \"warehouse automation\" OR intralogistics OR \"logistics warehouse\" AND \"navigation accuracy\" OR \"stopping accuracy\" OR \"docking accuracy\" OR \"positioning precision\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada_2",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "autonomous mobile robot AND warehouse automation AND navigation accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot AND logistics warehouse AND positioning precision",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous mobile robot AND warehouse automation AND path tracking",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot AND logistics warehouse AND localization error",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous mobile robot AND warehouse automation AND NOT simulation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_automatizacion_avanzada_2",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "mobile robot navigation AND warehouse automation AND motion accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous mobile robot AND logistics warehouse AND positioning precision",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot path tracking AND warehouse automation AND localization accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "autonomous guided vehicle AND warehouse automation AND navigation precision",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "mobile robot AND warehouse automation AND motion control AND accuracy",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_la_automatizacion_avanz",
+  "cond": "historico",
+  "evals": [
+   {
+    "cadena": "artificial intelligence AND collaborative robots AND warehouse",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND cobots AND logistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "deep learning AND human robot collaboration AND warehouse automation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "reinforcement learning AND autonomous mobile robots AND order picking",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "computer vision AND collaborative robots AND material handling",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_la_automatizacion_avanz",
+  "cond": "gpt_viejo",
+  "evals": [
+   {
+    "cadena": "\"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" AND \"collaborative robot\" OR cobot OR cobots AND logistics OR warehouse OR warehousing",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"computer vision\" OR perception OR \"object detection\" AND \"collaborative robot\" OR cobot OR \"mobile manipulator\" AND \"warehouse navigation\" OR \"mobile manipulation\" OR intralogistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"collaborative robot\" OR cobot OR \"human robot collaboration\" AND \"collision avoidance\" OR \"adaptive control\" OR \"safe reinforcement learning\" AND warehouse OR logistics OR intralogistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"robotic picking\" OR \"order picking\" OR \"bin picking\" OR \"piece picking\" AND \"collaborative robot\" OR cobot OR \"human robot collaboration\" AND \"artificial intelligence\" OR \"deep learning\" OR \"reinforcement learning\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"task allocation\" OR scheduling OR \"fleet management\" OR \"warehouse optimization\" AND \"collaborative robot\" OR cobot OR \"human robot collaboration\" AND \"artificial intelligence\" OR \"reinforcement learning\" OR \"multi agent system\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_la_automatizacion_avanz",
+  "cond": "gpt_nuevo",
+  "evals": [
+   {
+    "cadena": "\"collaborative robots\" OR cobots OR \"human-robot collaboration\" AND \"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" AND warehouses OR logistics OR intralogistics OR \"distribution centers\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"collaborative robots\" OR cobots OR \"mobile manipulators\" AND \"computer vision\" OR \"deep learning\" OR \"object detection\" OR perception AND warehouses OR \"warehouse automation\" OR logistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"collaborative robots\" OR cobots OR \"human-robot teams\" AND \"reinforcement learning\" OR \"task allocation\" OR scheduling OR planning AND \"order picking\" OR \"material handling\" OR fulfillment OR warehousing",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"collaborative robots\" OR cobots OR \"human-robot interaction\" AND \"collision avoidance\" OR \"adaptive control\" OR \"predictive safety\" OR \"risk assessment\" AND warehouses OR logistics OR intralogistics OR \"material handling\"",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "\"collaborative robots\" OR cobots OR \"robotic automation\" AND \"artificial intelligence\" OR \"intelligent automation\" OR \"decision support\" AND \"warehouse operations\" OR logistics OR \"supply chain\" OR performance",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_la_automatizacion_avanz",
+  "cond": "nvidia_viejo",
+  "evals": [
+   {
+    "cadena": "artificial intelligence AND collaborative robots AND warehouse logistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND cobots AND material handling",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "deep learning AND human robot collaboration AND order picking",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "reinforcement learning AND autonomous mobile robots AND warehouse automation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "computer vision AND cobot AND intralogistics NOT manufacturing",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ },
+ {
+  "nombre": "robotica_y_la_automatizacion_avanz",
+  "cond": "nvidia_nuevo",
+  "evals": [
+   {
+    "cadena": "artificial intelligence AND collaborative robots AND warehouse logistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "machine learning AND cobots AND material handling",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "deep learning AND human robot collaboration AND order picking",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "reinforcement learning AND autonomous mobile robots AND warehouse automation",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   },
+   {
+    "cadena": "computer vision AND collaborative robots AND intralogistics",
+    "hits": null,
+    "titulos": [],
+    "rel": [],
+    "error": "'meta'"
+   }
+  ]
+ }
+]

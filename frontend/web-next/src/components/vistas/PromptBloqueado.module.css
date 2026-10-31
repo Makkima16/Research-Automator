@@ -1,0 +1,19 @@
+.seccion { max-width: 880px; }
+.cabecera { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.cabecera :global(.kicker) { margin: 0; }
+.solo { background: var(--color-neutral-300); }
+.prompt { padding: 22px 26px; border-radius: var(--radius-lg); background: var(--color-surface); }
+.prompt p { margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 18px; }
+.caja { padding: 22px 24px; border-radius: var(--radius-lg); background: var(--color-neutral-100); }
+.caja h4 { margin: 0 0 14px; font-size: 18px; }
+.cajaVerde { background: var(--color-accent-2-100); }
+.cajaVerde h4, .cajaVerde p { color: var(--color-accent-2-900); }
+.cajaVerde p { font-size: 15px; line-height: 1.6; margin: 0; text-wrap: pretty; }
+.lista { display: flex; flex-direction: column; gap: 14px; }
+.pregunta { font-size: 13px; color: var(--color-neutral-700); }
+.respuesta { font-size: 15px; font-weight: 600; }
+.sinRespuesta { font-weight: 400; font-style: italic; color: var(--color-neutral-700); }
+.vacio { font-size: 14px; color: var(--color-neutral-700); margin: 0; }
+.acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.ver { padding: 11px 22px; }

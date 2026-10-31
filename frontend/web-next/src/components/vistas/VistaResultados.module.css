@@ -1,0 +1,12 @@
+.pestanas {
+  display: flex; flex-wrap: wrap; gap: 6px; padding: 5px; border-radius: 999px; background: var(--color-surface);
+  width: max-content; max-width: 100%; margin-bottom: 22px;
+}
+.pestana {
+  font-family: var(--font-heading); font-size: 15px; border: 0; cursor: pointer; padding: 10px 20px;
+  border-radius: 999px; background: transparent; color: var(--color-neutral-700); display: inline-flex; align-items: center; gap: 8px;
+}
+.pestana:hover { color: var(--color-text); }
+.activa { background: var(--color-neutral-100); color: var(--color-text); box-shadow: var(--shadow-sm); }
+.contador { font-family: var(--font-body); font-size: 12px; font-weight: 700; opacity: 0.75; }
+.vivo { font-family: var(--font-body); font-size: 11px; font-weight: 700; color: var(--color-accent-700); }

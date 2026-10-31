@@ -15,15 +15,17 @@ const S = {
 };
 // Estado de la pestaña "Resultados de procesamiento" del proyecto activo
 const proc = {
-  obs: [],             // observaciones extraídas (GET /observaciones), con su índice en _i
-  q: '', ef: 'todos', group: 'paper',
-  open: new Set(),     // filas con la cita expandida (por _i)
-  closed: new Set(),   // grupos colapsados (por clave de grupo)
+  fichas: [],          // fichas de los papers (GET /fichas), con su índice en _i
+  q: '', filtro: 'relevantes',   // relevantes | parcial | no_relevante | todas
+  open: new Set(),     // fichas expandidas (por _i)
   alcance: null,       // 'sel' | 'todos'; null = según haya o no selección
   configurando: false, // eligiendo el alcance de una nueva corrida sobre un proyecto ya procesado
 };
+// Ronda de aclaración del tema (Nemotron pregunta cuando el prompt es muy general)
+const ACL = { fase: null, preguntas: [], respuestas: [], historial: [], ronda: 0, tema: '', custom: [], vistas: [] };
+const resetAcl = () => Object.assign(ACL, { fase: null, preguntas: [], respuestas: [], historial: [], ronda: 0, tema: '', custom: [], vistas: [] });
 // Borrador del formulario cuando todavía no existe ningún proyecto
-const DRAFT = { prompt: '', num: 5, idioma: 'es' };
+const DRAFT = { prompt: '', num: 5, idioma: 'en' };
 let pollTimer = null;
 
 const $ = (sel) => document.querySelector(sel);
@@ -110,9 +112,62 @@ function renderContent() {
   if (stage === 'results' && S.tab === 'busqueda') renderRows();
 }
 
+function aclaracionHTML() {
+  const qs = ACL.preguntas.map((q, i) => `
+    <div class="field acl-q">
+      <label for="acl-${i}">${esc(q.pregunta)}</label>
+      <input class="input" id="acl-${i}" data-input="acl" data-idx="${i}" value="${esc(ACL.respuestas[i])}" placeholder="Tu respuesta (puedes dejarla vacía)">
+      ${(q.ejemplos || []).length ? `<div class="chips acl-ej">${q.ejemplos.map((ej) => `<button type="button" class="match-chip" data-action="acl-ejemplo" data-idx="${i}" data-ej="${esc(ej)}">${esc(ej)}</button>`).join('')}</div>` : ''}
+    </div>`).join('');
+  const customs = (ACL.custom || []).map((c, i) => `
+    <div class="field acl-q">
+      <label for="acl-custom-${i}">Pregunta propia</label>
+      <input class="input" id="acl-custom-${i}" data-input="acl-custom-preg" data-idx="${i}" value="${esc(c.pregunta)}" placeholder="Escribe tu propia pregunta...">
+      <label for="acl-custom-res-${i}" style="margin-top:6px">Respuesta</label>
+      <input class="input" id="acl-custom-res-${i}" data-input="acl-custom-res" data-idx="${i}" value="${esc(c.respuesta)}" placeholder="Tu respuesta (puedes dejarla vacía)">
+      <button class="btn btn-ghost" style="margin-top:4px;align-self:flex-start" data-action="acl-custom-remove" data-idx="${i}">Eliminar pregunta propia</button>
+    </div>`).join('');
+  return `
+    <div class="acl-card">
+      <div class="kicker">Afinemos el tema · ronda ${ACL.ronda} de 2</div>
+      <p class="lead acl-lead">El tema es bastante general. Responde lo que sepas para que las cadenas busquen justo lo que necesitas.</p>
+      ${qs}
+      ${customs}
+      <button class="btn btn-ghost" data-action="acl-custom-add" style="align-self:flex-start">+ Añadir pregunta y respuesta propia</button>
+      <div class="row-inline">
+        <button class="btn btn-primary" data-action="acl-responder" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Evaluando…' : 'Continuar →'}</button>
+        <button class="btn btn-ghost" data-action="acl-omitir" ${S.busy ? 'disabled' : ''}>Omitir y generar cadenas</button>
+        <button class="btn btn-ghost" data-action="acl-cancelar" ${S.busy ? 'disabled' : ''}>Editar el prompt</button>
+      </div>
+    </div>`;
+}
+
+// Prompt ya usado para generar cadenas: se muestra bloqueado con sus preguntas y respuestas
+function bloqueadoHTML() {
+  const qa = S.proj.aclaraciones || [];
+  const intencion = (S.proj.intencion_cadenas || {}).intencion_consolidada || S.proj.intencion_busqueda || '';
+  const items = qa.map((a) => `
+    <div class="field acl-q">
+      <label>${esc(a.pregunta)}</label>
+      <div class="acl-resp">${a.respuesta ? esc(a.respuesta) : '<em>Sin respuesta</em>'}</div>
+    </div>`).join('');
+  return `
+    <div class="acl-card">
+      <div class="kicker">Preguntas y respuestas de este prompt</div>
+      ${items || '<p class="lead acl-lead">Este prompt no necesitó preguntas de aclaración.</p>'}
+      ${intencion ? `<div class="notice"><strong>Intención detectada:</strong> ${esc(intencion)}</div>` : ''}
+      <div class="row-inline">
+        <button class="btn btn-primary" data-action="back-to-queries">Ver cadenas →</button>
+        <button class="btn btn-ghost" data-action="rehacer-prompt">Rehacer prompt</button>
+      </div>
+    </div>`;
+}
+
 function viewPrompt() {
   const f = form();
-  const lang = (value, label) => `<label class="seg-opt"><input type="radio" name="lang" value="${value}" ${f.idioma === value ? 'checked' : ''}><span>${label}</span></label>`;
+  const preguntando = ACL.fase === 'preguntando';
+  const bloqueado = !preguntando && !!(S.proj && S.proj.tema_refinado);
+  const lang = (value, label) => `<label class="seg-opt"><input type="radio" name="lang" value="${value}" ${f.idioma === value ? 'checked' : ''} ${bloqueado ? 'disabled' : ''}><span>${label}</span></label>`;
   return `
     <div class="prompt-wrap">
       <div class="kicker">Nuevo proyecto</div>
@@ -121,31 +176,38 @@ function viewPrompt() {
 
       <div class="field">
         <label for="prompt">Prompt</label>
-        <textarea class="input" id="prompt" rows="4" data-input="prompt" placeholder="ej. Efectos del microbioma intestinal en trastornos del espectro autista en población pediátrica, estudios de los últimos 5 años">${esc(f.prompt)}</textarea>
+        <textarea class="input" id="prompt" rows="4" data-input="prompt" ${preguntando || bloqueado ? 'disabled' : ''} placeholder="ej. Efectos del microbioma intestinal en trastornos del espectro autista en población pediátrica, estudios de los últimos 5 años">${esc(f.prompt)}</textarea>
       </div>
 
       <div class="row-inline">
         <div class="field num-field">
           <label for="num">Cadenas a generar</label>
-          <input class="input" id="num" type="number" min="1" max="12" value="${esc(f.num)}" data-input="num">
+          <input class="input" id="num" type="number" min="1" max="12" value="${esc(f.num)}" data-input="num" ${bloqueado ? 'disabled' : ''}>
         </div>
         <div class="field">
-          <label>Idioma del tema</label>
-          <div class="seg">${lang('es', 'Español')}${lang('en', 'Inglés')}${lang('ambos', 'Ambos')}</div>
+          <label>Idioma de las cadenas</label>
+          <div class="seg">${lang('en', 'Inglés')}${lang('ambos', 'Ambos')}${lang('es', 'Español')}</div>
         </div>
-        <button class="btn btn-primary" data-action="generate" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Generando…' : 'Generar cadenas →'}</button>
+        ${preguntando || bloqueado ? '' : `<button class="btn btn-primary" data-action="generate" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Revisando el tema…' : 'Generar cadenas →'}</button>`}
       </div>
+      ${preguntando ? aclaracionHTML() : ''}
+      ${bloqueado ? bloqueadoHTML() : ''}
+      <p class="prompt-hint">Puedes escribir el tema en español: las cadenas se traducen. Casi toda la literatura indexada está en inglés; «Ambos» añade los términos en español y «Español» solo encuentra una fracción pequeña de los papers.</p>
       ${notice()}
     </div>`;
 }
 
 function viewQueries() {
-  const qs = S.proj.queries;
+  const qs = S.proj.queries || [];
+  const intencion = S.proj.intencion_cadenas || {};
+  const intencionTexto = intencion.intencion_consolidada || S.proj.intencion_busqueda || '';
+  const detalles = intencion.detalles || [];
   return `
     <div>
       <div class="kicker">Paso 2 de 3</div>
       <h2 style="margin:0 0 8px">Cadenas de búsqueda</h2>
       <p class="lead" style="margin:0 0 8px; max-width:620px">Edita, elimina o añade cadenas antes de ejecutar el servicio. Cada cadena se consultará contra OpenAlex, Semantic Scholar y Scopus; los papers mejor rankeados sin PDF abierto se buscan además en Sci-Hub por su DOI.</p>
+      ${intencionTexto ? `<div class="notice" style="max-width:720px"><strong>Intención de búsqueda:</strong> ${esc(intencionTexto)}</div>` : ''}
       ${notice()}
 
       <div class="queries-head">
@@ -153,12 +215,20 @@ function viewQueries() {
       </div>
 
       <div class="query-list">
-        ${qs.map((text, i) => `
-          <div class="query-row">
-            <span class="idx">${String(i + 1).padStart(2, '0')}</span>
-            <input value="${esc(text)}" data-input="query" data-idx="${i}" aria-label="Cadena ${i + 1}" spellcheck="false">
-            <button class="rm" data-action="remove-query" data-idx="${i}" title="Eliminar" aria-label="Eliminar cadena ${i + 1}">✕</button>
-          </div>`).join('')}
+        ${qs.map((text, i) => {
+          const det = detalles.find(d => d && d.cadena === text) || detalles[i] || {};
+          const hasInfo = !!det.intencion;
+          return `
+          <div class="query-block ${hasInfo ? 'has-info' : ''}" data-qblock="${i}">
+            <div class="query-row">
+              <span class="idx">${String(i + 1).padStart(2, '0')}</span>
+              <input value="${esc(text)}" data-input="query" data-idx="${i}" aria-label="Cadena ${i + 1}" spellcheck="false">
+              ${hasInfo ? `<button class="qinfo" data-action="toggle-query-info" data-idx="${i}" title="Ver intención de esta cadena">ℹ️</button>` : '<span class="qinfo-spacer"></span>'}
+              <button class="rm" data-action="remove-query" data-idx="${i}" title="Eliminar" aria-label="Eliminar cadena ${i + 1}">✕</button>
+            </div>
+            ${hasInfo ? `<div class="query-detail"><div class="query-detail-inner"><strong>Intención para esta cadena:</strong> ${esc(det.intencion)}${det.alcance ? `<br><strong>Alcance:</strong> ${esc(det.alcance)}` : ''}</div></div>` : ''}
+          </div>`;
+        }).join('')}
         <button class="add-row" data-action="add-query">+ añadir cadena</button>
       </div>
 
@@ -253,18 +323,16 @@ function viewBusqueda() {
 
 // ---------- resultados de procesamiento ----------
 
-const EFX = ['mejora', 'sin_diferencia', 'mixto', 'empeora'];
-const EFX_LBL = { mejora: 'Mejora', empeora: 'Empeora', sin_diferencia: 'Sin diferencia', mixto: 'Mixto' };
 const ESTADOS_PAPER = ['ok', 'no_relevante', 'sin_abstract', 'error', 'pendiente'];
 const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
-// Los valores de vocabulario (vida_util, otro_proceso...) solo se parten en los guiones bajos
-const vocab = (v) => esc(v).replace(/_/g, '_<wbr>');
+const FUENTES = { nemotron_parse: 'Nemotron Parse', 'local+nemotron_parse': 'Lectura local + Nemotron Parse',
+  local: 'Lectura local', europepmc: 'Europe PMC' };
 
 function tabsHTML() {
   const p = S.proj.procesamiento;
   const badge = p.activo ? '<span class="ptab-live">en curso</span>'
     : p.estado === 'error' ? '<span class="state-chip" data-k="error">error</span>'
-    : proc.obs.length ? `<span class="ptab-count">${proc.obs.length}</span>` : '';
+    : proc.fichas.length ? `<span class="ptab-count">${proc.fichas.length}</span>` : '';
   const tab = (key, label, extra) => `<button class="ptab" role="tab" data-action="tab" data-tab="${key}" aria-selected="${S.tab === key}">${label}${extra}</button>`;
   return `
     <div class="ptabs" role="tablist">
@@ -306,13 +374,13 @@ function alcanceCardHTML(p) {
     ? `Se procesarán los ${plural(n, 'paper marcado', 'papers marcados')} en Resultados de búsqueda.`
     : `Se procesarán los ${plural(n, 'paper', 'papers')} del proyecto.`)
     + (pedidos > a.tope ? ` Son ${pedidos}, pero cada corrida procesa como máximo ${a.tope}.` : '')
-    + ' El texto completo solo se descarga para los de acceso abierto; del resto se lee el abstract.'
-    + (p.estado ? ' Los papers ya extraídos no se vuelven a enviar al modelo.' : '');
+    + ' Solo los de acceso abierto se leen completos (PDF o Europe PMC); del resto se resume el abstract y la ficha queda como parcial.'
+    + (p.estado ? ' Los papers que ya tienen ficha no se vuelven a leer ni a enviar al modelo.' : '');
   return `
     <div class="run-card is-empty">
       <div>
         <div class="run-empty-title">Procesar PDFs</div>
-        <div class="run-empty-lead">Un modelo de lenguaje lee cada paper y extrae observaciones: factor evaluado, referencia, variable de resultado y efecto, con la cita textual que lo respalda.</div>
+        <div class="run-empty-lead">Nemotron Parse lee el PDF de cada paper y extrae las piezas del paper: el abstract, el penúltimo y el último párrafo de la introducción, las conclusiones y las tablas (nombre y atributos). Nemotron resume solo eso en una ficha: objetivo, conclusiones, hallazgos clave y qué aporta cada tabla.</div>
       </div>
       <div class="run-field">
         <span class="run-label">Alcance</span>
@@ -344,7 +412,7 @@ function runCardHTML(p) {
       </div>
       <div class="run-progress"><i style="width:${pct}%"></i></div>
       <div class="run-log">${p.mensajes.slice(-8).map((l) => `<div>${esc(l)}</div>`).join('')}</div>
-      <div class="run-note">Se actualiza solo. Puedes cambiar de pestaña; las observaciones aparecen aquí al terminar.</div>
+      <div class="run-note">Se actualiza solo. Puedes cambiar de pestaña; las fichas aparecen aquí al terminar.</div>
     </div>`;
   }
   if (!p.estado || proc.configurando) return alcanceCardHTML(p);
@@ -352,8 +420,8 @@ function runCardHTML(p) {
   const conteos = p.conteos || {};
   const claves = [...ESTADOS_PAPER.filter((k) => conteos[k]), ...Object.keys(conteos).filter((k) => !ESTADOS_PAPER.includes(k))];
   const chips = claves.map((k) => `<span class="state-chip" data-k="${esc(k)}">${esc(k)} ${esc(conteos[k])}</span>`).join('');
-  const conHallazgos = new Set(proc.obs.map((o) => o.paper_id)).size;
-  const revisar = proc.obs.filter((o) => !o.valida).length;
+  const completas = proc.fichas.filter((f) => f.cobertura === 'completa').length;
+  const parciales = proc.fichas.filter((f) => f.cobertura === 'parcial').length;
   const aviso = p.estado === 'error' ? `
     <div class="notice-error">
       <div class="notice-error-body"><h4>El procesamiento se detuvo</h4><code>${esc(p.error || 'Error desconocido')}</code></div>
@@ -367,105 +435,96 @@ function runCardHTML(p) {
           <div class="run-meta">${esc(resumenCorrida(p))}</div>
         </div>
         <div class="run-actions">
-          <button class="btn btn-secondary" data-action="obs-csv" ${proc.obs.length ? '' : 'disabled'}>Exportar CSV</button>
+          <button class="btn btn-secondary" data-action="obs-csv" ${proc.fichas.length ? '' : 'disabled'}>Exportar CSV</button>
           <button class="btn btn-primary" data-action="obs-configurar">Volver a procesar</button>
         </div>
       </div>
       <div class="stat-row">
-        <div class="stat"><span class="n">${proc.obs.length}</span><span class="l">Observaciones</span></div>
-        <div class="stat"><span class="n">${conHallazgos}${p.total ? `<small> / ${esc(p.total)}</small>` : ''}</span><span class="l">Papers con hallazgos</span></div>
-        <div class="stat"><span class="n">${revisar}</span><span class="l">Por revisar</span></div>
+        <div class="stat"><span class="n">${proc.fichas.length}${p.total ? `<small> / ${esc(p.total)}</small>` : ''}</span><span class="l">Fichas</span></div>
+        <div class="stat"><span class="n">${completas}</span><span class="l">Con PDF leído</span></div>
+        <div class="stat"><span class="n">${parciales}</span><span class="l">Solo abstract</span></div>
         ${chips ? `<div class="state-chips"><span class="run-note">Estado por paper</span>${chips}</div>` : ''}
       </div>
     </div>`;
 }
 
 const doiUrl = (doi) => `https://doi.org/${encodeURI(doiCorto(doi))}`;
-const obsGrupo = (o) => (proc.group === 'paper' ? o.paper_id : proc.group === 'categoria' ? (o.categoria_factor || 'sin categoría') : '_');
 
-function obsFiltradas() {
+function fichasFiltradas() {
   const q = proc.q.trim().toLowerCase();
-  const porTexto = proc.obs.filter((o) => !q
-    || [o.title, o.factor_evaluado, o.referencia, o.variable_resultado].join(' ').toLowerCase().includes(q));
-  return { porTexto, filas: porTexto.filter((o) => proc.ef === 'todos' || o.efecto === proc.ef) };
+  const porTexto = proc.fichas.filter((f) => !q || [f.title, f.resumen, f.objetivo, f.abstract, f.intro_penultimo, f.intro_ultimo, f.conclusion_texto, ...f.conclusiones,
+    ...f.hallazgos_clave, ...f.tablas.map((t) => t.nombre)].join(' ').toLowerCase().includes(q));
+  const pasa = {
+    relevantes: (f) => f.estado === 'ok',
+    parcial: (f) => f.estado === 'ok' && f.cobertura === 'parcial',
+    no_relevante: (f) => f.estado === 'no_relevante',
+    todas: () => true,
+  }[proc.filtro];
+  return { porTexto, filas: porTexto.filter(pasa) };
 }
 
-function obsRowHTML(o) {
-  const open = proc.open.has(o._i);
-  const paper = `${o.title || '(sin título)'}${o.year ? ' · ' + o.year : ''}`;
+const lista = (items) => (items.length ? `<ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '');
+
+function fichaHTML(f) {
+  const open = proc.open.has(f._i);
+  const parcial = f.cobertura === 'parcial';
+  const chips = [
+    f.estado === 'no_relevante' ? '<span class="state-chip" data-k="no_relevante">no relevante</span>' : '',
+    parcial ? '<span class="state-chip" data-k="sin_abstract" title="No se pudo leer el PDF: la ficha sale solo del abstract">solo abstract</span>'
+      : `<span class="match-chip">${esc(FUENTES[f.fuente] || f.fuente || 'PDF')}</span>`,
+  ].join('');
+  const tablas = f.tablas.map((t) => `
+    <div class="ficha-tabla">
+      <div class="ficha-tabla-nombre">${esc(t.nombre)}</div>
+      ${t.atributos.length ? `<div class="chips">${t.atributos.map((a) => `<span class="obs-var">${esc(a)}</span>`).join('')}</div>` : ''}
+      ${t.que_aporta ? `<div class="ficha-nota">${esc(t.que_aporta)}</div>` : ''}
+    </div>`).join('');
+  const seccion = (titulo, cuerpo) => (cuerpo ? `<div class="ficha-sec"><div class="sp-section-label">${titulo}</div>${cuerpo}</div>` : '');
   return `
-    <div class="obs-row ${open ? 'is-open' : ''}" data-action="obs-toggle" data-i="${o._i}">
-      <div><span class="efx" data-efecto="${esc(o.efecto)}">${esc(EFX_LBL[o.efecto] || o.efecto)}</span></div>
-      <div class="obs-main">
-        <div class="obs-factor">${esc(o.factor_evaluado)}</div>
-        <div class="obs-ref">vs. ${esc(o.referencia)}</div>
-        ${proc.group !== 'paper' ? `<div class="obs-paper">${esc(paper)}</div>` : ''}
+    <div class="ficha ${open ? 'is-open' : ''}">
+      <div class="ficha-head" role="button" tabindex="0" data-action="ficha-toggle" data-i="${f._i}" aria-expanded="${open}">
+        <span class="caret">${open ? '▾' : '▸'}</span>
+        <div class="ficha-main">
+          <div class="ficha-title">${esc(f.title || '(sin título)')}</div>
+          <div class="ficha-sub">${esc(f.year || '')}${f.doi ? ` · <a class="doi" href="${esc(doiUrl(f.doi))}" target="_blank" rel="noopener noreferrer">doi:${esc(doiCorto(f.doi))} ↗</a>` : ''}</div>
+          <div class="ficha-resumen">${esc(f.resumen || 'Sin resumen.')}</div>
+        </div>
+        <div class="ficha-badges">${chips}</div>
       </div>
-      <div><span class="obs-var">${vocab(o.variable_resultado)}</span></div>
-      <div class="obs-cat">${vocab(o.categoria_factor || '—')}</div>
-      <div class="obs-cita">“${esc(o.cita_textual)}”</div>
-      <div>${o.valida ? '<span class="obs-ok">✓ válida</span>' : `<span class="obs-warn" title="${esc(o.problemas)}">Revisar</span>`}</div>
-      ${open ? `
-      <div class="obs-detail"><div>
-        <blockquote>“${esc(o.cita_textual)}”</blockquote>
-        <div class="meta"><span>${esc(paper)}</span>${o.doi ? `<a href="${esc(doiUrl(o.doi))}" target="_blank" rel="noopener noreferrer">Abrir original ↗</a>` : ''}</div>
-        ${o.valida ? '' : `<div class="prob"><b>Validación:</b>${esc(o.problemas || 'no pasó las validaciones automáticas')}</div>`}
-      </div></div>` : ''}
+      ${open ? `<div class="ficha-body">
+        ${seccion('Objetivo', f.objetivo ? `<p>${esc(f.objetivo)}</p>` : '')}
+        ${seccion('Abstract', f.abstract ? `<p>${esc(f.abstract)}</p>` : '')}
+        ${seccion('Introducción — penúltimo párrafo', f.intro_penultimo ? `<p>${esc(f.intro_penultimo)}</p>` : '')}
+        ${seccion('Introducción — último párrafo', f.intro_ultimo ? `<p>${esc(f.intro_ultimo)}</p>` : '')}
+        ${seccion('Conclusiones (texto del paper)', f.conclusion_texto ? `<p>${esc(f.conclusion_texto)}</p>` : '')}
+        ${seccion('Conclusiones (resumidas)', lista(f.conclusiones))}
+        ${seccion('Hallazgos clave', lista(f.hallazgos_clave))}
+        ${seccion(`Tablas (${f.tablas.length})`, tablas)}
+        ${parcial ? '<div class="ficha-nota">Ficha parcial: no hubo PDF accesible, así que solo tiene el abstract (sin introducción, conclusiones ni tablas).</div>' : ''}
+      </div>` : ''}
     </div>`;
 }
 
-function obsTableHTML() {
-  const { porTexto, filas } = obsFiltradas();
-  const cuenta = (k) => porTexto.filter((o) => o.efecto === k).length;
-  const efSeg = [['todos', 'Todos', porTexto.length], ...EFX.map((k) => [k, EFX_LBL[k], cuenta(k)])]
-    .map(([k, l, n]) => `<label class="seg-opt" ${k !== 'todos' ? `data-efecto="${k}"` : ''}><input type="radio" name="obs-ef" value="${k}" ${proc.ef === k ? 'checked' : ''}>${k !== 'todos' ? '<span class="efx-g"></span>' : ''}${l}<span class="n">${n}</span></label>`).join('');
-  const grpSeg = [['paper', 'Paper'], ['categoria', 'Categoría'], ['ninguno', 'Ninguno']]
-    .map(([k, l]) => `<label class="seg-opt"><input type="radio" name="obs-grp" value="${k}" ${proc.group === k ? 'checked' : ''}>${l}</label>`).join('');
-
-  const grupos = new Map();
-  filas.forEach((o) => { const k = obsGrupo(o); if (!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(o); });
-  const claves = [...grupos.keys()];
-  if (proc.group === 'categoria') claves.sort((a, b) => a.localeCompare(b, 'es'));
-
-  const cuerpo = claves.map((k) => {
-    const g = grupos.get(k).sort((a, b) => EFX.indexOf(a.efecto) - EFX.indexOf(b.efecto)
-      || String(a.variable_resultado).localeCompare(String(b.variable_resultado), 'es'));
-    if (proc.group === 'ninguno') return g.map(obsRowHTML).join('');
-    const f = g[0];
-    const dist = EFX.map((e) => [e, g.filter((o) => o.efecto === e).length]).filter((d) => d[1]);
-    const esPaper = proc.group === 'paper';
-    const sub = esPaper ? (f.year || '') : plural(new Set(g.map((o) => o.paper_id)).size, 'paper', 'papers');
-    const doi = !esPaper ? '' : f.doi
-      ? `<a class="doi" href="${esc(doiUrl(f.doi))}" target="_blank" rel="noopener noreferrer">doi:${esc(doiCorto(f.doi))} ↗</a>`
-      : '<span class="run-note">sin DOI</span>';
-    const cerrado = proc.closed.has(k);
-    return `
-    <div class="obs-group ${cerrado ? 'is-closed' : ''}">
-      <div class="obs-gh" role="button" tabindex="0" data-action="obs-grupo" data-g="${esc(k)}" aria-expanded="${!cerrado}">
-        <span class="caret">▾</span>
-        <span class="t"><span class="title">${esc(esPaper ? (f.title || '(sin título)') : k)}</span><span class="sub">${esc(sub)}</span>${doi}</span>
-        <span class="cnt">${plural(g.length, 'observación', 'observaciones')}</span>
-        <span class="dist" title="${esc(dist.map(([e, n]) => `${EFX_LBL[e]}: ${n}`).join(' · '))}">${dist.map(([e, n]) => `<i data-efecto="${e}" style="flex:${n}"></i>`).join('')}</span>
-      </div>
-      ${g.map(obsRowHTML).join('')}
-    </div>`;
-  }).join('');
-
+function fichasListaHTML() {
+  const { porTexto, filas } = fichasFiltradas();
+  const cuenta = (fn) => porTexto.filter(fn).length;
+  const segs = [['relevantes', 'Relevantes', cuenta((f) => f.estado === 'ok')],
+    ['parcial', 'Solo abstract', cuenta((f) => f.estado === 'ok' && f.cobertura === 'parcial')],
+    ['no_relevante', 'No relevantes', cuenta((f) => f.estado === 'no_relevante')],
+    ['todas', 'Todas', porTexto.length]]
+    .map(([k, l, n]) => `<label class="seg-opt"><input type="radio" name="ficha-filtro" value="${k}" ${proc.filtro === k ? 'checked' : ''}>${l}<span class="n">${n}</span></label>`).join('');
   return `
     <div class="obs-toolbar">
-      <input class="input" data-input="obs-q" placeholder="Buscar paper, factor, referencia, variable…" value="${esc(proc.q)}" aria-label="Filtrar observaciones">
-      <div class="seg">${efSeg}</div>
-      <div class="grp">Agrupar <div class="seg">${grpSeg}</div></div>
+      <input class="input" data-input="obs-q" placeholder="Buscar en título, resumen, introducción, conclusiones, tablas…" value="${esc(proc.q)}" aria-label="Filtrar fichas">
+      <div class="seg">${segs}</div>
     </div>
     <div>
-      <div class="obs-count">
-        <span>${plural(filas.length, 'observación', 'observaciones')} · ${plural(new Set(filas.map((o) => o.paper_id)).size, 'paper', 'papers')}</span>
-        ${proc.group !== 'ninguno' && filas.length ? `<span class="obs-count-actions">
+      <div class="obs-count"><span>${plural(filas.length, 'ficha', 'fichas')}</span>
+        ${filas.length ? `<span class="obs-count-actions">
           <button class="btn btn-ghost" data-action="obs-expandir">Expandir todo</button>
           <button class="btn btn-ghost" data-action="obs-colapsar">Colapsar todo</button></span>` : ''}
       </div>
-      <div class="obs-th"><span>Efecto</span><span>Factor evaluado · referencia</span><span>Variable</span><span>Categoría</span><span>Cita textual</span><span>Validación</span></div>
-      ${filas.length ? cuerpo : '<div class="obs-empty">Ninguna observación coincide con los filtros. <button class="btn btn-ghost" data-action="obs-limpiar">Limpiar filtros</button></div>'}
+      ${filas.length ? filas.map(fichaHTML).join('') : '<div class="obs-empty">Ninguna ficha coincide con los filtros. <button class="btn btn-ghost" data-action="obs-limpiar">Limpiar filtros</button></div>'}
     </div>`;
 }
 
@@ -475,17 +534,17 @@ function viewProcesamiento() {
     <div class="proc-view">
       ${notice()}
       ${runCardHTML(p)}
-      ${!p.activo && proc.obs.length ? `<div class="obs-table" id="obs-tabla">${obsTableHTML()}</div>` : ''}
+      ${!p.activo && proc.fichas.length ? `<div class="obs-table" id="obs-tabla">${fichasListaHTML()}</div>` : ''}
     </div>`;
 }
 
-// Solo la tabla: así el campo de búsqueda no pierde el foco ni el cursor
+// Solo la lista: así el campo de búsqueda no pierde el foco ni el cursor
 function renderObsTabla() {
   const tabla = $('#obs-tabla');
   if (!tabla) return;
   const activo = document.activeElement;
   const cursor = activo && activo.dataset.input === 'obs-q' ? activo.selectionStart : null;
-  tabla.innerHTML = obsTableHTML();
+  tabla.innerHTML = fichasListaHTML();
   if (cursor !== null) {
     const campo = tabla.querySelector('[data-input="obs-q"]');
     campo.focus();
@@ -493,14 +552,20 @@ function renderObsTabla() {
   }
 }
 
-function exportarObsCSV() {
-  const cols = ['title', 'year', 'doi', 'factor_evaluado', 'referencia', 'variable_resultado', 'efecto',
-    'categoria_factor', 'cita_textual', 'valida', 'problemas'];
+function exportarFichasCSV() {
+  const cols = ['title', 'year', 'doi', 'estado', 'cobertura', 'fuente', 'resumen', 'objetivo', 'abstract',
+    'intro_penultimo', 'intro_ultimo', 'conclusion_texto', 'conclusiones', 'hallazgos_clave', 'tablas'];
+  const plano = (f) => ({
+    ...f,
+    conclusiones: f.conclusiones.join(' | '),
+    hallazgos_clave: f.hallazgos_clave.join(' | '),
+    tablas: f.tablas.map((t) => `${t.nombre} [${t.atributos.join('; ')}]`).join(' | '),
+  });
   const celda = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
-  const csv = [cols.join(','), ...proc.obs.map((o) => cols.map((c) => celda(o[c])).join(','))].join('\n');
+  const csv = [cols.join(','), ...proc.fichas.map((f) => cols.map((c) => celda(plano(f)[c])).join(','))].join('\n');
   const enlace = document.createElement('a');
-  enlace.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
-  enlace.download = `${S.proj.archivo.replace(/\.db$/, '')}_observaciones.csv`;
+  enlace.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+  enlace.download = `${S.proj.archivo.replace(/\.db$/, '')}_fichas.csv`;
   enlace.click();
   URL.revokeObjectURL(enlace.href);
 }
@@ -605,14 +670,14 @@ async function loadList() {
   S.projects = await api('GET', '/api/proyectos');
 }
 
-async function cargarObservaciones() {
+async function cargarFichas() {
   const id = S.proj && S.proj.id;
-  let obs = [];
+  let fichas = [];
   if (id && S.proj.stage === 'results') {
-    try { obs = await api('GET', `/api/proyectos/${id}/observaciones`); } catch (e) { /* se queda vacía */ }
+    try { fichas = await api('GET', `/api/proyectos/${id}/fichas`); } catch (e) { /* se queda vacía */ }
   }
   if ((S.proj && S.proj.id) !== id) return;  // cambió de proyecto mientras cargaba
-  proc.obs = obs.map((o, i) => ({ ...o, _i: i }));
+  proc.fichas = fichas.map((f, i) => ({ ...f, _i: i }));
   proc.open.clear();
 }
 
@@ -635,11 +700,11 @@ async function selectProject(id) {
   S.renaming = false;
   S.error = null;
   S.tab = 'busqueda';
-  Object.assign(proc, { obs: [], q: '', ef: 'todos', group: 'paper', alcance: null, configurando: false });
+  Object.assign(proc, { fichas: [], q: '', filtro: 'relevantes', alcance: null, configurando: false });
   proc.open.clear();
-  proc.closed.clear();
+  resetAcl();
   setProject(p);
-  await cargarObservaciones();  // si ya se procesó antes, lo extraído se ve de entrada
+  await cargarFichas();  // si ya se procesó antes, lo extraído se ve de entrada
   try { localStorage.setItem('buscador.activo', id); } catch (e) { /* almacenamiento bloqueado */ }
   render();
 }
@@ -657,7 +722,7 @@ async function poll() {
   // Al terminar un procesamiento o una búsqueda (que reemplaza los papers) se recarga lo extraído
   const recargar = (S.proj.procesamiento.activo && !p.procesamiento.activo) || p.stage !== S.proj.stage;
   setProject(p);
-  if (recargar) await cargarObservaciones();
+  if (recargar) await cargarFichas();
   if (cambio) render();
 }
 
@@ -665,6 +730,46 @@ async function createProject() {
   const p = await api('POST', '/api/proyectos');
   S.projects.push({ id: p.id, name: p.name, stage: p.stage });
   return p;
+}
+
+// Pregunta a Nemotron si el tema es lo bastante concreto: si no, muestra sus
+// preguntas; si sí, genera las cadenas con el tema refinado
+async function evaluarTema() {
+  const r = await api('POST', `/api/proyectos/${S.proj.id}/aclarar`, { prompt: S.proj.prompt, historial: ACL.historial });
+  if (!r.suficiente) {
+    Object.assign(ACL, { fase: 'preguntando', preguntas: r.preguntas, respuestas: r.preguntas.map(() => ''),
+      ronda: ACL.ronda + 1, tema: r.tema_refinado });
+    return;
+  }
+  await crearCadenas(r.tema_refinado);
+}
+
+async function crearCadenas(refinado) {
+  // Consolidar intención con historial + respuestas propias
+  const partes = [`Tema original: ${S.proj.prompt}`];
+  (ACL.historial || []).forEach(h => {
+    if (h.pregunta) {
+      if (h.respuesta && String(h.respuesta).trim()) {
+        partes.push(`Pregunta: ${h.pregunta} Respuesta: ${String(h.respuesta).trim()}`);
+      } else {
+        partes.push(`Pregunta: ${h.pregunta}`);
+      }
+    }
+  });
+  const intencion = partes.join(' | ');
+  setProject(await api('POST', `/api/proyectos/${S.proj.id}/cadenas`, {
+    prompt: S.proj.prompt, num: S.proj.num, idioma: S.proj.idioma, tema_refinado: refinado,
+    historial: ACL.historial, aclaraciones: ACL.vistas, intencion: intencion, intencion_busqueda: intencion
+  }));
+  resetAcl();
+}
+
+// Guarda todas las preguntas mostradas (también las sin respuesta) para poder revisarlas luego
+function registrarVistas() {
+  ACL.preguntas.forEach((q, i) => ACL.vistas.push({ pregunta: q.pregunta, respuesta: String(ACL.respuestas[i] || '').trim() }));
+  (ACL.custom || []).forEach((c) => {
+    if (String(c.pregunta || '').trim()) ACL.vistas.push({ pregunta: c.pregunta.trim(), respuesta: String(c.respuesta || '').trim() });
+  });
 }
 
 const save = (fields) => api('PUT', `/api/proyectos/${S.proj.id}`, fields);
@@ -713,15 +818,74 @@ const actions = {
     const f = form();
     if (!String(f.prompt).trim()) throw new Error('Escribe primero el tema que quieres investigar.');
     if (!S.proj) setProject({ ...(await createProject()), ...DRAFT });
+    resetAcl();
     S.busy = true;
     render();
     try {
-      setProject(await api('POST', `/api/proyectos/${S.proj.id}/cadenas`, {
-        prompt: S.proj.prompt, num: S.proj.num, idioma: S.proj.idioma,
-      }));
+      await evaluarTema();
     } finally {
       S.busy = false;
       render();
+    }
+  },
+  'acl-ejemplo': (el) => {
+    const i = Number(el.dataset.idx);
+    ACL.respuestas[i] = ACL.respuestas[i] ? `${ACL.respuestas[i]}, ${el.dataset.ej}` : el.dataset.ej;
+    renderContent();
+  },
+  'acl-responder': async () => {
+    registrarVistas();
+    ACL.preguntas.forEach((q, i) => {
+      if (String(ACL.respuestas[i] || '').trim()) {
+        ACL.historial.push({ pregunta: q.pregunta, respuesta: ACL.respuestas[i].trim(), ronda: ACL.ronda });
+      }
+    });
+    (ACL.custom || []).forEach((c) => {
+      if (String(c.pregunta || '').trim()) {
+        ACL.historial.push({ pregunta: c.pregunta.trim(), respuesta: String(c.respuesta || '').trim(), ronda: ACL.ronda, custom: true });
+      }
+    });
+    S.busy = true;
+    render();
+    try {
+      await evaluarTema();
+    } finally {
+      S.busy = false;
+      render();
+    }
+  },
+  'acl-omitir': async () => {
+    registrarVistas();
+    (ACL.custom || []).forEach((c) => {
+      if (String(c.pregunta || '').trim()) {
+        ACL.historial.push({ pregunta: c.pregunta.trim(), respuesta: String(c.respuesta || '').trim(), ronda: ACL.ronda, custom: true });
+      }
+    });
+    S.busy = true;
+    render();
+    try {
+      await crearCadenas(ACL.tema);
+    } finally {
+      S.busy = false;
+      render();
+    }
+  },
+  'acl-cancelar': () => { resetAcl(); render(); },
+  'acl-custom-add': () => {
+    if (!ACL.custom) ACL.custom = [];
+    ACL.custom.push({ pregunta: '', respuesta: '' });
+    renderContent();
+  },
+  'acl-custom-remove': (el) => {
+    if (!ACL.custom) return;
+    ACL.custom.splice(Number(el.dataset.idx), 1);
+    renderContent();
+  },
+  'toggle-query-info': (el) => {
+    const i = Number(el.dataset.idx);
+    const block = document.querySelector(`.query-block[data-qblock="${i}"]`);
+    if (block) {
+      block.classList.toggle('open');
     }
   },
   'add-query': async () => {
@@ -735,6 +899,14 @@ const actions = {
     S.proj.queries.splice(Number(el.dataset.idx), 1);
     renderContent();
     await save({ queries: S.proj.queries });
+  },
+  'rehacer-prompt': async () => {
+    if (!confirm('¿Rehacer el prompt? Se borran las preguntas y respuestas generadas, la intención detectada, las cadenas y los papers buscados (con su selección y procesamiento). Las preguntas se volverán a generar.')) return;
+    setProject(await save({ rehacer_prompt: true }));
+    resetAcl();
+    render();
+    const prompt = $('#prompt');
+    if (prompt) prompt.focus();
   },
   'back-to-prompt': async () => { setProject(await save({ queries: S.proj.queries, stage: 'empty' })); render(); },
   'back-to-queries': async () => {
@@ -776,21 +948,15 @@ const actions = {
   },
   'cancelar-procesar': async () => {
     setProject(await api('POST', `/api/proyectos/${S.proj.id}/cancelar-procesar`));
-    await cargarObservaciones();
+    await cargarFichas();
     render();
   },
   'obs-configurar': () => { proc.configurando = !proc.configurando; renderContent(); },
-  'obs-csv': exportarObsCSV,
-  'obs-limpiar': () => { proc.q = ''; proc.ef = 'todos'; renderObsTabla(); },
-  'obs-expandir': () => { proc.closed.clear(); renderObsTabla(); },
-  'obs-colapsar': () => { obsFiltradas().filas.forEach((o) => proc.closed.add(obsGrupo(o))); renderObsTabla(); },
-  'obs-grupo': (el) => {
-    const k = el.dataset.g;
-    if (!proc.closed.delete(k)) proc.closed.add(k);
-    renderObsTabla();
-  },
-  'obs-toggle': (el, e) => {
-    if (e.target.closest('.obs-detail')) return;  // dentro del detalle se puede seleccionar el texto de la cita
+  'obs-csv': exportarFichasCSV,
+  'obs-limpiar': () => { proc.q = ''; proc.filtro = 'todas'; renderObsTabla(); },
+  'obs-expandir': () => { fichasFiltradas().filas.forEach((f) => proc.open.add(f._i)); renderObsTabla(); },
+  'obs-colapsar': () => { proc.open.clear(); renderObsTabla(); },
+  'ficha-toggle': (el) => {
     const i = Number(el.dataset.i);
     if (!proc.open.delete(i)) proc.open.add(i);
     renderObsTabla();
@@ -830,6 +996,9 @@ document.addEventListener('input', (e) => {
   else if (t.dataset.input === 'query') S.proj.queries[Number(t.dataset.idx)] = t.value;
   else if (t.dataset.input === 'min_year' || t.dataset.input === 'max_resultados') S.proj[t.dataset.input] = t.value;
   else if (t.dataset.input === 'filter') { S.filterText = t.value; renderRows(); }
+  else if (t.dataset.input === 'acl') ACL.respuestas[Number(t.dataset.idx)] = t.value;
+  else if (t.dataset.input === 'acl-custom-preg') { if (!ACL.custom) ACL.custom = []; if (!ACL.custom[Number(t.dataset.idx)]) ACL.custom[Number(t.dataset.idx)] = { pregunta: '', respuesta: '' }; ACL.custom[Number(t.dataset.idx)].pregunta = t.value; }
+  else if (t.dataset.input === 'acl-custom-res') { if (!ACL.custom) ACL.custom = []; if (!ACL.custom[Number(t.dataset.idx)]) ACL.custom[Number(t.dataset.idx)] = { pregunta: '', respuesta: '' }; ACL.custom[Number(t.dataset.idx)].respuesta = t.value; }
   else if (t.dataset.input === 'obs-q') { proc.q = t.value; renderObsTabla(); }
 });
 
@@ -838,8 +1007,7 @@ document.addEventListener('change', (e) => {
   const t = e.target;
   if (t.name === 'oaf') { S.onlyOA = t.value === 'oa'; renderRows(); return; }
   if (t.name === 'pickf') { S.onlyPicked = t.checked; renderRows(); return; }
-  if (t.name === 'obs-ef') { proc.ef = t.value; renderObsTabla(); return; }
-  if (t.name === 'obs-grp') { proc.group = t.value; proc.closed.clear(); renderObsTabla(); return; }
+  if (t.name === 'ficha-filtro') { proc.filtro = t.value; renderObsTabla(); return; }
   if (t.name === 'obs-alcance') { proc.alcance = t.value; renderContent(); return; }
   if (t.dataset.input === 'obs-q') return;
   if (t.name === 'lang') form().idioma = t.value;
@@ -882,7 +1050,7 @@ document.addEventListener('keydown', (e) => {
     return;
   }
   if (e.key === 'Escape' && S.panelOpen) actions['close-panel']();
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('obs-gh')) {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('ficha-head')) {
     e.preventDefault();
     e.target.click();
   }

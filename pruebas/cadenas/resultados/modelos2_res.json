@@ -1,0 +1,494 @@
+[
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "Expecting ',' delimiter: line 15 column 6 (char 2648)",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"INFOGEST\" OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" OR \"static digestion model\" AND \"protein digestibility\" OR \"in vitro digestibility\" OR \"nutrient bioaccessibility\" OR \"digestibility percentage\" AND \"machine learning\" OR \"predictive modeling\" OR \"artificial intelligence\" OR \"computational modeling\"",
+   "\"INFOGEST\" OR \"in vitro digestion\" OR \"gastrointestinal simulation\" AND \"bitterness index\" OR \"bitter taste\" OR \"essential amino acid index\" OR EAAI AND \"machine learning\" OR \"explainable AI\" OR XAI OR \"predictive algorithms\"",
+   "\"explainable AI\" OR XAI OR \"interpretable machine learning\" OR \"model interpretability\" AND \"in vitro digestion\" OR INFOGEST OR \"digestibility prediction\" OR \"nutrient bioaccessibility\" AND \"food analysis\" OR \"nutritional modeling\" OR \"protein quality\" OR \"sensory prediction\"",
+   "\"data extrapolation\" OR \"model extrapolation\" OR \"optimization\" OR \"hyperparameter tuning\" AND \"digestibility\" OR \"bioaccessibility\" OR \"gastrointestinal digestion\" OR \"nutrient release\" AND \"machine learning\" OR \"predictive models\" OR \"neural networks\" OR \"computational models\"",
+   "\"INFOGEST\" OR \"standardized in vitro digestion\" OR \"static digestion protocol\" AND \"digestibility assessment\" OR \"nutritional evaluation\" OR \"protein digestibility\" OR \"amino acid profile\" AND \"machine learning\" OR \"algorithm implementation\" OR \"predictive analytics\" OR \"model validation\""
+  ],
+  "brutas": 5,
+  "dt": 62.44417762756348
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"machine learning\" OR \"supervised learning\" OR \"statistical learning\" AND \"linear discriminant analysis\" OR \"Fisher's linear discriminant\" OR \"Fisher discriminant\" OR \"linear discriminant function\" AND \"classification\" OR \"dimensionality reduction\" OR \"feature extraction\"",
+   "\"machine learning\" OR \"pattern recognition\" OR \"computational learning\" AND \"support vector machine\" OR \"support vector machines\" OR \"maximum margin classifier\" AND \"linear kernel\" OR \"linearly separable\" OR \"hyperplane classifier\" OR \"linear separation\"",
+   "\"supervised learning\" OR \"machine learning\" OR \"predictive modeling\" AND \"linear classifier\" OR \"linear classification\" OR \"linear decision boundary\" OR \"linear separator\" AND \"perceptron\" OR \"logistic regression\" OR \"linear model\" OR \"discriminant analysis\"",
+   "\"statistical learning\" OR \"machine learning theory\" OR \"computational statistics\" AND \"discriminant function\" OR \"linear discriminant\" OR \"Fisher criterion\" OR \"between-class scatter\" AND \"projection\" OR \"dimensionality reduction\" OR \"feature space\" OR \"class separability\"",
+   "\"machine learning\" OR \"supervised classification\" OR \"pattern recognition\" AND \"linear discriminant\" OR \"linear classifier\" OR \"linear SVM\" OR \"linear model\" AND \"non-linear\" OR \"kernel methods\" OR \"neural networks\" OR \"comparative study\""
+  ],
+  "brutas": 5,
+  "dt": 63.95555567741394
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "Expecting ',' delimiter: line 20 column 6 (char 3500)",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "dt": 0
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "\"robótica avanzada\" OR \"robots autónomos\" OR \"sistemas robóticos inteligentes\" OR \"automatización robótica\" OR \"robots inteligentes\"",
+   "\"automatización industrial\" OR \"manufactura automatizada\" OR \"industria 4.0\" OR \"fábricas inteligentes\" OR \"sistemas de producción automatizados\"",
+   "\"robots colaborativos\" OR \"cobots\" OR \"robótica colaborativa\" OR \"interacción humano robot\" AND \"seguridad\" OR \"cooperación\" OR \"asistencia\" OR \"colaboración\"",
+   "\"aprendizaje automático\" OR \"inteligencia artificial\" OR \"aprendizaje profundo\" OR \"redes neuronales\" OR \"visión artificial\" AND \"robótica\" OR \"automatización\" OR \"robots\" OR \"sistemas autónomos\"",
+   "\"sistemas ciber físicos\" OR \"automatización de procesos\" OR \"control automático\" OR \"sistemas embebidos\" OR \"internet de las cosas industrial\""
+  ],
+  "brutas": 5,
+  "dt": 31.50412940979004
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "autonomous mobile robots OR AMR OR \"mobile robot\" OR AGV AND localization accuracy OR \"positioning accuracy\" OR \"navigation precision\" OR SLAM AND warehouse OR \"logistics warehouse\" OR \"fulfillment center\"",
+   "\"motion control\" OR \"trajectory tracking\" OR \"path following\" OR odometry AND accuracy OR precision OR \"motion accuracy\" AND autonomous robot OR AMR OR \"automated guided vehicle\" OR \"mobile robot\"",
+   "\"performance evaluation\" OR \"accuracy assessment\" OR benchmarking AND autonomous mobile robot OR AMR OR \"warehouse robot\" OR \"logistics robot\" AND warehouse automation OR \"automated warehouse\" OR \"smart warehouse\"",
+   "sensor fusion OR LiDAR OR \"computer vision\" OR \"visual odometry\" AND localization OR positioning OR \"pose estimation\" OR navigation AND warehouse environment OR \"indoor logistics\" OR \"distribution center\"",
+   "\"order picking\" OR \"goods transport\" OR \"material handling\" AND positioning accuracy OR \"localization precision\" OR \"navigation accuracy\" AND autonomous robot OR AMR OR \"robotic system\" OR \"automated system\""
+  ],
+  "brutas": 5,
+  "dt": 29.59800386428833
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"artificial intelligence\" OR \"machine learning\" OR \"deep learning\" OR \"reinforcement learning\" AND \"collaborative robots\" OR cobots OR \"collaborative robotics\" AND warehousing OR logistics OR \"warehouse automation\" OR intralogistics",
+   "\"computer vision\" OR \"visual perception\" OR \"object recognition\" OR \"3D sensing\" AND cobots OR \"collaborative robots\" OR \"human-robot collaboration\" AND \"order picking\" OR \"bin picking\" OR warehouse OR logistics",
+   "\"human-robot interaction\" OR \"human-robot collaboration\" OR \"shared autonomy\" OR \"collaborative control\" AND \"artificial intelligence\" OR \"machine learning\" OR \"intelligent systems\" OR \"adaptive learning\" AND warehouse OR logistics OR \"fulfillment center\" OR \"distribution center\"",
+   "\"autonomous navigation\" OR \"path planning\" OR \"motion planning\" OR SLAM AND \"mobile robots\" OR \"autonomous mobile robots\" OR AMR OR \"collaborative robots\" AND warehouse OR intralogistics OR \"material handling\" OR logistics",
+   "\"warehouse management system\" OR WMS OR \"digital twin\" OR \"cyber-physical systems\" AND \"artificial intelligence\" OR \"machine learning\" OR \"optimization algorithms\" OR \"predictive analytics\" AND cobots OR \"collaborative robots\" OR \"robotic automation\" OR \"intelligent robots\""
+  ],
+  "brutas": 5,
+  "dt": 46.0332088470459
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"INFOGEST protocol\" OR \"INFOGEST model\" OR \"in vitro digestion\" OR \"simulated digestion\" AND \"banana starch\" OR \"plantain starch\" OR \"Musa starch\" OR \"green banana starch\" AND \"starch digestibility\" OR \"digestible starch\" OR \"starch hydrolysis\"",
+   "\"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"predictive modeling\" AND \"nutrient prediction\" OR \"nutrient concentration\" OR \"bioaccessibility prediction\" OR \"digestion profile\" AND \"starch digestion\" OR \"in vitro digestibility\" OR \"gastrointestinal digestion\"",
+   "\"ripening stage\" OR \"fruit maturity\" OR \"ripeness level\" OR \"maturation degree\" AND banana OR plantain OR \"Musa paradisiaca\" OR \"cooking banana\" AND \"starch digestibility\" OR \"resistant starch\" OR \"starch composition\"",
+   "\"banana flour\" OR \"plantain flour\" OR \"green banana flour\" OR \"Musa flour\" AND INFOGEST OR \"in vitro digestion\" OR \"simulated digestion\" AND \"glycemic response\" OR \"starch hydrolysis\" OR \"nutrient release\"",
+   "\"predictive model\" OR \"regression model\" OR \"deep learning\" OR \"random forest\" AND \"ripeness index\" OR \"maturity stage\" OR \"harvest stage\" OR \"storage time\" AND \"nutrient bioavailability\" OR \"mineral bioaccessibility\" OR \"bioaccessible nutrients\""
+  ],
+  "brutas": 5,
+  "dt": 36.537999629974365
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"INFOGEST protocol\" OR \"in vitro digestion\" OR \"static digestion model\" OR \"gastrointestinal simulation\" AND \"protein digestibility\" OR \"digestibility percentage\" OR bioaccessibility OR \"nutrient release\"",
+   "EAAI OR \"amino acid index\" OR \"essential amino acids\" OR \"protein quality\" AND \"bitterness index\" OR \"bitter taste\" OR \"sensory bitterness\" OR \"BI value\"",
+   "\"machine learning\" OR \"predictive modeling\" OR \"artificial intelligence\" OR \"deep learning\" AND INFOGEST OR \"in vitro digestion\" OR \"food digestion\" AND prediction OR forecasting OR estimation",
+   "\"explainable AI\" OR XAI OR \"interpretable machine learning\" OR \"SHAP values\" AND \"model optimization\" OR \"hyperparameter tuning\" OR extrapolation OR generalization AND \"nutritional prediction\" OR \"digestibility modeling\" OR \"food analysis\"",
+   "\"regression models\" OR \"predictive algorithms\" OR \"response surface\" OR modeling AND digestibility OR bioavailability OR \"nutrient absorption\" OR \"protein quality\" AND validation OR \"cross validation\" OR \"model performance\" OR accuracy"
+  ],
+  "brutas": 5,
+  "dt": 41.04704308509827
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"linear discriminant analysis\" OR LDA OR \"Fisher linear discriminant\" OR \"Fisher discriminant\" AND \"machine learning\" OR \"supervised learning\" OR \"pattern recognition\" AND classification OR classifier OR \"dimensionality reduction\"",
+   "\"linear discriminant function\" OR \"discriminant function\" OR \"linear classifier\" AND \"machine learning\" OR \"statistical learning\" OR \"predictive modeling\" AND \"decision boundary\" OR hyperplane OR \"class separation\"",
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" AND \"support vector machine\" OR SVM OR \"logistic regression\" OR \"naive Bayes\" AND \"comparative study\" OR benchmark OR \"performance evaluation\" OR \"accuracy comparison\"",
+   "\"linear discriminant\" OR LDA OR \"discriminant analysis\" AND \"face recognition\" OR biometrics OR \"image classification\" OR \"text classification\" AND \"feature extraction\" OR \"pattern recognition\" OR \"computer vision\"",
+   "\"linear discriminant\" OR \"Fisher criterion\" OR \"between-class scatter\" OR \"within-class scatter\" AND projection OR \"dimensionality reduction\" OR \"eigenvalue decomposition\" AND optimization OR \"class separability\" OR \"Gaussian assumption\" OR \"covariance matrix\""
+  ],
+  "brutas": 5,
+  "dt": 27.472163677215576
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "\"UHT milk\" OR \"ultra high temperature milk\" OR \"ultra-high temperature processed milk\" AND \"heat treatment\" OR \"thermal processing\" OR \"high temperature treatment\" AND \"processing temperature\" OR \"treatment temperature\" OR \"heating temperature\"",
+   "\"whole milk\" OR \"full fat milk\" OR \"full cream milk\" AND \"sensory quality\" OR \"flavor profile\" OR \"organoleptic properties\" OR \"taste perception\" AND \"UHT treatment\" OR \"ultra high temperature processing\"",
+   "\"shelf life\" OR \"storage stability\" OR \"shelf stability\" AND \"storage conditions\" OR \"storage temperature\" OR \"ambient storage\" AND \"UHT milk\" OR \"ultra high temperature milk\"",
+   "\"nutritional quality\" OR \"nutritional value\" OR \"nutrient retention\" AND \"vitamin degradation\" OR \"protein denaturation\" OR \"Maillard reaction\" OR \"lysine availability\" AND \"UHT processing\" OR \"heat treatment\" OR \"ultra high temperature\"",
+   "\"UHT milk\" OR \"ultra high temperature milk\" AND \"pasteurized milk\" OR \"HTST milk\" OR \"ESL milk\" OR \"extended shelf life milk\" OR \"non-UHT milk\" AND \"comparative analysis\" OR \"quality comparison\" OR \"nutritional comparison\" OR \"sensory comparison\"",
+   "\"Maillard reaction\" OR \"non-enzymatic browning\" OR \"heat-induced reactions\" AND \"cooked flavor\" OR \"boiled taste\" OR \"caramelized flavor\" OR \"off-flavor development\" AND \"UHT treatment\" OR \"ultra high temperature processing\"",
+   "\"physical stability\" OR \"colloidal stability\" OR \"chemical stability\" AND \"age gelation\" OR \"fat separation\" OR creaming OR sedimentation OR \"protein aggregation\" AND \"storage time\" OR \"shelf life\" OR \"UHT milk\"",
+   "\"product development\" OR \"new product development\" OR \"dairy innovation\" AND \"UHT milk\" OR \"shelf stable milk\" OR \"ultra high temperature milk\" AND formulation OR \"functional dairy products\" OR \"dairy beverages\"",
+   "\"commercial sterility\" OR \"aseptic processing\" OR \"microbial inactivation\" AND \"thermophilic spores\" OR \"Bacillus spores\" OR \"Clostridium spores\" OR \"spore survival\" AND \"UHT temperature\" OR \"ultra high temperature treatment\" OR sterilization",
+   "packaging OR \"aseptic packaging\" OR \"multilayer packaging\" OR \"oxygen barrier\" AND \"light exposure\" OR photooxidation OR \"storage temperature\" OR \"ambient conditions\" AND \"quality deterioration\" OR \"shelf life\" OR \"UHT milk\""
+  ],
+  "brutas": 10,
+  "dt": 54.47351908683777
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "cancer OR neoplasm OR tumor OR malignancy AND chemotherapy OR \"drug therapy\" OR pharmacotherapy OR \"antineoplastic agents\"",
+   "cancer OR neoplasm OR oncology AND surgery OR \"surgical resection\" OR \"oncologic surgery\" OR \"operative treatment\"",
+   "cancer OR neoplasm OR malignancy AND radiotherapy OR \"radiation therapy\" OR \"radiation oncology\" OR brachytherapy",
+   "cancer OR tumor OR neoplasm AND immunotherapy OR \"targeted therapy\" OR \"biological therapy\" AND \"CAR T therapy\" OR \"checkpoint inhibitors\" OR \"monoclonal antibodies\" OR \"adoptive cell therapy\"",
+   "cancer OR neoplasm OR malignancy AND \"combined modality therapy\" OR \"multimodal treatment\" OR \"neoadjuvant therapy\" OR \"adjuvant therapy\""
+  ],
+  "brutas": 5,
+  "dt": 33.7971408367157
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "\"robots autónomos\" OR \"vehículos autónomos\" OR \"drones autónomos\" OR \"navegación autónoma\" OR \"robots móviles\"",
+   "\"automatización industrial\" OR \"industria 4.0\" OR \"manufactura inteligente\" OR \"fábrica inteligente\" OR \"producción automatizada\" AND \"sistemas ciberfísicos\" OR \"gemelos digitales\" OR \"sensores industriales\" OR \"control automático\" OR \"redes industriales\"",
+   "\"robots colaborativos\" OR \"robots cooperativos\" OR \"interacción humano robot\" OR \"exoesqueletos industriales\" OR \"seguridad colaborativa\"",
+   "\"cirugía robótica\" OR \"agricultura de precisión\" OR \"logística automatizada\" OR \"minería autónoma\" OR \"construcción robótica\" AND \"visión artificial\" OR \"visión por computador\" OR \"visión por ordenador\" OR \"percepción robótica\" OR \"sensores inteligentes\"",
+   "\"ética robótica\" OR \"regulación de robots\" OR \"impacto laboral\" OR \"responsabilidad legal\" OR \"robots sociales\""
+  ],
+  "brutas": 5,
+  "dt": 67.81842970848083
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"autonomous mobile robots\" OR AMR OR \"mobile robots\" OR AGV AND \"localization accuracy\" OR \"positioning accuracy\" OR \"navigation precision\" OR \"odometry error\" AND \"warehouse automation\" OR \"logistics warehouses\" OR \"fulfillment centers\"",
+   "\"mobile robots\" OR \"autonomous vehicles\" OR AMR AND \"path tracking\" OR \"trajectory control\" OR \"motion accuracy\" OR \"path following\" AND \"warehouse environment\" OR \"distribution centers\" OR \"storage facilities\"",
+   "SLAM OR \"sensor fusion\" OR \"lidar odometry\" OR \"visual odometry\" AND \"positioning error\" OR \"localization drift\" OR \"accuracy metrics\" OR \"precision measurement\" AND \"logistics robots\" OR \"warehouse robots\" OR \"automated guided vehicles\"",
+   "\"path planning\" OR \"motion planning\" OR \"route planning\" AND \"execution accuracy\" OR \"tracking precision\" OR \"control performance\" AND \"logistics automation\" OR \"warehouse robotics\" OR \"smart warehouses\" OR intralogistics",
+   "\"performance evaluation\" OR benchmarking OR \"accuracy assessment\" AND \"robot navigation\" OR \"autonomous navigation\" OR \"mobile robot localization\" AND \"supply chain automation\" OR \"warehouse operations\" OR \"material handling robots\""
+  ],
+  "brutas": 5,
+  "dt": 33.55613851547241
+ },
+ {
+  "modelo": "mistralai/mistral-large-4-1t-a52b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"machine learning\" OR \"deep learning\" OR \"artificial intelligence\" OR \"reinforcement learning\" AND \"collaborative robots\" OR cobots OR \"human robot collaboration\" AND integration OR deployment OR implementation OR \"control architecture\"",
+   "warehouse OR logistics OR \"fulfillment center\" OR intralogistics AND \"autonomous mobile robots\" OR AMR OR \"automated guided vehicles\" AND \"artificial intelligence\" OR \"machine learning\" OR \"smart automation\"",
+   "\"computer vision\" OR \"visual perception\" OR \"object detection\" OR \"depth sensing\" AND \"robotic manipulation\" OR grasping OR \"pick and place\" OR \"bin picking\" AND \"collaborative robot\" OR cobot OR \"human robot interaction\"",
+   "\"autonomous navigation\" OR \"path planning\" OR \"motion planning\" OR SLAM AND \"warehouse environment\" OR \"dynamic environment\" OR \"cluttered space\" OR \"industrial floor\" AND \"reinforcement learning\" OR \"deep learning\" OR \"intelligent control\" OR \"adaptive navigation\"",
+   "\"human robot interaction\" OR HRI OR \"safe collaboration\" OR \"collaborative workspace\" AND \"collision avoidance\" OR \"safety assurance\" OR \"risk assessment\" OR \"safe operation\" AND \"machine learning\" OR \"adaptive behavior\" OR \"intelligent assistance\" OR \"cognitive systems\""
+  ],
+  "brutas": 5,
+  "dt": 58.78346920013428
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"INFOGEST\" OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" OR \"dynamic digestion model\" AND \"banana flour\" OR \"banana starch\" OR \"banana pulp flour\" OR \"banana powder\" AND \"digestibility\" OR \"bioaccessibility\" OR \"starch digestibility\" OR \"carbohydrate digestibility\"",
+   "\"banana maturity\" OR \"banana ripeness\" OR \"banana ripening stage\" OR \"banana maturity level\" AND \"INFOGEST\" OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" OR \"dynamic digestion model\" AND \"digestibility\" OR \"bioaccessibility\" OR \"starch digestibility\" OR \"carbohydrate digestibility\"",
+   "\"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"artificial intelligence\" AND \"nutrient concentration\" OR \"nutrient profile\" OR \"macronutrient content\" OR \"micronutrient content\" AND \"banana flour\" OR \"banana starch\" OR \"banana pulp flour\" OR \"banana powder\"",
+   "\"INFOGEST\" OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" OR \"dynamic digestion model\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"artificial intelligence\" AND \"banana maturity\" OR \"banana ripeness\" OR \"banana ripening stage\" OR \"banana maturity level\"",
+   "\"banana flour\" OR \"banana starch\" OR \"digestibility\" OR \"bioaccessibility\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" OR \"artificial intelligence\" AND \"banana maturity\" OR \"banana ripeness\" OR \"nutrient concentration\" OR \"nutrient profile\""
+  ],
+  "brutas": 5,
+  "dt": 103.27800846099854
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"infogest\" OR \"infogest software\" OR \"infogest platform\" OR \"infogest system\" AND \"digestibility\" OR \"digestibility analysis\" OR \"percent digestibility\" OR \"digestibility percent\" AND \"machine learning\" OR \"ML\" OR \"XAI\" OR \"explainable AI\"",
+   "\"bitterness\" OR \"amargor\" OR \"BI\" OR \"bitterness index\" AND \"digestibility\" OR \"percent digestibility\" OR \"digestibility percent\" OR \"% digestibility\" AND \"machine learning\" OR \"ML\" OR \"machine-learning\" OR \"machine learning implementation\"",
+   "\"data extrapolation\" OR \"extrapolation\" OR \"extrapolation of data\" AND \"optimization\" OR \"optimisation\" OR \"XAI\" OR \"explainable AI\" AND \"digestibility\" OR \"digestibility analysis\" OR \"percent digestibility\" OR \"digestibility percent\"",
+   "\"tables of results\" OR \"result tables\" OR \"digestibility\" AND \"machine learning\" OR \"ML\" OR \"machine-learning\" AND \"infogest\" OR \"infogest software\" OR \"infogest platform\"",
+   "\"EAAI\" OR \"bitterness\" OR \"BI\" AND \"digestibility\" OR \"percent digestibility\" OR \"digestibility percent\" OR \"% digestibility\" AND \"XAI\" OR \"explainable AI\" OR \"optimization\" OR \"optimisation\" OR \"optimization methods\""
+  ],
+  "brutas": 5,
+  "dt": 123.92442202568054
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" OR \"discriminant analysis\" AND machine learning OR \"supervised learning\" OR classification AND algorithm OR method OR technique",
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" OR \"discriminant analysis\" AND application OR use OR \"real-world application\" OR \"case study\" AND image OR medical OR finance OR healthcare",
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" OR \"discriminant analysis\" AND compare OR comparison OR \"performance comparison\" OR benchmark AND SVM OR \"support vector machine\" OR \"logistic regression\" OR \"decision tree\"",
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" OR \"discriminant analysis\" AND regularized OR \"high-dimensional\" OR penalized OR sparse AND algorithm OR method OR technique",
+   "\"linear discriminant analysis\" OR LDA OR \"linear discriminant\" OR \"discriminant analysis\" AND kernel OR \"nonlinear extension\" OR nonlinear OR \"kernel method\" AND algorithm OR method OR technique"
+  ],
+  "brutas": 5,
+  "dt": 83.9876024723053
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=150)",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"cancer treatment\" OR \"oncology therapy\" OR \"cancer therapy\" OR \"cancer care\" AND \"chemotherapy\" OR \"immunotherapy\" OR \"targeted therapy\" OR \"radiotherapy\" AND \"survival\" OR \"mortality\" OR \"outcome\" OR \"quality of life\"",
+   "\"breast cancer\" OR \"breast carcinoma\" OR \"breast neoplasm\" OR \"breast tumor\" AND \"surgery\" OR \"lumpectomy\" OR \"mastectomy\" OR \"radiotherapy\" AND \"recurrence\" OR \"relapse\" OR \"survival\" OR \"mortality\"",
+   "\"pediatric cancer\" OR \"childhood cancer\" OR \"paediatric cancer\" OR \"pediatric oncology\" AND \"chemotherapy\" OR \"immunotherapy\" OR \"targeted therapy\" OR \"radiotherapy\" AND \"toxicity\" OR \"side effects\" OR \"quality of life\" OR \"long-term outcomes\"",
+   "\"elderly cancer\" OR \"older adult cancer\" OR \"senior cancer\" OR \"geriatric oncology\" AND \"chemotherapy\" OR \"immunotherapy\" OR \"targeted therapy\" OR \"radiotherapy\" AND \"frailty\" OR \"functional status\" OR \"treatment tolerance\" OR \"survival\"",
+   "\"cancer treatment\" OR \"oncology therapy\" OR \"cancer therapy\" OR \"cancer care\" AND \"CAR T-cell\" OR \"checkpoint inhibitor\" OR \"nanoparticle therapy\" OR \"gene therapy\" AND \"clinical trial\" OR \"phase I\" OR \"phase II\" OR \"phase III\""
+  ],
+  "brutas": 5,
+  "dt": 125.58172583580017
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"movement precision\" OR \"positional accuracy\" OR \"trajectory accuracy\" OR \"kinematic precision\" AND \"autonomous mobile robot\" OR \"AMR\" OR \"mobile robot\" OR \"autonomous robot\" AND \"warehouse logistics automation\" OR \"warehouse automation\" OR \"logistics warehouse\" OR \"warehouse robotics\"",
+   "\"sensor fusion\" OR \"lidar\" OR \"camera\" OR \"IMU\" AND \"localization\" OR \"SLAM\" OR \"dead reckoning\" OR \"GPS\" AND \"movement precision\" OR \"positional accuracy\" OR \"trajectory error\"",
+   "\"performance evaluation\" OR \"benchmark\" OR \"metrics\" OR \"assessment\" AND \"autonomous mobile robot\" OR \"AMR\" OR \"mobile robot\" AND \"warehouse logistics\" OR \"warehouse automation\" OR \"logistics\"",
+   "\"throughput\" OR \"efficiency\" OR \"productivity\" OR \"operational cost\" AND \"autonomous mobile robot\" OR \"AMR\" OR \"mobile robot\" AND \"warehouse logistics automation\" OR \"warehouse automation\"",
+   "\"collision avoidance\" OR \"safety\" OR \"reliability\" OR \"fault tolerance\" AND \"autonomous mobile robot\" OR \"AMR\" OR \"mobile robot\" AND \"warehouse logistics\" OR \"warehouse automation\""
+  ],
+  "brutas": 5,
+  "dt": 73.64540028572083
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "texto",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [],
+  "brutas": 0,
+  "error": "HTTPSConnectionPool(host='integrate.api.nvidia.com', port=443): Read timed out. (read timeout=150)",
+  "dt": 0
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "harina_de_banano_y_su_aplicacion_c",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "INFOGEST OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND \"banana flour\" OR \"banana starch\" OR \"plantain flour\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\" AND Cavendish",
+   "\"banana maturity\" OR \"banana ripeness\" OR \"banana ripening stage\" AND \"starch digestibility\" OR \"starch hydrolysis\" OR \"starch breakdown\" AND INFOGEST OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\"",
+   "\"nutrient concentration\" OR \"nutrient profile\" OR \"macro-nutrient content\" AND post-digestion OR \"digestion residue\" OR \"digested sample\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\"",
+   "\"banana flour\" OR \"banana starch\" OR \"plantain flour\" AND digestibility OR hydrolysis OR breakdown AND \"nutrient analysis\" OR \"nutrient profiling\" OR \"macro-nutrient content\" AND \"machine learning\" OR \"deep learning\" OR \"neural network\"",
+   "INFOGEST OR \"in vitro digestion\" OR \"simulated gastrointestinal digestion\" AND \"banana maturity\" OR \"banana ripeness\" OR \"banana ripening stage\" AND \"deep learning\" OR \"neural network\" OR \"predictive modeling\" AND Cavendish"
+  ],
+  "brutas": 5,
+  "dt": 81.71182918548584
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "infogest_con_analisis_digestibild",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "infogest OR \"infogest software\" OR \"infogest platform\" OR \"infogest system\" AND \"digestibility analysis\" OR \"digestibility assessment\" OR \"digestibility evaluation\" OR \"digestibility study\" AND \"protein digestibility\" OR \"protein digestibility index\" OR \"protein digestibility measurement\" OR \"protein digestibility evaluation\"",
+   "\"bitterness index\" OR \"bitterness BI\" OR \"bitterness measurement\" OR \"bitterness variable\" AND EAAI OR \"EAAI score\" OR \"EAAI index\" OR \"EAAI value\" AND \"protein quality\" OR \"protein quality assessment\" OR \"protein quality index\" OR \"protein quality measurement\"",
+   "\"machine learning implementation\" OR \"machine learning application\" OR \"machine learning deployment\" OR \"machine learning usage\" AND \"result tables\" OR \"results table\" OR \"output table\" OR \"data table\" AND XAI OR \"explainable AI\" OR \"explainable artificial intelligence\" OR \"interpretable AI\"",
+   "\"data extrapolation\" OR \"data extrapolation method\" OR \"data extrapolation technique\" OR \"data extrapolation approach\" AND optimization OR \"optimization algorithm\" OR \"optimization technique\" OR \"optimization method\" AND \"digestibility percentage\" OR \"digestibility %\" OR \"digestibility percent\" OR \"digestibility rate\"",
+   "wheat OR \"wheat variety\" OR \"wheat cultivar\" OR \"wheat grain\" AND Brazil OR Brazilian OR \"Brazilian wheat\" OR \"Brazil wheat\" AND infogest OR \"infogest software\" OR \"infogest platform\" OR \"infogest system\""
+  ],
+  "brutas": 5,
+  "dt": 47.25079846382141
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "machine_learning_y_los_algoritmos",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"machine learning\" OR ML OR \"artificial intelligence\" AND \"linear discriminant analysis\" OR LDA OR \"discriminant analysis\" AND classification OR \"supervised learning\" OR \"predictive modeling\"",
+   "\"linear discriminant\" OR LDA OR \"discriminant analysis\" AND \"feature extraction\" OR \"feature selection\" OR \"feature engineering\" AND \"dimensionality reduction\" OR PCA OR \"feature reduction\"",
+   "\"linear discriminant analysis\" OR LDA OR \"discriminant analysis\" AND \"image classification\" OR \"image recognition\" OR \"computer vision\" AND \"medical imaging\" OR radiology OR MRI",
+   "\"linear discriminant analysis\" OR LDA OR \"discriminant analysis\" AND cross-validation OR k-fold OR leave-one-out AND accuracy OR precision OR recall",
+   "\"linear discriminant analysis\" OR LDA OR \"discriminant analysis\" AND \"support vector machine\" OR SVM OR \"kernel method\" AND \"neural network\" OR \"deep learning\" OR ANN"
+  ],
+  "brutas": 5,
+  "dt": 44.59823203086853
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "prueba_lacteos_y_cafe",
+  "idioma": "en",
+  "n": 10,
+  "cadenas": [
+   "UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"shelf life\" OR \"storage duration\" OR \"product longevity\" OR \"product shelf life\" AND \"whole milk\" OR \"full‑fat milk\" OR \"full‑fat dairy\"",
+   "UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND non‑UHT OR \"low‑temperature pasteurization\" OR \"pasteurized milk\" OR \"standard pasteurization\" AND flavor OR taste OR \"sensory quality\" OR \"sensory attributes\"",
+   "\"nutritional content\" OR \"nutrient profile\" OR \"nutritional composition\" OR \"nutrient density\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"whole milk\" OR \"full‑fat milk\" OR \"full‑fat dairy\"",
+   "\"storage temperature\" OR \"ambient temperature\" OR \"room temperature\" OR \"storage conditions\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"shelf life\" OR \"product longevity\" OR \"product shelf life\" OR \"storage duration\"",
+   "\"processing time\" OR \"pasteurization time\" OR \"thermal treatment time\" OR \"processing duration\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"whole milk\" OR \"full‑fat milk\" OR \"full‑fat dairy\"",
+   "\"product development\" OR \"new dairy product\" OR \"product innovation\" OR \"product formulation\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"whole milk\" OR \"full‑fat milk\" OR \"full‑fat dairy\"",
+   "\"sensory stability\" OR \"taste stability\" OR \"flavor retention\" OR \"sensory attributes over time\" AND \"shelf life\" OR \"storage duration\" OR \"product longevity\" OR \"product shelf life\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\"",
+   "\"nutrient loss\" OR \"nutrient degradation\" OR \"vitamin loss\" OR \"protein denaturation\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"whole milk\" OR \"full‑fat milk\" OR \"full‑fat dairy\"",
+   "UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\" AND \"pasteurized milk\" OR \"low‑temperature pasteurization\" OR \"standard pasteurization\" OR HTST AND \"sensory evaluation\" OR \"taste test\" OR \"sensory analysis\" OR \"sensory assessment\"",
+   "\"protein structure\" OR \"casein micelle\" OR \"protein denaturation\" OR \"protein stability\" AND \"storage conditions\" OR \"storage temperature\" OR \"ambient storage\" OR \"room temperature\" AND UHT OR \"Ultra-High Temperature\" OR \"UHT pasteurization\" OR \"UHT treatment\""
+  ],
+  "brutas": 10,
+  "dt": 75.78946661949158
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "pruebas_cadenas",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "chemotherapy OR chemo OR \"cytotoxic therapy\" OR \"antineoplastic agents\" AND \"radiation therapy\" OR radiotherapy OR \"external beam radiation\" OR \"X-ray therapy\" AND surgery OR \"operative treatment\" OR resection OR \"tumor removal\"",
+   "immunotherapy OR \"immune therapy\" OR \"immune checkpoint inhibitors\" OR ICIs AND \"CAR T-cell therapy\" OR \"chimeric antigen receptor\" OR CAR-T OR \"cell therapy\" AND vaccines OR \"cancer vaccines\" OR \"therapeutic vaccines\" OR \"oncolytic viruses\"",
+   "\"targeted therapy\" OR \"molecular targeted therapy\" OR \"tyrosine kinase inhibitors\" OR TKIs AND \"precision medicine\" OR \"personalized therapy\" OR \"genomic profiling\" OR \"next-generation sequencing\" AND \"drug resistance\" OR \"resistance mechanisms\" OR \"acquired resistance\" OR \"tumor heterogeneity\"",
+   "\"clinical trials\" OR \"phase I\" OR \"phase II\" OR \"phase III\" AND \"combination therapy\" OR \"combo treatment\" OR \"multimodal therapy\" OR \"concurrent therapy\" AND \"neoadjuvant therapy\" OR \"preoperative treatment\" OR \"adjuvant therapy\" OR \"postoperative treatment\"",
+   "\"palliative care\" OR \"end-of-life care\" OR \"supportive care\" OR \"comfort care\" AND \"side effects\" OR \"adverse events\" OR toxicity OR complications AND cost-effectiveness OR \"economic evaluation\" OR \"health economics\" OR \"budget impact\""
+  ],
+  "brutas": 5,
+  "dt": 74.41348266601562
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada",
+  "idioma": "es",
+  "n": 5,
+  "cadenas": [
+   "robotica OR robótica OR robotics OR automatizacion OR automatización",
+   "\"automatizacion avanzada\" OR \"automatización avanzada\" OR \"automatización de procesos\" OR \"automatización industrial\" OR \"automatización inteligente\"",
+   "robotica OR robótica OR robotics AND automatizacion OR automatización OR \"automatización industrial\" OR \"automatización de procesos\" OR \"automatización inteligente\"",
+   "\"inteligencia artificial\" OR IA OR \"machine learning\" OR \"aprendizaje automático\" AND robotica OR robótica OR robotics",
+   "\"control industrial\" OR \"control de procesos\" OR \"sistemas de control\" OR \"automatización industrial\" AND automatizacion OR automatización OR \"automatización de procesos\" OR \"automatización inteligente\""
+  ],
+  "brutas": 5,
+  "dt": 48.78209090232849
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_automatizacion_avanzada_2",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"positioning accuracy\" OR \"location precision\" OR \"spatial accuracy\" OR \"pose accuracy\" AND \"sensor fusion\" OR \"multi-sensor integration\" OR \"sensor data fusion\" OR \"sensor fusion algorithms\" AND SLAM OR \"simultaneous localization and mapping\" OR \"SLAM algorithms\" OR \"SLAM techniques\"",
+   "\"navigation algorithms\" OR \"path planning\" OR \"route planning\" OR \"navigation strategies\" AND \"obstacle avoidance\" OR \"collision avoidance\" OR \"dynamic obstacle avoidance\" OR \"obstacle detection\" AND \"warehouse automation\" OR \"logistics automation\" OR \"warehouse robotics\" OR \"automated storage retrieval\"",
+   "\"accuracy metrics\" OR \"performance metrics\" OR \"error metrics\" OR \"precision metrics\" AND \"performance evaluation\" OR benchmarking OR \"evaluation methods\" OR \"performance assessment\" AND \"benchmark datasets\" OR \"standard datasets\" OR \"public datasets\" OR \"dataset benchmarks\"",
+   "\"human-robot interaction\" OR HRI OR \"human-robot collaboration\" OR \"human-robot communication\" AND safety OR \"robot safety\" OR \"collision safety\" OR \"safety protocols\" AND \"regulatory compliance\" OR \"compliance standards\" OR \"ISO standards\" OR \"regulatory requirements\"",
+   "\"warehouse layout\" OR \"warehouse design\" OR \"storage layout\" OR \"warehouse configuration\" AND \"dynamic reconfiguration\" OR \"adaptive layout\" OR \"real-time reconfiguration\" OR \"dynamic layout\" AND \"real-time monitoring\" OR \"real-time tracking\" OR \"live monitoring\" OR \"real-time analytics\""
+  ],
+  "brutas": 5,
+  "dt": 52.581087827682495
+ },
+ {
+  "modelo": "openai/gpt-oss-20b",
+  "modo": "grupos",
+  "tema": "robotica_y_la_automatizacion_avanz",
+  "idioma": "en",
+  "n": 5,
+  "cadenas": [
+   "\"AI integration\" OR \"artificial intelligence integration\" OR \"intelligent integration\" AND \"collaborative robots\" OR cobots OR \"human-robot collaboration\" OR \"human-robot interaction\" AND logistics OR warehousing OR \"warehouse automation\" OR \"logistics automation\"",
+   "safety OR \"robot safety\" OR \"collaborative robot safety\" OR \"human safety\" AND compliance OR \"regulatory compliance\" OR \"ISO standards\" OR \"safety standards\" AND \"human factors\" OR ergonomics OR \"human-robot interaction\" OR \"operator training\"",
+   "performance OR \"robot performance\" OR \"cobot performance\" OR \"system performance\" AND efficiency OR \"operational efficiency\" OR \"energy efficiency\" OR \"process efficiency\" AND throughput OR productivity OR \"cycle time\" OR \"task completion time\"",
+   "cost OR \"cost analysis\" OR \"capital cost\" OR \"operational cost\" AND ROI OR \"return on investment\" OR \"cost-benefit analysis\" OR \"financial performance\" AND investment OR \"investment analysis\" OR budget OR \"capital expenditure\"",
+   "collaboration OR \"human-robot collaboration\" OR \"human-robot interaction\" OR teamwork AND \"supply chain\" OR \"supply chain management\" OR SCM OR \"logistics network\" AND logistics OR \"warehouse logistics\" OR distribution OR \"inventory management\""
+  ],
+  "brutas": 5,
+  "dt": 96.81480765342712
+ }
+]

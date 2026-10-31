@@ -9,12 +9,27 @@ Ajusta los pesos aquí si el equipo prefiere otro criterio.
 """
 
 import math
+import re
 
 CITATION_WEIGHT = 2.0
 RECENCY_WEIGHT = 0.2
 OPEN_ACCESS_BONUS = 1.0
 KEYWORD_WEIGHT = 1.5
 BASE_YEAR = 2015
+
+
+def palabras_clave(cadenas):
+    """Términos de las cadenas de búsqueda (frases entre comillas enteras),
+    sin operadores ni comillas sueltas. La usan main.py y servidor.py; antes
+    cada uno armaba las keywords a su modo y main.py puntuaba también
+    "AND"/"OR"/"NOT" como si fueran palabras del tema."""
+    claves = []
+    for cadena in cadenas:
+        for frase, palabra in re.findall(r'"([^"]+)"|([^\s()"]+)', cadena):
+            termino = frase or palabra
+            if termino not in ("AND", "OR", "NOT") and termino not in claves:
+                claves.append(termino)
+    return claves
 
 
 def score_paper(row, keywords):

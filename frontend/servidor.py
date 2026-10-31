@@ -45,12 +45,12 @@ import almacen
 import config
 import config_proc
 import database_proc
-import extract_llm_insights
-import fetch_fulltext
+import extract_ficha
 import fetch_papers
 import fetch_scihub
 import fetch_scopus
 import fetch_semantic_scholar
+import completar_abstracts
 import generar_cadenas
 import rank_and_filter
 
@@ -172,7 +172,7 @@ def crear_proyecto():
         "creado": len(_PROYECTOS),
         "prompt": "",
         "num": 5,
-        "idioma": "es",
+        "idioma": "en",  # de las cadenas, no del tema: casi toda la literatura indexada está en inglés
         "queries": [],
         "min_year": config.MIN_PUBLICATION_YEAR,       # None = sin límite inferior
         "max_resultados": config.MAX_RESULTS_PER_QUERY,  # por cadena y por plataforma
@@ -251,11 +251,16 @@ def actualizar_proyecto(pid, datos):
                 raise ErrorAPI(400, "Este proyecto todavía no tiene resultados.")
             proyecto["stage"] = "results"
             proyecto["aviso"] = None
+        if datos.get("rehacer_prompt"):  # descarta la intención y las preguntas para volver a empezar
+            proyecto.update(stage="empty", tema_refinado="", queries=[], aviso=None,
+                            intencion_busqueda="", intencion_cadenas={}, aclaraciones=[],
+                            papers=[], seleccion=[], progreso=[], fuentes=0, cadenas_usadas=0,
+                            procesamiento=dict(PROCESAMIENTO_VACIO))
         if datos.get("reiniciar"):
-            proyecto.update(stage="empty", prompt="", queries=[], papers=[], seleccion=[],
+            proyecto.update(stage="empty", prompt="", tema_refinado="", aclaraciones=[], queries=[], papers=[], seleccion=[],
                             progreso=[], fuentes=0, cadenas_usadas=0, aviso=None,
                             procesamiento=dict(PROCESAMIENTO_VACIO))
-        _guardar(proyecto, con_papers=bool(datos.get("reiniciar")))
+        _guardar(proyecto, con_papers=bool(datos.get("reiniciar") or datos.get("rehacer_prompt")))
         return dict(proyecto)
 
 
@@ -267,18 +272,77 @@ def borrar_proyecto(pid):
         del _PROYECTOS[pid]
 
 
+def aclarar(pid, datos):
+    """Primer paso del prompt: el LLM decide si el tema es lo bastante concreto
+    y, si no, devuelve preguntas. `datos` = {prompt, historial: [{pregunta, respuesta, ronda}]}."""
+    _obtener(pid)
+    tema = str(datos.get("prompt") or "").strip()
+    if not tema:
+        raise ErrorAPI(400, "Escribe primero el tema que quieres investigar.")
+    historial = datos.get("historial") or []
+    if not isinstance(historial, list) or not all(isinstance(h, dict) for h in historial):
+        raise ErrorAPI(400, "El historial de aclaraciones no tiene la forma esperada.")
+    return generar_cadenas.aclarar(tema, historial)  # lento: fuera del candado
+
+
+def _consolidar_intencion(tema, historial):
+    historial = [h for h in (historial or []) if isinstance(h, dict)]
+    if not historial:
+        return tema
+    partes = [f"Tema original: {tema}"]
+    for h in historial:
+        p = str(h.get("pregunta") or "").strip()
+        r = str(h.get("respuesta") or "").strip()
+        if not p:
+            continue
+        if r:
+            partes.append(f"Pregunta: {p} Respuesta: {r}")
+        else:
+            partes.append(f"Pregunta: {p}")
+    return " | ".join(partes)[:4000]
+
+
+def _aclaraciones_validas(valor):
+    """Preguntas mostradas al usuario con su respuesta (puede ir vacía), para volver a verlas."""
+    if not isinstance(valor, list):
+        return []
+    return [{"pregunta": str(a.get("pregunta") or "").strip()[:500],
+             "respuesta": str(a.get("respuesta") or "").strip()[:1000]}
+            for a in valor[:40] if isinstance(a, dict) and str(a.get("pregunta") or "").strip()]
+
+
 def generar(pid, datos):
     tema = str(datos.get("prompt") or "").strip()
     if not tema:
         raise ErrorAPI(400, "Escribe primero el tema que quieres investigar.")
     actualizar_proyecto(pid, {k: datos[k] for k in ("prompt", "num", "idioma") if k in datos})
+    # Tras la ronda de aclaración, el tema refinado (con las respuestas del usuario)
+    # reemplaza al prompt original para generar las cadenas y para juzgar la relevancia
+    refinado = str(datos.get("tema_refinado") or "").strip()[:4000] or tema
+    historial = datos.get("historial") or []
+    intencion = str(datos.get("intencion") or datos.get("intencion_busqueda") or "").strip()[:4000] or _consolidar_intencion(tema, historial)
     with _CANDADO:
         proyecto = _obtener(pid)
         num, idioma = proyecto["num"], proyecto["idioma"]
-    cadenas, aviso = generar_cadenas.generar(tema, num, idioma)  # lento: fuera del candado
+    try:
+        res = generar_cadenas.generar_con_info(refinado, num, idioma)
+    except TypeError:
+        res = generar_cadenas.generar(refinado, num, idioma)
+    if isinstance(res, tuple) and len(res) == 3:
+        cadenas, aviso, info_cadenas = res[0], res[1], res[2]
+    elif isinstance(res, tuple) and len(res) == 2:
+        cadenas, aviso = res[0], res[1]
+        info_cadenas = {}
+    else:
+        cadenas, aviso, info_cadenas = res, None, {}
+    # Añadir info consolidada si viene
+    if isinstance(info_cadenas, dict) and not info_cadenas.get('intencion_consolidada') and intencion:
+        info_cadenas['intencion_consolidada'] = intencion
     with _CANDADO:
         proyecto = _obtener(pid)
-        proyecto.update(stage="queries", queries=cadenas, aviso=aviso)
+        proyecto.update(stage="queries", queries=cadenas, aviso=aviso, tema_refinado=refinado,
+                        aclaraciones=_aclaraciones_validas(datos.get("aclaraciones")),
+                        intencion_busqueda=intencion, intencion_cadenas=info_cadenas)
         if not proyecto.get("nombre_manual"):
             proyecto["name"] = tema if len(tema) <= 36 else tema[:34] + "…"
             almacen.renombrar(proyecto)
@@ -327,14 +391,7 @@ def _unir(vistos, filas, cadena):
 
 
 def _palabras_clave(cadenas):
-    """Términos de las cadenas (frases entre comillas enteras), sin operadores."""
-    claves = []
-    for cadena in cadenas:
-        for frase, palabra in re.findall(r'"([^"]+)"|([^\s()"]+)', cadena):
-            termino = frase or palabra
-            if termino not in ("AND", "OR", "NOT") and termino not in claves:
-                claves.append(termino)
-    return claves
+    return rank_and_filter.palabras_clave(cadenas)
 
 
 # Orden en que se consultan las plataformas: al fusionar, los datos de un paper
@@ -407,6 +464,9 @@ def _buscar(pid, token, cadenas, min_year, max_resultados):
                       "Revisa la sintaxis (AND / OR / NOT) o prueba con términos más generales; si las "
                       "plataformas están saturadas (429), espera un momento y vuelve a intentar.")
             return
+        # Scopus (y a veces los demás) no traen abstract: se pide por DOI antes de rankear
+        completar_abstracts.completar(
+            papers, lambda n, total: _marcar(pid, token, ultimo, "active", f"Completando abstracts — {n} de {total}…"))
         ranked = rank_and_filter.rank_papers(papers, _palabras_clave(cadenas))
         for n, paper in enumerate(ranked):
             paper["id"] = paper.get("doi") or paper.get("openalex_id") or f"sin-id-{n}"
@@ -469,7 +529,7 @@ def cancelar_busqueda(pid):
 #
 # Corre sobre la propia base del proyecto (almacen.ruta(proyecto["archivo"])),
 # nunca sobre selema.db. database_proc.conectar() le agrega ahí las tablas de
-# procesamiento (textos_completos, extracciones, observaciones...) la primera
+# procesamiento (estructuras, fichas) la primera
 # vez, igual que lo hace sobre selema.db para el flujo de busqueda/main.py.
 
 def _vigente_proc(pid, token):
@@ -489,34 +549,34 @@ def _normalizar_procesamiento(guardado):
     if not estado["estado"] and guardado.get("resumen"):
         conteos = {k: v for k, v in (guardado["resumen"].get("extraccion") or {}).items() if k != "cache"}
         estado.update(estado="ok", conteos=conteos, total=sum(conteos.values()), hechos=sum(conteos.values()))
-    estado["tope"] = PROCESAMIENTO_VACIO["tope"]
     return estado
 
 
-def _objetivo_procesamiento(proyecto, alcance):
+def _objetivo_procesamiento(proyecto, alcance, tope=None):
     """IDs de los papers a procesar: la selección (`sel`) o todos los del
-    proyecto (`todos`), con un tope para controlar el costo de Azure."""
+    proyecto (`todos`), con un tope para no saturar el plan gratis de NVIDIA
+    (el que pidió la interfaz o, por defecto, el máximo del config)."""
     if alcance == "sel":
         existentes = {p["id"] for p in proyecto["papers"]}
         ids = [i for i in proyecto["seleccion"] if i in existentes]
     else:
         ids = [p["id"] for p in proyecto["papers"]]
-    return ids[:config_proc.MAX_PAPERS_PROCESAR_WEB]
+    return ids[:min(tope or config_proc.MAX_PAPERS_PROCESAR_WEB, config_proc.MAX_PAPERS_PROCESAR_WEB)]
 
 
 def _conteos_por_paper(conn, ids):
-    """Cuántos de los papers pedidos quedaron en cada estado de extracción
-    (ok, no_relevante, sin_abstract, error); `pendiente` = sin extracción."""
+    """Cuántos de los papers pedidos quedaron en cada estado de su ficha
+    (ok, no_relevante, sin_abstract, error); `pendiente` = sin ficha."""
     marcadores = ", ".join("?" for _ in ids)
     conteos = {f["estado"]: f["n"] for f in conn.execute(
-        f"SELECT estado, COUNT(*) AS n FROM extracciones WHERE paper_id IN ({marcadores}) GROUP BY estado", ids)}
+        f"SELECT estado, COUNT(*) AS n FROM fichas WHERE paper_id IN ({marcadores}) GROUP BY estado", ids)}
     pendientes = len(ids) - sum(conteos.values())
     if pendientes:
         conteos["pendiente"] = pendientes
     return conteos
 
 
-def _procesar(pid, token, ids, archivo):
+def _procesar(pid, token, ids, archivo, tema):
     def actualizar(**cambios):
         with _CANDADO:
             if not _vigente_proc(pid, token):
@@ -541,17 +601,14 @@ def _procesar(pid, token, ids, archivo):
 
     error, conteos = None, {}
     try:
-        if not extract_llm_insights.verificar_configuracion():
-            raise RuntimeError("Falta configurar el proveedor del LLM: revisa el archivo .env y config_proc.py "
-                               "en procesamiento/.")
+        if not extract_ficha.verificar_configuracion():
+            raise RuntimeError("Falta NVIDIA_API_KEY o NVIDIA_PARSE_API_KEY: revisa el archivo .env.")
         conn = database_proc.conectar(almacen.ruta(archivo))
         try:
             try:
-                actualizar(actual="Descargando el texto completo de los papers de acceso abierto")
-                fetch_fulltext.procesar_pendientes(conn, top=None, paper_ids=ids, avance=reportar)
-                actualizar(actual="Extrayendo observaciones con el modelo")
-                extract_llm_insights.extraer(conn, paper_ids=ids, avance=reportar,
-                                             al_terminar_paper=paper_terminado, relanzar_fatal=True)
+                actualizar(actual="Leyendo abstract, introducción, conclusiones y tablas de cada paper")
+                extract_ficha.procesar(conn, paper_ids=ids, tema=tema, avance=reportar,
+                                       al_terminar_paper=paper_terminado, relanzar_fatal=True)
             except Cancelada:
                 raise
             except Exception as exc:  # lo ya extraído queda guardado: se muestra como resultado parcial
@@ -579,16 +636,22 @@ def iniciar_procesamiento(pid, datos):
         if proyecto["procesamiento"]["activo"]:
             raise ErrorAPI(409, "Ya hay un procesamiento en curso en este proyecto.")
         alcance = "sel" if datos.get("alcance") == "sel" else "todos"
-        ids = _objetivo_procesamiento(proyecto, alcance)
+        # Tope de papers por corrida, editable desde la interfaz, con el máximo
+        # del config como techo (MAX_PAPERS_PROCESAR_WEB protege el plan gratis)
+        try:
+            tope = max(1, min(int(datos.get("tope") or 0), config_proc.MAX_PAPERS_PROCESAR_WEB))
+        except (TypeError, ValueError):
+            tope = config_proc.MAX_PAPERS_PROCESAR_WEB
+        ids = _objetivo_procesamiento(proyecto, alcance, tope)
         if not ids:
             raise ErrorAPI(400, "No hay papers para procesar con ese alcance. Busca o selecciona papers primero.")
         token = uuid.uuid4().hex
         proyecto["procesamiento"] = {
-            **PROCESAMIENTO_VACIO, "activo": True, "token": token, "alcance": alcance,
+            **PROCESAMIENTO_VACIO, "activo": True, "token": token, "alcance": alcance, "tope": tope,
             "total": len(ids), "inicio": _ahora(), "mensajes": [f"Procesando {len(ids)} papers…"]}
         _guardar(proyecto)
-        archivo, respuesta = proyecto["archivo"], dict(proyecto)
-    threading.Thread(target=_procesar, daemon=True, args=(pid, token, ids, archivo)).start()
+        archivo, tema, respuesta = proyecto["archivo"], proyecto.get("tema_refinado") or proyecto.get("prompt") or "", dict(proyecto)
+    threading.Thread(target=_procesar, daemon=True, args=(pid, token, ids, archivo, tema)).start()
     return respuesta
 
 
@@ -606,20 +669,38 @@ def cancelar_procesamiento(pid):
         return dict(proyecto)
 
 
-def observaciones_proyecto(pid):
-    """Hallazgos que el LLM extrajo de los papers de este proyecto (tabla
-    `observaciones` de su propia base). [] si todavía no se ha procesado."""
+def fichas_proyecto(pid):
+    """Fichas que Nemotron armó de los papers de este proyecto (tabla `fichas`
+    de su propia base), con la fuente de donde se leyó cada paper. [] si
+    todavía no se ha procesado."""
     with _CANDADO:
         archivo = _obtener(pid)["archivo"]
     conn = database_proc.conectar(almacen.ruta(archivo))
     try:
         filas = conn.execute("""
-            SELECT o.paper_id, p.title, p.year, p.doi, o.categoria_factor, o.factor_evaluado, o.referencia,
-                   o.variable_resultado, o.efecto, o.cita_textual, o.valida, o.problemas, o.revision_humana
-            FROM observaciones o JOIN papers p ON p.paper_id = o.paper_id
-            ORDER BY o.id
+            SELECT f.paper_id, p.title, p.year, p.doi, p.abstract, f.estado, f.cobertura, f.ficha_json, f.error,
+                   e.fuente, e.url AS fuente_url, e.estructura_json
+            FROM fichas f JOIN papers p ON p.paper_id = f.paper_id
+            LEFT JOIN estructuras e ON e.paper_id = f.paper_id AND e.estado = 'ok'
+            WHERE f.estado IN ('ok', 'no_relevante')
+            ORDER BY f.rowid
         """).fetchall()
-        return [dict(f) for f in filas]
+        fichas = []
+        for f in filas:
+            ficha = json.loads(f["ficha_json"]) if f["ficha_json"] else {}
+            piezas = json.loads(f["estructura_json"]) if f["estructura_json"] else {}
+            fichas.append({**{k: f[k] for k in ("paper_id", "title", "year", "doi", "estado", "cobertura",
+                                                "fuente", "fuente_url")},
+                           # Las piezas tal como salen del paper, sin pasar por el modelo
+                           "abstract": piezas.get("abstract") or f["abstract"],
+                           "intro_penultimo": piezas.get("intro_penultimo_parrafo"),
+                           "intro_ultimo": piezas.get("intro_ultimo_parrafo"),
+                           "conclusion_texto": piezas.get("conclusion"),
+                           "resumen": ficha.get("resumen"), "objetivo": ficha.get("objetivo"),
+                           "conclusiones": ficha.get("conclusiones") or [],
+                           "hallazgos_clave": ficha.get("hallazgos_clave") or [],
+                           "tablas": ficha.get("tablas") or []})
+        return fichas
     finally:
         conn.close()
 
@@ -651,7 +732,7 @@ def exportar_csv(pid, solo_seleccion=False):
 
 RUTA_PROYECTO = re.compile(
     r"^/api/proyectos/([0-9a-f]{1,32})"
-    r"(/cadenas|/buscar|/cancelar|/procesar|/cancelar-procesar|/observaciones|/papers\.csv)?$")
+    r"(/cadenas|/aclarar|/buscar|/cancelar|/procesar|/cancelar-procesar|/fichas|/papers\.csv)?$")
 
 
 class Manejador(BaseHTTPRequestHandler):
@@ -704,8 +785,8 @@ class Manejador(BaseHTTPRequestHandler):
                 if metodo == "GET" and accion is None:
                     with _CANDADO:
                         return self._json(_obtener(pid))
-                if metodo == "GET" and accion == "/observaciones":
-                    return self._json(observaciones_proyecto(pid))
+                if metodo == "GET" and accion == "/fichas":
+                    return self._json(fichas_proyecto(pid))
                 if metodo == "GET" and accion == "/papers.csv":
                     nombre, contenido = exportar_csv(pid, "seleccion=1" in self.path)
                     return self._responder(200, contenido.encode("utf-8"), "text/csv; charset=utf-8",
@@ -715,6 +796,8 @@ class Manejador(BaseHTTPRequestHandler):
                     return self._json({"ok": True})
                 if metodo == "PUT" and accion is None:
                     return self._json(actualizar_proyecto(pid, self._cuerpo()))
+                if metodo == "POST" and accion == "/aclarar":
+                    return self._json(aclarar(pid, self._cuerpo()))
                 if metodo == "POST" and accion == "/cadenas":
                     return self._json(generar(pid, self._cuerpo()))
                 if metodo == "POST" and accion == "/cancelar":

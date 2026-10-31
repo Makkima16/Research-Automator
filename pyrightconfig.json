@@ -2,6 +2,7 @@
     "extraPaths": [
         "busqueda",
         "procesamiento",
-        "frontend"
+        "frontend",
+        "frontend/web-next"
     ]
 }

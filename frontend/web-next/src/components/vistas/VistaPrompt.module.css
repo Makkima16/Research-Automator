@@ -1,0 +1,28 @@
+.seccion { position: relative; max-width: 820px; }
+.circulo1 {
+  position: absolute; right: -180px; top: -30px; width: 220px; height: 220px; border-radius: 50%;
+  background: var(--color-accent-200); pointer-events: none;
+}
+.circulo2 {
+  position: absolute; right: -90px; top: 120px; width: 120px; height: 120px; border-radius: 50%;
+  background: var(--color-accent-2-300); pointer-events: none;
+}
+.contenido { position: relative; }
+.titulo { font-size: 40px; margin: 0 0 10px; }
+.intro { font-size: 16px; color: var(--color-neutral-800); max-width: 560px; text-wrap: pretty; }
+.texto {
+  min-height: 180px; border-radius: var(--radius-lg) !important; padding: 20px 24px; font-size: 16px; line-height: 1.6;
+  background: var(--color-neutral-100); margin-top: 10px; box-shadow: var(--shadow-sm);
+}
+.texto:disabled { opacity: 0.7; }
+.controles { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 22px; margin-top: 22px; }
+.contador {
+  display: flex; align-items: center; gap: 4px; background: var(--color-surface); border-radius: 999px; padding: 3px;
+}
+.contador button { width: 30px; height: 30px; font-size: 18px; }
+.contador button:hover { background: var(--color-neutral-100); }
+.contador span { min-width: 26px; text-align: center; font-weight: 700; font-size: 15px; }
+.segmento { background: var(--color-neutral-100); }
+.espacio { flex: 1; }
+.generar { font-size: 16px; padding: 12px 24px; }
+.nota { margin-top: 18px; font-size: 13px; color: var(--color-neutral-700); max-width: 620px; }

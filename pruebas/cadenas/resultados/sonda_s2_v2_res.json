@@ -1,0 +1,507 @@
+[
+ {
+  "tema": "extra_leche_es",
+  "total": 0,
+  "error": "sin resultados"
+ },
+ {
+  "tema": "extra_cancer_es",
+  "total": 39,
+  "con_doi": 28,
+  "top_citas": [
+   {
+    "t": "Using the Common Terminology Criteria for Adverse Events (CTCAE – Version 5.0) to Evaluate the Severity of Adverse Events of Anticancer Therapies",
+    "c": 682,
+    "p": 0
+   },
+   {
+    "t": "Cáncer de mama: tratamientos inmunológicos.",
+    "c": 2,
+    "p": 2
+   },
+   {
+    "t": "Cuidados de enfermería en mujeres sometidas a una mastectomía por cáncer de mama: una revisión bibliográfica",
+    "c": 2,
+    "p": 1
+   },
+   {
+    "t": "Estructuración de una colonia de ratones BALB/c en la Unidad Experimental de Inmunoterapia de la Fundación Jacinto Convit – Venezuela",
+    "c": 1,
+    "p": 1
+   },
+   {
+    "t": "Quimioterapia metronómica en pacientes con cáncer de mama metastásico",
+    "c": 1,
+    "p": 0
+   },
+   {
+    "t": "Inmunoterapia en el tratamiento del cáncer de mama",
+    "c": 1,
+    "p": 2
+   },
+   {
+    "t": "Melanoma metastásico a ovario: Reporte de un caso",
+    "c": 0,
+    "p": 0
+   },
+   {
+    "t": "Quimioterapia metronómica en pacientes con cáncer de mama metastásico",
+    "c": 0,
+    "p": 0
+   },
+   {
+    "t": "P-633 - ¿FALSO POSITIVO O SIGNO DE EFICACIA? REALCE CONTRALATERAL DURANTE INMUNOTERAPIA EN CÁNCER DE MAMA TRIPLE NEGATIVO: A PROPÓSITO DE UN CASO",
+    "c": 0,
+    "p": 2
+   },
+   {
+    "t": "Dianas moleculares en la inmunoterapia contra el cáncer de mama en mujeres en edad fértil: Revisión Bibliográfica",
+    "c": 0,
+    "p": 2
+   }
+  ],
+  "top_local": [
+   {
+    "t": "Using the Common Terminology Criteria for Adverse Events (CTCAE – Version 5.0) to Evaluate the Severity of Adverse Events of Anticancer Therapies",
+    "c": 682,
+    "p": 0
+   },
+   {
+    "t": "Cuidados de enfermería en mujeres sometidas a una mastectomía por cáncer de mama: una revisión bibliográfica",
+    "c": 2,
+    "p": 1
+   },
+   {
+    "t": "Estructuración de una colonia de ratones BALB/c en la Unidad Experimental de Inmunoterapia de la Fundación Jacinto Convit – Venezuela",
+    "c": 1,
+    "p": 1
+   },
+   {
+    "t": "Inmunoterapia en el tratamiento del cáncer de mama",
+    "c": 1,
+    "p": 2
+   },
+   {
+    "t": "Cáncer de mama: tratamientos inmunológicos.",
+    "c": 2,
+    "p": 2
+   },
+   {
+    "t": "Quimioterapia metronómica en pacientes con cáncer de mama metastásico",
+    "c": 1,
+    "p": 1
+   },
+   {
+    "t": "Características histomorfológicas e inmunohistoquímicas de los tumores de mama en pacientes con mutaciones BRCA1 y BRCA2: Una revisión integrativa de la literatura",
+    "c": 0,
+    "p": 1
+   },
+   {
+    "t": "Cáncer de mama: abordaje clínico integral, diagnóstico por imagen y manejo multidisciplinario",
+    "c": 0,
+    "p": 1
+   },
+   {
+    "t": "Cáncer y embarazo: una revisión bibliográfica sobre el manejo multidisciplinario y las consideraciones clínicas",
+    "c": 0,
+    "p": 0
+   },
+   {
+    "t": "Dianas moleculares en la inmunoterapia contra el cáncer de mama en mujeres en edad fértil: Revisión Bibliográfica",
+    "c": 0,
+    "p": 2
+   }
+  ]
+ },
+ {
+  "tema": "extra_cobots_ambos",
+  "total": 4,
+  "con_doi": 4,
+  "top_citas": [
+   {
+    "t": "Adaptive Force Control Strategies for Collaborative Robotic Manipulation",
+    "c": 0,
+    "p": 1
+   },
+   {
+    "t": "Human-robot Collaboration in Warehousing: a Cloud-powered Revolution",
+    "c": 0,
+    "p": 2
+   },
+   {
+    "t": "THE FUTURE IS NOW: AI POWERS NEXT-GENERATION ROBOTS",
+    "c": 0,
+    "p": 0
+   },
+   {
+    "t": "Redefining warehouse workforce competencies and roles through human-robot collaboration",
+    "c": 0,
+    "p": 2
+   }
+  ],
+  "top_local": [
+   {
+    "t": "Redefining warehouse workforce competencies and roles through human-robot collaboration",
+    "c": 0,
+    "p": 2
+   },
+   {
+    "t": "THE FUTURE IS NOW: AI POWERS NEXT-GENERATION ROBOTS",
+    "c": 0,
+    "p": 0
+   },
+   {
+    "t": "Human-robot Collaboration in Warehousing: a Cloud-powered Revolution",
+    "c": 0,
+    "p": 2
+   },
+   {
+    "t": "Adaptive Force Control Strategies for Collaborative Robotic Manipulation",
+    "c": 0,
+    "p": 1
+   }
+  ]
+ },
+ {
+  "tema": "extra_banano_es",
+  "total": 0,
+  "error": "sin resultados"
+ },
+ {
+  "tema": "extra_infogest_ambos",
+  "total": 0,
+  "error": "sin resultados"
+ },
+ {
+  "tema": "uht",
+  "total": 100,
+  "con_doi": 100,
+  "top_citas": [
+   {
+    "t": "Plant-based milk alternatives an emerging segment of functional beverages: a review",
+    "c": 933,
+    "p": 0
+   },
+   {
+    "t": "The Biodiversity of the Microbiota Producing Heat-Resistant Enzymes Responsible for Spoilage in Processed Bovine Milk and Dairy Products",
+    "c": 190,
+    "p": 2
+   },
+   {
+    "t": "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk",
+    "c": 158,
+    "p": 1
+   },
+   {
+    "t": "Age Gelation, Sedimentation, and Creaming in UHT Milk: A Review.",
+    "c": 137,
+    "p": 2
+   },
+   {
+    "t": "Effect of homogenization and pasteurization on the structure and stability of whey protein in milk.",
+    "c": 132,
+    "p": 1
+   },
+   {
+    "t": "Effect of heat and homogenization on in vitro digestion of milk.",
+    "c": 116,
+    "p": 1
+   },
+   {
+    "t": "FTIR fingerprinting of structural changes of milk proteins induced by heat treatment, deamidation and dephosphorylation",
+    "c": 99,
+    "p": 1
+   },
+   {
+    "t": "The Extracellular Protease AprX from Pseudomonas and its Spoilage Potential for UHT Milk: A Review.",
+    "c": 97,
+    "p": 2
+   },
+   {
+    "t": "Growth of Pseudomonas weihenstephanensis, Pseudomonas proteolytica and Pseudomonas sp. in raw milk: Impact of residual heat-stable enzyme activity on stability of UHT milk during shelf-life",
+    "c": 95,
+    "p": 2
+   },
+   {
+    "t": "Concentration and formation behavior of naturally occurring formaldehyde in foods",
+    "c": 94,
+    "p": 0
+   }
+  ],
+  "top_local": [
+   {
+    "t": "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk",
+    "c": 158,
+    "p": 1
+   },
+   {
+    "t": "Influence of Ultra-Heat Treatment on Properties of Milk Proteins",
+    "c": 82,
+    "p": 2
+   },
+   {
+    "t": "Age Gelation, Sedimentation, and Creaming in UHT Milk: A Review.",
+    "c": 137,
+    "p": 2
+   },
+   {
+    "t": "Smartphone-based digital images as a novel approach to determine formaldehyde as a milk adulterant",
+    "c": 60,
+    "p": 0
+   },
+   {
+    "t": "The Biodiversity of the Microbiota Producing Heat-Resistant Enzymes Responsible for Spoilage in Processed Bovine Milk and Dairy Products",
+    "c": 190,
+    "p": 2
+   },
+   {
+    "t": "Plant-based milk alternatives an emerging segment of functional beverages: a review",
+    "c": 933,
+    "p": 0
+   },
+   {
+    "t": "Camel milk products: innovations, limitations and opportunities",
+    "c": 93,
+    "p": 0
+   },
+   {
+    "t": "Diversity and spoilage potential of Pseudomonas spp. from Spanish milk and dairy products: Impact on fresh cheese and milk quality.",
+    "c": 30,
+    "p": 1
+   },
+   {
+    "t": "Effects of industrial heat treatments on bovine milk oxylipins and conventional markers of lipid oxidation.",
+    "c": 51,
+    "p": 1
+   },
+   {
+    "t": "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk.",
+    "c": 40,
+    "p": 2
+   }
+  ]
+ },
+ {
+  "tema": "uht_2",
+  "total": 65,
+  "con_doi": 60,
+  "top_citas": [
+   {
+    "t": "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk",
+    "c": 158,
+    "p": 1
+   },
+   {
+    "t": "Effect of homogenization and pasteurization on the structure and stability of whey protein in milk.",
+    "c": 132,
+    "p": 0
+   },
+   {
+    "t": "Effect of heat and homogenization on in vitro digestion of milk.",
+    "c": 116,
+    "p": 1
+   },
+   {
+    "t": "Efficacy of Ultraviolet (UV-C) Light in a Thin-Film Turbulent Flow for the Reduction of Milkborne Pathogens",
+    "c": 66,
+    "p": 0
+   },
+   {
+    "t": "Changes in bovine milk fat globule membrane proteins caused by heat procedures using a label-free proteomic approach.",
+    "c": 48,
+    "p": 1
+   },
+   {
+    "t": "A novel ultra-high performance liquid chromatography method for the rapid determination of β-lactoglobulin as heat load indicator in commercial milk samples.",
+    "c": 42,
+    "p": 1
+   },
+   {
+    "t": "Iodine in Swiss milk depending on production (conventional versus organic) and on processing (raw versus UHT) and the contribution of milk to the human iodine supply.",
+    "c": 42,
+    "p": 2
+   },
+   {
+    "t": "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk.",
+    "c": 40,
+    "p": 2
+   },
+   {
+    "t": "Heat-induced changes in the sensory properties of milk",
+    "c": 39,
+    "p": 1
+   },
+   {
+    "t": "Effects of heat treatment, homogenization pressure and overprocessing on the content of furfural compounds in liquid milk.",
+    "c": 39,
+    "p": 2
+   }
+  ],
+  "top_local": [
+   {
+    "t": "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk",
+    "c": 158,
+    "p": 1
+   },
+   {
+    "t": "Ultra-high Temperature (UHT) Processing: Technological Significance and Updates",
+    "c": 17,
+    "p": 2
+   },
+   {
+    "t": "Iodine in Swiss milk depending on production (conventional versus organic) and on processing (raw versus UHT) and the contribution of milk to the human iodine supply.",
+    "c": 42,
+    "p": 2
+   },
+   {
+    "t": "Destabilization of ultra-instantaneous UHT sterilization milk stored at different temperatures.",
+    "c": 21,
+    "p": 2
+   },
+   {
+    "t": "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk.",
+    "c": 40,
+    "p": 2
+   },
+   {
+    "t": "Sensory Description and Consumer Hedonic Perception of Ultra-High Temperature (UHT) Milk",
+    "c": 36,
+    "p": 2
+   },
+   {
+    "t": "Effect of homogenization and pasteurization on the structure and stability of whey protein in milk.",
+    "c": 132,
+    "p": 1
+   },
+   {
+    "t": "Effect of heat and homogenization on in vitro digestion of milk.",
+    "c": 116,
+    "p": 1
+   },
+   {
+    "t": "Evaluation of the Functional Properties and Safety of Enterocin-producing Enterococcus faecium BT29.11 Isolated from Turkish Beyaz Cheese and its Inhibitory Activity against Listeria monocytogenes in UHT Whole Milk",
+    "c": 26,
+    "p": 2
+   },
+   {
+    "t": "PROSES PENGOLAHAN SUSU ULTRA HIGH TEMPERATURE (UHT) BESERTA KEMASAN YANG BERPENGARUH TERHADAP MASA SIMPAN",
+    "c": 6,
+    "p": 2
+   }
+  ]
+ },
+ {
+  "tema": "ml_lineal",
+  "total": 0,
+  "error": "sin resultados"
+ },
+ {
+  "tema": "ml_lineal_2",
+  "total": 100,
+  "con_doi": 79,
+  "top_citas": [
+   {
+    "t": "On Pixel-Wise Explanations for Non-Linear Classifier Decisions by Layer-Wise Relevance Propagation",
+    "c": 5319,
+    "p": 0
+   },
+   {
+    "t": "Meta-Learning With Differentiable Convex Optimization",
+    "c": 1519,
+    "p": 0
+   },
+   {
+    "t": "Decision trees",
+    "c": 1510,
+    "p": 0
+   },
+   {
+    "t": "ROCKET: exceptionally fast and accurate time series classification using random convolutional kernels",
+    "c": 1199,
+    "p": 1
+   },
+   {
+    "t": "Transferring Deep Convolutional Neural Networks for the Scene Classification of High-Resolution Remote Sensing Imagery",
+    "c": 1156,
+    "p": 1
+   },
+   {
+    "t": "Rethinking Few-Shot Image Classification: a Good Embedding Is All You Need?",
+    "c": 1151,
+    "p": 1
+   },
+   {
+    "t": "A tutorial review: Metabolomics and partial least squares-discriminant analysis--a marriage of convenience or a shotgun wedding.",
+    "c": 807,
+    "p": 2
+   },
+   {
+    "t": "Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection",
+    "c": 653,
+    "p": 0
+   },
+   {
+    "t": "Why ReLU Networks Yield High-Confidence Predictions Far Away From the Training Data and How to Mitigate the Problem",
+    "c": 649,
+    "p": 0
+   },
+   {
+    "t": "Spatiotemporal Contrastive Video Representation Learning",
+    "c": 645,
+    "p": 0
+   }
+  ],
+  "top_local": [
+   {
+    "t": "On Pixel-Wise Explanations for Non-Linear Classifier Decisions by Layer-Wise Relevance Propagation",
+    "c": 5319,
+    "p": 0
+   },
+   {
+    "t": "Meta-Learning With Differentiable Convex Optimization",
+    "c": 1519,
+    "p": 0
+   },
+   {
+    "t": "Rethinking Few-Shot Image Classification: a Good Embedding Is All You Need?",
+    "c": 1151,
+    "p": 1
+   },
+   {
+    "t": "ROCKET: exceptionally fast and accurate time series classification using random convolutional kernels",
+    "c": 1199,
+    "p": 1
+   },
+   {
+    "t": "A tutorial review: Metabolomics and partial least squares-discriminant analysis--a marriage of convenience or a shotgun wedding.",
+    "c": 807,
+    "p": 2
+   },
+   {
+    "t": "Transferring Deep Convolutional Neural Networks for the Scene Classification of High-Resolution Remote Sensing Imagery",
+    "c": 1156,
+    "p": 1
+   },
+   {
+    "t": "Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection",
+    "c": 653,
+    "p": 0
+   },
+   {
+    "t": "Spatiotemporal Contrastive Video Representation Learning",
+    "c": 645,
+    "p": 0
+   },
+   {
+    "t": "MiniRocket: A Very Fast (Almost) Deterministic Transform for Time Series Classification",
+    "c": 638,
+    "p": 1
+   },
+   {
+    "t": "Why ReLU Networks Yield High-Confidence Predictions Far Away From the Training Data and How to Mitigate the Problem",
+    "c": 649,
+    "p": 0
+   }
+  ]
+ }
+]

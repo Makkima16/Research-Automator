@@ -28,6 +28,7 @@ import time
 import requests
 
 import config
+import limites_motores
 
 SEARCH_URL = "https://api.elsevier.com/content/search/scopus"
 MAX_COUNT = 25        # tope de resultados por solicitud
@@ -121,7 +122,10 @@ def buscar_scopus(query, api_key, min_year=None, max_results=100):
     """Busca una query en Scopus (por relevancia), paginando con `start`."""
     resultados = []
     start = 0
-    params_base = {"query": construir_query(query, min_year), "count": min(MAX_COUNT, max_results),
+    efectiva, recortada = limites_motores.ajustar(query, "scopus", construir_query)
+    if recortada:
+        print(f"  [aviso] la cadena superaba el límite recomendado de Scopus; se recortaron alternativas: {efectiva!r}")
+    params_base = {"query": construir_query(efectiva, min_year), "count": min(MAX_COUNT, max_results),
                    "sort": "relevancy"}
 
     while len(resultados) < max_results and start < MAX_START:

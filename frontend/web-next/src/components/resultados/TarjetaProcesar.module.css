@@ -1,0 +1,20 @@
+.tarjeta {
+  position: relative; overflow: hidden; padding: 32px 34px; border-radius: 36px; background: var(--color-surface); max-width: 760px;
+}
+.circuloGrande {
+  position: absolute; right: -60px; bottom: -70px; width: 220px; height: 220px; border-radius: 50%; background: var(--color-accent-2-300);
+}
+.circuloChico {
+  position: absolute; right: 90px; bottom: 60px; width: 70px; height: 70px; border-radius: 50%; background: var(--color-accent-300);
+}
+.contenido { position: relative; max-width: 500px; }
+.contenido h3 { font-size: 28px; margin: 0 0 8px; }
+.contenido p { font-size: 15px; color: var(--color-neutral-800); text-wrap: pretty; }
+.etiqueta { font-size: 12px; color: var(--color-neutral-700); margin: 18px 0 8px; }
+.alcances { display: flex; flex-wrap: wrap; gap: 20px; }
+.alcances label[data-bloqueado='true'] { opacity: 0.45; cursor: not-allowed; }
+.explicacion { font-size: 13px; color: var(--color-neutral-800); margin: 14px 0 0; text-wrap: pretty; }
+.tope { width: 120px; }
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.procesar { font-size: 16px; padding: 12px 24px; }
+.nota { font-size: 12.5px; color: var(--color-neutral-700); }

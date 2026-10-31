@@ -1,0 +1,1123 @@
+[
+ {
+  "tema": "robotica_y_automatizacion_avanzada",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Sistemas de Automatización Robótica de Procesos",
+     "Robots, automatización y trabajadores europeos",
+     "Automatización robótica de procesos (RPA)",
+     "Strategic Marketing Plan for the Collaborative Robotics Division of Din Automatización in the Industrial Robotics Sector",
+     "Sistemas de automatización y robótica",
+     "Simulación y Automatización de una celda robótica",
+     "Robot Daro: plataforma robótica para educación en ingeniería - Daro Robot: Robotic Platform for Engineering Education*",
+     "Robotic Connection: A Startup que Democratizou a Robótica",
+     "Fundamentos de Robótica y Programación de Robots",
+     "Horizontalización y automatización de robot SCARA paralelo"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"robótica industrial\" OR \"automatización industrial\" OR \"robots industriales\" OR \"fabricación automatizada\" OR \"línea de producción\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Automatización de una línea de producción con robots industriales: beneficios, riesgos y tensiones éticas",
+     "Diseño línea de producción automatizada para la fabricación de arepas boyacenses",
+     "Mantenimiento mejorativo del módulo de la línea de producción automatizada del Laboratorio de Automatización Industrial de la Facultad de Mecánica utilizando tecnología GSM Y LabVIEW.",
+     "Línea de producción Lego",
+     "Balanceo de línea de Producción",
+     "Línea de producción de pasteles",
+     "Reducción de chatarra en línea de producción",
+     "Automatización colaborativa de línea de producción de limpiaparabrisas",
+     "Diseño de una línea de producción automatizada para la fabricación de pinturas aplicadas a vehículos automotores",
+     "Diseño de una línea de producción de panela granulada"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "\"robótica avanzada\" OR \"automatización avanzada\" OR \"robótica inteligente\" OR \"sistemas robóticos\" OR \"control automatizado\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     ".Automatización Avanzada.",
+     "Agrobot IA: robótica avanzada con visión artificial para la agricultura inteligente y sostenible",
+     "Inclusión de robótica avanzada en Educación Secundaria",
+     "Nuevas tendencias en automatización industrial: inteligencia artificial, gemelos digitales, robótica avanzada, edge computing y ciberseguridad",
+     "La Inteligencia Artificial en Robótica Avanzada para la Innovación Mundial",
+     "Robótica avanzada y relaciones laborales: dificultades, análisis y propuestas",
+     "Desafíos en manipulación robótica inteligente en laboratorios autónomos",
+     "Modelagem e Controle Neuromimético Aplicados a Garra Robótica Inteligente",
+     "La robótica avanzada: La opinión de Manuel Navarro",
+     "Sistema robótico Hokuto"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado AND mecatrónica OR \"control numérico\" OR sensores OR actuadores OR programación",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Fundamentos de Robótica y Programación de Robots",
+     "“Nosotros, Robots”. Programación didáctica de tecnología, programación y robótica de 1º ESO",
+     "Introducción a la robótica con actividades de construcción, programación y competición de robots",
+     "Programación y desarrollo de una estación robótica en Robot Studio",
+     "Proyecto de diseño, programación y construcción de un robot autónomo, aplicando conceptos de la automatización, para una competición nacional de robótica",
+     "Análisis y propuesta de mejora de la programación didáctica cfgs en automatización y robótica industrial módulo robótica industrial",
+     "Desarrollo de un robot colaborativo (Cobot) orientado a la enseñanza de robótica a los estudiantes de la carrera de Mecatrónica",
+     "FUNDAMENTOS DE ROBÓTICA, III UNIDAD: IDENTIFICAR LOS TIPOS DE SENSORES Y ACTUADORES QUE CONFORMAN UN ROBOT MANIPULADOR.",
+     "Control numérico computarizado aplicado a la automatización de una cortadora a plasma.",
+     "Simulación y Automatización de una celda robótica"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "robótica OR robots OR robot OR automatización OR automatizado AND españa OR méxico OR argentina OR colombia OR chile",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Robots and reshoring: Evidence from Mexican labor markets",
+     "Robotics research in Chile",
+     "Prototipo de robot cuadrúpedo para robótica móvil agrícola",
+     "La robótica en México",
+     "Confronting robotization in Mexico",
+     "RAT20 Teleoperated Argentine Robot",
+     "A Study on the Feasibility of Robotic Harvesting for Chile Pepper",
+     "La automatización robótica de procesos y su relación con la operatividad de los procesos contables en las empresas de telecomunicaciones y banca en los países de Argentina, Chile, Colombia y Perú en el año 2021",
+     "Robot al parque 2006-2012: robótica para niños y jóvenes Colombianos",
+     "From scalpel to robot: evolution and outlook of oncologic robotic surgery in Colombia"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "extra_leche_es",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Incidencia de Pseudomonas spp. y grupo Bacillus cereus, en leche cruda y leche procesada por ultra alta temperatura",
+     "Control de calidad de cuatro marcas de leche entera pasteurizada que se expenden en la ciudad de Guayaquil.",
+     "Capacidad antimicrobiana de aditivos alimentarios de origen natural frente a microorganismo aislado de leche cruda",
+     "Evaluación del uso de las radiaciones ultravioleta de onda corta (UVC) como alternativa a tratamientos térmicos en la leche",
+     "Tecnología de membranas en leche cruda para la obtención de productos inocuos de origen artesanal",
+     "Influencia de la raza, tratamiento térmico, cultivo iniciador y tiempo de maduración en las características del queso Zamorano",
+     "Evaluación del tratamiento de altas presiones hidrostáticas en leche de vaca como método equivalente a la pasteurización",
+     "Informe del Comité Científico de la Agencia Española de Seguridad Alimentaria y Nutrición (AESAN) sobre la idoneidad de los requisitos adicionales de higiene aplicables a la leche cruda destinada a la venta directa al consumidor final",
+     "La desnaturalizacion de las proteinas de la leche y su influencia en el rendimiento del queso fresco",
+     "Caracterización de la calidad fisicoquímica y composicional de la leche de vaca comercializada en el municipio de Rionegro, Antioquia"
+    ],
+    "puntos": [
+     2,
+     2,
+     1,
+     2,
+     1,
+     1,
+     2,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\" AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Estudio de vida útil microbiológica y sensorial de leche fluida envasada y pasteurizada para producción en agricultura familiar",
+     "Calidad microbiológica de la leche pasteurizada entera (3.25%) y parcialmente descremada (1%) en Puerto Rico y su efecto en el largo de vida útil",
+     "Evaluación del efecto de temperatura, tiempo, PH y UFC, sobre la vida útil de leche pasteurizada en marcas comercializadoras en Pasto (Nariño)",
+     "Modificación nutricional de la leche humana cruda y pasteurizada según el tipo y tiempo de conservación y almacenamiento",
+     "Conservación de muestras de leche cruda: efecto del azidiol sobre el recuento de células somáticas",
+     "Desarrollo de leche entera fermentada de cabra a diferentes concentraciones de Lactobacillus acidophilus en cocultivo con las bacterias del yogur a fin de obtener un producto con buena aceptación, viabilidad y vida útil",
+     "Listeria sp., en cantinas de almacenamiento de leche cruda de vaca en Tunja – Boyacá",
+     "Alternativa de higienización no-térmica de leche cruda: tecnología de membranas cerámicas",
+     "Impacto de las bacterias psicotróficas en la calidad microbiológica y la vida útil de la leche refrigerada: una revisión sistemática de la evidencia científica",
+     "Calidad microbiológica de la leche cruda de vaca y evaluación de prácticas domésticas para su seguridad y calidad proteica"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "calidad OR propiedades OR composición OR \"valor nutricional\" OR sabor AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Introducción de la tecnología de homogeneización por altas presiones para el procesado de lácteos funcionales en Uruguay: leche fluida entera reducida en colesterol",
+     "Control de calidad de cuatro marcas de leche entera pasteurizada que se expenden en la ciudad de Guayaquil.",
+     "Calidad de la leche cruda en plataforma",
+     "Calidad de la leche cruda y sistema de pago por calidad en el Ecuador",
+     "FACTORES QUE INFLUYEN EN LA COMPOSICIÓN Y CALIDAD MICROBIOLOGICA DE LA LECHE CRUDA ALMACENADA EN UN CENTRO DE ACOPIO",
+     "Evaluación de la composición físico-química y etiquetado nutrimental de leche entera pasteurizada comercial y su cumplimiento con la normatividad oficial mexicana",
+     "Evaluación de la composición físico-química y etiquetado nutrimental de leche entera pasteurizada comercial y su cumplimiento con la normatividad oficial mexicana",
+     "Calidad microbiológica de la leche cruda de bovinos de Paipa, Colombia",
+     "Calidad microbiológica de leche pasteurizada comercializada en supermercados de Mérida-Venezuela",
+     "Determinación de la calidad físico-química de la leche cruda bovina"
+    ],
+    "puntos": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "microbiología OR microbianos OR germenes OR contaminación OR seguridad AND \"leche entera\" OR \"leche fluida\" OR \"leche cruda\" OR \"leche pasteurizada\" OR \"leche fluida entera\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Microbiología y bioquímica del queso tipo \"Ulloa\" y preparación de un \"fermento\" para su elaboración a partir de leche pasteurizada",
+     "Control de calidad de cuatro marcas de leche entera pasteurizada que se expenden en la ciudad de Guayaquil.",
+     "Calidad y seguridad de la leche cruda de vaca producida en Panamá",
+     "Frecuencia de la contaminación de leche cruda de vaca por aflatoxina M1 en tanques de enfriamiento en Boyacá, Colombia",
+     "Calidad microbiológica de la leche cruda de vaca y evaluación de prácticas domésticas para su seguridad y calidad proteica",
+     "Contaminación microbiana por Staphylococcus aureus y análisis de sensibilidad antimicrobiana en leche cruda comercializada en el mercado El Arenal, Cuenca - 2025",
+     "Análisis bacteriológico de leche cruda expendida en Tarqui-Ecuador",
+     "Contaminación por aflatoxina M1 en leche cruda en comunidades rurales de Santa Ana (Manabí, Ecuador): variación estacional y comparación de estándares normativos",
+     "Residuos de antibióticos en leche cruda fluida en la parroquia Chicaña del Cantón Yantzaza de la provincia de Zamora Chinchipe",
+     "Idiazabal y otros quesos de leche cruda: cómo el entorno artesanal define su sabor y seguridad"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2
+    ]
+   },
+   {
+    "cadena": "\"pasteurización UHT\" OR \"ultra alta temperatura\" OR \"tratamiento térmico\" OR \"procesamiento térmico\" OR \"esterilización UHT\" AND \"vida útil\" OR estabilidad OR conservación OR durabilidad OR \"tiempo de almacenamiento\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Innovación en la conservación de frutas: tratamientos térmicos para una vida útil y calidad nutricional",
+     "Fabricación y conservación de alimentos mediante tratamiento térmico",
+     "Tratamientos térmicos",
+     "Investigación preliminar de la influencia del tratamiento térmico y tiempo de almacenamiento sobre el aroma de habas (Vicia faba)",
+     "Vida útil para un nuevo producto tipo cold brew saborizado vainilla con procesamiento térmico y envasado aséptico shelf-stable. Semestre de Industria",
+     "TEMA 2.2 TECNOLOGÍAS DE TRATAMIENTO TÉRMICO",
+     "Conservación de concentrados de proteínas lácteas mediante la aplicación de tratamientos térmicos.",
+     "Efecto de la incorporación de pectina sobre la estabilidad de lactosuero frente al tratamiento térmico",
+     "INCREMENTO DE LA CALIDAD MICROBIOLÓGICA MEDIANTE TRATAMIENTOS HIPERBÁRICOS EN ALIMENTOS PASTEURIZADOS SOUS VIDE CON REDUCIDO PROCESAMIENTO TÉRMICO",
+     "Efecto del tratamiento térmico en la estabilidad de geles obtenidos a partir de harinas de quinua"
+    ],
+    "puntos": [
+     2,
+     2,
+     1,
+     2,
+     2,
+     1,
+     2,
+     2,
+     1,
+     2
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "extra_banano_es",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "\"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "antes": 0,
+    "ahora": 25,
+    "titulos": [
+     "Harina de plátano verde y su aplicación en galletas dulces con semillas de lino, libres de gluten",
+     "Formulación de galletas a base de harina de plátano verde con diferentes niveles de inclusión de harina de trigo en la panadería y repostería sofí municipio de Estelí periodo 2024",
+     "Efectos del reemplazo parcial de harina de trigo con harina de banano verde sobre las propiedades reológicas de la masa y las propiedades de calidad de pan",
+     "Efectos del reemplazo parcial de harina de trigo con harina de banano verde sobre las propiedades reológicas de la masa y las propiedades de calidad de pan",
+     "Efectos en la salud de la harina de plátano verde (Musa paradisiaca L.): el rol de compuestos biofuncionales. Revisión sistemática",
+     "Harina de plátano verde (Musa acuminata AAA subgrupo Cavendish): caracterización microbiologica, potencial nutricional y valorización sustentable de residuos agroindustriales",
+     "Diseño y validación de receta nutricional de snack elaborado con harina de cáscara de plátano verde (Musa paradisiaca)",
+     "Harina de plátano verde (Musa acuminata AAA subgrupo Cavendish): caracterización microbiologica, potencial nutricional y valorización sustentable de residuos agroindustriales",
+     "Desarrollo de un producto de panificación libre de gluten",
+     "Botanas Saludables Elaboradas con Harina Libre de Gluten"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"almidón resistente\" OR \"fibra dietética\" OR \"compuestos bioactivos\" OR polifenoles OR antioxidantes AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Subproductos de frutos: potenciales ingredientes tecnofuncionales, en productos de panificación sin gluten",
+     "Almidón resistente: Características tecnológicas e intereses fisiológicos",
+     "Estrategias para la mejora nutricional de los productos de panadería sin gluten con masa madre y extractos naturales",
+     "Panificados con almidón resistente aptos para regímenes especiales: formulación y caracterización fisicoquímica, sensorial y nutricional",
+     "Password Alimentos #107 – Harinas no convencionales en Panificación",
+     "Elaboración y caracterización de pan sin gluten añadido de malvavisco (Malvaviscus arboreus): evaluación del potencial antioxidante durante el almacenamiento.",
+     "Innovación en Sistemas Alimentarios, Compuestos Bioactivos y Películas Biodegradables",
+     "Impacto de la adición de masa ácida de soja en la calidad tecnológica y funcional de productos de panificación",
+     "Aprovechamiento de epicarpio de frutas y hortalizas en la elaboración de productos de panificación",
+     "Evaluación de sedimentos de pulque (xaxtle) como cultivo iniciador para obtener un producto de panificación de bajo índice glucémico"
+    ],
+    "puntos": [
+     2,
+     1,
+     2,
+     2,
+     1,
+     2,
+     1,
+     1,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "reología OR textura OR volumen OR miga OR corteza AND \"pan sin gluten\" OR \"panificación sin gluten\" OR \"panadería sin gluten\" OR panificación OR \"panificación gluten free\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Evaluación de textura y color de un producto de panificación libre de gluten",
+     "Password Alimentos #107 – Harinas no convencionales en Panificación",
+     "Mejora de formulaciones de pan sin gluten: Impacto de hidrocoloides, reducción de aditivos y valorización de subproductos para minimizar residuos en la industria alimentaria",
+     "Masa madre para pan dulce sin gluten",
+     "Impacto de la adición de masa ácida de soja en la calidad tecnológica y funcional de productos de panificación",
+     "Elaboración de un producto de panificación (bollos de queso crema)",
+     "Harina integral de trigo (Triticum aestivum L.) adicionada con harina de garbanzo (Cicer arietinum L.) germinado por hidroponía: análisis reológico, de textura y sensorial en un producto de panificación",
+     "Mejoramiento de propiedades nutricionales, fisicoquímicas y estructurales de un pan sin gluten adicionado con microalga a base de pre-fermento",
+     "Masa madre para pan de molde sin gluten",
+     "Elaboración de productos de panificación utilizando harina de arroz (Oryza Sativa), Riobamba 2015"
+    ],
+    "puntos": [
+     2,
+     1,
+     2,
+     1,
+     1,
+     1,
+     2,
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "celiaquía OR \"intolerancia al gluten\" OR \"sensibilidad al gluten\" OR \"dieta sin gluten\" OR \"enfermedad celíaca\" AND \"harina de banano verde\" OR \"harina de plátano verde\" OR \"harina verde de banano\" OR \"harina verde de plátano\" OR \"harina de banano maduro\"",
+    "antes": 0,
+    "ahora": 25,
+    "titulos": [
+     "Determinación cuantitativa del contenido energético y de macro nutrientes de dos harinas elaboradas con pulpa y cáscara de plátano verde (Musa paradisiaca), en Mazatenango, Suchitepéquez.",
+     "Determinación cuantitativa del contenido energético y de macro nutrientes de dos harinas elaboradas con pulpa y cáscara de plátano verde (Musa paradisiaca), en Mazatenango, Suchitepéquez.",
+     "Harina de plátano verde y su aplicación en galletas dulces con semillas de lino, libres de gluten",
+     "Proceso de extrusión de harina de banano verde: Propiedades antioxidantes y estructurales",
+     "Formulación de galletas a base de harina de plátano verde con diferentes niveles de inclusión de harina de trigo en la panadería y repostería sofí municipio de Estelí periodo 2024",
+     "Proceso de extrusión de harina de banano verde: Propiedades antioxidantes y estructurales",
+     "Efectos del reemplazo parcial de harina de trigo con harina de banano verde sobre las propiedades reológicas de la masa y las propiedades de calidad de pan",
+     "Efectos en la salud de la harina de plátano verde (Musa paradisiaca L.): el rol de compuestos biofuncionales. Revisión sistemática",
+     "Efectos del reemplazo parcial de harina de trigo con harina de banano verde sobre las propiedades reológicas de la masa y las propiedades de calidad de pan",
+     "Diseño y validación de receta nutricional de snack elaborado con harina de cáscara de plátano verde (Musa paradisiaca)"
+    ],
+    "puntos": [
+     1,
+     1,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"sustituto de harina de trigo\" OR \"alternativa al trigo\" OR \"ingrediente alternativo\" OR \"materia prima\" OR \"sustituto del gluten\" AND \"panificación sin gluten\" OR \"pan sin gluten\" OR panificación OR \"panadería sin gluten\" OR \"panificación gluten free\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Panificación sin gluten: Un camino hacia nuevas oportunidades",
+     "Preparación de un fermento láctico concentrado congelado para mejorar pan sin gluten",
+     "Password Alimentos #107 – Harinas no convencionales en Panificación",
+     "Masa madre para pan dulce sin gluten",
+     "Sustituto parcial de la harina de trigo para la elaboración de productos: revisión sistemática",
+     "Evaluación del uso de harina de flor de loroco (Fernaldia pandurata) como sustituto parcial de harina de trigo en la elaboración de galletas",
+     "Polvos de cáscara, semilla y pulpa de mango criollo (Mangifera indica L.) como alternativas para la funcionalización de productos de panificación",
+     "Panificación con harina de arvejas (Pisum sativum) previamente sometidas a inactivación enzimática",
+     "Valorización de la cáscara de tuna en un producto de panificación",
+     "Proteína de harinas de maíz, cebada, quinua, trigo nacional y papa: características y funcionalidad como sustitutos de la proteína de harina de trigo importado en la producción de pan y fideos"
+    ],
+    "puntos": [
+     1,
+     1,
+     2,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "extra_cancer_es",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND inmunoterapia OR \"inmunoterapia del cáncer\" OR \"inmunoterapia oncológica\" OR \"inmunoterapia tumoral\" OR \"inmunoterapia contra el cáncer\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Inmunoterapia en el tratamiento del cáncer de mama",
+     "Dianas moleculares en la inmunoterapia contra el cáncer de mama en mujeres en edad fértil: Revisión Bibliográfica",
+     "Inmunoterapia como tratamiento del cáncer de mama",
+     "Cáncer de mama: tratamientos inmunológicos.",
+     "Vacunas, inmunoterapias adyuvantes y cuidados paliativos en cáncer de mama",
+     "Terapias alternativas a la radioterapia y quimioterapia en el cáncer de mama",
+     "¿ESTÁ GANANDO TERRENO LA NEOADYUVANCIA ENDOCRINA EN CÁNCER DE MAMA?",
+     "Avances recientes en la investigación del cáncer de mama",
+     "Actualidades en el manejo sistémico del cáncer de mama",
+     "Cáncer de mama: abordaje clínico integral, diagnóstico por imagen y manejo multidisciplinario"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"inhibidores de puntos de control\" OR \"inhibidor de punto de control\" OR \"checkpoint inhibitor\" OR \"inmunoterapia de puntos de control\" OR \"inmunoterapia checkpoint\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Inhibidores de puntos de control en el cáncer de mama",
+     "Terapia de células adoptivas en cáncer de mama",
+     "Implicaciones en el tratamiento de pacientes con cáncer de mama y alteraciones en ARID1A",
+     "Cáncer de mama triple negativo: terapias sistémicas actuales y experiencia local",
+     "Cáncer de mama triple negativo: terapias sistémicas actuales y experiencia local",
+     "Estudio de biomarcadores pronósticos y combinaciones terapéuticas en cáncer de mama triple negativo",
+     "Primera línea de tratamiento sistémico del cáncer de mama metastásico triple negativo",
+     "Características clínico-patológicas y supervivencia en pacientes con cáncer de mama triple negativo",
+     "Influencia del consumo de antiinflamatorios no esteroideos en la incidencia de cáncer de mama: = Influence of non-streroidal antiinflammatory drugs use on breast cancer incidence",
+     "Características clínico-patológicas y supervivencia en pacientes con cáncer de mama triple negativo: Clinical pathological characteristics and survival in patients with triplenegative breast cancer"
+    ],
+    "puntos": [
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"terapia combinada\" OR \"tratamiento combinado\" OR \"combinación de terapias\" OR \"terapia mixta\" OR \"tratamiento mixto\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Cáncer de mama: tratamientos inmunológicos.",
+     "Diagnóstico y manejo del cáncer de mama",
+     "Últimos avances en el tratamiento del cáncer de mama",
+     "Terapia combinada con Trastuzumab en el tratamiento del Cáncer de mama: eficacia y efectos adversos",
+     "Tratamiento sistémico actual para cáncer de mama avanzado hormono-dependiente",
+     "Programa Actívate: Intervención Cognitiva de Pacientes con Cáncer de Mama",
+     "Tratamiento neoadyuvante del cáncer de mama localmente avanzado HER2 positivo",
+     "Nanomedicina de precisión para llevar CRISPR contra el cáncer de mama",
+     "Papel de la RM en la evaluación de respuesta tumoral al tratamiento combinado de agentes quimioterápicos y bevacizumab en pacientes con cáncer de mama localmente avanzado",
+     "FUTURO Y LÍNEAS DE INVESTIGACIÓN CLÍNICA DEL CÁNCER DE MAMA LUMINAL"
+    ],
+    "puntos": [
+     2,
+     1,
+     1,
+     2,
+     1,
+     1,
+     1,
+     1,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "\"cáncer de mama\" OR \"carcinoma mamario\" OR \"tumor de mama\" OR \"cáncer de pecho\" OR mama AND \"respuesta inmunitaria\" OR \"respuesta inmune\" OR \"activación inmunitaria\" OR \"activación inmune\" OR \"respuesta inmunológica\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "La activación de CD47 en cáncer de mama estimula la respuesta inmune antitumoral induciendo memoria inmunológica",
+     "Respuesta inmunológica en cirugía del cáncer de mama. Estudio comparativo y prospectivo de diferentes técnicas anestésicas",
+     "Crioablación en el Cáncer de Mama",
+     "IMPORTANCIA DEL MICROAMBIENTE TUMORAL EN LA PROGRESIÓN DEL CÁNCER DE MAMA",
+     "Papel de la Podocalicina en el sistema inmunitario: mecanismos de evasión de la respuesta inmunitaria en células tumorales de cáncer de mama",
+     "Marcadores moleculares en el cáncer de mama. Implicaciones terapéuticas",
+     "Crioablación de tumores de mama",
+     "Enfermedad por modelantes asociado a cáncer de mama",
+     "Implicación de perfiles inmuno-genéticos de la respuesta inmune citotóxica en la susceptibilidad y/o evolución de pacientes con cáncer de mama del sur de España",
+     "Variables relacionadas con la respuesta a terapia sistémica primaria en el cáncer de mama"
+    ],
+    "puntos": [
+     2,
+     2,
+     1,
+     1,
+     2,
+     1,
+     1,
+     1,
+     2,
+     1
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "extra_cobots_ambos",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "cobot OR cobots OR \"robot colaborativo\" OR \"robots colaborativos\" AND logistics OR warehouse OR almacén OR almacenes OR logística",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "COBOTS",
+     "Simulación con robots colaborativos para prácticas de sistemas de información logística con estudiantes de ingeniería",
+     "Intelligent Robots and Cobots",
+     "Cobot: Collaborative Robots",
+     "The cobots effect in logistics: a systematic review of the literature on human–robot collaboration",
+     "Intelligent Robots and Cobots",
+     "Cobot Technology for Emergencies Approach",
+     "Human Factors Influencing the Implementation of Cobots in High Volume Distribution Centres",
+     "Prediction and estimation model of energy demand of the AMR with cobot for the designed path in automated logistics systems",
+     "Cost modelling of onboard cobot-supported item sorting in a picking system"
+    ],
+    "puntos": [
+     1,
+     2,
+     1,
+     1,
+     2,
+     1,
+     1,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"human robot collaboration\" OR \"colaboración humano robot\" OR \"colaboración humano-robot\" AND \"warehouse automation\" OR \"automatización de almacenes\" OR \"automatización logística\" AND \"supply chain\" OR \"cadena de suministro\"",
+    "antes": 1,
+    "ahora": 23,
+    "titulos": [
+     "Human-robot Collaboration in Warehousing: a Cloud-powered Revolution",
+     "Sustaining Supply Chain With Automation and Robotics",
+     "Adaptive Logistics: AI, Automation, and the Future of Supply Chains",
+     "Artificial Intelligence applications in supply chain",
+     "Robotics resource management in retail supply chain management: Logistics 5.0",
+     "Autonomous Mobile Robots in Logistics and Supply Chain Management of Industry 4.0, A Review",
+     "Autonomous Mobile Robots in Logistics and Supply Chain Management of Industry 4.0, A Review",
+     "Artificial Intelligence in Sustainable Supply Chain Management",
+     "Emerging Technologies: A Paradigm Shift in SCM Application in Dairy Supply Chain 4.0",
+     "Digital transformation capabilities in humanitarian supply chains: a theory driven crossbreed literature review"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     1,
+     1,
+     1
+    ]
+   },
+   {
+    "cadena": "\"mobile robot\" OR \"robots móviles\" OR \"robot móvil\" AND \"order picking\" OR \"preparación de pedidos\" OR \"picking de pedidos\" AND \"fulfillment center\" OR \"centro de distribución\" OR \"centro logístico\"",
+    "antes": 4,
+    "ahora": 20,
+    "titulos": [
+     "CAN THE MOBILE ROBOT BE A FUTURE ORDER-PICKING SOLUTION?: A CASE STUDY AT AMAZON FULFILLMENT CENTER",
+     "Analytical models for collaborative autonomous mobile robot solutions in fulfillment centers",
+     "Industrial internet of things-driven storage location assignment and order picking in a resource synchronization and sharing-based robotic mobile fulfillment system",
+     "Human-Robot Cooperation: Coordinating Autonomous Mobile Robots and Human Order Pickers",
+     "Automation in Grocery Fulfillment Centers: Transforming Efficiency and Customer Experience",
+     "INTELLIGENT APPROACHES FOR ENHANCING WAREHOUSE EFFICIENCY: ITEM PLACEMENT, ORDER PICKING, AND ROBOTIC AUTOMATION",
+     "Robot scheduling for pod retrieval in a robotic mobile fulfillment system",
+     "Robot-storage zone assignment strategies in mobile fulfillment systems",
+     "Improving Robotic Mobile Fulfillment System Efficiency",
+     "Stronger mixed-integer programming-formulations for order- and rack-sequencing in robotic mobile fulfillment systems"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"industrial robot\" OR \"robot industrial\" OR \"robots industriales\" AND \"material handling\" OR \"manipulación de materiales\" OR \"manejo de materiales\" AND intralogistics OR intralogística",
+    "antes": 1,
+    "ahora": 16,
+    "titulos": [
+     "Intelligent Intralogistics in the context of Reconfigurable Material Handling Systems based on LLMs",
+     "Robot visual and virtual control technology in industrial environment",
+     "Hybrid ANN–Fuzzy Logic Controller for Autonomous Mobile Robots in Industrial Environments",
+     "Production Intralogistics Automation Based on 3D Simulation Analysis",
+     "Exploring Adoption, Implementation, and Use of Autonomous Mobile Robots in Intralogistics Applications",
+     "3D Vision-Based Digital Twin of a Mobile Robot for Objects Management in Intralogistics Scenarios",
+     "EDUCATIONAL LINE-FOLLOWING ROBOT AS A MICRO-SCALE TESTBED FOR SUSTAINABLE INTRALOGISTICS AND GREEN WAREHOUSE PRACTICES",
+     "Optimizing Warehouse Intralogistics with Simulation: Combining AMRs and Container Loading Strategies",
+     "AMR-Based Automated Material Handling in Semiconductor Fabs: A Discrete Event Simulation Study",
+     "The Impact of Collaborative Robots in Manufacturing"
+    ],
+    "puntos": [
+     2,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "extra_infogest_ambos",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "digestibility OR digestibilidad AND \"milk protein\" OR \"proteína de la leche\" AND INFOGEST OR \"modelo INFOGEST\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Nutritional Evaluation of Milk-, Plant-, and Insect-Based Protein Materials by Protein Digestibility Using the INFOGEST Digestion Method",
+     "In Vitro Assessment of the Impact of Industrial Processes on the Gastrointestinal Digestion of Milk Protein Matrices Using the INFOGEST Protocol",
+     "Comparison of protein digestibility of human milk and infant formula using the INFOGEST method under infant digestion conditions",
+     "Standardization of in vitro digestibility and DIAAS method based on the static INFOGEST protocol",
+     "Hydrolysis of Soybean Milk Protein by Papain: Antioxidant, Anti-Angiotensin, Antigenic and Digestibility Perspectives",
+     "Digestion of milk proteins: Comparing static and dynamic in vitro digestion systems with in vivo data",
+     "INFOGEST in vitro digestion: protein breakdown in relation to food composition and moisture content",
+     "INFOGEST 2.0 Protocol Applied to Animal-Derived Milk and Dairy Products: A Systematic Review of Six Years of Scientific Effort",
+     "Evaluation of in vitro whey protein digestibility in a protein-catechins model system mimicking milk chocolate: Interaction with flavonoids does not hinder protein bioaccessibility",
+     "Biological activities and peptidomic profile of in vitro-digested cow, camel, goat and sheep milk"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"protein digestibility\" OR \"digestibilidad de proteínas\" AND dairy OR lácteo AND \"in vitro digestion\" OR \"digestión in vitro\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Formulación de alimentos lácteos para el control de peso. Cambios estructurales durante la digestión in vitro.",
+     "Applications of the INFOGEST In Vitro Digestion Model to Foods: A Review",
+     "Gastrointestinal digestion of dairy and soy proteins in infant formulas: An in vitro study",
+     "In vitro digestion of infant formulations with hydrolysed and non-hydrolysed proteins from dairy and soybean",
+     "Dairy and plant based protein beverages: In vitro digestion behaviour and effect on intestinal barrier biomarkers",
+     "Calcium in dairy matrices: in vitro digestion on the factors determining its bioaccessibility",
+     "In vitro digestion of two age-tailored dairy products in the aging gastrointestinal tract",
+     "In Vitro Digestion of High‐Fat Commercial Dairy Products: Detailed Analysis of Lipid Classes",
+     "Comparing the effect of homogenization and heat processing on the properties and in vitro digestion of milk from organic and conventional dairy herds",
+     "In vitro digestion of protein-rich dairy products adapted to the specific needs of older adults"
+    ],
+    "puntos": [
+     2,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"bovine milk\" OR \"leche bovina\" AND \"protein hydrolysis\" OR \"hidrólisis de proteínas\" AND \"static digestion model\" OR \"modelo estático de digestión\"",
+    "antes": 0,
+    "ahora": 25,
+    "titulos": [
+     "Gastro‐Intestinal Digested Bovine Milk Osteopontin Modulates Gut Barrier Biomarkers In Vitro",
+     "Ex vivo digestion of bovine milk with genetic variants A1 and A2 of beta-casein and identification of bioactive peptides",
+     "Modification of protein structures by altering the whey protein profile and heat treatment affects in vitro static digestion of model infant milk formulas",
+     "Lipids and proteins bioaccessibility in DHA-enriched fortified infant flours and formulas using a static in vitro 6-month-old infant digestion model",
+     "In vitro digestion of protein-rich dairy products adapted to the specific needs of older adults",
+     "Digestibility and structural changes of ingredients in infant formulae during the gastrointestinal digestion",
+     "Profiling protein hydrolysis and amino acid metabolism in camel and bovine milk fermented by Lactobacillus helveticus, L. bulgaricus, and Streptococcus thermophilus",
+     "Efficient Enzymatic Hydrolysis of the Whey Protein Fraction from Bovine Milk",
+     "Antioxidant, antimicrobial and anticarcinogenic activities of bovine milk proteins and their hydrolysates - A review",
+     "Structural mechanism and kinetics of in vitro gastric digestion are affected by process-induced changes in bovine milk"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"infant formula\" OR \"fórmula infantil\" AND \"protein digestibility\" OR \"digestibilidad de proteínas\" AND INFOGEST OR \"modelo INFOGEST\"",
+    "antes": 1,
+    "ahora": 25,
+    "titulos": [
+     "Comparison of protein digestibility of human milk and infant formula using the INFOGEST method under infant digestion conditions",
+     "Combined protease hydrolysis of whey protein: structure, digestibility, and allergenicity in infant formula",
+     "Comparative in vitro digestibility of human milk and infant formulas: In-depth simulation of macronutrient breakdown and gut microbiota response",
+     "Development of in vitro digestion simulation of gastrointestinal tract to evaluate lipolysis and proteolysis: Comparison of infant model digestion of breast milk and adult model digestion of cow milk",
+     "Editorial: In vitro digestion in the study of food",
+     "Influence of select emulsifying salts on pepsin-mediated casein hydrolysis of acidified skim milk",
+     "Lysine blockage of milk proteins in infant formula impairs overall protein digestibility and peptide release",
+     "Fermented Infant Formula Increases Ileal Protein Digestibility and Reduces Ileal Proteolytic Activity Compared with Standard and Hydrolyzed Infant Formulas in Piglets",
+     "Protein Digestibility and Anti-inflammatory Activity of Processed Whey Protein Ingredients for Infant Formula",
+     "Uso de la leguminosa (Vigna sinensis) como complemento del pollo en una fórmula infantil"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     1,
+     0,
+     1,
+     2,
+     2,
+     2,
+     1
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "uht",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "\"whole milk\" OR \"entera leche\" OR milk AND UHT OR \"ultra high temperature\" OR \"ultra-high temperature\" AND development OR processing OR production OR manufacturing",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Ultra-high Temperature (UHT) Processing: Technological Significance and Updates",
+     "Quantification of whole ultra high temperature UHT milk waste as a function of packages type and design",
+     "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk",
+     "MICROBIOLOGICAL CHARACTERISTICS OF WHOLE MILK AND DAIRY DRINK PROCESSED BY UHT (ULTRA-HIGH TEMPERATURE) DURING ITS SHELF LIFE",
+     "Molecular characterization of Bacillus sporothermodurans in Ultra High Temperature (UHT) milk",
+     "Effects of ultra‐high‐temperature processes on metabolite changes in milk",
+     "Changes occurring in stabilized ultra-high-temperature-treated whole milk during storage",
+     "Sustainable requirements and value proposition for milk Ultra-high temperature (UHT) packaging",
+     "Detection of Bacillus cereus in formula milk and ultra high temperature (UHT) treated milk products",
+     "Review Biochemical Changes in Ultra-high Temperature Milk: A Review: Biochemical Changes in Ultra-high Temperature Milk"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"whole milk\" OR \"entera leche\" OR milk AND UHT OR \"ultra high temperature\" OR \"ultra-high temperature\" AND factors OR variables OR parameters OR influences",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Quantification of whole ultra high temperature UHT milk waste as a function of packages type and design",
+     "Molecular characterization of Bacillus sporothermodurans in Ultra High Temperature (UHT) milk",
+     "Color variation of Ultra High Temperature (UHT) sterilized milk during storage",
+     "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk",
+     "Statistical Quality Control of Ultra High Temperature (UHT) Milk in PT XYZ",
+     "Ultra High Temperature (UHT) Milk Purchase Decision Based on Marketing Mix Perceptions",
+     "Stability of ultra-high temperature treated milk",
+     "Ultrasound Monitoring of Water Content in Ultra High Temperature Milk",
+     "Changes in stability and shelf-life of ultra-high temperature treated milk during long term storage at different temperatures",
+     "Lipolysis and Oxidation in Ultra‐High Temperature Milk Depend on Sampling Month, Storage Duration, and Temperature"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"whole milk\" OR \"entera leche\" OR milk AND UHT OR \"ultra high temperature\" OR \"ultra-high temperature\" AND \"shelf life\" OR stability OR quality OR preservation",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Changes in stability and shelf-life of ultra-high temperature treated milk during long term storage at different temperatures",
+     "Use of Microfiltration to Improve Quality and Shelf Life of Ultra-High Temperature Milk",
+     "MICROBIOLOGICAL CHARACTERISTICS OF WHOLE MILK AND DAIRY DRINK PROCESSED BY UHT (ULTRA-HIGH TEMPERATURE) DURING ITS SHELF LIFE",
+     "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk",
+     "Quantification of whole ultra high temperature UHT milk waste as a function of packages type and design",
+     "Heat Treatment of Milk: Extended Shelf-Life (ESL) and Ultra-High Temperature (UHT) Treatments",
+     "Stability of ultra-high temperature treated milk",
+     "Statistical Quality Control of Ultra High Temperature (UHT) Milk in PT XYZ",
+     "Storage stability and age gelation of reconstituted ultra-high temperature skim milk",
+     "Color variation of Ultra High Temperature (UHT) sterilized milk during storage"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"whole milk\" OR \"entera leche\" OR milk AND UHT OR \"ultra high temperature\" OR \"ultra-high temperature\" AND nutritional OR composition OR properties OR characteristics",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Sensory Description and Consumer Hedonic Perception of Ultra-High Temperature (UHT) Milk",
+     "Quantification of whole ultra high temperature UHT milk waste as a function of packages type and design",
+     "MICROBIOLOGICAL CHARACTERISTICS OF WHOLE MILK AND DAIRY DRINK PROCESSED BY UHT (ULTRA-HIGH TEMPERATURE) DURING ITS SHELF LIFE",
+     "Lipid compositional changes and oxidation status of ultra-high temperature treated Milk",
+     "Sustainable requirements and value proposition for milk Ultra-high temperature (UHT) packaging",
+     "Ultra-high Temperature (UHT) Processing: Technological Significance and Updates",
+     "Short communication: Variation in the composition and properties of Swedish raw milk for ultra-high-temperature processing",
+     "Flavor Characteristics of Low Temperature Long Time (LTLT) and Ultra High Temperature (UHT) Milk",
+     "Review Biochemical Changes in Ultra-high Temperature Milk: A Review: Biochemical Changes in Ultra-high Temperature Milk",
+     "Effects of Homogenization and Ultra-high Temperature Processing on the Properties of Whole Milk Concentrated by a Multiple-Membrane Separation System"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"whole milk\" OR \"entera leche\" OR milk AND UHT OR \"ultra high temperature\" OR \"ultra-high temperature\" AND \"heat treatment\" OR \"thermal processing\" OR sterilization",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Color variation of Ultra High Temperature (UHT) sterilized milk during storage",
+     "Assessment of the production of Bacillus cereus protease and its effect on the quality of ultra-high temperature-sterilized whole milk",
+     "Destabilization of ultra-instantaneous ultra-high-temperature sterilized milk stored at different temperatures",
+     "Heat Treatment of Milk: Extended Shelf-Life (ESL) and Ultra-High Temperature (UHT) Treatments",
+     "Proteolysis in Ultra-High-Temperature (Uht) Milk: Causes, Assessment, and Remedies",
+     "Ultra-high Temperature (UHT) Processing: Technological Significance and Updates",
+     "MICROBIOLOGICAL CHARACTERISTICS OF WHOLE MILK AND DAIRY DRINK PROCESSED BY UHT (ULTRA-HIGH TEMPERATURE) DURING ITS SHELF LIFE",
+     "Review Biochemical Changes in Ultra-high Temperature Milk: A Review: Biochemical Changes in Ultra-high Temperature Milk",
+     "Effect of Thermostable Enzymes Produced by Psychrotrophic Bacteria in Raw Milk on the Quality of Ultra-High Temperature Sterilized Milk",
+     "Sterilization of liquid foods by pulsed electric fields–an innovative ultra-high temperature process"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     2,
+     2,
+     2,
+     2
+    ]
+   }
+  ]
+ },
+ {
+  "tema": "ml_lineal",
+  "juez": "gpt",
+  "filas": [
+   {
+    "cadena": "\"machine learning\" OR \"deep learning\" OR \"artificial intelligence\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher discriminant\" OR \"linear discriminant function\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Lifelong Machine Learning with Deep Streaming Linear Discriminant Analysis",
+     "Modified Bagging in Linear Discriminant Analysis: Machine Learning",
+     "Linear Discriminant Analysis",
+     "Artificial Intelligence Techniques for Bankruptcy Prediction of Tunisian Companies: An Application of Machine Learning and Deep Learning-Based Models",
+     "Linear discriminant analysis: A detailed tutorial",
+     "Linear discriminant analysis in red sorghum using artificial intelligence",
+     "From Protein Sequence to Protein Function via Multi-Label Linear Discriminant Analysis",
+     "Linear discriminant analysis (LDA) to clarifying vacant land allocations of Baiturraman district in Banda Aceh city",
+     "Stress Detection with Machine Learning and Deep Learning using Multimodal Physiological Data",
+     "Deep Learning Based Analysis of Breast Cancer Using Advanced Ensemble Classifier and Linear Discriminant Analysis"
+    ],
+    "puntos": [
+     2,
+     2,
+     1,
+     1,
+     1,
+     2,
+     1,
+     1,
+     1,
+     2
+    ]
+   },
+   {
+    "cadena": "\"supervised learning\" OR classification OR \"pattern recognition\" AND \"linear discriminant\" OR \"discriminant analysis\" OR \"dimensionality reduction\" OR \"feature extraction\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Semi-supervised linear discriminant analysis for dimension reduction and classification",
+     "Feature extraction and classification for EMG signals using linear discriminant analysis",
+     "A New Formulation of Linear Discriminant Analysis for Robust Dimensionality Reduction",
+     "Linear discriminant analysis",
+     "Quantum dimensionality reduction by linear discriminant analysis",
+     "Implementation of the Linear Discriminant Analysis Algorithm for Feature Extraction in Face Pattern Recognition",
+     "Linear discriminant analysis: A detailed tutorial",
+     "Mushroom Classification and Feature Extraction Using Linear Discriminant Analysis",
+     "MUSHROOM CLASSIFICATION AND FEATURE EXTRACTION USING LINEAR DISCRIMINANT ANALYSIS",
+     "Quantum discriminant analysis for dimensionality reduction and classification"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"neural network\" OR \"support vector machine\" OR \"random forest\" OR \"decision tree\" AND \"linear discriminant analysis\" OR LDA OR \"Fisher linear discriminant\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Identification of Fusarium Head Blight in Winter Wheat Ears Based on Fisher’s Linear Discriminant Analysis and a Support Vector Machine",
+     "Evaluation and comparison of LogitBoost Ensemble, Fisher’s Linear Discriminant Analysis, logistic regression and support vector machines methods for landslide susceptibility mapping",
+     "Electroencephalography based Emotion Recognition using Fisher’s Linear Discriminant Analysis on Support Vector Machine",
+     "Fisher's Linear Discriminant Analysis With Space-Folding Operations",
+     "Fisher Linear Discriminant Analysis of coherency matrix for wetland classification using PolSAR imagery",
+     "Speech Emotion Recognition Based on Linear Discriminant Analysis and Support Vector Machine Decision Tree",
+     "A new feature extraction algorithm based on fisher linear discriminant analysis",
+     "A dimensionality reduction-based efficient software fault prediction using Fisher linear discriminant analysis (FLDA)",
+     "Assessment of the risk factors for type II diabetes using an improved combination of particle swarm optimization and decision trees by evaluation with Fisher’s linear discriminant analysis",
+     "Use of Linear Discriminant Analysis (LDA), K Nearest Neighbours (KNN), Decision Tree (CART), Random Forest (RF), Gaussian Naive Bayes (NB), Support Vector Machines (SVM) to Predict Admission for Post Graduation Courses"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "cadena": "\"machine learning\" OR \"deep learning\" OR \"artificial intelligence\" AND \"quadratic discriminant analysis\" OR \"regularized discriminant analysis\" OR \"shrinkage LDA\" OR \"penalized LDA\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Quadratic Discriminant Analysis Based Ensemble Machine Learning Models for Groundwater Potential Modeling and Mapping",
+     "Continual Learning with Deep Streaming Regularized Discriminant Analysis",
+     "REGULARIZED QUADRATIC DISCRIMINANT ANALYSIS BASED ELLIOT SYMMETRIC RECURSIVE DEEP STRUCTURE NEURAL LEARNING CLASSIFIER FOR SENTIMENT CLASSIFICATION",
+     "Random-Matrix Regularized Discriminant Analysis of High-Dimensional Dataset",
+     "Classification of Watermelon Seeds Using Morphological Patterns of X-ray Imaging: A Comparison of Conventional Machine Learning and Deep Learning",
+     "On the predictability of U.S. stock market using machine learning and deep learning techniques",
+     "Quadratic Discriminant Analysis Performance for Blood Flow Prediction in Speckle Imaging",
+     "Exploring Machine Learning Versus Deep Learning Versus Reinforcement Learning in Crop Recommendation Systems",
+     "Optimizing Pneumonia Detection: Integrating Quadratic Discriminant Analysis and Deep Q-Networks Through Reinforcement Learning",
+     "Prediction of twin preterm birth based on quadratic discriminant analysis and electrohysterogram"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     1
+    ]
+   },
+   {
+    "cadena": "\"machine learning\" OR \"pattern recognition\" OR \"data mining\" AND \"linear discriminant\" OR \"discriminant function\" OR \"classification rule\" OR \"Bayes classifier\"",
+    "antes": 10,
+    "ahora": 25,
+    "titulos": [
+     "Linear Discriminant Functions and Their Learning",
+     "Machine Learning and Data Mining in Pattern Recognition",
+     "Machine Learning and Data Mining in Pattern Recognition",
+     "Machine Learning Techniques for Pattern Recognition in High-Dimensional Data Mining",
+     "Lifelong Machine Learning with Deep Streaming Linear Discriminant Analysis",
+     "Modified Bagging in Linear Discriminant Analysis: Machine Learning",
+     "Effect of anisotropy coeficient on error rates of linear discriminant functions",
+     "Bayes’ Theorem and Naive Bayes Classifier",
+     "An Interactive Model for Structural Pattern Recognition based on the Bayes Classifier",
+     "Data Mining: Document Classification using Naive Bayes Classifier"
+    ],
+    "puntos": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     1,
+     1,
+     2,
+     2
+    ]
+   }
+  ]
+ }
+]

@@ -3,47 +3,43 @@ Genera cadenas de búsqueda a partir de un tema escrito en lenguaje natural
 (lo usa la interfaz web, ver servidor.py). Las cadenas salen en la misma
 sintaxis AND / OR / NOT de config.PAPER_QUERIES (ver fetch_papers.py).
 
-Usa un modelo de Gemini (Google AI Studio) por medio de LangChain
-(config.LLM_MODELO, key en ../.env como LLM_API_KEY). Si no hay key o el LLM
-falla, arma cadenas básicas con las palabras del tema y devuelve un aviso,
-para que la interfaz siga funcionando y el usuario las edite a mano.
+Usa Nemotron en build.nvidia.com (NVIDIA_API_KEY en ../.env). Si no responde,
+arma cadenas básicas con las palabras del tema y devuelve un aviso, para que
+la interfaz siga funcionando y el usuario las edite a mano.
 """
 
+import json
 import re
+import unicodedata
 
-from langchain_google_genai import ChatGoogleGenerativeAI
-from pydantic import BaseModel, Field
+import requests
+from pydantic import BaseModel, Field, ValidationError
 
 import config
+import llm_nvidia
 
 MAX_CADENAS = 12
 
+# Por idioma: (en qué idioma van los términos, cómo armar los grupos).
+# Las bases académicas indexan sobre todo en inglés: la misma cadena traducida
+# al español encuentra del orden de 50 veces menos papers, y cada grupo AND de
+# frases exactas la reduce más. Por eso en español se piden cadenas más amplias.
 IDIOMAS = {
-    "es": "español",
-    "en": "inglés",
-    "ambos": "inglés y español: en cada grupo pon los términos en inglés y, como "
-             "alternativas con OR, sus equivalentes en español",
+    "en": ("inglés",
+           "Entre 2 y 3 grupos AND por cadena, con 2 a 4 alternativas por grupo."),
+    "ambos": ("inglés y español: en cada grupo pon los términos en inglés y, como alternativas "
+              "con OR, sus equivalentes en español (con tildes)",
+              "Entre 2 y 3 grupos AND por cadena, con 2 a 3 términos en inglés por grupo más sus "
+              "equivalentes en español."),
+    "es": ("español (con sus tildes)",
+           "Hay muy pocos papers indexados en español, así que las cadenas deben ser amplias: "
+           "como máximo 2 grupos AND por cadena, y al menos un tercio de las cadenas con un solo "
+           "grupo (solo alternativas unidas con OR). De 3 a 5 alternativas por grupo. Prefiere "
+           "términos cortos y de uso común (1 o 2 palabras) a frases largas o muy técnicas, e "
+           "incluye variantes regionales del mismo concepto. En las cadenas de un solo grupo usa "
+           "solo frases propias del tema, nunca una palabra genérica suelta (como robots o "
+           "leche) ni una que se escriba igual en inglés. No uses NOT."),
 }
-
-INSTRUCCIONES = """Eres un bibliotecario experto en búsquedas bibliográficas. A partir del tema \
-del usuario escribe {n} cadenas de búsqueda distintas y complementarias (cada una cubre un ángulo \
-diferente del tema) para bases académicas (OpenAlex, Semantic Scholar, Scopus).
-
-Sintaxis obligatoria de cada cadena:
-- Operadores AND, OR y NOT en mayúsculas, separados por espacios.
-- "frase exacta" entre comillas dobles para los términos de más de una palabra.
-- AND separa grupos de conceptos que el paper debe tener todos; OR une sinónimos dentro de un \
-grupo. Es decir, A OR B AND C OR D significa (A OR B) AND (C OR D). No uses paréntesis.
-- NOT solo admite un término o una frase, y va como último grupo: ... AND NOT "término".
-- Entre 2 y 3 grupos AND por cadena, con 2 a 4 alternativas por grupo.
-- Sin filtros de fecha, de campo ni comodines.
-
-Idioma de los términos: {idioma}."""
-
-
-class Cadenas(BaseModel):
-    """Forma de la respuesta que se le pide al modelo."""
-    cadenas: list[str] = Field(description="Las cadenas de búsqueda, una por elemento")
 
 # Palabras que no sirven como término de búsqueda en las cadenas básicas
 _VACIAS = set("""de del la las el los un una unos unas en con por para sobre entre y o que como
@@ -51,33 +47,260 @@ su sus al lo se es son más menos muy the of in on and or for with to from by a 
 efecto efectos estudio estudios últimos ultimos años anos effects effect study studies""".split())
 
 
-def _limpiar(cadenas, n):
+# Formato para Nemotron: el modelo solo entrega los términos de cada grupo y el código arma la
+# sintaxis (comillas, OR, AND, NOT). Pedirle la cadena escrita le fallaba: devolvía palabras
+# sueltas, sin operadores o con un único término por grupo.
+INSTRUCCIONES_GRUPOS = """Eres un bibliotecario experto en búsquedas bibliográficas. A partir del tema del \
+usuario diseña {n} estrategias de búsqueda distintas y complementarias (cada una cubre un ángulo diferente \
+del tema) para bases académicas (OpenAlex, Semantic Scholar, Scopus). El tema puede venir en cualquier idioma: \
+tradúcelo al idioma pedido para los términos.
+
+Cada estrategia es una lista de GRUPOS de conceptos. El paper debe contener al menos un término de CADA grupo. \
+Dentro de un grupo van las alternativas del mismo concepto: sinónimos, variantes, abreviaturas y términos relacionados.
+- {estructura}
+- Las alternativas de un grupo son distintas entre sí y se escriben como las usaría un autor en el título o el \
+resumen, SIN comillas y SIN operadores (el sistema los agrega).
+- Prefiere términos de 1 a 3 palabras. No pases de 12 alternativas en total por estrategia; las más \
+importantes primero.
+- Cada estrategia debe aportar algo distinto: no repitas grupos enteros de otra estrategia.
+- Un dato de contexto (país, variedad, población, año) no es un grupo propio: ponlo solo en una o dos estrategias.
+- Los términos en español se escriben SIEMPRE con sus tildes y la ñ (robótica, automatización, niños, \
+digestión). Sin tildes la búsqueda no encuentra los papers.
+- Sin filtros de fecha ni de campo: no uses años como términos.
+- "excluir": null, salvo que el usuario pida excluir algo de forma explícita; entonces un único término.
+
+Idioma de los términos: {idioma}.
+
+Responde SOLO con un objeto JSON: {{"estrategias": [{{"grupos": [["alternativa", "alternativa", "..."], \
+["..."]], "excluir": null, "intencion": "qué busca esta estrategia", "alcance": "enfoque de esta estrategia"}}], \
+"intencion_consolidada": "resumen de 2 a 4 frases de la intención de búsqueda (el tema original más el \
+contexto o las respuestas añadidas)"}}."""
+
+
+class Estrategia(BaseModel):
+    grupos: list[list[str]]
+    excluir: str | None = None
+    intencion: str = ""
+    alcance: str = ""
+
+
+class Estrategias(BaseModel):
+    estrategias: list[Estrategia]
+    intencion_consolidada: str = ""
+
+
+def _termino(texto):
+    """Un término listo para la cadena: entre comillas si tiene más de una palabra."""
+    texto = " ".join(str(texto).replace('"', "").replace("(", "").replace(")", "").split())
+    if re.fullmatch(r"\d{4}", texto):      # un año suelto no es un concepto: los filtros de fecha van aparte
+        return ""
+    return f'"{texto}"' if " " in texto else texto
+
+
+def _armar_cadena(estrategia):
+    grupos = []
+    for grupo in estrategia.grupos:
+        alternativas = list(dict.fromkeys(t for t in (_termino(a) for a in grupo if str(a).strip()) if t))
+        if alternativas:
+            grupos.append(" OR ".join(alternativas))
+    if estrategia.excluir and estrategia.excluir.strip():
+        grupos.append("NOT " + _termino(estrategia.excluir))
+    return " AND ".join(grupos)
+
+
+def _normalizar(cadena, idioma=None):
+    """Deja la cadena en la sintaxis de fetch_papers.py: sin paréntesis, sin alternativas ni
+    grupos repetidos y con NOT solo como último grupo y con un único término. Devuelve ''
+    si no queda una cadena útil (sin grupos positivos o, fuera del español, con uno solo)."""
+    cadena = " ".join(cadena.replace("(", "").replace(")", "").split())
+    positivos, negativos, vistos = [], [], set()
+    for grupo in re.split(r"\s+AND\s+", cadena):
+        grupo = grupo.strip()
+        if re.match(r"(?i)^NOT\s", grupo):
+            termino = grupo[4:].strip()
+            if termino and not re.search(r"\s+OR\s+", termino) and not negativos:
+                negativos.append(f"NOT {termino}")
+            continue
+        alternativas, claves = [], set()
+        for alt in re.split(r"\s+OR\s+", grupo):
+            alt = alt.strip()
+            if alt and alt.casefold() not in claves:
+                claves.add(alt.casefold())
+                alternativas.append(alt)
+        clave_grupo = frozenset(claves)
+        if alternativas and clave_grupo not in vistos:
+            vistos.add(clave_grupo)
+            positivos.append(" OR ".join(alternativas))
+    if not positivos or (idioma != "es" and len(positivos) < 2):
+        return ""
+    return " AND ".join(positivos + negativos)
+
+
+def _sin_tildes(palabra):
+    return "".join(c for c in unicodedata.normalize("NFD", palabra) if unicodedata.category(c) != "Mn").replace("ñ", "n")
+
+
+INSTRUCCIONES_TILDES = """Eres un corrector ortográfico. Recibes cadenas de búsqueda bibliográfica con términos en español \
+(a veces mezclados con inglés) a las que les faltan las tildes y la ñ. Devuelve las mismas cadenas añadiendo \
+SOLO las tildes y la ñ que falten en las palabras en español (robotica -> robótica, automatizacion -> \
+automatización, ninos -> niños). No cambies ninguna otra letra, ni los operadores (AND, OR, NOT), ni las \
+comillas, ni el orden. Las palabras en inglés no se tocan (digestion, information y similares se quedan igual \
+cuando son inglés). Responde SOLO con un JSON {"cadenas": ["...", "..."]} con la misma cantidad de cadenas."""
+
+
+def _restaurar_tildes(cadenas):
+    """{cadena original: cadena con tildes}. Nemotron a veces escribe el español sin tildes ni ñ y
+    así la búsqueda pierde papers. Una cadena solo se acepta si, quitando las tildes, queda igual
+    que la original: el corrector no puede cambiar nada más. Si falla, no se toca nada."""
+    try:
+        texto = llm_nvidia.chat_json(INSTRUCCIONES_TILDES, json.dumps({"cadenas": cadenas}, ensure_ascii=False),
+                                     timeout=90)
+        nuevas = json.loads(texto)["cadenas"]
+    except (ValueError, KeyError, TypeError, requests.RequestException):
+        return {}
+    if not isinstance(nuevas, list) or len(nuevas) != len(cadenas):
+        return {}
+    return {a: b for a, b in zip(cadenas, nuevas) if isinstance(b, str) and _sin_tildes(a) == _sin_tildes(b)}
+
+
+def _limpiar(cadenas, n, idioma=None):
     limpias = []
     for c in cadenas:
         if not isinstance(c, str):
             continue
-        c = " ".join(c.replace("(", "").replace(")", "").split())
+        c = _normalizar(c, idioma)
         if c and c not in limpias:
             limpias.append(c)
     return limpias[:n]
 
 
+def _con_nvidia(tema, n, idioma):
+    """Nemotron en build.nvidia.com (formato de grupos: ver INSTRUCCIONES_GRUPOS)."""
+    en_idioma, estructura = IDIOMAS[idioma]
+    contenido = llm_nvidia.chat_json(
+        INSTRUCCIONES_GRUPOS.format(n=n, idioma=en_idioma, estructura=estructura), f"Tema: {tema}", timeout=120)
+    try:
+        res = Estrategias.model_validate_json(contenido)
+    except (ValidationError, ValueError) as exc:
+        raise ValueError("la respuesta de NVIDIA no tiene la forma esperada") from exc
+    cadenas, detalles = [], []
+    for estrategia in res.estrategias:
+        cadena = _armar_cadena(estrategia)
+        if cadena:
+            cadenas.append(cadena)
+            detalles.append({"cadena": cadena, "intencion": estrategia.intencion, "alcance": estrategia.alcance})
+    return cadenas, res.intencion_consolidada or "", detalles
+
+
+PROVEEDORES = {"nvidia": _con_nvidia}
+
+
+def _secreto_fuera(texto):
+    for secreto in (config.NVIDIA_API_KEY,):
+        if secreto:
+            texto = texto.replace(secreto, "<key>")
+    return texto
+
+
 def _llamar_llm(tema, n, idioma):
-    if not config.LLM_API_KEY:
-        raise ValueError("falta LLM_API_KEY en ../.env")
-    modelo = ChatGoogleGenerativeAI(
-        model=config.LLM_MODELO, google_api_key=config.LLM_API_KEY,
-        temperature=0.3, timeout=60, max_retries=1,
-    )
-    # with_structured_output hace que el modelo responda con el esquema Cadenas
-    respuesta = modelo.with_structured_output(Cadenas).invoke([
-        ("system", INSTRUCCIONES.format(n=n, idioma=IDIOMAS[idioma])),
-        ("human", f"Tema: {tema}"),
-    ])
-    cadenas = _limpiar(respuesta.cadenas if respuesta else [], n)
-    if not cadenas:
-        raise ValueError("el modelo no devolvió ninguna cadena")
-    return cadenas
+    """Prueba los proveedores de PROVEEDORES en orden. Si todos fallan,
+    lanza ValueError con el motivo de cada uno."""
+    motivos = []
+    for proveedor in PROVEEDORES:
+        try:
+            res = PROVEEDORES[proveedor](tema, n, idioma)
+            originales = res[0] if isinstance(res, tuple) else res
+            if idioma in ("es", "ambos") and proveedor == "nvidia":
+                con_tilde = _restaurar_tildes([c for c in originales if isinstance(c, str)])
+                originales = [con_tilde.get(c, c) if isinstance(c, str) else c for c in originales]
+                if isinstance(res, tuple) and len(res) >= 3:
+                    res = (res[0], res[1], [{**d, "cadena": con_tilde.get(d["cadena"], d["cadena"])}
+                                            if isinstance(d.get("cadena"), str) else d for d in (res[2] or [])])
+            cadenas = _limpiar(originales, n, idioma)
+            if not cadenas:
+                motivos.append(f"{proveedor}: no devolvió ninguna cadena")
+                continue
+            info = {}
+            if isinstance(res, tuple) and len(res) >= 3:
+                # Los detalles se alinean con las cadenas ya normalizadas (la interfaz las empareja por texto)
+                por_cadena = {_normalizar(d.get("cadena", ""), idioma): d for d in (res[2] or [])
+                              if isinstance(d.get("cadena"), str)}
+                info = {"intencion_consolidada": res[1] or "",
+                        "detalles": [por_cadena.get(c) or {"cadena": c, "intencion": "", "alcance": ""} for c in cadenas]}
+            return cadenas, info
+        except Exception as exc:  # red, JSON malformado, cuota: de muchos tipos
+            texto = _secreto_fuera(str(exc)).splitlines()[0][:160] if str(exc) else type(exc).__name__
+            motivos.append(f"{proveedor}: {texto}")
+            print(f"  [aviso] {proveedor} no generó las cadenas: {type(exc).__name__}: {texto}")
+    raise ValueError("; ".join(motivos))
+
+
+# ---------------------------------------------------------------- aclaración
+
+MAX_RONDAS_ACLARACION = 2
+MAX_PREGUNTAS = 4
+
+INSTRUCCIONES_ACLARAR = """Eres un bibliotecario experto en búsquedas bibliográficas. El usuario describe \
+lo que quiere investigar, pero a menudo es muy general y no sabe bien qué busca. Antes de generar \
+cadenas de búsqueda, decide si el tema tiene suficiente detalle. Un tema es suficiente si deja claro:
+1. El objeto de estudio concreto (producto, material, población, tecnología...).
+2. Qué se quiere saber de él (propiedades, efectos, variables, comparaciones, métodos...).
+3. El contexto que acota la búsqueda (proceso, condiciones, aplicación, tipo de estudio...).
+No exijas lo que el usuario ya contestó. Si falta algo importante, haz entre 1 y {max_preguntas} preguntas \
+cortas y concretas, cada una con 2 a 4 ejemplos de respuesta posible (el usuario puede ignorarlos). \
+No preguntes por idioma, año ni número de cadenas: eso ya se configura aparte. \
+Si el tema ya es suficiente, o ya hubo {max_rondas} rondas de preguntas, marca suficiente=true.
+Siempre devuelve `tema_refinado`: el tema reescrito en un párrafo, integrando las respuestas del usuario \
+(si no hubo respuestas, el tema original sin cambios).
+
+Responde SOLO con un objeto JSON de la forma:
+{{"suficiente": true|false, "preguntas": [{{"pregunta": "...", "ejemplos": ["...", "..."]}}], "tema_refinado": "..."}}"""
+
+
+class PreguntaAclaracion(BaseModel):
+    pregunta: str
+    ejemplos: list[str] = Field(default_factory=list)
+
+
+class Aclaracion(BaseModel):
+    suficiente: bool
+    preguntas: list[PreguntaAclaracion] = Field(default_factory=list)
+    tema_refinado: str = ""
+
+
+def aclarar(tema, historial=None):
+    """Evalúa si el tema es lo bastante concreto para buscar. `historial` es la
+    lista de rondas anteriores: [{"pregunta": ..., "respuesta": ...}, ...].
+    Devuelve {"suficiente", "preguntas", "tema_refinado", "aviso"}. Si el LLM
+    no responde, devuelve suficiente=True con un aviso: la búsqueda no debe
+    quedar bloqueada por esto."""
+    historial = [h for h in (historial or []) if str(h.get("respuesta", "")).strip()]
+    rondas = len({h.get("ronda", 1) for h in historial})
+    if rondas >= MAX_RONDAS_ACLARACION:
+        return {"suficiente": True, "preguntas": [], "tema_refinado": _tema_con_respuestas(tema, historial),
+                "aviso": None}
+    usuario = f"Tema del usuario: {tema}"
+    if historial:
+        usuario += "\n\nPreguntas ya hechas y respuestas:\n" + "\n".join(
+            f"- {h['pregunta']} -> {h['respuesta']}" for h in historial)
+    try:
+        resultado = Aclaracion.model_validate_json(llm_nvidia.chat_json(
+            INSTRUCCIONES_ACLARAR.format(max_preguntas=MAX_PREGUNTAS, max_rondas=MAX_RONDAS_ACLARACION), usuario, timeout=120))
+    except (ValueError, ValidationError, requests.RequestException) as exc:
+        return {"suficiente": True, "preguntas": [], "tema_refinado": _tema_con_respuestas(tema, historial),
+                "aviso": f"No se pudo pedir aclaraciones al LLM ({_secreto_fuera(str(exc)).splitlines()[0][:120]}); "
+                         "se usará el tema tal como está."}
+    preguntas = [p.model_dump() for p in resultado.preguntas[:MAX_PREGUNTAS]]
+    suficiente = resultado.suficiente or not preguntas
+    return {"suficiente": suficiente, "preguntas": [] if suficiente else preguntas,
+            "tema_refinado": resultado.tema_refinado.strip() or _tema_con_respuestas(tema, historial),
+            "aviso": None}
+
+
+def _tema_con_respuestas(tema, historial):
+    if not historial:
+        return tema
+    return tema + ". " + " ".join(f"{h['pregunta']} {h['respuesta']}." for h in historial)
 
 
 def cadenas_basicas(tema, n):
@@ -105,13 +328,22 @@ def generar(tema, n, idioma="es"):
     """Devuelve (cadenas, aviso). `aviso` es None si las generó el LLM."""
     n = max(1, min(int(n), MAX_CADENAS))
     if idioma not in IDIOMAS:
-        idioma = "es"
+        idioma = "en"
     try:
-        return _llamar_llm(tema, n, idioma), None
-    except Exception as exc:  # LangChain y la API de Google lanzan errores de muchos tipos
-        motivo = str(exc).replace(config.LLM_API_KEY or "\0", "<key>").splitlines()[0][:200] if str(exc) else type(exc).__name__
-        print(f"  [aviso] no se pudieron generar las cadenas con el LLM: {type(exc).__name__}: {motivo}")
+        cadenas, info = _llamar_llm(tema, n, idioma)
+        return cadenas, None, info
+    except ValueError as exc:
         return cadenas_basicas(tema, n), (
-            f"No se pudo usar el LLM ({motivo}). Estas son cadenas básicas armadas con las "
+            f"No se pudo usar el LLM ({exc}). Estas son cadenas básicas armadas con las "
             "palabras del prompt: revísalas y edítalas antes de buscar."
-        )
+        ), {}
+
+
+# Mantener compatibilidad hacia atrás
+def generar_legacy(tema, n, idioma="es"):
+    cadenas, aviso, _ = generar(tema, n, idioma)
+    return cadenas, aviso
+
+
+generar_con_info = generar
+
