@@ -17,12 +17,17 @@ Tres módulos independientes que se combinan en el frontend:
   `busqueda/config.py` (incluye modelo y URLs de NVIDIA; no son secretos).
 - `procesamiento/` — estructura del paper (abstract, intro, conclusiones,
   tablas) y fichas. Configuración en `procesamiento/config_proc.py`.
-- `frontend/` — `servidor.py` sirve la API y la página estática (`web/`). Cada
-  proyecto vive en su propia base SQLite.
+- `api/` — `servidor.py` sirve solo la API (`/api/*`) y `almacen.py` guarda los proyectos; la
+  interfaz vive aparte en `frontend/` (Next.js). Cada
+  proyecto vive en sus filas de `proyectos`/`papers_proyectos` de la base
+  compartida.
 
-Persistencia: SQLite. Base global en `busqueda/output/selema.db`; cada
-proyecto web en `busqueda/output/proyectos/<nombre>.db`. Los PDFs nunca se
-guardan en disco: se descargan a memoria.
+Persistencia: PostgreSQL (variables `NEON_*` en `.env`; psycopg3; el plan gratuito de Neon sirve). Una
+sola base compartida: `papers` (pool deduplicado por `paper_id`), `proyectos` + `papers_proyectos`
+(proyectos de la web, con el estado del proyecto en JSONB), `estructuras` y `fichas` (procesamiento,
+payload en JSONB con índices GIN). El esquema completo está en `busqueda/database.py` y se crea solo
+en la primera conexión. Los PDFs nunca se guardan en disco: se descargan a memoria. Las bases
+SQLite de `busqueda/output/` son legadas de las pruebas de cadenas: el producto ya no las usa.
 
 Documentación viva: `README.md` (arquitectura y flujo), `COMANDOS.md`
 (comandos y desde dónde se ejecutan) y `PENDIENTES.md` (trabajo por hacer, con
@@ -64,11 +69,14 @@ Elegir según qué se tocó (no hay pruebas automatizadas):
 
 - Sintaxis e imports: `python -m py_compile <archivo.py>` (con el venv
   activado) o importar el módulo.
+- Base de datos: `python probar_postgres.py` desde la raíz — prueba mínima de
+  la base PostgreSQL (conexión, esquema, JSONB, borrado en cascada); no
+  consume presupuesto de ninguna API.
 - Procesamiento: `cd procesamiento && python probar_nvidia.py` — prueba mínima
   de conexión con Nemotron y Nemotron Parse (consume una llamada mínima).
 - Lector de PDFs: `cd procesamiento && python lectura_pdf.py <paper.pdf>` con
   un PDF local.
-- Frontend: `cd frontend && python servidor.py <puerto>` y probar los
+- API: `cd api && python servidor.py <puerto>` y probar los
   endpoints con curl.
 - Búsqueda completa (`cd busqueda && python main.py`): consume presupuesto de
   las APIs y puede fallar con HTTP 429 por presupuesto compartido. No correrla
@@ -101,6 +109,7 @@ El comando `/finalizar` repite este checklist.
   de archivos).
 - `~/.claude/skills/research-automator-db/` y
   `~/.claude/skills/research-automator-cadenas/`: skills del proyecto
-  (autocargadas por opencode). La primera documenta el esquema de las bases
-  SQLite y cómo consultarlas en solo lectura; la segunda, la metodología de
-  evaluación de cadenas (pendientes 1 y 2 de `PENDIENTES.md`).
+  (autocargadas por opencode). La primera documenta el esquema SQLite legado
+  (previo a la migración a PostgreSQL del 2026-10-31: para el esquema vigente,
+  ver `busqueda/database.py`); la segunda, la metodología de evaluación de
+  cadenas (pendientes 1 y 2 de `PENDIENTES.md`).

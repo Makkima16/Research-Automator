@@ -10,8 +10,10 @@ Flujo por paper:
    (lento, por eso el resultado se guarda y no se repite). Los papers sin PDF accesible quedan con ficha "parcial": solo el
    abstract que ya está en la base.
 2. Ficha (tabla `fichas`): Nemotron (NVIDIA) lee esas piezas, varios
-   papers por solicitud, y devuelve resumen, objetivo, conclusiones, hallazgos
-   clave y qué aporta cada tabla. Es incremental: si las piezas no cambiaron,
+   papers por solicitud, y devuelve una frase de síntesis, la relevancia para
+   el tema (alta, media, baja o nula) con su motivo, qué aporta al tema,
+   objetivo, método, hallazgos clave, conclusiones, limitaciones y qué aporta
+   cada tabla. Es incremental: si las piezas no cambiaron,
    no se vuelve a llamar al modelo.
 
     python extract_ficha.py --top 20 --tema "biochar para mejorar suelos ácidos"
@@ -30,7 +32,8 @@ from urllib.parse import urljoin, urlsplit
 from xml.etree.ElementTree import ParseError
 
 import requests
-from pydantic import BaseModel, Field, ValidationError
+from psycopg.types.json import Jsonb
+from pydantic import BaseModel, Field, ValidationError, field_validator
 
 import config_proc as config  # noqa: F401  (primero: agrega ../busqueda a la ruta de importación)
 import completar_abstracts
@@ -138,32 +141,55 @@ def _descargar_pdf(paper):
     return None, "; ".join(dict.fromkeys(motivos)) or "sin enlaces"
 
 
-SYSTEM_PROMPT = """Eres un investigador que prepara fichas de lectura rápida de papers científicos.
+SYSTEM_PROMPT = """Eres un investigador que prepara fichas de lectura rápida de papers científicos para
+alguien que está haciendo una revisión de literatura sobre un TEMA concreto. La ficha debe responderle,
+en pocos segundos, dos preguntas: ¿de qué trata este paper? y ¿me sirve para lo que estoy buscando?
 
 Te llegarán varios papers por solicitud, cada uno con un identificador (P1, P2...) y solo estas piezas:
 el abstract, el penúltimo y el último párrafo de la introducción (donde los autores plantean el
-problema y declaran su objetivo), las conclusiones, y los nombres de las tablas con los atributos (encabezados de columna) de cada una.
-Algunas piezas pueden faltar: no las inventes.
+problema y declaran su objetivo), las conclusiones, y los nombres de las tablas con los atributos
+(encabezados de columna) de cada una. Algunas piezas pueden faltar: no las inventes.
 
-Para CADA paper devuelve un elemento en `papers` con su `paper_ref` y estos campos, en español:
-- es_relevante: false si el paper no tiene relación con el TEMA DE LA INVESTIGACIÓN (si no se da tema,
-  true).
-- resumen: 2 a 3 frases con lo esencial del estudio (qué se hizo y qué se encontró).
-- objetivo: el objetivo que declaran los autores (se apoya en los últimos párrafos de la introducción);
-  null si no está.
-- conclusiones: hasta 5 conclusiones concretas, una por elemento, fieles al texto de las conclusiones
-  (o del abstract si no hay conclusiones). Lista vacía si no hay de dónde sacarlas.
-- hallazgos_clave: hasta 6 resultados o datos concretos y verificables en el texto (incluye cifras,
-  unidades y comparaciones SOLO si aparecen en el texto dado). Lista vacía si no hay.
+Para CADA paper devuelve un elemento en `papers` con su `paper_ref` y estos campos, en español claro
+y sin jerga innecesaria:
+- en_una_frase: UNA frase de 15 a 30 palabras: qué se estudió y qué se encontró. Es lo primero que
+  lee el usuario.
+- relevancia: qué tan útil es el paper para el TEMA DE LA INVESTIGACIÓN. Usa exactamente uno de:
+  "alta"  = trata directamente el tema (mismo problema, población o método central);
+  "media" = trata una parte importante del tema o un caso muy cercano;
+  "baja"  = solo toca el tema de forma tangencial o sirve como contexto general;
+  "nula"  = no tiene relación con el tema.
+  Si no se da tema, usa "media".
+- motivo_relevancia: una frase corta que justifique la relevancia comparando el paper con el tema
+  (qué coincide y qué no). null si no se da tema.
+- aporte_al_tema: 1 o 2 frases sobre qué le sirve concretamente de este paper a quien investiga el
+  tema (un dato, un método, una variable, un resultado). null si la relevancia es "nula".
+- objetivo: el objetivo que declaran los autores (se apoya en los últimos párrafos de la
+  introducción); null si no está.
+- metodo: objeto con `tipo_estudio` (p. ej. "experimento de campo", "encuesta", "revisión
+  sistemática", "modelo de aprendizaje automático"), `poblacion` (muestra, materiales o datos usados,
+  con su tamaño si aparece) y `contexto` (país, región, nivel o escenario). Cada uno null si no aparece.
+- hallazgos_clave: hasta 4 resultados concretos, uno por elemento, en frases cortas. Incluye cifras,
+  unidades y comparaciones SOLO si aparecen tal cual en el texto dado. Lista vacía si no hay.
+- conclusiones: hasta 3 conclusiones de los autores, fieles al texto de las conclusiones (o del
+  abstract si no hay conclusiones). No repitas lo que ya está en hallazgos_clave.
+- limitaciones: hasta 3 limitaciones que declaren los autores. Lista vacía si no declaran ninguna;
+  no las deduzcas tú.
 - tablas: una por cada tabla dada, con `nombre`, `atributos` (copiados tal cual) y `que_aporta`: una
   frase sobre qué información entrega la tabla, deducida SOLO de su nombre y sus atributos. No
   inventes valores de las tablas: no los conoces.
 
 REGLAS
 - Trata cada paper por separado: nunca mezcles datos de uno con otro.
+- Cada ficha se lee sola: no menciones los otros papers del lote ni los identificadores P1, P2...
+  (aunque dos papers parezcan iguales, describe cada uno por su contenido).
 - Usa solo lo que dicen las piezas. Si algo no aparece, déjalo en null o en lista vacía.
-- Prioriza lo importante para quien decide qué papers leer completos: qué se probó, bajo qué condiciones
-  y qué se concluyó."""
+- Sé breve: cada elemento de una lista es una sola idea en una sola frase.
+- No copies frases largas del abstract: resume con tus palabras."""
+
+
+NIVELES_RELEVANCIA = ("alta", "media", "baja", "nula")
+_SIN_TILDES = str.maketrans("áéíóú", "aeiou")
 
 
 class TablaFicha(BaseModel):
@@ -172,14 +198,36 @@ class TablaFicha(BaseModel):
     que_aporta: str | None = None
 
 
+class MetodoFicha(BaseModel):
+    tipo_estudio: str | None = None
+    poblacion: str | None = None
+    contexto: str | None = None
+
+
 class FichaPaper(BaseModel):
     paper_ref: str
-    es_relevante: bool = True
-    resumen: str | None = None
+    en_una_frase: str | None = None
+    relevancia: str = "media"
+    motivo_relevancia: str | None = None
+    aporte_al_tema: str | None = None
     objetivo: str | None = None
-    conclusiones: list[str] = Field(default_factory=list)
+    metodo: MetodoFicha | None = None
     hallazgos_clave: list[str] = Field(default_factory=list)
+    conclusiones: list[str] = Field(default_factory=list)
+    limitaciones: list[str] = Field(default_factory=list)
     tablas: list[TablaFicha] = Field(default_factory=list)
+
+    @field_validator("relevancia", mode="before")
+    @classmethod
+    def _normalizar_relevancia(cls, valor):
+        """El modelo a veces responde "Alta", "nula." o algo fuera de la escala:
+        se normaliza y, si no se reconoce, queda en "media"."""
+        texto = str(valor or "").strip().lower().translate(_SIN_TILDES).strip(".")
+        return texto if texto in NIVELES_RELEVANCIA else "media"
+
+    @property
+    def es_relevante(self):
+        return self.relevancia != "nula"
 
 
 class FichasLote(BaseModel):
@@ -218,24 +266,31 @@ def _xml_europepmc(doi):
 
 
 def _guardar_estructura(conn, paper_id, estado, fuente=None, url=None, estructura=None, error=None):
-    with conn:
-        conn.execute("INSERT OR REPLACE INTO estructuras VALUES (?, ?, ?, ?, ?, ?, ?)",
-                     (paper_id, estado, fuente, url,
-                      json.dumps(estructura, ensure_ascii=False) if estructura else None, error, ahora()))
+    with conn.transaction():
+        conn.execute(
+            "INSERT INTO estructuras (paper_id, estado, fuente, url, estructura_json, error, creado_en) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s) "
+            "ON CONFLICT (paper_id) DO UPDATE SET "
+            "estado = excluded.estado, fuente = excluded.fuente, url = excluded.url, "
+            "estructura_json = excluded.estructura_json, error = excluded.error, "
+            "creado_en = excluded.creado_en",
+            (paper_id, estado, fuente, url,
+             Jsonb(estructura) if estructura else None, error, ahora()))
 
 
 def obtener_estructura(conn, paper, forzar=False):
     """Estructura del paper (dict) desde la caché o la fuente; None si no hay.
     Lanza lectura_pdf.ErrorLecturaPDF si fatal. Solo se buscan los papers de
     acceso abierto: no se intenta saltar muros de pago."""
-    previa = conn.execute("SELECT * FROM estructuras WHERE paper_id = ?", (paper["paper_id"],)).fetchone()
+    previa = conn.execute("SELECT * FROM estructuras WHERE paper_id = %s", (paper["paper_id"],)).fetchone()
     # Un PDF resuelto por Sci-Hub trae pdf_url aunque is_oa sea 0: se intenta igual
     sin_acceso = not paper["is_oa"] and not paper["pdf_url"]
     if previa and not forzar and previa["estado"] in ("ok", "no_disponible"):
         # Se reintentan los que antes no tenían de dónde leer (ahora puede haber pdf_url o más enlaces)
         if sin_acceso and previa["error"] != "sin PDF descargable" \
                 or previa["error"] not in ("no es de acceso abierto", "sin PDF descargable"):
-            return json.loads(previa["estructura_json"]) if previa["estructura_json"] else None
+            # estructura_json es JSONB: llega ya como diccionario
+            return previa["estructura_json"]
     if sin_acceso:
         _guardar_estructura(conn, paper["paper_id"], "no_disponible", error="no es de acceso abierto")
         return None
@@ -331,10 +386,16 @@ def llamar_llm(lote, tema):
 
 
 def _guardar_ficha(conn, paper_id, estado, cobertura, modelo, texto_hash, ficha=None, error=None):
-    with conn:
-        conn.execute("INSERT OR REPLACE INTO fichas VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                     (paper_id, estado, cobertura, modelo, texto_hash,
-                      json.dumps(ficha, ensure_ascii=False) if ficha is not None else None, error, ahora()))
+    with conn.transaction():
+        conn.execute(
+            "INSERT INTO fichas (paper_id, estado, cobertura, modelo, texto_hash, ficha_json, error, creado_en) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) "
+            "ON CONFLICT (paper_id) DO UPDATE SET "
+            "estado = excluded.estado, cobertura = excluded.cobertura, modelo = excluded.modelo, "
+            "texto_hash = excluded.texto_hash, ficha_json = excluded.ficha_json, "
+            "error = excluded.error, creado_en = excluded.creado_en",
+            (paper_id, estado, cobertura, modelo, texto_hash,
+             Jsonb(ficha) if ficha is not None else None, error, ahora()))
 
 
 def _completar_abstracts(conn, papers, reportar):
@@ -347,11 +408,12 @@ def _completar_abstracts(conn, papers, reportar):
     reportar(f"{len(faltan)} papers sin abstract; buscándolo por DOI…")
     n = completar_abstracts.completar(faltan)
     nuevos = {p["paper_id"]: p["abstract"] for p in faltan if completar_abstracts.tiene_abstract(p["abstract"])}
-    with conn:
-        conn.executemany("UPDATE papers SET abstract = ? WHERE paper_id = ?",
-                         [(abstract, pid) for pid, abstract in nuevos.items()])
+    with conn.transaction():
+        with conn.cursor() as cur:
+            cur.executemany("UPDATE papers SET abstract = %s WHERE paper_id = %s",
+                            [(abstract, pid) for pid, abstract in nuevos.items()])
     reportar(f"  {n} abstracts completados.")
-    return [conn.execute("SELECT * FROM papers WHERE paper_id = ?", (p["paper_id"],)).fetchone()
+    return [conn.execute("SELECT * FROM papers WHERE paper_id = %s", (p["paper_id"],)).fetchone()
             if p["paper_id"] in nuevos else p for p in papers]
 
 
@@ -374,10 +436,12 @@ def procesar(conn, paper_ids=None, top=None, tema="", forzar=False, avance=None,
 
     columnas = "paper_id, title, abstract, doi, openalex_id, oa_url, pdf_url, is_oa"
     if paper_ids:
-        marcadores = ", ".join("?" for _ in paper_ids)
-        papers = conn.execute(f"SELECT {columnas} FROM papers WHERE paper_id IN ({marcadores})", paper_ids).fetchall()
+        marcadores = ", ".join("%s" for _ in paper_ids)
+        papers = conn.execute(f"SELECT {columnas} FROM papers WHERE paper_id IN ({marcadores})",
+                              paper_ids).fetchall()
     else:
-        papers = conn.execute(f"SELECT {columnas} FROM papers ORDER BY score DESC LIMIT ?", (top or 20,)).fetchall()
+        papers = conn.execute(f"SELECT {columnas} FROM papers ORDER BY score DESC LIMIT %s",
+                              (top or 20,)).fetchall()
     conteo = {}
     if not papers:
         reportar("No hay papers en la base.")
@@ -392,7 +456,7 @@ def procesar(conn, paper_ids=None, top=None, tema="", forzar=False, avance=None,
             estructura = obtener_estructura(conn, paper, forzar)
             cobertura = _cobertura(estructura)
             texto_hash = _hash(paper, estructura)
-            previa = conn.execute("SELECT * FROM fichas WHERE paper_id = ?", (paper["paper_id"],)).fetchone()
+            previa = conn.execute("SELECT * FROM fichas WHERE paper_id = %s", (paper["paper_id"],)).fetchone()
             if not forzar and previa and previa["texto_hash"] == texto_hash and previa["estado"] != "error":
                 terminado(paper, "cache")
             elif cobertura == "parcial" and not _tiene_abstract((estructura or {}).get("abstract") or paper["abstract"]):
@@ -471,7 +535,7 @@ def main():
     args = parser.parse_args()
     if not verificar_configuracion():
         return
-    conn = database.conectar(config.DB_PATH)
+    conn = database.conectar()
     print(f"\nResumen por paper: {procesar(conn, top=args.top, tema=args.tema, forzar=args.forzar)}")
 
 

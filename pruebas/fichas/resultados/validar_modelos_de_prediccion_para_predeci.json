@@ -1,0 +1,270 @@
+{
+  "archivo": "modelos_de_prediccion_para_predeci",
+  "tema": "Modelos de predicción basados en árboles de decisión y redes neuronales para predecir la elección de carrera universitaria, la permanencia en la carrera y el interés vocacional por ingeniería de mujeres jóvenes en universidades de Latinoamérica, considerando variables como estereotipos de género, presencia de referentes femeninos y rendimiento académico en matemáticas.",
+  "fecha": "2026-11-12T17:09:00",
+  "version_ficha": "91b9484d4ed5",
+  "origen_papers": "muestra: 10 del tope + 5 de control",
+  "criterios": {
+    "estructura_ok": 0.9,
+    "cifras_respaldadas": 0.9,
+    "acuerdo_util_vs_no_util": 0.8,
+    "acuerdo_a_un_nivel": 0.85,
+    "afirmaciones_respaldadas": 0.9,
+    "aporte_responde_al_tema": 0.85
+  },
+  "metricas": {
+    "fichas_validadas": 11,
+    "estructura_ok": 1.0,
+    "cifras_respaldadas": 1.0,
+    "acuerdo_exacto": 0.818,
+    "acuerdo_a_un_nivel": 1.0,
+    "acuerdo_util_vs_no_util": 1.0,
+    "afirmaciones_respaldadas": 1.0,
+    "aporte_responde_al_tema": 1.0,
+    "utiles_segun_ficha": 0.818,
+    "utiles_segun_juez": 0.818,
+    "matriz_ficha_vs_juez": {
+      "alta": {
+        "alta": 0,
+        "media": 0,
+        "baja": 0,
+        "nula": 0
+      },
+      "media": {
+        "alta": 2,
+        "media": 7,
+        "baja": 0,
+        "nula": 0
+      },
+      "baja": {
+        "alta": 0,
+        "media": 0,
+        "baja": 2,
+        "nula": 0
+      },
+      "nula": {
+        "alta": 0,
+        "media": 0,
+        "baja": 0,
+        "nula": 0
+      }
+    },
+    "relevancia_media_top": 1.8,
+    "relevancia_media_control": 2.0
+  },
+  "veredicto": {
+    "estructura_ok": true,
+    "cifras_respaldadas": true,
+    "acuerdo_util_vs_no_util": true,
+    "acuerdo_a_un_nivel": true,
+    "afirmaciones_respaldadas": true,
+    "aporte_responde_al_tema": true
+  },
+  "detalle": [
+    {
+      "paper_id": "https://doi.org/10.1016/j.sasc.2025.200352",
+      "grupo": "top",
+      "titulo": "Predicting student retention: A comparative study of machine learning approach utilizing sociodemographic and academic factors",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir permanencia universitaria con árboles y redes neuronales, pero no aborda elección de carrera, interés vocacional ni mujeres en ingeniería de Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Compara árboles de decisión y redes neuronales para predecir permanencia universitaria, pero no aborda elección de carrera, interés vocacional ni variables de género en Latinoamérica.",
+      "en_una_frase": "Se compararon diez modelos de ML para predecir deserción estudiantil con datos académicos y sociodemográficos de una universidad de Filipinas, destacando XGBoost como el mejor.",
+      "aporte_al_tema": "Sirve como referencia de métodos predictivos (XGBoost, árboles, redes neuronales) y métricas para modelos de retención universitaria.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.3390/info13040203",
+      "grupo": "top",
+      "titulo": "Artificial Intelligence and Machine Learning Approaches in Digital Education: A Systematic Revision",
+      "cobertura": "parcial",
+      "relevancia_ficha": "baja",
+      "motivo_ficha": "Menciona árboles de decisión y redes neuronales en educación digital, pero no trata elección de carrera, permanencia, ni mujeres en ingeniería de Latinoamérica.",
+      "relevancia_juez": "baja",
+      "motivo_juez": "Revisión sistemática general sobre IA/ML en educación digital; menciona árboles y redes neuronales de forma genérica sin enfocarse en el tema específico.",
+      "en_una_frase": "Es una revisión sistemática que identifica seis temas del uso de algoritmos de IA y ML en educación digital, incluyendo predicción de deserción y rendimiento.",
+      "aporte_al_tema": "Proporciona contexto general sobre algoritmos de ML aplicados a predicción educativa, sin enfoque en el tema específico.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.1109/icetas59148.2023.10346531",
+      "grupo": "top",
+      "titulo": "Predictive Modeling of Student Behavior for Early Dropout Detection in Universities using Machine Learning Techniques",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Trata predicción de permanencia universitaria con ML, pero no aborda elección de carrera, interés vocacional, mujeres en ingeniería ni Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Aplica ML (incluyendo redes neuronales y bosques aleatorios) para predecir deserción universitaria, pero no considera elección de carrera, interés vocacional ni variables de género.",
+      "en_una_frase": "Se desarrollan modelos de ML con datos de comportamiento estudiantil para detectar tempranamente el riesgo de deserción universitaria.",
+      "aporte_al_tema": "Ofrece un enfoque de modelado predictivo para retención universitaria que puede servir de referencia metodológica.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.1109/ICETAS59148.2023.10346531",
+      "grupo": "top",
+      "titulo": "Predictive Modeling of Student Behavior for Early Dropout Detection in Universities using Machine Learning Techniques",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Trata predicción de permanencia universitaria con ML, pero no aborda elección de carrera, interés vocacional, mujeres en ingeniería ni Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Duplica P3: predice deserción universitaria con ML, pero carece del enfoque en ingeniería, mujeres jóvenes y variables de género de Latinoamérica.",
+      "en_una_frase": "Se desarrollan modelos de ML con datos de comportamiento estudiantil para detectar tempranamente el riesgo de deserción universitaria.",
+      "aporte_al_tema": "Ofrece un enfoque de modelado predictivo para retención universitaria que puede servir de referencia metodológica.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.3390/data9040060",
+      "grupo": "top",
+      "titulo": "Predicting Academic Success of College Students Using Machine Learning Techniques",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir resultados académicos universitarios con árboles y redes neuronales, pero no aborda elección de carrera, interés vocacional, mujeres en ingeniería ni Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Utiliza árboles de decisión y XGBoost para predecir éxito académico y retención universitaria, sin abordar elección de carrera, interés vocacional ni variables de género.",
+      "en_una_frase": "Se comparan algoritmos de ML para predecir el éxito académico de estudiantes universitarios usando datos académicos y socioeconómicos, destacando XGBoost y árboles de decisión.",
+      "aporte_al_tema": "Proporciona resultados y métricas de modelos de ML para éxito académico que pueden orientar modelos de permanencia universitaria.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.7717/peerj-cs.803",
+      "grupo": "top",
+      "titulo": "Utilizing grid search cross-validation with adaptive boosting for augmenting performance of machine learning models",
+      "cobertura": "completa",
+      "relevancia_ficha": "baja",
+      "motivo_ficha": "Usa árboles de decisión y redes neuronales para predecir rendimiento académico, pero no trata elección de carrera, permanencia, ni mujeres en ingeniería de Latinoamérica.",
+      "relevancia_juez": "baja",
+      "motivo_juez": "Optimiza árboles de decisión y redes neuronales para predecir rendimiento en entornos virtuales, sin relación con elección de carrera, permanencia ni variables de género.",
+      "en_una_frase": "Se mejoran modelos de árbol de decisión y red neuronal feed-forward para predecir el rendimiento estudiantil en entornos virtuales de aprendizaje.",
+      "aporte_al_tema": "Sirve como referencia de técnicas de mejora de modelos predictivos educativos, aunque con alcance limitado al tema.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.1007/s44163-023-00079-z",
+      "grupo": "top",
+      "titulo": "Supervised machine learning algorithms for predicting student dropout and academic success: a comparative study",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir deserción y éxito académico con árboles de decisión y redes neuronales, pero no aborda elección de carrera, interés vocacional, mujeres en ingeniería ni Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Compara árboles de decisión y redes neuronales para predecir deserción y éxito académico, pero no aborda elección de carrera, interés vocacional ni variables de género.",
+      "en_una_frase": "Se comparan algoritmos de ML, incluidos árboles y redes, para predecir deserción y éxito académico usando SMOTE y ajuste de hiperparámetros con Optuna.",
+      "aporte_al_tema": "Ofrece evidencia comparativa de algoritmos de ML para predicción de deserción y éxito académico, útil como referencia metodológica.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.1016/j.caeai.2022.100066",
+      "grupo": "top",
+      "titulo": "Predicting student's dropout in university classes using two-layer ensemble machine learning approach: A novel stacked generalization",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir deserción universitaria con árboles de decisión y redes neuronales, pero no aborda elección de carrera, interés vocacional, mujeres en ingeniería ni Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Propone modelos de ensemble con árboles y redes neuronales para predecir deserción universitaria, sin considerar elección de carrera, interés vocacional ni variables de género.",
+      "en_una_frase": "Se propone un modelo de ensamble apilado con Random Forest, XGBoost, Gradient Boosting y redes neuronales para predecir deserción universitaria.",
+      "aporte_al_tema": "Proporciona un enfoque de ensamble para predicción temprana de deserción que puede servir de referencia para modelos de permanencia.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.13053/CyS-27-4-4776",
+      "grupo": "top",
+      "titulo": "Explaining Factors of Student Attrition at Higher Education",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir permanencia en ingeniería con árboles y redes neuronales, pero no se centra en mujeres jóvenes ni en variables de género ni en Latinoamérica (solo México).",
+      "relevancia_juez": "alta",
+      "motivo_juez": "Predice la permanencia en ingeniería usando árboles de decisión y redes neuronales en una universidad mexicana, aunque no se centra exclusivamente en mujeres jóvenes ni en variables de género.",
+      "en_una_frase": "Se comparan árboles de decisión, bosques aleatorios, SVM y redes neuronales para predecir la deserción de estudiantes de ingeniería en una universidad mexicana, encontrando que Random Forest alcanza 98 % de precisión.",
+      "aporte_al_tema": "Sirve como referencia de método predictivo y de técnicas de selección de variables y manejo de desbalance de clases para modelos de permanencia en ingeniería.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.13053/cys-27-4-4776",
+      "grupo": "top",
+      "titulo": "Explaining Factors of Student Attrition at Higher Education",
+      "cobertura": "parcial",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Coincide en predecir permanencia en ingeniería con árboles y redes neuronales, pero no se centra en mujeres jóvenes ni en variables de género ni en Latinoamérica (solo México).",
+      "relevancia_juez": "alta",
+      "motivo_juez": "Predice la permanencia en ingeniería usando árboles de decisión y redes neuronales en una universidad mexicana, aunque no se centra exclusivamente en mujeres jóvenes ni en variables de género.",
+      "en_una_frase": "Se comparan árboles de decisión, bosques aleatorios, SVM y redes neuronales para predecir la deserción de estudiantes de ingeniería en una universidad mexicana, encontrando que Random Forest alcanza 98 % de precisión.",
+      "aporte_al_tema": "Sirve como referencia de método predictivo y de técnicas de selección de variables y manejo de desbalance de clases para modelos de permanencia en ingeniería.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    },
+    {
+      "paper_id": "https://doi.org/10.32642/ncpdje.v7i1.1583",
+      "grupo": "control",
+      "titulo": "Patterns of and Factors Undermining Female Participation in Hard Trades under Tanzania’s Vocational Education and Training System",
+      "cobertura": "completa",
+      "relevancia_ficha": "media",
+      "motivo_ficha": "Trata estereotipos de género y falta de referentes femeninos en carreras técnicas, pero en formación vocacional de Tanzania, no en elección universitaria ni permanencia en ingeniería de Latinoamérica.",
+      "relevancia_juez": "media",
+      "motivo_juez": "Analiza estereotipos de género y falta de referentes femeninos en carreras técnicas, pero en formación vocacional de Tanzania, no en universidades latinoamericanas ni con modelos predictivos.",
+      "en_una_frase": "Estudio cualitativo en Tanzania que identifica estereotipos de género, falta de referentes femeninos y ausencia de orientación vocacional como barreras para la participación de mujeres en oficios técnicos duros.",
+      "aporte_al_tema": "Aporta evidencia cualitativa sobre barreras de género y referentes femeninos en carreras técnicas, útil como contexto para variables de interés vocacional.",
+      "problemas_estructura": [],
+      "cifras_sin_respaldo": [],
+      "respaldada": true,
+      "aporte_responde": true,
+      "problema_fidelidad": null
+    }
+  ],
+  "sin_ficha": [
+    {
+      "paper_id": "https://doi.org/10.1007/978-3-032-09905-1_28",
+      "estado": "sin_abstract"
+    },
+    {
+      "paper_id": "https://doi.org/10.1007/978-3-031-85652-5_59",
+      "estado": "sin_abstract"
+    },
+    {
+      "paper_id": "https://doi.org/10.1109/IC3IT66137.2025.11341532",
+      "estado": "sin_abstract"
+    },
+    {
+      "paper_id": "https://doi.org/10.52202/078378-0166",
+      "estado": "sin_abstract"
+    }
+  ]
+}

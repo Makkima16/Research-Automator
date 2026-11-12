@@ -8,8 +8,8 @@ Cerrá el cambio que acabás de hacer en Research Automator con este checklist
 
 1. **Verificar**: corre las verificaciones que correspondan al cambio
    (`python -m py_compile` de los archivos tocados; `probar_nvidia.py` si
-   tocaste el procesamiento; levantar `servidor.py` y probar con curl si
-   tocaste el frontend). No corras búsquedas completas (`busqueda/main.py`)
+   tocaste el procesamiento; levantar `servidor.py` desde `api/` y probar con
+   curl si tocaste la API; `npm run build` en `frontend/` si tocaste la interfaz). No corras búsquedas completas (`busqueda/main.py`)
    sin confirmación: consumen presupuesto de las APIs. Reportá qué corriste y
    qué resultado dio.
 2. **Documentar**: revisá si el cambio afecta `README.md`, `COMANDOS.md` o

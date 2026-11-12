@@ -13,7 +13,8 @@ se puede descargar o está bloqueado, probando una copia alternativa en la
 otra plataforma cuando hace falta. Los que siguen sin PDF accesible se buscan
 por DOI en un cuarto motor, Sci-Hub (ver fetch_scihub.py).
 
-Guarda todo en la base de datos output/selema.db (tabla papers). Cada paper queda
+Guarda todo en la base de datos PostgreSQL (DATABASE_URL en ../.env, tabla
+papers; ver database.py). Cada paper queda
 marcado con qué plataforma(s) lo encontraron (motor_busqueda), cuál dio el
 PDF que se usó (motor_pdf) y si ese PDF está bloqueado (pdf_bloqueado).
 
@@ -21,7 +22,6 @@ Después, el procesamiento de los papers (carpeta ../procesamiento):
     python extract_ficha.py --top 20 --tema "..."   # ficha de cada paper con Nemotron Parse + Nemotron
 """
 
-import os
 import sys
 
 import completar_abstracts
@@ -75,13 +75,10 @@ def recolectar_papers(dois_existentes):
 
 
 def main():
-    os.makedirs(config.OUTPUT_DIR, exist_ok=True)
-
     dois_existentes = set()
-    if os.path.exists(config.DB_PATH):
-        conn_previa = database.conectar(config.DB_PATH)
-        dois_existentes = database.dois_existentes(conn_previa)
-        conn_previa.close()
+    conn_previa = database.conectar()
+    dois_existentes = database.dois_existentes(conn_previa)
+    conn_previa.close()
     print(f"Ya hay {len(dois_existentes)} papers guardados.\n")
 
     papers, nuevos = recolectar_papers(dois_existentes)
@@ -117,10 +114,11 @@ def main():
         print("== Paso 2c: Sci-Hub desactivado (config.USAR_SCIHUB = False) ==")
 
     print("== Paso 3: guardando en la base de datos ==")
-    conn = database.conectar(config.DB_PATH)
-    database.guardar_papers(conn, ranked)
+    conn = database.conectar()
+    with conn.transaction():
+        database.guardar_papers(conn, ranked)
     conn.close()
-    print(f"  Base de datos actualizada en {config.DB_PATH}")
+    print("  Papers guardados en PostgreSQL")
 
     print("\nListo. Siguiente paso (opcional): python ../procesamiento/extract_ficha.py")
 

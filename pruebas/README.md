@@ -29,6 +29,30 @@ cd pruebas
 - Las bases de `busqueda/output/` solo se leen; ningún script las modifica (excepto
   `testeo_general.py`, que crea y borra un proyecto de prueba y verifica que la carpeta queda igual).
 
+## `fichas/validar_fichas.py`
+
+Valida que las fichas sean adecuadas para la intención de cada proyecto guardado en la base. Por
+proyecto toma los papers seleccionados (o, con `--muestra N`, los N primeros del ranking más
+`--control K` del final), genera sus fichas con el flujo real y mide:
+
+- **Estructura**: frase de síntesis de 8 a 45 palabras, relevancia en la escala, motivo, aporte al
+  tema si es relevante, topes de las listas y tipo de estudio.
+- **Cifras respaldadas**: cada número de dos o más dígitos de los hallazgos aparece en el texto que
+  recibió el modelo.
+- **Relevancia**: un juez Nemotron que solo ve tema, título y abstract (no la ficha) asigna su nivel;
+  se reporta acuerdo exacto, a un nivel y útil/no útil (alta o media contra baja o nula).
+- **Fidelidad**: el juez compara la ficha con el texto fuente (afirmaciones respaldadas y si el aporte
+  responde al tema).
+
+Criterios de aprobación (constante `CRITERIOS`): estructura ≥ 0,90; cifras ≥ 0,90; útil/no útil ≥ 0,80;
+a un nivel ≥ 0,85; afirmaciones respaldadas ≥ 0,90; aporte pertinente ≥ 0,85. El juez es el mismo modelo
+que redacta la ficha, así que el acuerdo mide consistencia, no verdad absoluta.
+
+```bash
+cd pruebas/fichas
+../../venv/bin/python validar_fichas.py --muestra 10 --control 5
+```
+
 ## `cadenas/`
 
 | Script | Qué hace | Consumo aproximado |

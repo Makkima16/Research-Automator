@@ -1,6 +1,6 @@
 # Pendientes
 
-Última actualización: 2026-10-31
+Última actualización: 2026-11-12
 
 ## 0. Optimizaciones detectadas en la limpieza (y su estado)
 
@@ -14,7 +14,7 @@
 - [x] `busqueda/main.py` rankeaba con keywords sucias (`q.split()` incluía `AND`/`OR`/`NOT` y comillas
       pegadas): 923 keywords sucias contra 210 limpias; un abstract con «and» repetido puntuaba 424,7
       por los operadores sueltos y ahora 0,2. Unificado en `rank_and_filter.palabras_clave`, que
-      `frontend/servidor.py` ya usaba con la misma lógica (verificado: salida idéntica sobre las 37
+      `api/servidor.py` ya usaba con la misma lógica (verificado: salida idéntica sobre las 37
       cadenas reales del banco).
 - [x] **Semantic Scholar re-rankeado en local: aplicado el 2026-10-30.** Su búsqueda bulk solo ordena
       por citas y los primeros resultados se desviaban del tema (sonda del 2026-10-29: el más citado,
@@ -34,6 +34,31 @@
       «Document Intelligence (antiguo)» de `frontend/web/app.js` y `frontend/web-next/src/lib/formato.ts`
       (las 11 estructuras viejas de la base se muestran con la clave cruda). Los datos legados de la
       base y las menciones históricas de la documentación se conservan.
+
+## Migración de SQLite a PostgreSQL (2026-10-31)
+
+- [x] **Hecha: reemplazo total de SQLite** (decisión del usuario: Postgres relacional + JSONB en una sola
+      base; MongoDB descartado). Capa de datos en `busqueda/database.py` (psycopg3) con las tablas
+      `papers` (pool compartido), `proyectos` (estado en JSONB), `papers_proyectos` (N:M con orden del
+      ranking, score y selección), `estructuras` y `fichas` (payload en JSONB con índices GIN). La
+      conexión sale de `DATABASE_URL` (`.env`; plan gratuito de Neon). `main.py`, `extract_ficha.py`,
+      `almacen.py` y `servidor.py` ya escriben y leen Postgres; la verificación de sintaxis e imports
+      pasó (`py_compile` + import de cada módulo).
+- [x] Borradas a pedido del usuario todas las bases SQLite de prueba (`selema.db` y las 6 de
+      `output/proyectos/`; no había datos reales).
+- [x] **Base creada y verificada (2026-11-04).** La conexión se configura con una variable por dato
+      (`NEON_HOST`, `NEON_DATABASE`, `NEON_USER`, `NEON_PASSWORD`, `NEON_SSL_MODE`; `config.py` arma la
+      URL; `DATABASE_URL` ya no se usa). `python probar_postgres.py` pasa y las cinco tablas con sus dos
+      índices GIN quedaron creadas en Neon. Se corrigieron dos fallos: `probar_postgres.py` dejaba su
+      paper de prueba sin borrar, y `database.conectar()` no usaba autocommit, así que toda escritura
+      hecha después de una lectura en la misma conexión (el caso de `extract_ficha.procesar`: estructuras
+      y fichas) se perdía al cerrar; ahora la conexión es autocommit y se verificó que persiste.
+- [ ] Falta recorrer de punta a punta con la interfaz: crear proyecto → cadenas → búsqueda → fichas.
+      (La API ya responde contra Neon: `GET /api/proyectos` → 200.)
+- [x] `pruebas/cadenas/estrictez.py` (pendiente 2) adaptado (2026-11-04): lee los papers objetivo de
+      PostgreSQL (`proyectos` → `papers_proyectos` → `papers`) en solo lectura. Compila y consulta la
+      base; no se corrió la prueba completa porque la base aún no tiene papers (hay que crear antes un
+      proyecto con búsqueda).
 
 ## 1. Terminar las pruebas de validación de las cadenas
 
@@ -107,11 +132,11 @@ pedirle al modelo.
 
 ## 3. Frontend: pasar de monolito a un proyecto Next.js propio
 
-**Situación actual.** `frontend/servidor.py` es un único servidor en Python que expone la API
+**Situación actual.** `api/servidor.py` es un único servidor en Python que expone la API
 (`/api/proyectos…`) y además sirve la interfaz estática (`frontend/web/app.js`, `app.css`, `index.html`).
 
-- [ ] Separar la API del servidor: dejar en Python solo la API (proyectos, aclaración, cadenas, búsqueda,
-      procesamiento, exportación) y documentar sus rutas.
+- [x] Separar la API del servidor (2026-11-04): `servidor.py` ya no sirve archivos estáticos, solo `/api/*`
+      (`/` da 404). Verificado: `GET /api/proyectos` → 200 contra Neon. Rutas documentadas en `COMANDOS.md`.
 - [x] Crear un proyecto **Next.js** independiente para la interfaz, con su propio `package.json`, y
       reconstruir ahí las pantallas actuales (prompt y aclaración, cadenas, resultados de búsqueda,
       resultados de procesamiento). Hecho en `frontend/web-next/` (Next 16, React 19, TypeScript).
@@ -130,6 +155,35 @@ pedirle al modelo.
       (1 a `MAX_PAPERS_PROCESAR_WEB`, que sigue siendo el techo) y la tarjeta de «Procesar PDFs» de
       web-next lo deja bajar (por defecto queda en el techo). Verificado end-to-end: selección de 2
       con tope 1 → procesa 1.
-- [ ] Decidir qué pasa con `frontend/web/` (la interfaz anterior que aún sirve `servidor.py`):
-      eliminarla cuando se confirme la paridad en el recorrido de arriba. Con eso `servidor.py` queda
-      solo como API.
+- [x] `frontend/web/` (la interfaz anterior) borrada el 2026-11-04 a pedido del usuario, que confirmó que
+      el proyecto funcionó bien. `servidor.py` y `almacen.py` se movieron a `api/` (raíz del proyecto).
+
+## 4. Fichas: extracción, presentación y validación (2026-11-12)
+
+- [x] **Esquema nuevo de la ficha** (`extract_ficha.py`): frase de síntesis, relevancia para el tema
+      (alta / media / baja / nula) con motivo, qué aporta al tema, objetivo, método (tipo de estudio,
+      muestra, contexto), hasta 4 hallazgos, hasta 3 conclusiones y limitaciones declaradas. El prompt
+      prohíbe mencionar los otros papers del lote (en la primera corrida una ficha decía «copia idéntica
+      de P3»).
+- [x] **«Procesar PDFs» solo procesa la selección** (decisión del usuario): la API ignora `alcance` y
+      responde 400 si no hay papers marcados; la interfaz ya no ofrece «Todos».
+- [x] **Interfaz de fichas**: cerrada muestra título, relevancia con motivo y una frase; abierta, tres
+      solapas (Lo esencial · Método y conclusiones · Texto original). Fichas ordenadas por relevancia y
+      filtros por nivel. `next build` pasa.
+- [x] **Prueba `pruebas/fichas/validar_fichas.py`** corrida sobre el único proyecto de la base
+      («mujeres jóvenes en ingeniería»; sin selección, muestra de 10 del tope + 5 de control): 11 fichas
+      validadas (4 papers sin abstract no tienen ficha). Estructura 1,0; cifras respaldadas 1,0; acuerdo
+      útil/no útil con el juez 1,0; acuerdo exacto de nivel 0,82; afirmaciones respaldadas 1,0; aporte
+      pertinente 1,0. Resultado en `pruebas/fichas/resultados/`.
+- [ ] **Los resultados de la búsqueda no siguen la intención del tema.** Los 10 primeros del ranking
+      tratan de predicción de deserción en general; ninguno aborda mujeres ni variables de género. El
+      único paper sobre barreras de género para mujeres (Tanzania) estaba al final del ranking. Las
+      fichas lo detectan bien (motivo: «no aborda mujeres en ingeniería»), pero el problema está en las
+      cadenas o en el ranking.
+- [ ] **Deduplicación por DOI sensible a mayúsculas**: el mismo paper entra dos veces con `paper_id`
+      distinto (`10.1109/ICETAS59148…` y `10.1109/icetas59148…`; `10.13053/CyS-27-4-4776` y
+      `…/cys-27-4-4776`). Arreglarlo cambia la clave del pool `papers`.
+- [ ] Cobertura baja: 9 de 11 fichas son parciales (sin PDF de acceso abierto) y 4 de 5 papers de control
+      no tenían abstract, así que el grupo de control (1 ficha) no alcanza para medir discriminación.
+- [ ] El juez de la prueba es el mismo modelo que redacta las fichas: el acuerdo mide consistencia, no
+      exactitud independiente. Validar a mano una muestra cuando haya papers seleccionados.

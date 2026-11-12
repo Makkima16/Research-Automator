@@ -21,6 +21,7 @@ export function TarjetaResumen({ alReprocesar }: { alReprocesar: () => void }) {
   const fallo = p.estado === 'error';
   const completas = fichas.filter((f) => f.cobertura === 'completa').length;
   const parciales = fichas.filter((f) => f.cobertura === 'parcial').length;
+  const utiles = fichas.filter((f) => f.relevancia === 'alta' || f.relevancia === 'media').length;
   const claves = [...ESTADOS.filter((k) => p.conteos[k]), ...Object.keys(p.conteos).filter((k) => !ESTADOS.includes(k) && p.conteos[k])];
 
   const exportar = () => {
@@ -38,7 +39,8 @@ export function TarjetaResumen({ alReprocesar }: { alReprocesar: () => void }) {
         <div className={css.meta}>{resumenCorrida(p)}</div>
         <div className={css.cifras}>
           <div className={css.cifra}><strong>{fichas.length}{p.total ? <small style={{ fontSize: 16 }}> / {p.total}</small> : null}</strong><span>fichas</span></div>
-          <div className={`${css.cifra} ${css.verde}`}><strong>{completas}</strong><span>con PDF leído</span></div>
+          <div className={`${css.cifra} ${css.verde}`}><strong>{utiles}</strong><span>útiles para el tema</span></div>
+          <div className={css.cifra}><strong>{completas}</strong><span>con PDF leído</span></div>
           <div className={`${css.cifra} ${css.naranja}`}><strong>{parciales}</strong><span>solo abstract</span></div>
         </div>
         {claves.length > 0 && (
@@ -54,7 +56,7 @@ export function TarjetaResumen({ alReprocesar }: { alReprocesar: () => void }) {
         {fallo && (
           <>
             <div className={css.error}><strong>El procesamiento se detuvo.</strong><code>{p.error || 'Error desconocido'}</code></div>
-            <button className="btn btn-primary" onClick={() => procesar(p.alcance ?? 'todos')}>Reintentar</button>
+            <button className="btn btn-primary" onClick={() => procesar('sel')}>Reintentar</button>
           </>
         )}
         <div className={css.espacio} />

@@ -9,7 +9,7 @@ Resumen de lo hecho hasta ahora para que cualquier agente o persona pueda retoma
 
 **Interfaz (prompt y aclaración).** Al volver al prompt después de generar cadenas se conservan las preguntas
 y respuestas (campo `aclaraciones` del proyecto) y el prompt queda bloqueado. Solo se edita con «Rehacer
-prompt» (`rehacer_prompt` en `frontend/servidor.py`), que borra preguntas, intención, cadenas, papers
+prompt» (`rehacer_prompt` en `api/servidor.py`), que borra preguntas, intención, cadenas, papers
 buscados, selección y procesamiento, con confirmación.
 
 **Azure reemplazado por NVIDIA.**

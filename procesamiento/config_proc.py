@@ -20,9 +20,8 @@ import config as _config_busqueda  # noqa: E402  (busqueda/config.py)
 
 CONTACT_EMAIL = _config_busqueda.CONTACT_EMAIL
 
-# La base es la misma de la búsqueda: aquí se le agregan las tablas del
-# procesamiento (estructuras, fichas)
-DB_PATH = _config_busqueda.DB_PATH
+# La base es la misma de la búsqueda (PostgreSQL, DATABASE_URL en ../.env):
+# sus tablas (papers, estructuras, fichas) las crea busqueda/database.py
 
 # NVIDIA: modelo, URL y keys se definen una sola vez en ../busqueda/config.py
 # (también los usa generar_cadenas.py)
@@ -43,7 +42,7 @@ MAX_CARACTERES_ABSTRACT = 6000
 MAX_PAPERS_TO_EXTRACT = 100
 
 # Tope de papers por corrida de "Procesar PDFs" desde la interfaz web
-# (frontend/servidor.py). Solo frena una corrida lanzada por error
+# (api/servidor.py). Solo frena una corrida lanzada por error
 MAX_PAPERS_PROCESAR_WEB = 100
 
 # Nemotron Parse lee cada página como imagen y tarda decenas de segundos por página.

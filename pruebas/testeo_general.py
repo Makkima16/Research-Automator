@@ -35,7 +35,7 @@ def main():
     antes = sorted(os.listdir(os.path.join(RAIZ, "busqueda/output/proyectos")))
 
     servidor = subprocess.Popen([f"{RAIZ}/venv/bin/python", "servidor.py", str(PUERTO)],
-                                cwd=f"{RAIZ}/frontend", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                cwd=f"{RAIZ}/api", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         time.sleep(3)
         # 1. página y estáticos

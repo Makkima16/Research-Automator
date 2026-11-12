@@ -1,5 +1,5 @@
 // Funciones puras de formato y de datos derivados de un paper o de una corrida.
-import type { Ficha, Paper, Procesamiento } from './tipos';
+import type { Ficha, Paper, Procesamiento, Relevancia } from './tipos';
 
 export const MOTORES: Record<string, string> = {
   openalex: 'OpenAlex', semantic_scholar: 'Semantic Scholar', scopus: 'Scopus', scihub: 'Sci-Hub',
@@ -59,7 +59,7 @@ export function resumenCorrida(p: Procesamiento): string {
       partes.push(`${hora(ini)} → ${hora(fin)}`, seg >= 60 ? `${Math.floor(seg / 60)} min ${seg % 60} s` : `${seg} s`);
     } else partes.push(hora(ini));
   }
-  if (p.total) partes.push(`${plural(p.total, 'paper', 'papers')} ${p.alcance === 'sel' ? 'de la selección' : 'del proyecto'}`);
+  if (p.total) partes.push(`${plural(p.total, 'paper', 'papers')} ${p.alcance === 'todos' ? 'del proyecto' : 'de la selección'}`);
   return partes.join(' · ');
 }
 
@@ -67,13 +67,20 @@ export function resumenCorrida(p: Procesamiento): string {
 
 const celdaCsv = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 
+export const ETIQUETA_RELEVANCIA: Record<Relevancia, string> = {
+  alta: 'Relevancia alta', media: 'Relevancia media', baja: 'Relevancia baja', nula: 'No relevante',
+};
+
 export function fichasACsv(fichas: Ficha[]): string {
-  const columnas = ['title', 'year', 'doi', 'estado', 'cobertura', 'fuente', 'resumen', 'objetivo', 'abstract',
-    'intro_penultimo', 'intro_ultimo', 'conclusion_texto', 'conclusiones', 'hallazgos_clave', 'tablas'];
+  const columnas = ['title', 'year', 'doi', 'relevancia', 'motivo_relevancia', 'en_una_frase', 'aporte_al_tema',
+    'objetivo', 'tipo_estudio', 'poblacion', 'contexto', 'hallazgos_clave', 'conclusiones', 'limitaciones', 'tablas',
+    'cobertura', 'fuente', 'abstract', 'intro_penultimo', 'intro_ultimo', 'conclusion_texto'];
   const plano = (f: Ficha): Record<string, unknown> => ({
     ...f,
+    ...f.metodo,
     conclusiones: f.conclusiones.join(' | '),
     hallazgos_clave: f.hallazgos_clave.join(' | '),
+    limitaciones: f.limitaciones.join(' | '),
     tablas: f.tablas.map((t) => `${t.nombre} [${t.atributos.join('; ')}]`).join(' | '),
   });
   const filas = fichas.map((f) => columnas.map((c) => celdaCsv(plano(f)[c])).join(','));
