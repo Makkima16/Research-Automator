@@ -7,7 +7,7 @@ producto vive en `README.md`; este archivo explica cómo se trabaja acá.
 
 Research Automator automatiza revisiones de literatura científica: a partir de
 un tema en lenguaje natural genera cadenas booleanas (Nemotron), las ejecuta en
-OpenAlex, Semantic Scholar y Scopus, rankea y deduplica resultados por DOI,
+OpenAlex, Semantic Scholar y Scopus, rankea y deduplica resultados por DOI (formato único en `busqueda/doi.py`),
 resuelve texto completo (Sci-Hub por DOI para papers de 2021 o anteriores) y
 extrae fichas estructuradas con Nemotron.
 

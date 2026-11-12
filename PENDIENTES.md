@@ -180,9 +180,20 @@ pedirle al modelo.
       único paper sobre barreras de género para mujeres (Tanzania) estaba al final del ranking. Las
       fichas lo detectan bien (motivo: «no aborda mujeres en ingeniería»), pero el problema está en las
       cadenas o en el ranking.
-- [ ] **Deduplicación por DOI sensible a mayúsculas**: el mismo paper entra dos veces con `paper_id`
-      distinto (`10.1109/ICETAS59148…` y `10.1109/icetas59148…`; `10.13053/CyS-27-4-4776` y
-      `…/cys-27-4-4776`). Arreglarlo cambia la clave del pool `papers`.
+- [x] **Error al marcar papers (2026-11-12)**: «AttributeError: 'Connection' object has no attribute
+      'executemany'» al guardar la selección. Resto de la migración desde SQLite en
+      `api/almacen.guardar_seleccion` (en psycopg3 `executemany` es del cursor). Corregido y verificado con
+      `PUT /api/proyectos/{id}` (la selección queda en `papers_proyectos`); no quedan otros usos de la API
+      de SQLite en el código.
+- [x] **Deduplicación por DOI sensible a mayúsculas: corregida el 2026-11-12.** El mismo paper entraba
+      dos veces con `paper_id` distinto (`10.1109/ICETAS59148…` y `10.1109/icetas59148…`). Nuevo módulo
+      `busqueda/doi.py` (formato único: `https://doi.org/` + minúsculas), usado por OpenAlex, Scopus,
+      Semantic Scholar y `database.py`. Los datos guardados se migraron con
+      `busqueda/normalizar_dois.py --aplicar`: 14 IDs renombrados y 6 duplicados fusionados (109 → 103
+      papers; fichas 15 → 13, porque los dos pares duplicados de la prueba se fusionaron). Verificado:
+      0 duplicados, 0 filas huérfanas, `probar_postgres.py` OK y la API devuelve 103 papers sin IDs
+      con mayúsculas. El JSON de `pruebas/fichas/resultados/` es anterior a la migración y todavía
+      muestra los dos pares duplicados.
 - [ ] Cobertura baja: 9 de 11 fichas son parciales (sin PDF de acceso abierto) y 4 de 5 papers de control
       no tenían abstract, así que el grupo de control (1 ficha) no alcanza para medir discriminación.
 - [ ] El juez de la prueba es el mismo modelo que redacta las fichas: el acuerdo mide consistencia, no

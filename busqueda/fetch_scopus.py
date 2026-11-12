@@ -28,6 +28,7 @@ import time
 import requests
 
 import config
+import doi as doi_util
 import limites_motores
 
 SEARCH_URL = "https://api.elsevier.com/content/search/scopus"
@@ -98,8 +99,7 @@ def _entero(valor):
 
 
 def parse_entry(entry, matched_query):
-    doi = entry.get("prism:doi")
-    doi_url = f"https://doi.org/{doi}" if doi else None
+    doi_url = doi_util.normalizar(entry.get("prism:doi"))
     es_oa = bool(entry.get("openaccessFlag"))
     return {
         "openalex_id": None,

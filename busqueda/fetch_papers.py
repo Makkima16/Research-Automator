@@ -42,6 +42,7 @@ import time
 import requests
 
 import config
+import doi as doi_util
 import limites_motores
 
 OPENALEX_URL = "https://api.openalex.org/works"
@@ -88,7 +89,7 @@ def parse_openalex_work(work, matched_query):
     source = (primary_location.get("source") or {}).get("display_name")
     return {
         "openalex_id": work.get("id"),
-        "doi": work.get("doi"),
+        "doi": doi_util.normalizar(work.get("doi")),
         "title": work.get("title"),
         "year": work.get("publication_year"),
         "cited_by_count": work.get("cited_by_count", 0),

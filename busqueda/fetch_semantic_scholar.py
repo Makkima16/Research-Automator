@@ -24,6 +24,7 @@ import time
 import requests
 
 import config
+import doi as doi_util
 import limites_motores
 import rank_and_filter
 
@@ -92,7 +93,7 @@ def parse_result(record, matched_query):
         # Mismo formato que usa OpenAlex (y la base de datos del proyecto),
         # para que un paper encontrado por las dos plataformas se fusione
         # bien en fusionar_por_doi en vez de quedar duplicado.
-        "doi": f"https://doi.org/{doi_pelado}" if doi_pelado else None,
+        "doi": doi_util.normalizar(doi_pelado),
         "title": record.get("title"),
         "year": record.get("year"),
         "cited_by_count": record.get("citationCount") or 0,

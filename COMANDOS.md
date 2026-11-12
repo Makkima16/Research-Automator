@@ -78,6 +78,8 @@ Los datos de conexión van en el `.env`, cada uno en su variable (`NEON_HOST`, `
 | Comando | Desde | Qué hace |
 |---|---|---|
 | `python probar_postgres.py` | raíz, venv activo | Conecta, crea el esquema, escribe y consulta un paper de prueba (JSONB) y lo borra. No consume ninguna API |
+| `python normalizar_dois.py` | `busqueda/` | Simula la migración de DOI: lista los `paper_id` fuera del formato de `doi.py` y cuáles se fusionarían por estar duplicados. No escribe |
+| `python normalizar_dois.py --aplicar` | `busqueda/` | Aplica esa migración en una transacción (renombra, fusiona duplicados y mueve sus proyectos, estructuras y fichas). Reiniciar la API después |
 | `psql "postgresql://USUARIO:CLAVE@HOST/BASE?sslmode=require"` | cualquiera | Explora la base a mano. Tablas: `papers`, `proyectos`, `papers_proyectos`, `estructuras`, `fichas` |
 
 ---
