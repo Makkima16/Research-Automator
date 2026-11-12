@@ -1,4 +1,4 @@
-// Proxy hacia el backend Python (frontend/servidor.py). El navegador solo habla
+// Proxy hacia el backend Python (api/servidor.py). El navegador solo habla
 // con Next; así no hay CORS y el backend sigue sin cambios. No usa `rewrites`
 // de next.config porque las llamadas al LLM son lentas y un Route Handler no
 // impone un tope de 30 s.

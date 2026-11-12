@@ -5,6 +5,7 @@
 # Compartidas / búsqueda (busqueda/)
 requests>=2.31.0
 pydantic>=2.0
+psycopg[binary]>=3.1        # PostgreSQL (busqueda/database.py): papers, proyectos, fichas
 bs4>=0.0.1                 # Sci-Hub (busqueda/fetch_scihub.py)
 scihub                     # Sci-Hub (busqueda/fetch_scihub.py)
 

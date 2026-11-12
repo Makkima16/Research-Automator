@@ -1,25 +1,24 @@
 """
 Frontend web del proyecto (el "Buscador"). Corre con:
 
-    python servidor.py            # abre http://127.0.0.1:8000
+    python servidor.py            # API en http://127.0.0.1:8000  (desde api/)
     python servidor.py 8080       # otro puerto
 
 Es un servidor local (solo escucha en 127.0.0.1) hecho con la librería
-estándar: sirve la página de web/ y una API que combina dos módulos
-independientes del proyecto:
+estándar. Es solo la API (rutas /api/*, JSON y el CSV de exportación): la
+interfaz vive aparte en ../frontend/ (Next.js), que reenvía /api/* a este
+servidor. La API combina dos módulos independientes del proyecto:
 - ../busqueda: generación de cadenas, búsqueda de papers y ranking
   (fetch_papers, fetch_semantic_scholar, fetch_scopus, fetch_scihub,
   rank_and_filter, generar_cadenas, config).
-- ../procesamiento: "Procesar PDFs" (texto completo + extracción con el LLM),
-  sobre la base SQLite propia de cada proyecto (ver más abajo).
+- ../procesamiento: "Procesar PDFs" (texto completo + extracción con el LLM).
 
-Cada "proyecto" es un tema de investigación: se describe en lenguaje natural,
-se generan cadenas de búsqueda (generar_cadenas.py), se editan y se lanzan
-contra las plataformas activas en busqueda/config.py. Cada proyecto se guarda
-en su propia base SQLite, busqueda/output/proyectos/<nombre_del_proyecto>.db
-(ver almacen.py), y NO toca selema.db: esa es la base de busqueda/main.py.
-"Procesar PDFs" sí usa esa misma base por proyecto (database_proc.conectar le
-agrega ahí las tablas de ../procesamiento la primera vez).
+Todo se guarda en la base PostgreSQL compartida (variables NEON_* en ../.env;
+esquema en busqueda/database.py): cada "proyecto" es una fila de `proyectos`
+(ver almacen.py, en esta misma carpeta) y sus papers viven en la relación `papers_proyectos`;
+"Procesar PDFs" escribe las tablas `estructuras` y `fichas` de los mismos
+papers. La base NO es exclusiva de la interfaz: busqueda/main.py también
+guarda sus papers en `papers` (sin proyecto asociado).
 """
 
 import csv
@@ -27,13 +26,14 @@ import io
 import json
 import os
 import re
-import sqlite3
 import sys
 import threading
 import uuid
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
+
+import psycopg
 
 # El frontend no tiene lógica propia de búsqueda ni de procesamiento: reutiliza
 # los módulos de ../busqueda y ../procesamiento.
@@ -54,14 +54,6 @@ import completar_abstracts
 import generar_cadenas
 import rank_and_filter
 
-WEB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
-ESTATICOS = {
-    "/": ("index.html", "text/html; charset=utf-8"),
-    "/nocturne.css": ("nocturne.css", "text/css; charset=utf-8"),
-    "/app.css": ("app.css", "text/css; charset=utf-8"),
-    "/app.js": ("app.js", "text/javascript; charset=utf-8"),
-}
-
 NOMBRE_SIN_TITULO = "Proyecto sin título"
 MAX_CADENAS_BUSQUEDA = 20
 MAX_RESULTADOS_POR_CADENA = 500
@@ -71,7 +63,7 @@ MAX_RESULTADOS_POR_CADENA = 500
 #   token           identifica la corrida vigente (una cancelada/vieja se descarta)
 #   estado          None (nunca se procesó) | ok | error (resultados parciales)
 #   error           motivo legible si estado == error
-#   alcance         sel | todos (qué papers se pidieron)
+#   alcance         sel (solo se procesa la selección; "todos" queda en corridas antiguas)
 #   hechos / total  papers resueltos / pedidos;  actual: qué se está haciendo
 #   conteos         {estado de extracción: nº de papers} al terminar
 #   inicio / fin    fecha y hora ISO
@@ -95,43 +87,20 @@ class ErrorAPI(Exception):
         self.mensaje = mensaje
 
 
-# ---------- proyectos en disco ----------
+# ---------- proyectos en la base ----------
 
 def _guardar(proyecto, con_papers=False):
     almacen.guardar(proyecto, con_papers)
 
 
-def _migrar_json(nombre):
-    """Pasa a .db un proyecto guardado como JSON por una versión anterior."""
-    origen = os.path.join(config.PROYECTOS_DIR, nombre)
-    with open(origen, encoding="utf-8") as f:
-        proyecto = json.load(f)
-    proyecto.setdefault("seleccion", [])
-    proyecto.setdefault("papers", [])
-    proyecto["archivo"] = almacen.nombre_archivo(proyecto["name"])
-    _guardar(proyecto, con_papers=True)
-    os.remove(origen)
-    print(f"  {nombre} pasó a {proyecto['archivo']}")
-
-
 def cargar_proyectos():
-    os.makedirs(config.PROYECTOS_DIR, exist_ok=True)
-    for nombre in sorted(os.listdir(config.PROYECTOS_DIR)):
-        if nombre.endswith(".json"):
-            try:
-                _migrar_json(nombre)
-            except (OSError, ValueError, KeyError, sqlite3.Error) as exc:
-                print(f"  [aviso] no se pudo convertir {nombre}: {exc}")
-    for nombre in sorted(os.listdir(config.PROYECTOS_DIR)):
-        if not nombre.endswith(".db"):
-            continue
+    for archivo in almacen.listar():
         try:
-            proyecto = almacen.cargar(nombre)
-        except (ValueError, sqlite3.Error) as exc:
-            print(f"  [aviso] no se pudo leer {nombre}: {exc}")
+            proyecto = almacen.cargar(archivo)
+        except (ValueError, psycopg.Error) as exc:
+            print(f"  [aviso] no se pudo leer {archivo}: {exc}")
             continue
         if proyecto is None:
-            print(f"  [aviso] {nombre} no es la base de un proyecto; se ignora")
             continue
         if proyecto.get("stage") == "loading":
             # El servidor se cerró a mitad de una búsqueda: se vuelve a las cadenas
@@ -145,7 +114,7 @@ def cargar_proyectos():
         proyecto["procesamiento"] = _normalizar_procesamiento(proyecto.get("procesamiento"))
         if proyecto["procesamiento"]["activo"]:
             # El servidor se cerró a mitad de un procesamiento: lo ya guardado
-            # en la base del proyecto no se pierde, solo se corta la corrida
+            # en la base no se pierde, solo se corta la corrida
             proyecto["procesamiento"].update(
                 activo=False, token=None, estado="error", actual=None,
                 error="El procesamiento anterior se interrumpió al cerrarse el servidor; vuelve a iniciarlo.")
@@ -527,10 +496,9 @@ def cancelar_busqueda(pid):
 
 # ---------- procesar PDFs (texto completo + extracción con el LLM) ----------
 #
-# Corre sobre la propia base del proyecto (almacen.ruta(proyecto["archivo"])),
-# nunca sobre selema.db. database_proc.conectar() le agrega ahí las tablas de
-# procesamiento (estructuras, fichas) la primera
-# vez, igual que lo hace sobre selema.db para el flujo de busqueda/main.py.
+# Escribe sobre los mismos papers del proyecto en la base compartida
+# (tablas estructuras y fichas de busqueda/database.py), igual que lo hace el
+# flujo de busqueda/main.py.
 
 def _vigente_proc(pid, token):
     proyecto = _PROYECTOS.get(pid)
@@ -552,22 +520,19 @@ def _normalizar_procesamiento(guardado):
     return estado
 
 
-def _objetivo_procesamiento(proyecto, alcance, tope=None):
-    """IDs de los papers a procesar: la selección (`sel`) o todos los del
-    proyecto (`todos`), con un tope para no saturar el plan gratis de NVIDIA
-    (el que pidió la interfaz o, por defecto, el máximo del config)."""
-    if alcance == "sel":
-        existentes = {p["id"] for p in proyecto["papers"]}
-        ids = [i for i in proyecto["seleccion"] if i in existentes]
-    else:
-        ids = [p["id"] for p in proyecto["papers"]]
+def _objetivo_procesamiento(proyecto, tope=None):
+    """IDs de los papers a procesar: solo los seleccionados por el usuario en
+    los resultados de búsqueda, con un tope para no saturar el plan gratis de
+    NVIDIA (el que pidió la interfaz o, por defecto, el máximo del config)."""
+    existentes = {p["id"] for p in proyecto["papers"]}
+    ids = [i for i in proyecto["seleccion"] if i in existentes]
     return ids[:min(tope or config_proc.MAX_PAPERS_PROCESAR_WEB, config_proc.MAX_PAPERS_PROCESAR_WEB)]
 
 
 def _conteos_por_paper(conn, ids):
     """Cuántos de los papers pedidos quedaron en cada estado de su ficha
     (ok, no_relevante, sin_abstract, error); `pendiente` = sin ficha."""
-    marcadores = ", ".join("?" for _ in ids)
+    marcadores = ", ".join("%s" for _ in ids)
     conteos = {f["estado"]: f["n"] for f in conn.execute(
         f"SELECT estado, COUNT(*) AS n FROM fichas WHERE paper_id IN ({marcadores}) GROUP BY estado", ids)}
     pendientes = len(ids) - sum(conteos.values())
@@ -576,7 +541,7 @@ def _conteos_por_paper(conn, ids):
     return conteos
 
 
-def _procesar(pid, token, ids, archivo, tema):
+def _procesar(pid, token, ids, tema):
     def actualizar(**cambios):
         with _CANDADO:
             if not _vigente_proc(pid, token):
@@ -603,7 +568,7 @@ def _procesar(pid, token, ids, archivo, tema):
     try:
         if not extract_ficha.verificar_configuracion():
             raise RuntimeError("Falta NVIDIA_API_KEY o NVIDIA_PARSE_API_KEY: revisa el archivo .env.")
-        conn = database_proc.conectar(almacen.ruta(archivo))
+        conn = database_proc.conectar()
         try:
             try:
                 actualizar(actual="Leyendo abstract, introducción, conclusiones y tablas de cada paper")
@@ -635,23 +600,26 @@ def iniciar_procesamiento(pid, datos):
         proyecto = _obtener(pid)
         if proyecto["procesamiento"]["activo"]:
             raise ErrorAPI(409, "Ya hay un procesamiento en curso en este proyecto.")
-        alcance = "sel" if datos.get("alcance") == "sel" else "todos"
+        # Solo se procesa la selección (el campo `alcance` de versiones
+        # anteriores de la interfaz se ignora)
+        alcance = "sel"
         # Tope de papers por corrida, editable desde la interfaz, con el máximo
         # del config como techo (MAX_PAPERS_PROCESAR_WEB protege el plan gratis)
         try:
             tope = max(1, min(int(datos.get("tope") or 0), config_proc.MAX_PAPERS_PROCESAR_WEB))
         except (TypeError, ValueError):
             tope = config_proc.MAX_PAPERS_PROCESAR_WEB
-        ids = _objetivo_procesamiento(proyecto, alcance, tope)
+        ids = _objetivo_procesamiento(proyecto, tope)
         if not ids:
-            raise ErrorAPI(400, "No hay papers para procesar con ese alcance. Busca o selecciona papers primero.")
+            raise ErrorAPI(400, "No hay papers seleccionados. Marca en Resultados de búsqueda los papers "
+                                "que quieres procesar.")
         token = uuid.uuid4().hex
         proyecto["procesamiento"] = {
             **PROCESAMIENTO_VACIO, "activo": True, "token": token, "alcance": alcance, "tope": tope,
             "total": len(ids), "inicio": _ahora(), "mensajes": [f"Procesando {len(ids)} papers…"]}
         _guardar(proyecto)
-        archivo, tema, respuesta = proyecto["archivo"], proyecto.get("tema_refinado") or proyecto.get("prompt") or "", dict(proyecto)
-    threading.Thread(target=_procesar, daemon=True, args=(pid, token, ids, archivo, tema)).start()
+        tema, respuesta = proyecto.get("tema_refinado") or proyecto.get("prompt") or "", dict(proyecto)
+    threading.Thread(target=_procesar, daemon=True, args=(pid, token, ids, tema)).start()
     return respuesta
 
 
@@ -669,37 +637,64 @@ def cancelar_procesamiento(pid):
         return dict(proyecto)
 
 
+ORDEN_RELEVANCIA = {"alta": 0, "media": 1, "baja": 2, "nula": 3}
+
+
+def _relevancia_ficha(ficha, estado):
+    """Nivel de relevancia de la ficha. Las fichas anteriores al esquema con
+    niveles solo guardaban si el paper era relevante o no: quedan como
+    "media" o "nula"."""
+    nivel = ficha.get("relevancia")
+    if nivel in ORDEN_RELEVANCIA:
+        return nivel
+    return "nula" if estado == "no_relevante" else "media"
+
+
 def fichas_proyecto(pid):
-    """Fichas que Nemotron armó de los papers de este proyecto (tabla `fichas`
-    de su propia base), con la fuente de donde se leyó cada paper. [] si
-    todavía no se ha procesado."""
+    """Fichas que Nemotron armó de los papers de este proyecto (tabla
+    `fichas`), con la fuente de donde se leyó cada paper, ordenadas por
+    relevancia para el tema y, a igual relevancia, por el ranking de la
+    búsqueda. [] si todavía no se ha procesado."""
     with _CANDADO:
         archivo = _obtener(pid)["archivo"]
-    conn = database_proc.conectar(almacen.ruta(archivo))
+    conn = database_proc.conectar()
     try:
         filas = conn.execute("""
             SELECT f.paper_id, p.title, p.year, p.doi, p.abstract, f.estado, f.cobertura, f.ficha_json, f.error,
                    e.fuente, e.url AS fuente_url, e.estructura_json
-            FROM fichas f JOIN papers p ON p.paper_id = f.paper_id
+            FROM fichas f
+            JOIN papers p ON p.paper_id = f.paper_id
+            JOIN papers_proyectos pp ON pp.paper_id = f.paper_id AND pp.archivo = %s
             LEFT JOIN estructuras e ON e.paper_id = f.paper_id AND e.estado = 'ok'
             WHERE f.estado IN ('ok', 'no_relevante')
-            ORDER BY f.rowid
-        """).fetchall()
+            ORDER BY pp.orden
+        """, (archivo,)).fetchall()
         fichas = []
         for f in filas:
-            ficha = json.loads(f["ficha_json"]) if f["ficha_json"] else {}
-            piezas = json.loads(f["estructura_json"]) if f["estructura_json"] else {}
+            # ficha_json y estructura_json son JSONB: llegan ya como diccionarios
+            ficha = f["ficha_json"] or {}
+            piezas = f["estructura_json"] or {}
+            metodo = ficha.get("metodo") or {}
             fichas.append({**{k: f[k] for k in ("paper_id", "title", "year", "doi", "estado", "cobertura",
                                                 "fuente", "fuente_url")},
+                           # Lo que armó el modelo (las fichas anteriores no tienen todos los campos)
+                           "relevancia": _relevancia_ficha(ficha, f["estado"]),
+                           "motivo_relevancia": ficha.get("motivo_relevancia"),
+                           "en_una_frase": ficha.get("en_una_frase") or ficha.get("resumen"),
+                           "aporte_al_tema": ficha.get("aporte_al_tema"),
+                           "objetivo": ficha.get("objetivo"),
+                           "metodo": {k: metodo.get(k) for k in ("tipo_estudio", "poblacion", "contexto")},
+                           "hallazgos_clave": ficha.get("hallazgos_clave") or [],
+                           "conclusiones": ficha.get("conclusiones") or [],
+                           "limitaciones": ficha.get("limitaciones") or [],
+                           "tablas": ficha.get("tablas") or [],
                            # Las piezas tal como salen del paper, sin pasar por el modelo
                            "abstract": piezas.get("abstract") or f["abstract"],
                            "intro_penultimo": piezas.get("intro_penultimo_parrafo"),
                            "intro_ultimo": piezas.get("intro_ultimo_parrafo"),
-                           "conclusion_texto": piezas.get("conclusion"),
-                           "resumen": ficha.get("resumen"), "objetivo": ficha.get("objetivo"),
-                           "conclusiones": ficha.get("conclusiones") or [],
-                           "hallazgos_clave": ficha.get("hallazgos_clave") or [],
-                           "tablas": ficha.get("tablas") or []})
+                           "conclusion_texto": piezas.get("conclusion")})
+        # sort es estable: a igual relevancia se conserva el orden del ranking
+        fichas.sort(key=lambda x: ORDEN_RELEVANCIA[x["relevancia"]])
         return fichas
     finally:
         conn.close()
@@ -724,7 +719,7 @@ def exportar_csv(pid, solo_seleccion=False):
             if solo_seleccion and paper.get("id") not in seleccion:
                 continue
             escritor.writerow({**paper, "pagina_origen": _pagina_origen(paper), "seleccionado": "si" if paper.get("id") in seleccion else ""})
-        nombre = proyecto["archivo"][:-3] + ("_seleccion" if solo_seleccion else "") + ".csv"
+        nombre = proyecto["archivo"] + ("_seleccion" if solo_seleccion else "") + ".csv"
         return nombre, salida.getvalue()
 
 
@@ -768,10 +763,6 @@ class Manejador(BaseHTTPRequestHandler):
     def _atender(self, metodo):
         ruta = self.path.split("?", 1)[0]
         try:
-            if metodo == "GET" and ruta in ESTATICOS:
-                archivo, tipo = ESTATICOS[ruta]
-                with open(os.path.join(WEB_DIR, archivo), "rb") as f:
-                    return self._responder(200, f.read(), tipo)
             if ruta == "/api/proyectos":
                 if metodo == "GET":
                     with _CANDADO:
@@ -832,7 +823,7 @@ def main():
     puerto = int(sys.argv[1]) if len(sys.argv) > 1 else config.WEB_PUERTO
     cargar_proyectos()
     servidor = ThreadingHTTPServer(("127.0.0.1", puerto), Manejador)
-    print(f"Buscador listo en http://127.0.0.1:{puerto}  ({len(_PROYECTOS)} proyectos guardados). Ctrl+C para salir.")
+    print(f"API lista en http://127.0.0.1:{puerto}/api/proyectos  ({len(_PROYECTOS)} proyectos guardados). Ctrl+C para salir.")
     try:
         servidor.serve_forever()
     except KeyboardInterrupt:

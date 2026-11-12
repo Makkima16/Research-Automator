@@ -91,6 +91,14 @@ export interface TablaFicha {
   que_aporta: string;
 }
 
+export type Relevancia = 'alta' | 'media' | 'baja' | 'nula';
+
+export interface MetodoFicha {
+  tipo_estudio: string | null;
+  poblacion: string | null;
+  contexto: string | null;
+}
+
 export interface Ficha {
   paper_id: string;
   title: string | null;
@@ -100,15 +108,22 @@ export interface Ficha {
   cobertura: 'completa' | 'parcial';
   fuente: string | null;
   fuente_url: string | null;
+  // Lo que armó el modelo
+  relevancia: Relevancia;
+  motivo_relevancia: string | null;
+  en_una_frase: string | null;
+  aporte_al_tema: string | null;
+  objetivo: string | null;
+  metodo: MetodoFicha;
+  hallazgos_clave: string[];
+  conclusiones: string[];
+  limitaciones: string[];
+  tablas: TablaFicha[];
+  // Piezas originales del paper, sin pasar por el modelo
   abstract: string | null;
   intro_penultimo: string | null;
   intro_ultimo: string | null;
   conclusion_texto: string | null;
-  resumen: string | null;
-  objetivo: string | null;
-  conclusiones: string[];
-  hallazgos_clave: string[];
-  tablas: TablaFicha[];
 }
 
 export interface PreguntaAclaracion {

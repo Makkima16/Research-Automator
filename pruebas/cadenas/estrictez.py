@@ -4,7 +4,8 @@ grupos AND y cuántas alternativas OR conviene pedirle al modelo.
 
 Metodología (skill research-automator-cadenas):
 1. Papers objetivo conocidos: los que ya están guardados en los proyectos de la
-   interfaz (busqueda/output/proyectos/*.db, SOLO LECTURA), con título y abstract.
+   interfaz, guardados en PostgreSQL (tablas proyectos/papers_proyectos/papers, SOLO
+   LECTURA), con título y abstract.
 2. Por paper se construye una escala de cadenas con los términos del propio paper
    (título y palabras frecuentes del abstract), de la más flexible a la más estricta:
    - L1 flexible:    un grupo con OR (términos del título).
@@ -29,7 +30,6 @@ import argparse
 import json
 import os
 import re
-import sqlite3
 import statistics
 import sys
 
@@ -41,10 +41,10 @@ sys.path.insert(0, os.path.join(RAIZ, "busqueda"))
 sys.path.insert(0, S)
 
 import config
+import database
 import fetch_papers as fp
 
 SALIDA = S + "/resultados/estrictez_res.json"
-PROYECTOS_DIR = os.path.join(RAIZ, "busqueda", "output", "proyectos")
 MAX_RESULTADOS_NIVEL = 300      # hasta aquí se busca al paper objetivo
 VACIAS = set("""de del la las el los un una unos unas en con por para sobre entre y o que como
 su sus al lo se es son más menos muy the of in on and or for with to from by a an at into
@@ -57,22 +57,23 @@ through improving improved different various high low new""".split())
 
 
 def papers_objetivo(cuantos):
-    """Papers con título y abstract de los proyectos guardados (solo lectura),
-    repartidos entre los proyectos que los tengan."""
+    """Papers con título y abstract de los proyectos guardados en PostgreSQL
+    (solo lectura), repartidos entre los proyectos que los tengan."""
     papers = []
-    for nombre in sorted(os.listdir(PROYECTOS_DIR)):
-        if not nombre.endswith(".db"):
-            continue
-        conn = sqlite3.connect(f"file:{os.path.join(PROYECTOS_DIR, nombre)}?mode=ro", uri=True)
-        conn.row_factory = sqlite3.Row
-        filas = conn.execute(
-            "SELECT title, abstract, doi, cited_by_count FROM papers "
-            "WHERE title IS NOT NULL AND abstract IS NOT NULL AND length(abstract) > 200 "
-            "ORDER BY cited_by_count DESC LIMIT 2").fetchall()
+    conn = database.conectar()
+    try:
+        proyectos = [f["archivo"] for f in conn.execute("SELECT archivo FROM proyectos ORDER BY archivo")]
+        for archivo in proyectos:
+            filas = conn.execute(
+                "SELECT p.title, p.abstract, p.doi FROM papers p "
+                "JOIN papers_proyectos pp ON pp.paper_id = p.paper_id "
+                "WHERE pp.archivo = %s AND p.title IS NOT NULL AND length(p.abstract) > 200 "
+                "ORDER BY p.cited_by_count DESC NULLS LAST LIMIT 2", (archivo,)).fetchall()
+            for f in filas:
+                papers.append({"proyecto": archivo, "title": f["title"],
+                               "abstract": f["abstract"], "doi": f["doi"]})
+    finally:
         conn.close()
-        for f in filas:
-            papers.append({"proyecto": nombre[:-3], "title": f["title"],
-                           "abstract": f["abstract"], "doi": f["doi"]})
     return papers[:cuantos]
 
 

@@ -135,18 +135,39 @@ SCIHUB_ULTIMO_ANIO = 2021
 # (una o dos solicitudes HTTP por paper; con muchos se vuelve lento)
 MAX_PAPERS_VERIFICAR_PDF = 30
 
-# Las rutas se calculan desde esta carpeta, así los scripts funcionan sin
-# importar desde qué directorio se ejecuten
+# Rutas base de la carpeta (los scripts de pruebas/cadenas aún leen bases
+# SQLite antiguas desde output/, por eso OUTPUT_DIR y PROYECTOS_DIR siguen
+# definidos)
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
-# Base de datos SQLite donde se guarda todo (el procesamiento agrega ahí
-# mismo sus tablas)
-DB_PATH = os.path.join(OUTPUT_DIR, "selema.db")
-
-# Interfaz web (servidor.py). Cada proyecto se guarda como un JSON aparte, sin
-# tocar selema.db.
+# Interfaz web (servidor.py)
 WEB_PUERTO = 8000
 PROYECTOS_DIR = os.path.join(OUTPUT_DIR, "proyectos")
+
+# Base de datos PostgreSQL donde se guarda todo: papers, proyectos de la
+# interfaz web, estructuras y fichas del procesamiento (ver database.py).
+# Los datos de conexión van separados en ../.env (NEON_HOST, NEON_DATABASE,
+# NEON_USER, NEON_PASSWORD, NEON_SSL_MODE) para poder cambiar solo uno (por
+# ejemplo la base de otra rama) sin reescribir una URL entera. El plan
+# gratuito de Neon (neon.tech) sirve para desarrollo.
+NEON_HOST = _clave("NEON_HOST")
+NEON_DATABASE = _clave("NEON_DATABASE")
+NEON_USER = _clave("NEON_USER")
+NEON_PASSWORD = _clave("NEON_PASSWORD")
+NEON_SSL_MODE = _clave("NEON_SSL_MODE") or "require"
+
+
+def _armar_url_postgres():
+    """Arma la cadena de conexión con las variables NEON_*. Vacía si falta
+    alguna obligatoria (database.conectar() avisa cuál)."""
+    if not (NEON_HOST and NEON_DATABASE and NEON_USER and NEON_PASSWORD):
+        return ""
+    from urllib.parse import quote
+    return (f"postgresql://{quote(NEON_USER, safe='')}:{quote(NEON_PASSWORD, safe='')}"
+            f"@{NEON_HOST}/{quote(NEON_DATABASE, safe='')}?sslmode={NEON_SSL_MODE}")
+
+
+DATABASE_URL = _armar_url_postgres()
 
 # LLM que convierte el tema escrito en la interfaz web en cadenas de búsqueda
 # (generar_cadenas.py): Nemotron en build.nvidia.com (el mismo que usa

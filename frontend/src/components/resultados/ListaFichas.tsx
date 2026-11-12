@@ -7,24 +7,27 @@ import type { Ficha } from '@/lib/tipos';
 import { FichaItem } from './FichaItem';
 import css from './ListaFichas.module.css';
 
-type Filtro = 'relevantes' | 'parcial' | 'no_relevante' | 'todas';
+type Filtro = 'utiles' | 'alta' | 'baja' | 'nula' | 'todas';
 
+// Las fichas ya llegan ordenadas por relevancia (alta, media, baja, nula)
 const FILTROS: { clave: Filtro; etiqueta: string; pasa: (f: Ficha) => boolean }[] = [
-  { clave: 'relevantes', etiqueta: 'Relevantes', pasa: (f) => f.estado === 'ok' },
-  { clave: 'parcial', etiqueta: 'Solo abstract', pasa: (f) => f.estado === 'ok' && f.cobertura === 'parcial' },
-  { clave: 'no_relevante', etiqueta: 'No relevantes', pasa: (f) => f.estado === 'no_relevante' },
+  { clave: 'utiles', etiqueta: 'Útiles', pasa: (f) => f.relevancia === 'alta' || f.relevancia === 'media' },
+  { clave: 'alta', etiqueta: 'Solo alta', pasa: (f) => f.relevancia === 'alta' },
+  { clave: 'baja', etiqueta: 'Tangenciales', pasa: (f) => f.relevancia === 'baja' },
+  { clave: 'nula', etiqueta: 'No relevantes', pasa: (f) => f.relevancia === 'nula' },
   { clave: 'todas', etiqueta: 'Todas', pasa: () => true },
 ];
 
 const textoDe = (f: Ficha) => [
-  f.title, f.resumen, f.objetivo, f.abstract, f.intro_penultimo, f.intro_ultimo, f.conclusion_texto,
-  ...f.conclusiones, ...f.hallazgos_clave, ...f.tablas.map((t) => t.nombre),
+  f.title, f.en_una_frase, f.motivo_relevancia, f.aporte_al_tema, f.objetivo, f.metodo?.tipo_estudio,
+  f.metodo?.poblacion, f.metodo?.contexto, f.abstract, f.intro_penultimo, f.intro_ultimo, f.conclusion_texto,
+  ...f.conclusiones, ...f.hallazgos_clave, ...f.limitaciones, ...f.tablas.map((t) => t.nombre),
 ].join(' ').toLowerCase();
 
 export function ListaFichas() {
   const { fichas } = useApp();
   const [q, setQ] = useState('');
-  const [filtro, setFiltro] = useState<Filtro>('relevantes');
+  const [filtro, setFiltro] = useState<Filtro>('utiles');
   const [abiertas, setAbiertas] = useState<Set<string>>(new Set());
 
   const porTexto = useMemo(() => {
