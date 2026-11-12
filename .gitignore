@@ -51,3 +51,4 @@ nohup.out
 *.swp
 .DS_Store
 Thumbs.db
+/.commandcode
