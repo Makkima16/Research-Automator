@@ -23,7 +23,7 @@ export function TarjetaProcesar({ puedeVolver, alVolver, alProcesar }: Props) {
   const proc = proyecto.procesamiento;
   const ids = new Set(proyecto.papers.map((p) => p.id));
   const nSel = proyecto.seleccion.filter((id) => ids.has(id)).length;
-  const techo = proc.tope || Infinity;          // máximo que acepta el servidor
+  const techo = proc.tope_max || Infinity;      // máximo que acepta el servidor
   const tope = topePedido ?? techo;             // lo que pidió el usuario (o el máximo)
   const n = Math.min(nSel, tope);
 
@@ -32,7 +32,7 @@ export function TarjetaProcesar({ puedeVolver, alVolver, alProcesar }: Props) {
     setTopePedido(Number.isNaN(v) ? null : Math.max(1, Math.min(v, techo)));
   };
 
-  const explicacion = `Se procesarán los ${plural(n, 'paper marcado', 'papers marcados')} en Resultados de búsqueda.`
+  const explicacion = (n === 1 ? 'Se procesará 1 paper marcado' : `Se procesarán los ${n} papers marcados`) + ' en Resultados de búsqueda.'
     + (nSel > tope ? ` Son ${nSel}, pero cada corrida procesa como máximo ${tope}.` : '')
     + ' Solo los de acceso abierto se leen completos; del resto se resume el abstract y la ficha queda como parcial.'
     + (proc.estado ? ' Los papers que ya tienen ficha no se vuelven a leer.' : '');

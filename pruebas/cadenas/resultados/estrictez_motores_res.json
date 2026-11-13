@@ -1,0 +1,422 @@
+[
+ {
+  "title": "Applications of Artificial Intelligence, Machine Learning, and Deep Learning in Nutrition: A Systematic Review",
+  "doi": "https://doi.org/10.3390/nu16071073",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "learning OR applications OR artificial",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "learning OR applications AND nutrition OR deep",
+     "posicion": 1,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "learning AND nutrition",
+     "posicion": 19,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "learning AND applications AND nutrition",
+     "posicion": 1,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"artificial intelligence\" AND nutrition",
+     "posicion": 13,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"artificial intelligence\" AND nutrition AND NOT review",
+     "posicion": null,
+     "devueltos": 100
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "learning OR applications OR artificial",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L2_dos_grupos": {
+     "cadena": "learning OR applications AND nutrition OR deep",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "learning AND nutrition",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "learning AND applications AND nutrition",
+     "posicion": 14,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"artificial intelligence\" AND nutrition",
+     "posicion": 9,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"artificial intelligence\" AND nutrition AND NOT review",
+     "posicion": null,
+     "devueltos": 0
+    }
+   }
+  }
+ },
+ {
+  "title": "Artificial Intelligence: Implications for the Agri-Food Sector",
+  "doi": "https://doi.org/10.3390/agronomy13051397",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "artificial OR intelligence OR implications",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "artificial OR intelligence AND food OR agriculture",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "artificial AND food",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "artificial AND intelligence AND food",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"artificial intelligence\" AND food",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"artificial intelligence\" AND food AND NOT review",
+     "posicion": null,
+     "devueltos": 100
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "artificial OR intelligence OR implications",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "artificial OR intelligence AND food OR agriculture",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "artificial AND food",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L4_tres_sueltos": {
+     "cadena": "artificial AND intelligence AND food",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"artificial intelligence\" AND food",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"artificial intelligence\" AND food AND NOT review",
+     "posicion": null,
+     "devueltos": 100
+    }
+   }
+  }
+ },
+ {
+  "title": "What Is Machine Learning, Artificial Neural Networks and Deep Learning?—Examples of Practical Applications in Medicine",
+  "doi": "https://doi.org/10.3390/diagnostics13152582",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "learning OR machine OR artificial",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "learning OR machine AND anns OR that",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "learning AND anns",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "learning AND machine AND anns",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"machine learning\" AND anns",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"machine learning\" AND anns AND NOT review",
+     "posicion": null,
+     "devueltos": 100
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "learning OR machine OR artificial",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L2_dos_grupos": {
+     "cadena": "learning OR machine AND anns OR that",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L3_dos_sueltos": {
+     "cadena": "learning AND anns",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "learning AND machine AND anns",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L5_frase": {
+     "cadena": "\"machine learning\" AND anns",
+     "posicion": 58,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"machine learning\" AND anns AND NOT review",
+     "posicion": 44,
+     "devueltos": 100
+    }
+   }
+  }
+ },
+ {
+  "title": "Women at Work: Pathways from Gender Stereotypes to Gender Bias and Discrimination",
+  "doi": "https://doi.org/10.1146/annurev-orgpsych-110721-034105",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "gender OR women OR work",
+     "posicion": 16,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "gender OR women AND discrimination OR stereotypes",
+     "posicion": 2,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "gender AND discrimination",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "gender AND women AND discrimination",
+     "posicion": 29,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"work pathways\" AND discrimination",
+     "posicion": 1,
+     "devueltos": 3
+    },
+    "L6_estricta": {
+     "cadena": "\"work pathways\" AND discrimination AND NOT review",
+     "posicion": null,
+     "devueltos": 2
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "gender OR women OR work",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L2_dos_grupos": {
+     "cadena": "gender OR women AND discrimination OR stereotypes",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L3_dos_sueltos": {
+     "cadena": "gender AND discrimination",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "gender AND women AND discrimination",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"work pathways\" AND discrimination",
+     "posicion": 1,
+     "devueltos": 5
+    },
+    "L6_estricta": {
+     "cadena": "\"work pathways\" AND discrimination AND NOT review",
+     "posicion": null,
+     "devueltos": 0
+    }
+   }
+  }
+ },
+ {
+  "title": "Historical comparison of gender inequality in scientific careers across countries and disciplines",
+  "doi": "https://doi.org/10.1073/pnas.1914221117",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "historical OR comparison OR gender",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "historical OR comparison AND differences OR women",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "historical AND differences",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "historical AND comparison AND differences",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"historical comparison\" AND differences",
+     "posicion": 26,
+     "devueltos": 100
+    },
+    "L6_estricta": {
+     "cadena": "\"historical comparison\" AND differences AND NOT review",
+     "posicion": 24,
+     "devueltos": 100
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "historical OR comparison OR gender",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "historical OR comparison AND differences OR women",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "historical AND differences",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L4_tres_sueltos": {
+     "cadena": "historical AND comparison AND differences",
+     "posicion": 39,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"historical comparison\" AND differences",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L6_estricta": {
+     "cadena": "\"historical comparison\" AND differences AND NOT review",
+     "posicion": 3,
+     "devueltos": 100
+    }
+   }
+  }
+ },
+ {
+  "title": "The gender gap in science: How long until women are equally represented?",
+  "doi": "https://doi.org/10.1371/journal.pbio.2004956",
+  "motores": {
+   "scopus": {
+    "L1_flexible": {
+     "cadena": "gender OR science OR long",
+     "posicion": 14,
+     "devueltos": 100
+    },
+    "L2_dos_grupos": {
+     "cadena": "gender OR science AND women OR stemm",
+     "posicion": 5,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "gender AND women",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "gender AND science AND women",
+     "posicion": 38,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"long until\" AND women",
+     "posicion": 1,
+     "devueltos": 5
+    },
+    "L6_estricta": {
+     "cadena": "\"long until\" AND women AND NOT review",
+     "posicion": null,
+     "devueltos": 4
+    }
+   },
+   "semantic_scholar": {
+    "L1_flexible": {
+     "cadena": "gender OR science OR long",
+     "posicion": null,
+     "devueltos": 0
+    },
+    "L2_dos_grupos": {
+     "cadena": "gender OR science AND women OR stemm",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L3_dos_sueltos": {
+     "cadena": "gender AND women",
+     "posicion": null,
+     "devueltos": 100
+    },
+    "L4_tres_sueltos": {
+     "cadena": "gender AND science AND women",
+     "posicion": 71,
+     "devueltos": 100
+    },
+    "L5_frase": {
+     "cadena": "\"long until\" AND women",
+     "posicion": 1,
+     "devueltos": 23
+    },
+    "L6_estricta": {
+     "cadena": "\"long until\" AND women AND NOT review",
+     "posicion": 1,
+     "devueltos": 20
+    }
+   }
+  }
+ }
+]

@@ -27,6 +27,7 @@ export interface CamposProyecto {
   prompt?: string;
   num?: number | string;
   idioma?: string;
+  terminos_clave?: string[];
   queries?: string[];
   seleccion?: string[];
   min_year?: number | string | null;
@@ -45,6 +46,7 @@ export interface DatosCadenas {
   aclaraciones: Aclaracion[];
   intencion: string;
   intencion_busqueda: string;
+  terminos_clave: string[];
 }
 
 export const listarProyectos = () => api<ProyectoResumen[]>('GET', '/api/proyectos');

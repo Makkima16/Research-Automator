@@ -10,12 +10,21 @@ const PASOS = ['Tema', 'Cadenas', 'Búsqueda', 'Resultados'];
 const PASO_ACTUAL: Record<Etapa, number> = { empty: 0, queries: 1, loading: 2, results: 3 };
 
 export function Encabezado() {
-  const { proyecto, renombrar, reiniciar } = useApp();
+  const { proyecto, renombrar, reiniciar, volverAlPrompt, volverACadenas, volverAResultados } = useApp();
   const [editando, setEditando] = useState(false);
   const [borrador, setBorrador] = useState('');
   const cancelado = useRef(false);
 
   const actual = PASO_ACTUAL[proyecto?.stage ?? 'empty'];
+  // Pasos a los que se puede saltar: Tema y Cadenas una vez generadas, Resultados si hay papers.
+  // «Búsqueda» es el avance de una búsqueda en curso: no es un destino.
+  const enCurso = proyecto?.stage === 'loading';
+  const destinos: ((() => Promise<void>) | null)[] = [
+    proyecto && !enCurso && actual !== 0 ? volverAlPrompt : null,
+    proyecto && !enCurso && actual !== 1 && proyecto.queries.length > 0 ? volverACadenas : null,
+    null,
+    proyecto && !enCurso && actual !== 3 && proyecto.papers.length > 0 ? volverAResultados : null,
+  ];
   const puedeReiniciar = proyecto && proyecto.stage !== 'empty' && proyecto.stage !== 'loading';
 
   const empezar = () => {
@@ -52,7 +61,11 @@ export function Encabezado() {
 
         <div className={css.pasos}>
           {PASOS.map((etiqueta, i) => (
-            <div className={css.paso} key={etiqueta}>
+            <div className={`${css.paso} ${destinos[i] ? css.navegable : ''}`} key={etiqueta}
+              role={destinos[i] ? 'button' : undefined} tabIndex={destinos[i] ? 0 : undefined}
+              title={destinos[i] ? `Ir a ${etiqueta}` : undefined}
+              onClick={() => destinos[i]?.()}
+              onKeyDown={(e) => { if (destinos[i] && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); destinos[i]!(); } }}>
               <span className={css.numero} style={{
                 background: i < actual ? 'var(--color-accent-2-600)' : i === actual ? 'var(--color-accent)' : 'var(--color-neutral-300)',
                 color: i <= actual ? 'var(--color-bg)' : 'var(--color-neutral-700)',

@@ -20,9 +20,16 @@ export interface DetalleCadena {
   alcance?: string;
 }
 
+// Término obligatorio con las alternativas que se usaron en su grupo de cada cadena
+export interface Obligatorio {
+  termino: string;
+  alternativas: string[];
+}
+
 export interface IntencionCadenas {
   intencion_consolidada?: string;
   detalles?: DetalleCadena[];
+  obligatorios?: Obligatorio[];
 }
 
 export interface Procesamiento {
@@ -38,6 +45,7 @@ export interface Procesamiento {
   fin: string | null;
   mensajes: string[];
   tope: number;
+  tope_max: number;
 }
 
 export interface Paper {
@@ -78,6 +86,8 @@ export interface ProyectoResumen {
   aclaraciones?: Aclaracion[];
   intencion_busqueda?: string;
   intencion_cadenas?: IntencionCadenas;
+  terminos_clave?: string[];
+  obligatorios?: Obligatorio[];
   procesamiento: Procesamiento;
 }
 

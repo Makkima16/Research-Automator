@@ -1,6 +1,6 @@
 # Pendientes
 
-Última actualización: 2026-11-12
+Última actualización: 2026-11-13
 
 ## 0. Optimizaciones detectadas en la limpieza (y su estado)
 
@@ -53,7 +53,8 @@
       paper de prueba sin borrar, y `database.conectar()` no usaba autocommit, así que toda escritura
       hecha después de una lectura en la misma conexión (el caso de `extract_ficha.procesar`: estructuras
       y fichas) se perdía al cerrar; ahora la conexión es autocommit y se verificó que persiste.
-- [ ] Falta recorrer de punta a punta con la interfaz: crear proyecto → cadenas → búsqueda → fichas.
+- [x] Recorrido de punta a punta con la interfaz (crear proyecto → cadenas → búsqueda → fichas): hecho
+      en el navegador, confirmado por el usuario el 2026-11-13.
       (La API ya responde contra Neon: `GET /api/proyectos` → 200.)
 - [x] `pruebas/cadenas/estrictez.py` (pendiente 2) adaptado (2026-11-04): lee los papers objetivo de
       PostgreSQL (`proyectos` → `papers_proyectos` → `papers`) en solo lectura. Compila y consulta la
@@ -97,15 +98,19 @@ juez GPT-5.5 (criterio 0/1/2: 2 = trata el tema o varios conceptos; 1 = toca un 
 
 **Qué falta.**
 
-- [ ] Conseguir la key gratuita de OpenAlex y agregarla al `.env` como `OPENALEX_API_KEY` (el código ya
-      la envía; el `.env` no lo edita el agente). Pedirla en https://openalex.org/users/me.
-- [ ] Opcional: evaluar la variante "pares de grupos" para cadenas de 3+ grupos (triplica las búsquedas
-      por cadena; precisión 0,73, mediana 332).
-- [ ] La comparación de precisión con las condiciones históricas (GPT-5.5 como generador) no se repitió
-      antes del vencimiento de Azure; los resultados guardados están en `pruebas/cadenas/resultados/`.
-- [ ] Defectos menores de las cadenas en español siguen abiertos: errores de concordancia
-      (`robot colaborativa`), palabras sin tilde (`germenes`), estrategias que repiten el primer grupo y
-      calcos raros en inglés (`"entera leche"`).
+- [x] Key de OpenAlex: ya está en el `.env` como `OPENALEX_API_KEY` y las búsquedas del 2026-11-13
+      respondieron sin 429.
+- [x] Variante "pares de grupos" para cadenas de 3+ grupos: evaluada y aplicada (ver sección 0).
+- [x] Comparación con GPT-5.5 como generador: el usuario la midió por su cuenta (2026-11-13) y las
+      cadenas de Nemotron resultaron similares, aunque GPT-5.5 sigue siendo algo mejor. No hay archivo de
+      resultados de esa medición; los históricos están en `pruebas/cadenas/resultados/`.
+- [x] Defectos de las cadenas en español, revisados el 2026-11-13 con 2 temas en `es` y `ambos`:
+      concordancia y tildes salen bien (`robot colaborativo`, `gérmenes`, `México`) y los duplicados
+      ignorando mayúsculas ya los quita `_normalizar`. Se corrigió un defecto real: los `detalles` de la
+      ventana «cadenas usadas» guardaban la cadena sin normalizar y la interfaz los emparejaba por texto
+      exacto, así que caía al índice; ahora cada detalle lleva su cadena normalizada. Quedan, sin regla
+      segura para corregirlos: alguna errata del modelo (`innocuidad`) y, en español, varias cadenas que
+      repiten el primer grupo (se ve en lácteos).
 
 ## 2. Pruebas de estrictez: cuán restrictiva puede ser una cadena
 
@@ -127,8 +132,13 @@ pedirle al modelo.
       específico y no ahogar la cantidad de papers relacionados; no hace falta hacerlo configurable por
       el usuario. Si algún día se quiere un modo "encuentra este paper específico", la palanca es pedir
       3 grupos AND, no apretar comillas ni NOT.
-- [ ] Falta repetir la escala por motor (Scopus y Semantic Scholar interpretan la sintaxis distinto);
-      Semantic Scholar sigue dando 429 incluso con key, así que su corrida espera presupuesto estable.
+- [x] Escala por motor (2026-11-13, `pruebas/cadenas/estrictez_motores.py`, 6 papers, tope de 100
+      resultados; resultados en `resultados/estrictez_motores_res.json`). Scopus: el paper aparece en 2/6
+      con la cadena flexible, 3/6 con dos grupos, 4/6 con frase exacta y 3/6 con tres grupos sueltos.
+      Semantic Scholar: 0/6 en los niveles flexibles (L1 a L3, con 429 de por medio, así que no es
+      concluyente) y 3 a 4/6 con tres grupos, frase exacta o NOT. Misma dirección que OpenAlex: las
+      cadenas más estrictas ubican mejor al paper dentro de un tope y las flexibles lo entierran. No
+      distingue «enterrado» de «perdido» y la muestra es chica; Semantic Scholar sigue dando 429.
 
 ## 3. Frontend: pasar de monolito a un proyecto Next.js propio
 
@@ -145,7 +155,7 @@ pedirle al modelo.
 - [x] Definir cómo se comunican ambos: el navegador solo habla con Next, que reenvía `/api/*` al backend
       (`API_URL`, por defecto `http://127.0.0.1:8000`) con un Route Handler; no hace falta CORS. El sondeo
       cada 1 s se mantiene. Documentado en `README.md` y `COMANDOS.md`.
-- [ ] Verificar el flujo completo con escritura desde la interfaz Next **en el navegador** (con el
+- [x] (Confirmado por el usuario el 2026-11-13.) Verificar el flujo completo con escritura desde la interfaz Next **en el navegador** (con el
       usuario). Estado al 2026-10-30: backend verificado con escritura (`pruebas/testeo_general.py`,
       tres corridas OK) y web-next sirviendo contra él (página en el 3000, proxy `/api/*` al 8000
       devolviendo los 6 proyectos). Falta el recorrido a mano: crear proyecto → aclarar → cadenas →
@@ -175,7 +185,12 @@ pedirle al modelo.
       validadas (4 papers sin abstract no tienen ficha). Estructura 1,0; cifras respaldadas 1,0; acuerdo
       útil/no útil con el juez 1,0; acuerdo exacto de nivel 0,82; afirmaciones respaldadas 1,0; aporte
       pertinente 1,0. Resultado en `pruebas/fichas/resultados/`.
-- [ ] **Los resultados de la búsqueda no siguen la intención del tema.** Los 10 primeros del ranking
+- [x] **Resuelto el 2026-11-13: con el concepto central como término obligatorio, el ranking lo respeta.**
+      Con «mujeres», «ingeniería» y «deserción» como obligatorios (búsqueda real, 209 papers), 8 de los 10
+      primeros son pertinentes y 3 son centrales (puestos 1, 3 y 4); queda un editorial de abstract largo
+      en el puesto 6. No hizo falta cambiar el ranking: lo que faltaba era marcar la deserción como
+      obligatoria. Problema original:
+      **Los resultados de la búsqueda no siguen la intención del tema.** Los 10 primeros del ranking
       tratan de predicción de deserción en general; ninguno aborda mujeres ni variables de género. El
       único paper sobre barreras de género para mujeres (Tanzania) estaba al final del ranking. Las
       fichas lo detectan bien (motivo: «no aborda mujeres en ingeniería»), pero el problema está en las
@@ -198,3 +213,37 @@ pedirle al modelo.
       no tenían abstract, así que el grupo de control (1 ficha) no alcanza para medir discriminación.
 - [ ] El juez de la prueba es el mismo modelo que redacta las fichas: el acuerdo mide consistencia, no
       exactitud independiente. Validar a mano una muestra cuando haya papers seleccionados.
+
+## 5. Búsqueda guiada por el usuario y filtros de resultados (2026-11-12)
+
+- [x] **Tope de «Procesar PDFs» trabado**: con 3 seleccionados solo dejaba procesar 1. El campo `tope`
+      era a la vez el techo del servidor y lo pedido en la última corrida; tras una corrida con tope 1, la
+      interfaz tomaba 1 como techo. Ahora el techo va aparte (`procesamiento.tope_max`, siempre
+      `MAX_PAPERS_PROCESAR_WEB`). No tenía relación con el acceso abierto.
+      **Causa de raíz (encontrada después):** con el tope en el máximo la interfaz no envía `tope`, y
+      `iniciar_procesamiento` lo convertía en 0 y luego `max(1, 0)` = 1: toda corrida sin tocar el tope
+      procesaba 1 solo paper. Corregido: sin `tope` se usa el techo. Se confirmó en la base con un proyecto
+      nuevo (3 seleccionados, corrida registrada con `tope: 1` y `tope_max: 100`).
+- [x] **Términos obligatorios** (hasta 5, AND entre ellos; decisión del usuario): chips en el prompt y en el
+      prompt ya usado («Regenerar cadenas»). El código garantiza que estén en todas las cadenas, el rescate
+      por pares de grupos los conserva y el ranking suma `OBLIGATORIO_BONUS` por cada uno. Verificado con
+      Nemotron sobre el tema del proyecto existente con «mujeres» e «ingeniería»: 5/5 cadenas en inglés y
+      5/5 en «Ambos» con los dos términos; y por la API con un proyecto temporal (borrado al final):
+      «infogest» y «leche, lácteos» en las 3 cadenas.
+- [x] **Filtros de resultados**: por cadena y por términos en título y abstract (chips, interruptor AND/OR;
+      decisión del usuario), más la ventana «cadenas usadas · ver» con la intención de cada cadena y
+      cuántos papers trajo. `tsc` y `next build` pasan.
+- [x] **Navegación hacia atrás desde los resultados**: los pasos del encabezado (Tema, Cadenas,
+      Resultados) se pueden pulsar, y la vista de resultados tiene «Volver a las cadenas» y «Ver el prompt».
+      Solo cambian la etapa del proyecto: no borran cadenas, papers ni fichas.
+- [x] **Recorrido por la API contra Neon (2026-11-13)**: proyecto nuevo «mujeres jóvenes en ingeniería /
+      deserción» con términos obligatorios «mujeres» e «ingeniería» → 5 cadenas, todas con ambos términos →
+      búsqueda real: OpenAlex 108, Semantic Scholar 110 (sin 429 esta vez) y Scopus 78 resultados; 262
+      papers únicos tras la deduplicación por DOI, guardados en Neon (proyecto `18f9774e76b7`). Los 10
+      primeros del ranking tratan todos de mujeres/género en ingeniería o STEM (antes ninguno), pero solo
+      2 son centrales a la deserción femenina en ingeniería (puestos 5 y 9); el resto es adyacente (brecha
+      de género en STEM, mentoría, pertenencia) y uno es sobre profesoras. Se probó puntuar por conceptos
+      cubiertos por grupo de cadena: no cambió el orden (las 5 cadenas comparten los dos primeros grupos),
+      así que no se aplicó.
+- [x] Recorrido en el navegador (filtros, ventana de cadenas, procesar varios seleccionados):
+      confirmado por el usuario el 2026-11-13 («ya quedó ok»).

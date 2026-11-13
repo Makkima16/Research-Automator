@@ -25,3 +25,6 @@
 @media (max-width: 760px) {
   .cabecera { padding: 22px 18px 6px; }
 }
+.navegable { cursor: pointer; border-radius: 999px; }
+.navegable:hover .etiqueta { text-decoration: underline; text-underline-offset: 3px; }
+.navegable:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
