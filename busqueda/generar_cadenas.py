@@ -6,6 +6,11 @@ sintaxis AND / OR / NOT de config.PAPER_QUERIES (ver fetch_papers.py).
 Usa Nemotron en build.nvidia.com (NVIDIA_API_KEY en ../.env). Si no responde,
 arma cadenas básicas con las palabras del tema y devuelve un aviso, para que
 la interfaz siga funcionando y el usuario las edite a mano.
+
+Términos obligatorios: el usuario puede fijar conceptos que deben estar en
+TODAS las cadenas (cada uno es un grupo AND propio). El modelo los traduce y
+les agrega sinónimos, pero quien garantiza que estén es el código
+(asegurar_obligatorios): si una cadena llega sin el grupo, se le antepone.
 """
 
 import json
@@ -70,11 +75,22 @@ digestión). Sin tildes la búsqueda no encuentra los papers.
 - "excluir": null, salvo que el usuario pida excluir algo de forma explícita; entonces un único término.
 
 Idioma de los términos: {idioma}.
-
+{obligatorios}
 Responde SOLO con un objeto JSON: {{"estrategias": [{{"grupos": [["alternativa", "alternativa", "..."], \
 ["..."]], "excluir": null, "intencion": "qué busca esta estrategia", "alcance": "enfoque de esta estrategia"}}], \
 "intencion_consolidada": "resumen de 2 a 4 frases de la intención de búsqueda (el tema original más el \
-contexto o las respuestas añadidas)"}}."""
+contexto o las respuestas añadidas)", "obligatorios": [{{"termino": "...", "alternativas": ["...", "..."]}}]}}."""
+
+BLOQUE_OBLIGATORIOS = """
+TÉRMINOS OBLIGATORIOS (los fijó el usuario; cada uno debe aparecer en TODAS las estrategias):
+{lista}
+- Cada estrategia incluye, para CADA término obligatorio, un grupo propio con ese concepto: el término \
+traducido al idioma pedido más 2 a 4 sinónimos o variantes con que lo escribiría un autor. Si el usuario \
+dio variantes separadas por coma, inclúyelas (traducidas).
+- Los demás grupos de cada estrategia cubren los otros conceptos del tema, como siempre.
+- Devuelve también "obligatorios": un elemento por término obligatorio, en el mismo orden, con "termino" \
+tal como lo escribió el usuario y "alternativas": las que usaste en su grupo.
+"""
 
 
 class Estrategia(BaseModel):
@@ -84,9 +100,107 @@ class Estrategia(BaseModel):
     alcance: str = ""
 
 
+class Obligatorio(BaseModel):
+    termino: str
+    alternativas: list[str] = Field(default_factory=list)
+
+
 class Estrategias(BaseModel):
     estrategias: list[Estrategia]
     intencion_consolidada: str = ""
+    obligatorios: list[Obligatorio] = Field(default_factory=list)
+
+
+MAX_OBLIGATORIOS = 5
+MAX_ALTERNATIVAS_OBLIGATORIO = 6
+
+
+def limpiar_terminos_clave(valores):
+    """Términos obligatorios tal como los escribió el usuario: sin vacíos ni
+    repetidos, como mucho MAX_OBLIGATORIOS de 120 caracteres."""
+    limpios, vistos = [], set()
+    for valor in valores or []:
+        texto = " ".join(str(valor).replace('"', "").split())[:120]
+        if texto and texto.casefold() not in vistos:
+            vistos.add(texto.casefold())
+            limpios.append(texto)
+    return limpios[:MAX_OBLIGATORIOS]
+
+
+def _variantes_usuario(termino):
+    """Un chip puede traer variantes separadas por coma: "mujeres, estudiantes mujeres"."""
+    return [v.strip() for v in termino.split(",") if v.strip()]
+
+
+def _clave_termino(texto):
+    return _sin_tildes(" ".join(str(texto).replace('"', "").split()).casefold())
+
+
+def conceptos_obligatorios(terminos, del_modelo=None, idioma="en"):
+    """[{"termino", "alternativas"}] de cada término obligatorio. Las
+    alternativas salen del modelo (traducidas y con sinónimos); las variantes
+    que escribió el usuario se agregan si la búsqueda no es solo en inglés, o
+    si el modelo no dio ninguna (así el término nunca queda sin grupo)."""
+    por_termino = {_clave_termino(o.termino): o.alternativas for o in (del_modelo or [])}
+    modelo_en_orden = [o.alternativas for o in (del_modelo or [])]
+    conceptos = []
+    for i, termino in enumerate(terminos):
+        alternativas = por_termino.get(_clave_termino(termino))
+        if alternativas is None and i < len(modelo_en_orden):
+            alternativas = modelo_en_orden[i]
+        alternativas = [a for a in (alternativas or []) if str(a).strip()]
+        if idioma != "en" or not alternativas:
+            alternativas = _variantes_usuario(termino) + alternativas
+        unicas = list(dict.fromkeys(t for t in (_termino(a) for a in alternativas) if t))
+        conceptos.append({"termino": termino, "alternativas": unicas[:MAX_ALTERNATIVAS_OBLIGATORIO]})
+    return [c for c in conceptos if c["alternativas"]]
+
+
+def _contiene(alternativa_grupo, alternativa_concepto):
+    """True si la alternativa del grupo es el concepto o lo contiene como
+    palabra(s) completa(s): "women in engineering" contiene "women"."""
+    g, c = _clave_termino(alternativa_grupo), _clave_termino(alternativa_concepto)
+    return g == c or re.search(rf"(?<!\w){re.escape(c)}(?!\w)", g) is not None
+
+
+def faltantes(cadena, conceptos):
+    """Términos obligatorios que no tienen grupo en la cadena."""
+    grupos = [re.split(r"\s+OR\s+", g) for g in re.split(r"\s+AND\s+", cadena)
+              if not re.match(r"(?i)^NOT\s", g.strip())]
+    return [c["termino"] for c in conceptos
+            if not any(_contiene(alt, ca) for grupo in grupos for alt in grupo for ca in c["alternativas"])]
+
+
+def completar_alternativas(cadenas, conceptos, tope=12):
+    """Los conceptos con todas las alternativas que quedaron en su grupo dentro
+    de las cadenas. El modelo a veces declara menos alternativas de las que usa
+    (en «Ambos» declaró solo «mujeres» y escribió «women OR female» en el grupo):
+    el rescate y el ranking necesitan la lista completa."""
+    completos = []
+    for c in conceptos:
+        alternativas = list(c["alternativas"])
+        for cadena in cadenas:
+            for grupo in re.split(r"\s+AND\s+", cadena):
+                if re.match(r"(?i)^NOT\s", grupo.strip()):
+                    continue
+                terminos = [t.strip() for t in re.split(r"\s+OR\s+", grupo) if t.strip()]
+                if any(_contiene(t, ca) for t in terminos for ca in c["alternativas"]):
+                    alternativas += terminos
+        claves, unicas = set(), []
+        for a in alternativas:
+            if _clave_termino(a) not in claves:
+                claves.add(_clave_termino(a))
+                unicas.append(a)
+        completos.append({"termino": c["termino"], "alternativas": unicas[:tope]})
+    return completos
+
+
+def asegurar_obligatorios(cadena, conceptos):
+    """La cadena con un grupo AND por cada término obligatorio que le falte,
+    antepuesto (el recorte por límites de motor descarta grupos desde el final,
+    así que los obligatorios se conservan)."""
+    nuevos = [" OR ".join(c["alternativas"]) for c in conceptos if c["termino"] in faltantes(cadena, conceptos)]
+    return " AND ".join(nuevos + [cadena]) if nuevos else cadena
 
 
 def _termino(texto):
@@ -174,11 +288,14 @@ def _limpiar(cadenas, n, idioma=None):
     return limpias[:n]
 
 
-def _con_nvidia(tema, n, idioma):
+def _con_nvidia(tema, n, idioma, terminos=()):
     """Nemotron en build.nvidia.com (formato de grupos: ver INSTRUCCIONES_GRUPOS)."""
     en_idioma, estructura = IDIOMAS[idioma]
+    bloque = BLOQUE_OBLIGATORIOS.format(lista="\n".join(f"{i}. {t}" for i, t in enumerate(terminos, 1))) \
+        if terminos else ""
     contenido = llm_nvidia.chat_json(
-        INSTRUCCIONES_GRUPOS.format(n=n, idioma=en_idioma, estructura=estructura), f"Tema: {tema}", timeout=120)
+        INSTRUCCIONES_GRUPOS.format(n=n, idioma=en_idioma, estructura=estructura, obligatorios=bloque),
+        f"Tema: {tema}", timeout=120)
     try:
         res = Estrategias.model_validate_json(contenido)
     except (ValidationError, ValueError) as exc:
@@ -189,7 +306,7 @@ def _con_nvidia(tema, n, idioma):
         if cadena:
             cadenas.append(cadena)
             detalles.append({"cadena": cadena, "intencion": estrategia.intencion, "alcance": estrategia.alcance})
-    return cadenas, res.intencion_consolidada or "", detalles
+    return cadenas, res.intencion_consolidada or "", detalles, res.obligatorios
 
 
 PROVEEDORES = {"nvidia": _con_nvidia}
@@ -202,13 +319,13 @@ def _secreto_fuera(texto):
     return texto
 
 
-def _llamar_llm(tema, n, idioma):
+def _llamar_llm(tema, n, idioma, terminos=()):
     """Prueba los proveedores de PROVEEDORES en orden. Si todos fallan,
     lanza ValueError con el motivo de cada uno."""
     motivos = []
     for proveedor in PROVEEDORES:
         try:
-            res = PROVEEDORES[proveedor](tema, n, idioma)
+            res = PROVEEDORES[proveedor](tema, n, idioma, terminos)
             originales = res[0] if isinstance(res, tuple) else res
             if idioma in ("es", "ambos") and proveedor == "nvidia":
                 con_tilde = _restaurar_tildes([c for c in originales if isinstance(c, str)])
@@ -216,6 +333,14 @@ def _llamar_llm(tema, n, idioma):
                 if isinstance(res, tuple) and len(res) >= 3:
                     res = (res[0], res[1], [{**d, "cadena": con_tilde.get(d["cadena"], d["cadena"])}
                                             if isinstance(d.get("cadena"), str) else d for d in (res[2] or [])])
+            conceptos = conceptos_obligatorios(terminos, res[3] if isinstance(res, tuple) and len(res) >= 4 else None,
+                                               idioma)
+            # La garantía va antes de normalizar: así el detalle de cada cadena queda emparejado
+            reforzadas = {c: asegurar_obligatorios(c, conceptos) for c in originales if isinstance(c, str)}
+            originales = [reforzadas.get(c, c) if isinstance(c, str) else c for c in originales]
+            if isinstance(res, tuple) and len(res) >= 3:
+                res = (res[0], res[1], [{**d, "cadena": reforzadas.get(d["cadena"], d["cadena"])}
+                                        if isinstance(d.get("cadena"), str) else d for d in (res[2] or [])])
             cadenas = _limpiar(originales, n, idioma)
             if not cadenas:
                 motivos.append(f"{proveedor}: no devolvió ninguna cadena")
@@ -226,7 +351,9 @@ def _llamar_llm(tema, n, idioma):
                 por_cadena = {_normalizar(d.get("cadena", ""), idioma): d for d in (res[2] or [])
                               if isinstance(d.get("cadena"), str)}
                 info = {"intencion_consolidada": res[1] or "",
-                        "detalles": [por_cadena.get(c) or {"cadena": c, "intencion": "", "alcance": ""} for c in cadenas]}
+                        "detalles": [{**(por_cadena.get(c) or {"intencion": "", "alcance": ""}), "cadena": c}
+                                     for c in cadenas]}
+            info["obligatorios"] = completar_alternativas(cadenas, conceptos)
             return cadenas, info
         except Exception as exc:  # red, JSON malformado, cuota: de muchos tipos
             texto = _secreto_fuera(str(exc)).splitlines()[0][:160] if str(exc) else type(exc).__name__
@@ -303,8 +430,9 @@ def _tema_con_respuestas(tema, historial):
     return tema + ". " + " ".join(f"{h['pregunta']} {h['respuesta']}." for h in historial)
 
 
-def cadenas_basicas(tema, n):
-    """Respaldo sin LLM: combina las palabras con contenido del tema."""
+def cadenas_basicas(tema, n, terminos=()):
+    """Respaldo sin LLM: combina las palabras con contenido del tema (y
+    antepone los términos obligatorios, tal como los escribió el usuario)."""
     palabras = []
     for p in re.findall(r"[^\W\d_]{3,}", tema.lower()):
         if p not in _VACIAS and p not in palabras:
@@ -321,22 +449,25 @@ def cadenas_basicas(tema, n):
         f'{" AND ".join(palabras[:2])} AND "clinical trial" OR "randomized"',
         " AND ".join(palabras[2:5]),
     ]
-    return _limpiar(candidatas, n)
+    conceptos = conceptos_obligatorios(terminos)
+    return _limpiar([asegurar_obligatorios(c, conceptos) for c in candidatas], n)
 
 
-def generar(tema, n, idioma="es"):
-    """Devuelve (cadenas, aviso). `aviso` es None si las generó el LLM."""
+def generar(tema, n, idioma="es", terminos_clave=None):
+    """Devuelve (cadenas, aviso, info). `aviso` es None si las generó el LLM.
+    `info["obligatorios"]` trae cada término obligatorio con sus alternativas."""
     n = max(1, min(int(n), MAX_CADENAS))
     if idioma not in IDIOMAS:
         idioma = "en"
+    terminos = limpiar_terminos_clave(terminos_clave)
     try:
-        cadenas, info = _llamar_llm(tema, n, idioma)
+        cadenas, info = _llamar_llm(tema, n, idioma, terminos)
         return cadenas, None, info
     except ValueError as exc:
-        return cadenas_basicas(tema, n), (
+        return cadenas_basicas(tema, n, terminos), (
             f"No se pudo usar el LLM ({exc}). Estas son cadenas básicas armadas con las "
             "palabras del prompt: revísalas y edítalas antes de buscar."
-        ), {}
+        ), {"obligatorios": conceptos_obligatorios(terminos)}
 
 
 # Mantener compatibilidad hacia atrás

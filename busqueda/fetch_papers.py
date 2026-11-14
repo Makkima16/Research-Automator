@@ -42,6 +42,7 @@ import time
 import requests
 
 import config
+import doi as doi_util
 import limites_motores
 
 OPENALEX_URL = "https://api.openalex.org/works"
@@ -88,7 +89,7 @@ def parse_openalex_work(work, matched_query):
     source = (primary_location.get("source") or {}).get("display_name")
     return {
         "openalex_id": work.get("id"),
-        "doi": work.get("doi"),
+        "doi": doi_util.normalizar(work.get("doi")),
         "title": work.get("title"),
         "year": work.get("publication_year"),
         "cited_by_count": work.get("cited_by_count", 0),
@@ -181,20 +182,36 @@ def _paginar(filtro, query, email, max_results, per_page):
     return results, False
 
 
-def _pares_de(efectiva):
+def _es_obligatorio(terminos, obligatorios):
+    """True si el grupo (lista de alternativas) es el de un término obligatorio."""
+    claves = {t.replace('"', "").strip().casefold() for t in terminos}
+    return any(claves & {a.replace('"', "").strip().casefold() for a in o.get("alternativas", [])}
+               for o in obligatorios or ())
+
+
+def _pares_de(efectiva, obligatorios=()):
     """[cada par de grupos AND positivos de la cadena] o [] si tiene menos de
     3 grupos. Medido en el banco de pruebas: cada par exige solo dos conceptos
     y encuentra más papers que la cadena completa con la MEJOR precisión de
-    todas las variantes (0,73 estricta contra 0,66 de la cadena completa)."""
+    todas las variantes (0,73 estricta contra 0,66 de la cadena completa).
+    Con términos obligatorios, cada variante conserva TODOS sus grupos y suma
+    uno solo de los demás: un par sin el término obligatorio traería justo
+    los papers que el usuario no quiere."""
     grupos = limites_motores.parsear(efectiva)
     positivos = [t for negar, t in grupos if not negar]
     if len(positivos) < 3:
         return []
+    fijos = [t for t in positivos if _es_obligatorio(t, obligatorios)]
+    if fijos:
+        otros = [t for t in positivos if t not in fijos]
+        if not otros or len(fijos) + 1 >= len(positivos):
+            return []          # ninguna variante sería más amplia que la cadena completa
+        return [limites_motores.unir([(False, t) for t in fijos + [otro]]) for otro in otros]
     return [limites_motores.unir([(False, positivos[i]), (False, positivos[j])])
             for i in range(len(positivos)) for j in range(i + 1, len(positivos))]
 
 
-def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
+def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200, obligatorios=()):
     """Busca una query en OpenAlex (título y abstract), paginando con cursor
     hasta max_results. Si trae menos de UMBRAL_RESCATE_FULLTEXT resultados,
     aplica dos rescates y fusiona lo nuevo, deduplicado por DOI (o id de
@@ -217,7 +234,7 @@ def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
 
     vistos = {r["doi"] or r["openalex_id"] for r in results}
     por_pares = 0
-    for par in _pares_de(efectiva):
+    for par in _pares_de(efectiva, obligatorios):
         if len(results) >= max_results:
             break
         filtro_par = construir_filtro(par)
@@ -259,13 +276,13 @@ def fetch_openalex(query, email, min_year=None, max_results=100, per_page=200):
     return results
 
 
-def fetch_all(queries, email, min_year, max_results_per_query):
+def fetch_all(queries, email, min_year, max_results_per_query, obligatorios=()):
     """Corre todas las queries y deduplica por DOI (o por id de OpenAlex si
-    el paper no tiene DOI)."""
+    el paper no tiene DOI). `obligatorios`: ver _pares_de."""
     seen = {}
     for q in queries:
         print(f"  Buscando en OpenAlex: {q!r}")
-        rows = fetch_openalex(q, email, min_year, max_results_per_query)
+        rows = fetch_openalex(q, email, min_year, max_results_per_query, obligatorios=obligatorios)
         for row in rows:
             key = row["doi"] or row["openalex_id"]
             if key in seen:

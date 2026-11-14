@@ -17,3 +17,13 @@
 .chipSel { border-color: var(--color-accent); background: var(--color-accent); color: var(--color-bg); }
 .espacio { flex: 1; }
 .cuenta { font-size: 13px; color: var(--color-neutral-700); }
+.statBoton {
+  border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer;
+  outline: 1.5px dashed var(--color-accent-400); outline-offset: -1.5px;
+}
+.statBoton:hover { background: var(--color-accent-100); }
+.statBoton span { display: flex; align-items: center; gap: 6px; color: var(--color-accent-700); }
+.selector { width: auto; min-width: 170px; padding-block: 8px; background: var(--color-neutral-100); font-size: 13px; }
+.terminos { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -4px 0 14px; }
+.entradaTerminos { flex: 1 1 380px; max-width: 720px; }
+.modo { background: var(--color-neutral-100); font-size: 13px; }

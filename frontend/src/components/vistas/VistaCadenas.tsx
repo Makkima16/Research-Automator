@@ -51,6 +51,16 @@ export function VistaCadenas() {
         Cada cadena se envía tal cual a OpenAlex, Semantic Scholar y Scopus. Puedes editarlas, quitarlas o añadir las tuyas.
       </p>
       {intencionTexto && <p className={css.intencion}><strong>Intención de búsqueda:</strong> {intencionTexto}</p>}
+      {(proyecto.obligatorios ?? []).length > 0 && (
+        <div className={css.obligatorios}>
+          <strong>Términos obligatorios en todas las cadenas:</strong>
+          {(proyecto.obligatorios ?? []).map((o) => (
+            <span className={css.obligatorio} key={o.termino} title={`Alternativas: ${o.alternativas.join(' OR ')}`}>
+              {o.termino} <small>→ {o.alternativas.join(' OR ')}</small>
+            </span>
+          ))}
+        </div>
+      )}
 
       <div className={css.lista}>
         {queries.map((texto, i) => {

@@ -27,9 +27,10 @@ export interface CamposPrompt {
   prompt: string;
   num: number;
   idioma: Idioma;
+  terminos_clave: string[];
 }
 
-const BORRADOR: CamposPrompt = { prompt: '', num: 5, idioma: 'en' };
+const BORRADOR: CamposPrompt = { prompt: '', num: 5, idioma: 'en', terminos_clave: [] };
 
 interface Contexto {
   proyectos: ProyectoResumen[];
@@ -66,6 +67,7 @@ interface Contexto {
   responderAclaracion: () => Promise<void>;
   omitirAclaracion: () => Promise<void>;
   rehacerPrompt: () => Promise<void>;
+  regenerarCadenas: () => Promise<void>;
   volverAlPrompt: () => Promise<void>;
   volverACadenas: () => Promise<void>;
   volverAResultados: () => Promise<void>;
@@ -198,7 +200,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // ---------- campos del prompt y de las cadenas ----------
 
   const campos: CamposPrompt = proyecto
-    ? { prompt: proyecto.prompt, num: proyecto.num, idioma: proyecto.idioma }
+    ? { prompt: proyecto.prompt, num: proyecto.num, idioma: proyecto.idioma, terminos_clave: proyecto.terminos_clave ?? [] }
     : borrador;
 
   const editarPrompt = useCallback((parche: Partial<CamposPrompt>) => {
@@ -249,6 +251,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const nuevo = await api.generarCadenas(p.id, {
       prompt: p.prompt, num: p.num, idioma: p.idioma, tema_refinado: refinado, historial,
       aclaraciones: aclaracion.ref.current.vistas, intencion, intencion_busqueda: intencion,
+      terminos_clave: p.terminos_clave ?? [],
     });
     setProyecto(nuevo);
     aclaracion.reiniciar();
@@ -290,6 +293,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
     aclaracion.cerrarRonda(false);
     await conOcupado(() => crearCadenas(p, aclaracion.ref.current.tema));
   }), [ejecutar, aclaracion, conOcupado, crearCadenas]);
+
+  // Vuelve a generar las cadenas con el mismo tema refinado (sin repetir las preguntas),
+  // por ejemplo después de cambiar los términos obligatorios
+  const regenerarCadenas = useCallback(() => ejecutar(async () => {
+    const p = actual();
+    const acepta = await confirmar({
+      titulo: '¿Regenerar las cadenas?',
+      cuerpo: 'Se reemplazan las cadenas actuales (también las que editaste a mano) por unas nuevas con el mismo tema y los términos obligatorios de ahora. Los resultados de la búsqueda anterior se conservan hasta que busques de nuevo.',
+      etiqueta: 'Regenerar',
+    });
+    if (!acepta) return;
+    const intencion = p.intencion_busqueda || p.tema_refinado || p.prompt;
+    await conOcupado(async () => {
+      setProyecto(await api.generarCadenas(p.id, {
+        prompt: p.prompt, num: p.num, idioma: p.idioma, tema_refinado: p.tema_refinado || p.prompt, historial: [],
+        aclaraciones: p.aclaraciones ?? [], intencion, intencion_busqueda: intencion, terminos_clave: p.terminos_clave ?? [],
+      }));
+    });
+  }), [ejecutar, confirmar, conOcupado, setProyecto]);
 
   const rehacerPrompt = useCallback(() => ejecutar(async () => {
     const p = actual();
@@ -355,11 +377,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     error, limpiarError: () => setError(null), confirmacion, confirmar, toast, avisar,
     seleccionarProyecto, nuevoProyecto, eliminarProyecto, renombrar, reiniciar,
     editarPrompt, guardarCampos, editarCadenas, guardarCadenas, editarParametro, guardarParametro,
-    generar, responderAclaracion, omitirAclaracion, rehacerPrompt, volverAlPrompt, volverACadenas, volverAResultados,
+    generar, responderAclaracion, omitirAclaracion, rehacerPrompt, regenerarCadenas, volverAlPrompt, volverACadenas, volverAResultados,
     buscar, cancelarBusqueda, procesar, cancelarProcesamiento, alternarSeleccion,
   }), [proyectos, proyecto, fichas, cargando, ocupado, campos, aclaracion, pestana, error, confirmacion, confirmar, toast, avisar,
     seleccionarProyecto, nuevoProyecto, eliminarProyecto, renombrar, reiniciar, editarPrompt, guardarCampos, editarCadenas,
-    guardarCadenas, editarParametro, guardarParametro, generar, responderAclaracion, omitirAclaracion, rehacerPrompt,
+    guardarCadenas, editarParametro, guardarParametro, generar, responderAclaracion, omitirAclaracion, rehacerPrompt, regenerarCadenas,
     volverAlPrompt, volverACadenas, volverAResultados, buscar, cancelarBusqueda, procesar, cancelarProcesamiento, alternarSeleccion]);
 
   return <AppContext.Provider value={valor}>{children}</AppContext.Provider>;

@@ -2,7 +2,7 @@
 
 Todas las rutas son relativas a la raíz del proyecto (`automatización/`). Cada sección indica desde qué carpeta se ejecuta el comando.
 
-Última actualización: 2026-11-12
+Última actualización: 2026-11-13
 
 ## Índice
 
@@ -78,6 +78,8 @@ Los datos de conexión van en el `.env`, cada uno en su variable (`NEON_HOST`, `
 | Comando | Desde | Qué hace |
 |---|---|---|
 | `python probar_postgres.py` | raíz, venv activo | Conecta, crea el esquema, escribe y consulta un paper de prueba (JSONB) y lo borra. No consume ninguna API |
+| `python normalizar_dois.py` | `busqueda/` | Simula la migración de DOI: lista los `paper_id` fuera del formato de `doi.py` y cuáles se fusionarían por estar duplicados. No escribe |
+| `python normalizar_dois.py --aplicar` | `busqueda/` | Aplica esa migración en una transacción (renombra, fusiona duplicados y mueve sus proyectos, estructuras y fichas). Reiniciar la API después |
 | `psql "postgresql://USUARIO:CLAVE@HOST/BASE?sslmode=require"` | cualquiera | Explora la base a mano. Tablas: `papers`, `proyectos`, `papers_proyectos`, `estructuras`, `fichas` |
 
 ---
@@ -98,9 +100,9 @@ Rutas de la API (prefijo `/api`; cualquier otra ruta responde 404). Se prueban c
 | Método y ruta | Qué hace |
 |---|---|
 | `GET /proyectos` · `POST /proyectos` | Lista los proyectos · crea uno vacío |
-| `GET /proyectos/{id}` · `PUT` · `DELETE` | Lee, actualiza o borra un proyecto |
+| `GET /proyectos/{id}` · `PUT` · `DELETE` | Lee, actualiza o borra un proyecto (`PUT` acepta `terminos_clave`: lista de términos obligatorios, hasta 5) |
 | `POST /proyectos/{id}/aclarar` | Nemotron aclara el tema |
-| `POST /proyectos/{id}/cadenas` | Genera las cadenas de búsqueda |
+| `POST /proyectos/{id}/cadenas` | Genera las cadenas de búsqueda (con los `terminos_clave` del proyecto en todas; devuelve `obligatorios` con sus alternativas) |
 | `POST /proyectos/{id}/buscar` · `/cancelar` | Lanza o cancela la búsqueda de papers |
 | `POST /proyectos/{id}/procesar` · `/cancelar-procesar` | Lanza o cancela «Procesar PDFs» sobre los papers seleccionados (acepta `tope`; sin selección responde 400) |
 | `GET /proyectos/{id}/fichas` | Fichas y estructuras ya generadas, ordenadas por relevancia (alta → nula) |
@@ -187,4 +189,5 @@ Desde `pruebas/cadenas/`. Las marcadas con (API) consumen cuota de NVIDIA u Open
 | `python modelos.py` / `python modelos2.py` (API) | Compara modelos de NVIDIA |
 | `python sonda_s2.py` (API) | Qué trae Semantic Scholar (bulk por citas) para cadenas ya medidas en OpenAlex |
 | `python sonda_s2_v2.py` (API) | Top por citas contra top re-rankeado local (base del cambio aplicado a Semantic Scholar) |
-| `python estrictez.py [--verificar]` (API) | Escala de 6 niveles de restricción contra papers conocidos (pendiente 2). Quedó legacy: leía las bases SQLite y falta adaptarlo a PostgreSQL |
+| `python estrictez.py [--verificar]` (API) | Escala de 6 niveles de restricción contra papers conocidos en OpenAlex (pendiente 2). Lee los papers objetivo de PostgreSQL en solo lectura |
+| `python estrictez_motores.py [--papers 6]` (`pruebas/cadenas/`, venv activo) | Misma escala de 6 niveles en Scopus y Semantic Scholar: mide si el paper conocido aparece entre los primeros 100 resultados. Consume cuota de ambos motores; Semantic Scholar suele dar 429 |

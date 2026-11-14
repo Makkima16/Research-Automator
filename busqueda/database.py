@@ -25,6 +25,7 @@ import psycopg
 from psycopg.rows import dict_row
 
 import config
+import doi as doi_util
 
 # Columnas de `papers` en orden: también las usan las consultas del
 # procesamiento y del frontend
@@ -116,14 +117,14 @@ def conectar():
 
 
 def id_paper(row):
-    return row.get("doi") or row.get("openalex_id")
+    return doi_util.normalizar(row.get("doi")) or row.get("openalex_id")
 
 
 def dois_existentes(conn):
     """DOI de los papers que ya están guardados, para no volver a contarlos
     como "nuevos" en la próxima búsqueda (ver main.py)."""
     filas = conn.execute("SELECT doi FROM papers WHERE doi IS NOT NULL").fetchall()
-    return {f["doi"] for f in filas}
+    return {doi_util.normalizar(f["doi"]) for f in filas}
 
 
 def _limpiar(valor):
@@ -143,6 +144,8 @@ def guardar_papers(conn, rows, proyecto=None, seleccionados=None):
     datos = []
     for row in rows:
         row = {k: _limpiar(v) for k, v in row.items()}
+        # Defensa por si un llamador trae el DOI sin normalizar (ver doi.py)
+        row["doi"] = doi_util.normalizar(row.get("doi"))
         row["paper_id"] = id_paper(row)
         if row.get("is_oa") is not None:
             row["is_oa"] = int(bool(row["is_oa"]))

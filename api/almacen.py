@@ -72,9 +72,11 @@ def guardar_seleccion(proyecto):
         with conn.transaction():
             conn.execute("UPDATE papers_proyectos SET seleccionado = 0 WHERE archivo = %s",
                          (proyecto["archivo"],))
-            conn.executemany(
-                "UPDATE papers_proyectos SET seleccionado = 1 "
-                "WHERE archivo = %s AND paper_id = %s", seleccion)
+            # En psycopg3 executemany es un método del cursor, no de la conexión
+            with conn.cursor() as cur:
+                cur.executemany(
+                    "UPDATE papers_proyectos SET seleccionado = 1 "
+                    "WHERE archivo = %s AND paper_id = %s", seleccion)
 
 
 def cargar(archivo):

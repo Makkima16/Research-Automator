@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { PanelPaper } from '@/components/resultados/PanelPaper';
 import { TabBusqueda } from '@/components/resultados/TabBusqueda';
@@ -8,7 +9,7 @@ import { TabProcesamiento } from '@/components/resultados/TabProcesamiento';
 import css from './VistaResultados.module.css';
 
 export function VistaResultados() {
-  const { proyecto, fichas, pestana, setPestana } = useApp();
+  const { proyecto, fichas, pestana, setPestana, volverACadenas, volverAlPrompt } = useApp();
   const [panelId, setPanelId] = useState<string | null>(null);
   if (!proyecto) return null;
 
@@ -21,6 +22,10 @@ export function VistaResultados() {
 
   return (
     <section className="fade-in">
+      <div className={css.navegacion}>
+        <button className="btn btn-ghost" onClick={volverACadenas}><ArrowLeft size={15} strokeWidth={2.75} />Volver a las cadenas</button>
+        <button className="btn btn-ghost" onClick={volverAlPrompt}>Ver el prompt</button>
+      </div>
       <div className={css.pestanas} role="tablist">
         <button role="tab" aria-selected={pestana === 'busqueda'} onClick={() => cambiar('busqueda')}
           className={`${css.pestana} ${pestana === 'busqueda' ? css.activa : ''}`}>

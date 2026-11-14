@@ -26,3 +26,7 @@
 .espacio { flex: 1; }
 .generar { font-size: 16px; padding: 12px 24px; }
 .nota { margin-top: 18px; font-size: 13px; color: var(--color-neutral-700); max-width: 620px; }
+.obligatorios { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.rotulo { font-size: 13px; font-weight: 700; color: var(--color-neutral-800); }
+.rotulo small { font-weight: 400; color: var(--color-neutral-700); }
+.ayuda { margin: 0; font-size: 12.5px; color: var(--color-neutral-700); max-width: 640px; text-wrap: pretty; }

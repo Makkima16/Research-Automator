@@ -68,10 +68,13 @@ MAX_RESULTADOS_POR_CADENA = 500
 #   conteos         {estado de extracción: nº de papers} al terminar
 #   inicio / fin    fecha y hora ISO
 #   mensajes        log corto para la interfaz
-#   tope            máximo de papers por corrida (la página lo usa para decir cuántos se procesarán)
+#   tope            tope que se pidió en la última corrida (solo informativo)
+#   tope_max        techo de papers por corrida (MAX_PAPERS_PROCESAR_WEB); la página lo usa
+#                   como máximo y valor por defecto del campo editable
 PROCESAMIENTO_VACIO = {"activo": False, "token": None, "estado": None, "error": None, "alcance": None,
                        "hechos": 0, "total": 0, "actual": None, "conteos": {}, "inicio": None, "fin": None,
-                       "mensajes": [], "tope": config_proc.MAX_PAPERS_PROCESAR_WEB}
+                       "mensajes": [], "tope": config_proc.MAX_PAPERS_PROCESAR_WEB,
+                       "tope_max": config_proc.MAX_PAPERS_PROCESAR_WEB}
 MAX_MENSAJES_PROCESAMIENTO = 50
 COLUMNAS_CSV = ["openalex_id", "doi", "title", "year", "cited_by_count", "is_oa", "oa_url", "source",
                 "abstract", "matched_query", "motor_busqueda", "motor_pdf", "pdf_url", "pagina_origen", "score", "seleccionado"]
@@ -110,6 +113,8 @@ def cargar_proyectos():
         # Campos que no tenían los proyectos guardados por versiones anteriores
         proyecto.setdefault("min_year", config.MIN_PUBLICATION_YEAR)
         proyecto.setdefault("max_resultados", config.MAX_RESULTS_PER_QUERY)
+        proyecto.setdefault("terminos_clave", [])
+        proyecto.setdefault("obligatorios", [])
         proyecto.setdefault("cadenas_usadas", len(proyecto["queries"]) if proyecto.get("papers") else 0)
         proyecto["procesamiento"] = _normalizar_procesamiento(proyecto.get("procesamiento"))
         if proyecto["procesamiento"]["activo"]:
@@ -143,6 +148,8 @@ def crear_proyecto():
         "num": 5,
         "idioma": "en",  # de las cadenas, no del tema: casi toda la literatura indexada está en inglés
         "queries": [],
+        "terminos_clave": [],   # términos obligatorios que escribió el usuario
+        "obligatorios": [],     # esos términos con sus alternativas (los arma generar_cadenas)
         "min_year": config.MIN_PUBLICATION_YEAR,       # None = sin límite inferior
         "max_resultados": config.MAX_RESULTS_PER_QUERY,  # por cadena y por plataforma
         "busqueda": None,       # identificador de la búsqueda en curso (ver _buscar)
@@ -206,6 +213,8 @@ def actualizar_proyecto(pid, datos):
                 pass
         if datos.get("idioma") in generar_cadenas.IDIOMAS:
             proyecto["idioma"] = datos["idioma"]
+        if "terminos_clave" in datos and isinstance(datos["terminos_clave"], list):
+            proyecto["terminos_clave"] = generar_cadenas.limpiar_terminos_clave(datos["terminos_clave"])
         if "queries" in datos:
             proyecto["queries"] = _cadenas_validas(datos["queries"])
         if "seleccion" in datos and isinstance(datos["seleccion"], list):
@@ -284,7 +293,7 @@ def generar(pid, datos):
     tema = str(datos.get("prompt") or "").strip()
     if not tema:
         raise ErrorAPI(400, "Escribe primero el tema que quieres investigar.")
-    actualizar_proyecto(pid, {k: datos[k] for k in ("prompt", "num", "idioma") if k in datos})
+    actualizar_proyecto(pid, {k: datos[k] for k in ("prompt", "num", "idioma", "terminos_clave") if k in datos})
     # Tras la ronda de aclaración, el tema refinado (con las respuestas del usuario)
     # reemplaza al prompt original para generar las cadenas y para juzgar la relevancia
     refinado = str(datos.get("tema_refinado") or "").strip()[:4000] or tema
@@ -292,11 +301,8 @@ def generar(pid, datos):
     intencion = str(datos.get("intencion") or datos.get("intencion_busqueda") or "").strip()[:4000] or _consolidar_intencion(tema, historial)
     with _CANDADO:
         proyecto = _obtener(pid)
-        num, idioma = proyecto["num"], proyecto["idioma"]
-    try:
-        res = generar_cadenas.generar_con_info(refinado, num, idioma)
-    except TypeError:
-        res = generar_cadenas.generar(refinado, num, idioma)
+        num, idioma, terminos = proyecto["num"], proyecto["idioma"], proyecto.get("terminos_clave") or []
+    res = generar_cadenas.generar(refinado, num, idioma, terminos)
     if isinstance(res, tuple) and len(res) == 3:
         cadenas, aviso, info_cadenas = res[0], res[1], res[2]
     elif isinstance(res, tuple) and len(res) == 2:
@@ -311,7 +317,8 @@ def generar(pid, datos):
         proyecto = _obtener(pid)
         proyecto.update(stage="queries", queries=cadenas, aviso=aviso, tema_refinado=refinado,
                         aclaraciones=_aclaraciones_validas(datos.get("aclaraciones")),
-                        intencion_busqueda=intencion, intencion_cadenas=info_cadenas)
+                        intencion_busqueda=intencion, intencion_cadenas=info_cadenas,
+                        obligatorios=(info_cadenas or {}).get("obligatorios") or [])
         if not proyecto.get("nombre_manual"):
             proyecto["name"] = tema if len(tema) <= 36 else tema[:34] + "…"
             almacen.renombrar(proyecto)
@@ -321,11 +328,13 @@ def generar(pid, datos):
 
 # ---------- búsqueda ----------
 
-def _fuentes():
-    """(nombre, activa, función(cadenas, año mínimo, límite)) de cada plataforma, según config.py."""
+def _fuentes(obligatorios=()):
+    """(nombre, activa, función(cadenas, año mínimo, límite)) de cada plataforma, según config.py.
+    OpenAlex recibe los términos obligatorios para que su rescate por pares de
+    grupos no los descarte."""
     return [
         ("OpenAlex", True, lambda qs, anio, lim: fetch_papers.fetch_all(
-            qs, config.CONTACT_EMAIL, anio, lim)),
+            qs, config.CONTACT_EMAIL, anio, lim, obligatorios=obligatorios)),
         ("Semantic Scholar", config.USAR_SEMANTIC_SCHOLAR, lambda qs, anio, lim: fetch_semantic_scholar.fetch_all(
             qs, config.SEMANTIC_SCHOLAR_API_KEY, anio, lim)),
         ("Scopus", config.USAR_SCOPUS and bool(config.SCOPUS_API_KEY),
@@ -402,11 +411,11 @@ def _terminar(pid, token, **cambios):
         _guardar(_PROYECTOS[pid], con_papers="papers" in cambios)
 
 
-def _buscar(pid, token, cadenas, min_year, max_resultados):
+def _buscar(pid, token, cadenas, min_year, max_resultados, obligatorios=()):
     """Corre en un hilo aparte; la página consulta el avance en `progreso`.
     Busca cadena por cadena para poder mostrar el avance y parar pronto si
     cancelan la búsqueda."""
-    fuentes = _fuentes()
+    fuentes = _fuentes(obligatorios)
     try:
         papers, con_resultados = [], 0
         for i, (nombre, activa, buscar) in enumerate(fuentes, start=1):
@@ -436,7 +445,7 @@ def _buscar(pid, token, cadenas, min_year, max_resultados):
         # Scopus (y a veces los demás) no traen abstract: se pide por DOI antes de rankear
         completar_abstracts.completar(
             papers, lambda n, total: _marcar(pid, token, ultimo, "active", f"Completando abstracts — {n} de {total}…"))
-        ranked = rank_and_filter.rank_papers(papers, _palabras_clave(cadenas))
+        ranked = rank_and_filter.rank_papers(papers, _palabras_clave(cadenas), obligatorios)
         for n, paper in enumerate(ranked):
             paper["id"] = paper.get("doi") or paper.get("openalex_id") or f"sin-id-{n}"
         _marcar_origen_pdf(ranked)
@@ -478,7 +487,8 @@ def iniciar_busqueda(pid, datos):
         _guardar(proyecto)
         respuesta = dict(proyecto)
     threading.Thread(target=_buscar, daemon=True,
-                     args=(pid, token, cadenas, proyecto["min_year"], proyecto["max_resultados"])).start()
+                     args=(pid, token, cadenas, proyecto["min_year"], proyecto["max_resultados"],
+                           list(proyecto.get("obligatorios") or []))).start()
     return respuesta
 
 
@@ -514,6 +524,9 @@ def _normalizar_procesamiento(guardado):
     que haya en disco (versiones anteriores guardaban `resumen` y `aviso`)."""
     guardado = guardado or {}
     estado = {**PROCESAMIENTO_VACIO, **{k: guardado[k] for k in PROCESAMIENTO_VACIO if k in guardado}}
+    # El techo sale siempre del config: antes se guardaba en `tope` junto con lo
+    # pedido en la corrida, y una corrida con tope 1 dejaba el techo en 1
+    estado["tope_max"] = config_proc.MAX_PAPERS_PROCESAR_WEB
     if not estado["estado"] and guardado.get("resumen"):
         conteos = {k: v for k, v in (guardado["resumen"].get("extraccion") or {}).items() if k != "cache"}
         estado.update(estado="ok", conteos=conteos, total=sum(conteos.values()), hechos=sum(conteos.values()))
@@ -605,8 +618,12 @@ def iniciar_procesamiento(pid, datos):
         alcance = "sel"
         # Tope de papers por corrida, editable desde la interfaz, con el máximo
         # del config como techo (MAX_PAPERS_PROCESAR_WEB protege el plan gratis)
+        # Sin `tope` (la interfaz no lo envía cuando se deja en el máximo) se usa el
+        # techo. Antes un tope ausente se convertía en 0 y max(1, 0) procesaba 1 solo paper
+        pedido = datos.get("tope")
         try:
-            tope = max(1, min(int(datos.get("tope") or 0), config_proc.MAX_PAPERS_PROCESAR_WEB))
+            tope = config_proc.MAX_PAPERS_PROCESAR_WEB if pedido in (None, "") else \
+                max(1, min(int(pedido), config_proc.MAX_PAPERS_PROCESAR_WEB))
         except (TypeError, ValueError):
             tope = config_proc.MAX_PAPERS_PROCESAR_WEB
         ids = _objetivo_procesamiento(proyecto, tope)
